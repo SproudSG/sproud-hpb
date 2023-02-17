@@ -59,11 +59,12 @@ export const player = (() => {
       const loader = new GLTFLoader();
 
       // Load a glTF resource
-      loader.setPath('./resources/Player/GLTF/');
+      loader.setPath('./resources/Player/Player_YBot/YBotRunAll/');
       loader.load(
         'YBotRunAll.gltf',
         (gltf) => {
           console.log(gltf)
+          this.gltf = gltf
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
           this.mesh_.scale.set(0.01, 0.01, 0.01);
@@ -77,15 +78,11 @@ export const player = (() => {
 
           const m = new THREE.AnimationMixer(this.mesh_);
           this.mixer_ = m;
+          this.action;
+              const clip = gltf.animations[1];
+              this.action = this.mixer_.clipAction(clip);
+              this.action.play();
 
-          for (let i = 0; i < gltf.animations.length; ++i) {
-            if (gltf.animations[i].name.includes("BigBodyBlow")) {
-              const clip = gltf.animations[i];
-              const action = this.mixer_.clipAction(clip);
-              action.play();         
-            }
-          }
-          
         },
         // called while loading is progressing
         function (xhr) {
@@ -108,31 +105,34 @@ export const player = (() => {
 
       }
 
-      // if (this.sliding_) {
-      //   for (let i = 0; i < this.mesh_.animations.length; ++i) {
-      //     if (this.mesh_.animations[i].name.includes('Slide')) {
-      //       const clip = this.mesh_.animations[i];
-      //       const action = this.mixer_.clipAction(clip);
-      //       action.play();
-      //       action.setLoop(THREE.LoopOnce);
-      //       action.clampWhenFinished = true;
+      if (this.sliding_) {
 
-      //       action.onLoop = function (event) {
-      //         action.timeScale = 0;
-      //       };
-      //       break;
-      //     }
-      //   }
-      // } else {
-      //   for (let i = 0; i < this.mesh_.animations.length; ++i) {
-      //     if (this.mesh_.animations[i].name.includes('Run')) {
-      //       const clip = this.mesh_.animations[i];
-      //       const action = this.mixer_.clipAction(clip);
-      //       action.play();
-      //       break;
-      //     }
-      //   }
-      // }
+
+        
+        this.action.stop();
+
+            const clip = this.gltf.animations[4];
+            this.action = this.mixer_.clipAction(clip);
+            //action.setLoop(THREE.LoopOnce);
+
+            this.action.play();
+
+          
+        }
+
+
+        // const clip = this.mesh_.animations[i];
+        // const action = this.mixer_.clipAction(clip);
+        // action.play();
+        // action.setLoop(THREE.LoopOnce);
+    
+
+        // action.onLoop = function (event) {
+        //   action.timeScale = 0;
+
+        // }
+
+       
 
     }
 
@@ -384,12 +384,15 @@ export const player = (() => {
         this.sliding_ = true;
       }
       if (this.sliding_) {
+        this.UpdateAnimations_()
         const acceleration = -25 * timeElapsed;
         this.position_.y -= timeElapsed * (this.velocity_ + acceleration * 0.5);
         this.position_.y = Math.min(this.position_.y, 0.0);
         this.position_.y = Math.max(this.position_.y, -1.0);
         this.velocity_ += acceleration;
         this.velocity_ = Math.max(this.velocity_, -100);
+        console.log(this.position_.y)
+
       }
     }
 
@@ -408,7 +411,6 @@ export const player = (() => {
 
       if (!this.inAir_) {
         if (this.keys_.left) {
-          this.UpdateAnimations_()
 
           if (!this.keys_.right) {
             this.SwipeLeft()
@@ -450,6 +452,8 @@ export const player = (() => {
 
       if (this.position_.y <= 0.0 && this.sliding_ == true) {
         if (this.position_.y == 0) {
+          this.action.stop();
+
           this.sliding_ = false
         }
       }

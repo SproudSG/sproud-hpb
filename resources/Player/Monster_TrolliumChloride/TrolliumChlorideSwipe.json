@@ -1,0 +1,11 @@
+{
+	"TrolliumChlorideSwipe": {
+		"version": 1,
+		"id": "TrolliumChlorideSwipe",
+		"name": "1",
+		"kind": "Puppeteer",
+		"mood": null,
+		"postPlaybackMood": null,
+		"duration": 1.625
+	}
+}

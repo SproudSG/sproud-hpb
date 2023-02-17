@@ -1,0 +1,11 @@
+{
+	"ShoogaGliderFlap": {
+		"version": 1,
+		"id": "ShoogaGliderFlap",
+		"name": "1",
+		"kind": "Puppeteer",
+		"mood": null,
+		"postPlaybackMood": null,
+		"duration": 0.8333333333
+	}
+}

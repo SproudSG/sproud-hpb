@@ -1,0 +1,52 @@
+{
+	"version": 1,
+	"id":"YBotJumpAll",
+	"name":"JumpAll",
+	"animations": {
+		"TPose2": {
+			"version": 1,
+			"id": "TPose2",
+			"name": "tpose2",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.04166666667
+		},
+		"BigJump": {
+			"version": 1,
+			"id": "BigJump",
+			"name": "bigjump",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.375
+		},
+		"RunJump": {
+			"version": 1,
+			"id": "RunJump",
+			"name": "runjump",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.9166666667
+		},
+		"DoubleJumpToRun": {
+			"version": 1,
+			"id": "DoubleJumpToRun",
+			"name": "doublejumptorun",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.458333333
+		},
+		"BigJumpToRun": {
+			"version": 1,
+			"id": "BigJumpToRun",
+			"name": "bigjumptorun",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 3
+		}
+	}
+}
