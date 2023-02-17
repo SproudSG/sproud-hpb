@@ -1,7 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.module.js';
 
-import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/FBXLoader.js';
-
+import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/GLTFLoader.js";
 
 export const player = (() => {
 
@@ -54,52 +53,53 @@ export const player = (() => {
     }
 
     LoadModel_() {
-      const loader = new FBXLoader();
-      loader.setPath('./resources/Player/FBX/');
-      loader.load('baileyGeo2.fbx', (fbx) => {
-        fbx.scale.setScalar(0.01);
-        fbx.quaternion.setFromAxisAngle(
-          new THREE.Vector3(0, 1, 0), Math.PI / 2);
 
-        this.mesh_ = fbx;
-        this.params_.scene.add(this.mesh_);
 
-        const texturePath = './resources/Player/textures/bailey/';
-        const texture1 = new THREE.TextureLoader().load(texturePath + 'clothes_Color.jpg');
-        const texture2 = new THREE.TextureLoader().load(texturePath + 'goggles_Color.jpg');
-        const texture3 = new THREE.TextureLoader().load(texturePath + 'hat_Color.jpg');
-        const texture4 = new THREE.TextureLoader().load(texturePath + 'skin_Color.jpg');
-        const texture5 = new THREE.TextureLoader().load(texturePath + 'hair_Color.jpg');
-        const texture6 = new THREE.TextureLoader().load(texturePath + 'boots_Color.jpg');
-        fbx.traverse((child) => {
-          if (child.isMesh) {
-            if (child.name === "shirt_GEO" || child.name === "pants_GEO" || child.name === "bagback_GEO" || child.name === "bagfront_GEO" || child.name === "belt_GEO") {
-              child.material.map = texture1;
-            } else if (child.name === "goggles_GEO" || child.name === "redstrap_GEO") {
-              child.material.map = texture2;
-            } else if (child.name === "hat_base_GEO" || child.name === "hatpart_GEO") {
-              child.material.map = texture3;
-            } else if (child.name === "body_transfer_GEO" || child.name === "ear_R_GEO" || child.name === "ear_L_GEO" || child.name === "leg_L_GEO" || child.name === "leg_R_GEO") {
-              child.material.map = texture4;
-            } else if (child.isMesh && child.name.startsWith("hair_")) {
-              child.material.map = texture5;
-            } else if (child.isMesh && child.name.startsWith("boot_")) {
-              child.material.map = texture6;
+      // Instantiate a loader
+      const loader = new GLTFLoader();
+
+      // Load a glTF resource
+      loader.setPath('./resources/Player/GLTF/');
+      loader.load(
+        'YBotRunAll.gltf',
+        (gltf) => {
+          console.log(gltf)
+          this.mesh_ = gltf.scene
+          this.params_.scene.add(this.mesh_);
+          this.mesh_.scale.set(0.01, 0.01, 0.01);
+          this.mesh_.position.x = 0;				    //Position (x = right+ left-) 
+          this.mesh_.position.y = 0;				    //Position (y = up+, down-)
+          this.mesh_.position.z = 0;				    //Position (z = front +, back-)
+          this.mesh_.quaternion.setFromAxisAngle(
+            new THREE.Vector3(0, 1, 0), Math.PI / 2);
+
+
+
+          const m = new THREE.AnimationMixer(this.mesh_);
+          this.mixer_ = m;
+
+          for (let i = 0; i < gltf.animations.length; ++i) {
+            if (gltf.animations[i].name.includes("BigBodyBlow")) {
+              const clip = gltf.animations[i];
+              const action = this.mixer_.clipAction(clip);
+              action.play();         
             }
           }
-        });
+          
+        },
+        // called while loading is progressing
+        function (xhr) {
 
-        const m = new THREE.AnimationMixer(fbx);
-        this.mixer_ = m;
+          console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
-        for (let i = 0; i < fbx.animations.length; ++i) {
-          if (fbx.animations[i].name.includes('Run')) {
-            const clip = fbx.animations[i];
-            const action = this.mixer_.clipAction(clip);
-            action.play();
-          }
+        },
+        // called when loading has errors
+        function (error) {
+
+          console.log(error);
+
         }
-      });
+      );
     }
 
     UpdateAnimations_() {
@@ -484,7 +484,7 @@ export const player = (() => {
           }
           if (this.speed < 0.22) {
             console.log(timeElapsed)
-            this.speed += (timeElapsed/10)
+            this.speed += (timeElapsed / 10)
 
           }
         }

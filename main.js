@@ -2,17 +2,17 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.mod
 import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
 import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/FBXLoader.js';
 
-import { player } from './player.js';
-import { shoogaGlider } from './shoogaGlider.js';
-import { background } from './background.js';
-import { progression } from './progression.js';
-import { water } from './water.js';
-import { soda } from './soda.js';
-import { fruitDrink } from './fruitDrink.js';
-import { hpbLogo } from './boxHPB.js';
-import { hpbWrongLogo1 } from './boxWrong1.js';
-import { hpbWrongLogo2 } from './boxWrong2.js';
-import { oilSlik } from './OilSlik.js';
+import { player } from './world_objects/player.js';
+import { shoogaGlider } from './world_objects/shoogaGlider.js';
+import { background } from './world_objects/background.js';
+import { progression } from './world_objects/progression.js';
+import { water } from './world_objects/water.js';
+import { soda } from './world_objects/soda.js';
+import { fruitDrink } from './world_objects/fruitDrink.js';
+import { hpbLogo } from './world_objects/boxHPB.js';
+import { hpbWrongLogo1 } from './world_objects/boxWrong1.js';
+import { hpbWrongLogo2 } from './world_objects/boxWrong2.js';
+import { oilSlik } from './world_objects/OilSlik.js';
 
 const _VS = `
 varying vec3 vWorldPosition;
@@ -281,11 +281,10 @@ class BasicWorldDemo {
     this.threejs_ = new THREE.WebGLRenderer({
       antialias: true,
     });
+
     this.threejs_.outputEncoding = THREE.sRGBEncoding;
-    this.threejs_.gammaFactor = 2.2;
-    // this.threejs_.toneMapping = THREE.ReinhardToneMapping;
+    this.threejs_.gammaFactor = 0.1;
     this.threejs_.shadowMap.enabled = true;
-    // this.threejs_.shadowMap.type = THREE.PCFSoftShadowMap;
     this.threejs_.setPixelRatio(window.devicePixelRatio);
     this.threejs_.setSize(window.innerWidth, window.innerHeight);
 

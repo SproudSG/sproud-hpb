@@ -1,0 +1,61 @@
+{
+	"version": 1,
+	"id":"YBotJumpAll",
+	"name":"JumpAll",
+	"animations": {
+		"BigJump": {
+			"version": 1,
+			"id": "BigJump",
+			"name": "bigjump",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.375
+		},
+		"RunJump": {
+			"version": 1,
+			"id": "RunJump",
+			"name": "runjump",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.9166666667
+		},
+		"DoubleJump": {
+			"version": 1,
+			"id": "DoubleJump",
+			"name": "doublejump",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.7916666667
+		},
+		"MHP_YBot_Run_anim_v005_clip": {
+			"version": 1,
+			"id": "MHP_YBot_Run_anim_v005_clip",
+			"name": "mhp ybot run anim v005 clip",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.4583333333
+		},
+		"BigJump1": {
+			"version": 1,
+			"id": "BigJump1",
+			"name": "bigjump1",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.375
+		},
+		"Run2": {
+			"version": 1,
+			"id": "Run2",
+			"name": "run2",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.5
+		}
+	}
+}
