@@ -597,7 +597,7 @@ class BasicWorldDemo {
     }
     this.player_.Update(timeElapsed, pause);
     this.oilSlik_.Update(timeElapsed);
-    this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
+    this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy, this.isPaused);
     this.background_.Update(timeElapsed);
     this.progression_.Update(timeElapsed, pause, this.buffspeed, this.speed_);
     this.water_.Update(timeElapsed, this.objSpeed)

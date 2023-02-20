@@ -21,24 +21,34 @@ export const shoogaGlider = (() => {
     LoadModel_() {
 
       const loader = new GLTFLoader();
-      loader.load('./resources/ShoogaGlider/ShoogaGliderFlap.gltf', (fbx) => {
-        this.mesh = fbx.scene;
-
+      loader.load('./resources/ShoogaGlider/ShoogaGliderFlap.gltf', (gltf) => {
+        this.mesh = gltf.scene;
+        this.gltf = gltf
         //add model to the scene
         this.params_.scene.add(this.mesh);
 
-        // Extract the animation clips from the fbx file
-        const animations = fbx.animations;
+        // Extract the animation clips from the gltf file
+
+
+        const animations = gltf.animations;
         this.mixer = new THREE.AnimationMixer(this.mesh);
         const animation = animations[0];
-        const action = this.mixer.clipAction(animation);
-        action.play()
+        this.action = this.mixer.clipAction(animation);
+        this.action.play()
       });
 
     }
 
     UpdateCollider_() {
       this.collider.setFromObject(this.mesh);
+    }
+
+    PauseAnimation_() {
+      this.action.stop()
+    }
+
+    PlayAnimation_() {
+      this.action.play()
     }
 
     Update(timeElapsed) {
@@ -49,7 +59,6 @@ export const shoogaGlider = (() => {
       this.mesh.quaternion.copy(this.quaternion);
       this.mesh.scale.setScalar(this.scale);
       this.UpdateCollider_();
-
       // play animation 
       if (this.mixer) {
         this.mixer.update(timeElapsed);
@@ -65,6 +74,7 @@ export const shoogaGlider = (() => {
       this.speedz_ = 6
       this.speedy_ = 12
 
+      this.paused = false;
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
@@ -113,17 +123,28 @@ export const shoogaGlider = (() => {
     }
 
 
-    Update(timeElapsed, speed, speedz, speedy) {
+    Update(timeElapsed, speed, speedz, speedy, paused) {
       this.SpawnObj_(timeElapsed);
-      this.UpdateColliders_(timeElapsed, speed, speedz, speedy);
+      this.UpdateColliders_(timeElapsed, speed, speedz, speedy, paused);
     }
 
     //sets the speed of the spawned monsters
-    UpdateColliders_(timeElapsed, speed, speedz, speedy) {
+    UpdateColliders_(timeElapsed, speed, speedz, speedy, paused) {
       const invisible = [];
       const visible = [];
 
       for (let obj of this.objects_) {
+        if (paused) {
+          obj.PauseAnimation_()
+          this.paused = true
+        } else if (this.paused == true) {
+          for (let obj of this.objects_) {
+            obj.PlayAnimation_()
+
+          }
+          this.paused = false
+
+        }
         obj.position.x -= timeElapsed * speed;
 
         // console.log(obj.position.z)

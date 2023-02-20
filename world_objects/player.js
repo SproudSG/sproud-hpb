@@ -18,6 +18,9 @@ export const player = (() => {
       this.slideTimer_ = 0;
       this.playerBox_ = new THREE.Box3();
 
+      //paused
+      this.paused = false;
+
       //water variables
       this.waterID = null;
       this.processedWaterIDs = [];
@@ -404,11 +407,15 @@ export const player = (() => {
     Update(timeElapsed, pause) {
 
       if (!pause) {
+        if (this.paused == true) {
+          this.action.play();
+          this.paused = false
+        }
         //player movement with keyboard controls
         if (this.keys_.space && this.position_.y == 0.0) {
           this.SwipeUp(timeElapsed)
-
         }
+
         if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_) {
           this.SwipeDown()
         }
@@ -435,7 +442,7 @@ export const player = (() => {
 
           this.velocity_ += acceleration;
           this.velocity_ = Math.max(this.velocity_, -100);
-          if (this.position_.y == 0){
+          if (this.position_.y == 0) {
             this.RunAnimation_();
 
           }
@@ -467,6 +474,9 @@ export const player = (() => {
             this.RunAnimation_();
           }
         }
+      } else {
+        this.action.stop();
+        this.paused = true
       }
 
       //update player animation, position and check collision
