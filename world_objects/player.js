@@ -371,7 +371,7 @@ export const player = (() => {
     }
 
 
-    SwipeUp(timeElapsed) {
+    SwipeUp() {
       if (this.position_.y == 0.0) {
         this.velocity_ = 30;
         this.inAir_ = true;
@@ -381,93 +381,91 @@ export const player = (() => {
       if (this.inAir_) {
         this.JumpAnimation_()
 
-        const acceleration = -75 * timeElapsed;
-        this.position_.y += timeElapsed * (this.velocity_ + acceleration * 0.5);
-        this.position_.y = Math.max(this.position_.y, 0.0);
-        this.velocity_ += acceleration;
-        this.velocity_ = Math.max(this.velocity_, -100);
       }
     }
 
     SwipeDown() {
-      console.log(this.downPressed_)
-      if(!this.downPressed_){
+      if (!this.downPressed_) {
         if (this.position_.y == 0.0) {
           this.velocity_ = 10;
           this.sliding_ = true;
         }
-        if (this.sliding_ ) {
+        if (this.sliding_) {
           this.SlideAnimation_()
           this.downPressed_ = true
-  
+
         }
 
       }
-    
+
     }
 
 
     Update(timeElapsed, pause) {
 
+      if (!pause) {
+        //player movement with keyboard controls
+        if (this.keys_.space && this.position_.y == 0.0) {
+          this.SwipeUp(timeElapsed)
 
-      //player movement with keyboard controls
-      if (this.keys_.space && this.position_.y == 0.0) {
-        this.SwipeUp(timeElapsed)
+        }
+        if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_) {
+          this.SwipeDown()
+        }
 
-      }
-      if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_) {
-        console.log(this.sliding_)
-        this.SwipeDown()
-      }
+        if (!this.inAir_) {
+          if (this.keys_.left) {
 
-      if (!this.inAir_) {
-        if (this.keys_.left) {
+            if (!this.keys_.right) {
+              this.SwipeLeft()
+            }
+          }
+          if (this.keys_.right) {
+            this.SwipeRight()
 
-          if (!this.keys_.right) {
-            this.SwipeLeft()
           }
         }
-        if (this.keys_.right) {
-          this.SwipeRight()
+
+        //jump and slide calculation.
+        if (this.inAir_) {
+          const acceleration = -75 * timeElapsed;
+
+          this.position_.y += timeElapsed * (this.velocity_ + acceleration * 0.5);
+          this.position_.y = Math.max(this.position_.y, 0.0);
+
+          this.velocity_ += acceleration;
+          this.velocity_ = Math.max(this.velocity_, -100);
+          if (this.position_.y == 0){
+            this.RunAnimation_();
+
+          }
+        }
+
+        if (this.sliding_) {
+          const acceleration = -25 * timeElapsed;
+
+          this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
+          this.slideTimer_ = Math.min(this.slideTimer_, 0.0);
+          this.slideTimer_ = Math.max(this.slideTimer_, -1.0);
+
+          this.velocity_ += acceleration;
+          this.velocity_ = Math.max(this.velocity_, -100);
+        }
+
+
+        if (this.position_.y == 0.0) {
+          this.inAir_ = false;
 
         }
-      }
-
-      //jump and slide calculation.
-      if (this.inAir_) {
-        const acceleration = -75 * timeElapsed;
-
-        this.position_.y += timeElapsed * (this.velocity_ + acceleration * 0.5);
-        this.position_.y = Math.max(this.position_.y, 0.0);
-
-        this.velocity_ += acceleration;
-        this.velocity_ = Math.max(this.velocity_, -100);
-      }
-
-      if (this.sliding_) {
-        const acceleration = -25 * timeElapsed;
-
-        this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
-        this.slideTimer_ = Math.min(this.slideTimer_, 0.0);
-        this.slideTimer_ = Math.max(this.slideTimer_, -1.0);
-
-        this.velocity_ += acceleration;
-        this.velocity_ = Math.max(this.velocity_, -100);
-      }
-
-
-      if (this.position_.y == 0.0) {
-        this.inAir_ = false;
-
-      }
 
 
 
-      if (this.position_.y <= 0.0 && this.sliding_ == true) {
-        if (this.slideTimer_ == 0) {
-          this.downPressed_ = false;
-          this.sliding_ = false;
-          this.RunAnimation_();
+        if (this.position_.y <= 0.0 && this.sliding_ == true) {
+          if (this.slideTimer_ == 0) {
+            this.downPressed_ = false;
+            this.sliding_ = false;
+            this.RunAnimation_();
+          }
         }
       }
 

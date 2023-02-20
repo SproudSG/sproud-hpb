@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.module.js';
 
-import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/FBXLoader.js';
+import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/GLTFLoader.js";
 
 
 export const shoogaGlider = (() => {
@@ -15,38 +15,24 @@ export const shoogaGlider = (() => {
       this.params_ = params;
       this.LoadModel_();
       this.mixer = null;
-      this.actions = [];
     }
 
     // load the monster
     LoadModel_() {
 
-      const loader = new FBXLoader();
-      loader.load('./resources/Creatures/FBX/bateye2.fbx', (fbx) => {
-        this.mesh = fbx;
-
-        //sets the texture
-        fbx.traverse((child) => {
-          if (child.isMesh) {
-
-            child.material.map = new THREE.TextureLoader().load('./resources/Creatures/textures/bateye_albedo.jpg');
-
-          }
-        });
+      const loader = new GLTFLoader();
+      loader.load('./resources/ShoogaGlider/ShoogaGliderFlap.gltf', (fbx) => {
+        this.mesh = fbx.scene;
 
         //add model to the scene
         this.params_.scene.add(this.mesh);
 
         // Extract the animation clips from the fbx file
         const animations = fbx.animations;
-        if (animations && animations.length > 0) {
-          this.mixer = new THREE.AnimationMixer(this.mesh);
-          for (let i = 0; i < animations.length; i++) {
-            const animation = animations[i];
-            const action = this.mixer.clipAction(animation);
-            this.actions.push(action);
-          }
-        }
+        this.mixer = new THREE.AnimationMixer(this.mesh);
+        const animation = animations[0];
+        const action = this.mixer.clipAction(animation);
+        action.play()
       });
 
     }
@@ -66,10 +52,6 @@ export const shoogaGlider = (() => {
 
       // play animation 
       if (this.mixer) {
-        // Play the first animation in the list of actions
-        if (this.actions.length > 0) {
-          this.actions[0].play();
-        }
         this.mixer.update(timeElapsed);
       }
     }
@@ -79,7 +61,7 @@ export const shoogaGlider = (() => {
     constructor(params) {
       this.objects_ = [];
       this.unused_ = [];
-      this.speed_ = 52;
+      this.speed_ = 50;
       this.speedz_ = 6
       this.speedy_ = 12
 
@@ -138,7 +120,6 @@ export const shoogaGlider = (() => {
 
     //sets the speed of the spawned monsters
     UpdateColliders_(timeElapsed, speed, speedz, speedy) {
-
       const invisible = [];
       const visible = [];
 
@@ -153,13 +134,15 @@ export const shoogaGlider = (() => {
         //   obj.position.z -= timeElapsed * speedz;
 
         // }
+        if (obj.position.y != 1) {
+          if (obj.position.y < 1) {
+            obj.position.y = 1
+          } else {
+            obj.position.y -= timeElapsed * speedy;
 
-        if (obj.position.y < 2) {
-          obj.position.y = 2
-        } else {
-          obj.position.y -= timeElapsed * speedy;
-
+          }
         }
+
 
         if (obj.position.x < -20) {
           invisible.push(obj);
