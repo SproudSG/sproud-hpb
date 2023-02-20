@@ -13,6 +13,9 @@ import { hpbLogo } from './world_objects/logo_box/boxHPB.js';
 import { hpbWrongLogo1 } from './world_objects/logo_box/boxWrong1.js';
 import { hpbWrongLogo2 } from './world_objects/logo_box/boxWrong2.js';
 import { oilSlik } from './world_objects/monster/OilSlik.js';
+import { carbs } from './world_objects/food/carbs.js';
+import { meat } from './world_objects/food/meat.js';
+import { vege } from './world_objects/food/vege.js';
 
 const _VS = `
 varying vec3 vWorldPosition;
@@ -510,6 +513,31 @@ class BasicWorldDemo {
       arrLogo3.push(value3 * 3);
     }
 
+    // set randonm positoin for box logos
+    let food1 = [];
+    let food2 = [];
+    let food3 = [];
+
+    for (let i = 0; i < 4; i++) {
+      let value1 = Math.floor(Math.random() * 3) - 1;
+      let value2 = Math.floor(Math.random() * 3) - 1;
+      let value3 = Math.floor(Math.random() * 3) - 1;
+
+      while (value1 === value2) {
+        value2 = Math.floor(Math.random() * 3) - 1;
+      }
+
+      while (value1 === value3 || value2 === value3) {
+        value3 = Math.floor(Math.random() * 3) - 1;
+      }
+
+      food1.push(value1 * 3);
+      food2.push(value2 * 3);
+      food3.push(value3 * 3);
+    }
+
+
+
     //initiate all the game objects
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
     this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
@@ -518,8 +546,12 @@ class BasicWorldDemo {
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
     this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
+    this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
+    this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
+    this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
 
-    this.player_ = new player.Player({ scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_ });
+
+    this.player_ = new player.Player({ scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
     this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
     this.background_ = new background.Background({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
@@ -589,6 +621,9 @@ class BasicWorldDemo {
         this.hpbLogo_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
+        this.vege_.Update(timeElapsed, this.objSpeed)
+        this.meat_.Update(timeElapsed, this.objSpeed)
+        this.carbs_.Update(timeElapsed, this.objSpeed)
 
         this.loaded = true;
 
@@ -606,8 +641,9 @@ class BasicWorldDemo {
     this.hpbLogo_.Update(timeElapsed, this.objSpeed)
     this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
     this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
-
-
+    this.vege_.Update(timeElapsed, this.objSpeed)
+    this.meat_.Update(timeElapsed, this.objSpeed)
+    this.carbs_.Update(timeElapsed, this.objSpeed)
     //get speed of player from player.js
     this.player_.getSpeed(result => {
       this.speed_ = result

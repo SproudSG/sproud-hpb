@@ -33,6 +33,16 @@ export const player = (() => {
       this.fruitID = null;
       this.processedFruitIDs = [];
 
+      //food variables
+      this.meatID = null;
+      this.processedMeatIDs = [];
+      this.bevegeID = null;
+      this.processedVegeIDs = [];
+      this.carbsID = null;
+      this.processedCarbsIDs = [];
+      this.meatProp = 0;
+      this.vegeProp = 0;
+      this.carbProp = 0;
 
       //HPB box logo variables
       this.box = "";
@@ -187,7 +197,9 @@ export const player = (() => {
       const box1 = this.params_.box1.GetColliders();
       const box2 = this.params_.box2.GetColliders();
       const box3 = this.params_.box3.GetColliders();
-
+      const meat = this.params_.meat.GetColliders();
+      const vege = this.params_.vege.GetColliders();
+      const carbs = this.params_.carbs.GetColliders();
 
       this.playerBox_.setFromObject(this.mesh_);
 
@@ -273,7 +285,7 @@ export const player = (() => {
           if (!this.processedbox1IDs.includes(this.box1ID) && cur.intersectsBox(this.playerBox_)) {
             this.processedWaterIDs.push(this.box1ID);
             this.box = "powerup"
-            this.speed = 0.54
+            this.speed = 0.54;
             this.buff = true;
             this.params_.box1.ToggleVisible();
           }
@@ -291,7 +303,7 @@ export const player = (() => {
           if (!this.processedbox1IDs.includes(this.box2ID) && cur.intersectsBox(this.playerBox_)) {
             this.processedWaterIDs.push(this.box2ID);
             this.box = "powerdown"
-            this.speed = 0.05
+            this.speed = 0.05;
             this.debuff = true;
             this.params_.box2.ToggleVisible();
           }
@@ -309,9 +321,25 @@ export const player = (() => {
           if (!this.processedbox3IDs.includes(this.box3ID) && cur.intersectsBox(this.playerBox_)) {
             this.processedWaterIDs.push(this.box3ID);
             this.box = "powerdown"
-            this.speed = 0.05
+            this.speed = 0.05;
             this.debuff = true;
             this.params_.box3.ToggleVisible();
+          }
+        } else {
+          return;
+        }
+      }
+
+      //if player collides with right hpb logo
+      for (let c of meat) {
+
+        const cur = c.collider;
+        if (c.mesh) {
+          this.meatID = c.mesh.uuid;
+          if (!this.processedMeatIDs.includes(this.meatID) && cur.intersectsBox(this.playerBox_)) {
+            this.processedMeatIDs.push(this.meatID);
+
+            console.log("meat")
           }
         } else {
           return;
@@ -330,6 +358,8 @@ export const player = (() => {
       callback(result);
       this.box = ""
     }
+
+
 
     //player movement with swipe gestures
     SwipeLeft() {
