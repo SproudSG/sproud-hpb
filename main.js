@@ -563,6 +563,7 @@ class BasicWorldDemo {
 
   Step_(timeElapsed, pause) {
 
+
     //if game is won
     if (!this.eventAdded) {
       document.addEventListener('score-over', () => {

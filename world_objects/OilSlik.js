@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.module.js';
 
-import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/FBXLoader.js';
+import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/GLTFLoader.js";
 
 
 export const oilSlik = (() => {
@@ -8,7 +8,7 @@ export const oilSlik = (() => {
     class OilSlik {
         constructor(params) {
             //player properties
-            this.position_ = new THREE.Vector3(-5, 0, 0);
+            this.position_ = new THREE.Vector3(-10, 0, 0);
             this.playerBox_ = new THREE.Box3();
             this.speed_ = 2;
 
@@ -18,27 +18,26 @@ export const oilSlik = (() => {
         }
 
         LoadModel_() {
-            const loader = new FBXLoader();
-            loader.setPath('./resources/Creatures/FBX/');
-            loader.load('monster.fbx', (fbx) => {
-                fbx.scale.setScalar(0.01);
-                fbx.quaternion.setFromAxisAngle(
-                    new THREE.Vector3(0, 1, 0), Math.PI / 2);
+            const loader = new GLTFLoader();
+            loader.setPath('./resources/OilSilk/');
+            loader.load('OilSilkChase.gltf', (gltf) => {
+                console.log(gltf)
+                this.mesh_ = gltf.scene;
 
-                this.mesh_ = fbx;
+                this.mesh_.quaternion.setFromAxisAngle(
+                    new THREE.Vector3(0, 1, 0), Math.PI / 2);
+        
+        
+                this.mesh_.scale.set(0.2, 0.2, 0.2);
+
                 this.params_.scene.add(this.mesh_);
 
-
-                const m = new THREE.AnimationMixer(fbx);
+                const m = new THREE.AnimationMixer(this.mesh_);
                 this.mixer_ = m;
-
-                for (let i = 0; i < fbx.animations.length; ++i) {
-                    if (fbx.animations[i].name.includes('Run')) {
-                        const clip = fbx.animations[i];
-                        const action = this.mixer_.clipAction(clip);
-                        action.play();
-                    }
-                }
+                this.action;
+                const clip = gltf.animations[0];
+                this.action = this.mixer_.clipAction(clip);
+                this.action.play();
             });
         }
 

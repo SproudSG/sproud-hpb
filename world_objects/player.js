@@ -15,7 +15,9 @@ export const player = (() => {
       this.inAir_ = false;
       this.sliding_ = false;
       this.slideAnimation_ = false;
+      this.slideTimer_ = 0;
       this.playerBox_ = new THREE.Box3();
+
       //water variables
       this.waterID = null;
       this.processedWaterIDs = [];
@@ -47,6 +49,11 @@ export const player = (() => {
       this.stamina_ = 100;
       this.sugarDrinks = 0;
 
+      //key controls
+      this.downPressed_ = false;
+
+
+      //init
       this.params_ = params;
       this.LoadModel_();
       this.InitInput_();
@@ -59,9 +66,9 @@ export const player = (() => {
       const loader = new GLTFLoader();
 
       // Load a glTF resource
-      loader.setPath('./resources/Player/Player_YBot/YBotRunAll/');
+      loader.setPath('./resources/Player/Player_YBot/');
       loader.load(
-        'YBotRunAll.gltf',
+        'YBotAll.gltf',
         (gltf) => {
           console.log(gltf)
           this.gltf = gltf
@@ -79,9 +86,9 @@ export const player = (() => {
           const m = new THREE.AnimationMixer(this.mesh_);
           this.mixer_ = m;
           this.action;
-              const clip = gltf.animations[1];
-              this.action = this.mixer_.clipAction(clip);
-              this.action.play();
+          const clip = gltf.animations[1];
+          this.action = this.mixer_.clipAction(clip);
+          this.action.play();
 
         },
         // called while loading is progressing
@@ -99,42 +106,44 @@ export const player = (() => {
       );
     }
 
-    UpdateAnimations_() {
+    SlideAnimation_() {
       if (!this.mixer_) {
         return;
 
       }
+      this.action.stop();
+      const clip = this.gltf.animations[4];
+      this.action = this.mixer_.clipAction(clip);
+      this.action.setLoop(THREE.LoopOnce);
 
-      if (this.sliding_) {
+      this.action.play();
 
-
-        
-        this.action.stop();
-
-            const clip = this.gltf.animations[4];
-            this.action = this.mixer_.clipAction(clip);
-            //action.setLoop(THREE.LoopOnce);
-
-            this.action.play();
-
-          
-        }
-
-
-        // const clip = this.mesh_.animations[i];
-        // const action = this.mixer_.clipAction(clip);
-        // action.play();
-        // action.setLoop(THREE.LoopOnce);
-    
-
-        // action.onLoop = function (event) {
-        //   action.timeScale = 0;
-
-        // }
-
-       
 
     }
+
+    RunAnimation_() {
+      if (!this.mixer_) {
+        return;
+
+      }
+      this.action.stop();
+      const clip = this.gltf.animations[1];
+      this.action = this.mixer_.clipAction(clip);
+      this.action.play();
+    }
+
+
+    JumpAnimation_() {
+      if (!this.mixer_) {
+        return;
+
+      }
+      this.action.stop();
+      const clip = this.gltf.animations[11];
+      this.action = this.mixer_.clipAction(clip);
+      this.action.play();
+    }
+
 
     //event listener for keyboard controls
     InitInput_() {
@@ -183,7 +192,7 @@ export const player = (() => {
       for (let c of shoogaGlider) {
         const cur = c.collider;
 
-        if (cur.intersectsBox(this.playerBox_)) {
+        if (cur.intersectsBox(this.playerBox_) && !this.sliding_) {
           this.gameOver = true;
         }
       }
@@ -370,6 +379,8 @@ export const player = (() => {
         baileyYay.play();
       }
       if (this.inAir_) {
+        this.JumpAnimation_()
+
         const acceleration = -75 * timeElapsed;
         this.position_.y += timeElapsed * (this.velocity_ + acceleration * 0.5);
         this.position_.y = Math.max(this.position_.y, 0.0);
@@ -378,22 +389,21 @@ export const player = (() => {
       }
     }
 
-    SwipeDown(timeElapsed) {
-      if (this.position_.y == 0.0) {
-        this.velocity_ = 10;
-        this.sliding_ = true;
-      }
-      if (this.sliding_) {
-        this.UpdateAnimations_()
-        const acceleration = -25 * timeElapsed;
-        this.position_.y -= timeElapsed * (this.velocity_ + acceleration * 0.5);
-        this.position_.y = Math.min(this.position_.y, 0.0);
-        this.position_.y = Math.max(this.position_.y, -1.0);
-        this.velocity_ += acceleration;
-        this.velocity_ = Math.max(this.velocity_, -100);
-        console.log(this.position_.y)
+    SwipeDown() {
+      console.log(this.downPressed_)
+      if(!this.downPressed_){
+        if (this.position_.y == 0.0) {
+          this.velocity_ = 10;
+          this.sliding_ = true;
+        }
+        if (this.sliding_ ) {
+          this.SlideAnimation_()
+          this.downPressed_ = true
+  
+        }
 
       }
+    
     }
 
 
@@ -405,8 +415,9 @@ export const player = (() => {
         this.SwipeUp(timeElapsed)
 
       }
-      if (this.keys_.down && this.position_.y == 0.0) {
-        this.SwipeDown(timeElapsed)
+      if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_) {
+        console.log(this.sliding_)
+        this.SwipeDown()
       }
 
       if (!this.inAir_) {
@@ -436,9 +447,9 @@ export const player = (() => {
       if (this.sliding_) {
         const acceleration = -25 * timeElapsed;
 
-        this.position_.y -= timeElapsed * (this.velocity_ + acceleration * 0.5);
-        this.position_.y = Math.min(this.position_.y, 0.0);
-        this.position_.y = Math.max(this.position_.y, -1.0);
+        this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
+        this.slideTimer_ = Math.min(this.slideTimer_, 0.0);
+        this.slideTimer_ = Math.max(this.slideTimer_, -1.0);
 
         this.velocity_ += acceleration;
         this.velocity_ = Math.max(this.velocity_, -100);
@@ -450,14 +461,17 @@ export const player = (() => {
 
       }
 
-      if (this.position_.y <= 0.0 && this.sliding_ == true) {
-        if (this.position_.y == 0) {
-          this.action.stop();
 
-          this.sliding_ = false
+
+      if (this.position_.y <= 0.0 && this.sliding_ == true) {
+        if (this.slideTimer_ == 0) {
+          this.downPressed_ = false;
+          this.sliding_ = false;
+          this.RunAnimation_();
         }
       }
 
+      //update player animation, position and check collision
       if (this.mesh_) {
         this.mixer_.update(timeElapsed);
         this.mesh_.position.copy(this.position_);
@@ -487,7 +501,6 @@ export const player = (() => {
             this.debuff = false
           }
           if (this.speed < 0.22) {
-            console.log(timeElapsed)
             this.speed += (timeElapsed / 10)
 
           }
