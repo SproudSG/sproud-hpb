@@ -4,6 +4,8 @@ import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm
 
 import { player } from './world_objects/player.js';
 import { shoogaGlider } from './world_objects/monster/shoogaGlider.js';
+import { trolliumChloride } from './world_objects/monster/TrolliumChloride.js';
+import { pitfall } from './world_objects/obstacle/pitfall.js';
 import { background } from './world_objects/background.js';
 import { progression } from './world_objects/progression.js';
 import { water } from './world_objects/drinks/water.js';
@@ -174,7 +176,6 @@ class BasicWorldDemo {
     this.powerdownVideo_ = document.getElementById("powerdown");
 
     this.videoContainer = document.getElementById("video-container");
-    //  this.setupListeners();
 
 
   }
@@ -513,7 +514,7 @@ class BasicWorldDemo {
       arrLogo3.push(value3 * 3);
     }
 
-    // set randonm positoin for box logos
+    // set randonm position for box logos
     let food1 = [];
     let food2 = [];
     let food3 = [];
@@ -540,6 +541,8 @@ class BasicWorldDemo {
 
     //initiate all the game objects
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
+    this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
+    this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
     this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
     this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
     this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
@@ -551,7 +554,7 @@ class BasicWorldDemo {
     this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
 
 
-    this.player_ = new player.Player({ scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+    this.player_ = new player.Player({ scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
     this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
     this.background_ = new background.Background({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
@@ -618,6 +621,8 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
+        this.trolliumChloride_.Update(timeElapsed, this.objSpeed)
+        this.pitfall_.Update(timeElapsed, this.objSpeed)
         this.hpbLogo_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
@@ -633,6 +638,9 @@ class BasicWorldDemo {
     this.player_.Update(timeElapsed, pause);
     this.oilSlik_.Update(timeElapsed);
     this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy, this.isPaused);
+    this.trolliumChloride_.Update(timeElapsed, this.objSpeed)
+    this.pitfall_.Update(timeElapsed, this.objSpeed)
+
     this.background_.Update(timeElapsed);
     this.progression_.Update(timeElapsed, pause, this.buffspeed, this.speed_);
     this.water_.Update(timeElapsed, this.objSpeed)

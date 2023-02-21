@@ -278,6 +278,7 @@ li {
   transition: 1s;
   width: 100%;
 }
+
 #powerdown {
   position: absolute;
   top: 50%;
@@ -289,10 +290,16 @@ li {
 }
 
 @keyframes move {
-  0% { transform: translate(-50%, -200%); }
-  100% { transform: translate(-50%, -50%);}
+  0% {
+    transform: translate(-50%, -200%);
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
 }
-.circle {
+
+/* .circle {
   top: 10%;
   width: 200px;
   height: 200px;
@@ -335,4 +342,54 @@ li {
   right: 0;
   background-color: red;
   transform: rotate(-90deg);
+}
+ */
+
+div.wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  top: 12%;
+  left: 20px;
+}
+
+div.quarter {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #333;
+  transition: transform .5s, opacity .5s;
+}
+
+div.quarter.left-top {
+  left: 0;
+  top: 0;
+  border-top-left-radius: 50px;
+  border: solid #333;
+  border-width: 4px;
+}
+
+div.quarter.right-top {
+  left: 50px;
+  top: 0;
+  border-top-right-radius: 50px;
+  border: solid #333;
+  border-width: 4px;
+}
+
+div.quarter.left-bottom {
+  left: 0;
+  top: 50px;
+  border-bottom-left-radius: 50px;
+  border: solid #333;
+  border-width: 4px;
+}
+
+div.quarter.right-bottom {
+  left: 50px;
+  top: 50px;
+  border-bottom-right-radius: 50px;
+  border: solid #333;
+  border-width: 4px;
 }
