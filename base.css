@@ -185,8 +185,6 @@ body {
 .game-menu-box {
   background-color: rgb(228, 223, 201);
   position: relative;
-  width: 30%;
-  height: 30%;
   margin: 17.5% auto;
   border-width: 20px;
   border-style: solid;
@@ -392,4 +390,46 @@ div.quarter.right-bottom {
   border-bottom-right-radius: 50px;
   border: solid #333;
   border-width: 4px;
+}
+
+#start-button {
+
+  width: 50%;
+  background-color:antiquewhite;
+  border-radius: 10px;
+  border-color: blanchedalmond;
+}
+
+.game-menu-box div {
+
+  text-align: center;
+
+}
+
+
+#gender-selection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: 'Press Start 2P', cursive;
+
+  background-color: rgb(228, 223, 201);
+  border-width: 20px;
+  border-style: solid;
+  border-color: rgb(226, 146, 157);
+  padding: 20px;
+}
+
+.gender-column {
+  display: flex;
+  margin: 80px;
+  flex-direction: column;
+  align-items: center;
 }

@@ -83,15 +83,20 @@ export const player = (() => {
     }
 
     LoadModel_() {
-
-
+      console.log(this.params_.gender)
+      let model;
+      if (this.params_.gender === "male") {
+        model = 'YBotAll.gltf';
+      } else {
+        model = 'YBotGetHitAll.gltf'
+      }
       // Instantiate a loader
       const loader = new GLTFLoader();
 
       // Load a glTF resource
       loader.setPath('./resources/Player/Player_YBot/');
       loader.load(
-        'YBotAll.gltf',
+        model,
         (gltf) => {
           console.log(gltf)
           this.gltf = gltf
@@ -101,10 +106,7 @@ export const player = (() => {
           this.mesh_.position.x = 0;				    //Position (x = right+ left-) 
           this.mesh_.position.y = 0;				    //Position (y = up+, down-)
           this.mesh_.position.z = 0;				    //Position (z = front +, back-)
-          this.mesh_.quaternion.setFromAxisAngle(
-            new THREE.Vector3(0, 1, 0), Math.PI / 2);
-
-
+          this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
 
           const m = new THREE.AnimationMixer(this.mesh_);
           this.mixer_ = m;
@@ -230,7 +232,7 @@ export const player = (() => {
         }
       }
 
-      //check for shooga glider monster collision
+      //check for trollium chloride monster collision
       for (let c of trolliumChloride) {
         const cur = c.collider;
         this.trolliumChlorideID = c.mesh.uuid;

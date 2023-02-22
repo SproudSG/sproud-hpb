@@ -4,7 +4,7 @@ import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm
 
 import { player } from './world_objects/player.js';
 import { shoogaGlider } from './world_objects/monster/shoogaGlider.js';
-import { trolliumChloride } from './world_objects/monster/TrolliumChloride.js';
+import { trolliumChloride } from './world_objects/monster/trolliumChloride.js';
 import { pitfall } from './world_objects/obstacle/pitfall.js';
 import { background } from './world_objects/background.js';
 import { progression } from './world_objects/progression.js';
@@ -147,7 +147,36 @@ class BasicWorldDemo {
       this._playMenuMusic();
 
     });
-    document.getElementById('video-container').onclick = (msg) => this._OnStart(msg);
+
+    this.gender_ = null;
+
+    //handle start game
+    document.getElementById('start-button').addEventListener('click', () => {
+
+      document.getElementById('gender-selection').style.display = 'block';
+
+    });
+
+    //handle start game
+    document.getElementById('male-button').addEventListener('click', () => {
+      this._OnStart();
+      document.getElementById('video-container').style.display = 'block';
+      document.getElementById('gender-selection').style.display = 'none';
+      this.gender_ = "male"
+      this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+
+    });
+
+     //handle start game
+     document.getElementById('female-button').addEventListener('click', () => {
+      this._OnStart();
+      document.getElementById('video-container').style.display = 'block';
+      document.getElementById('gender-selection').style.display = 'none';
+      this.gender_ = "female"
+      this.player_ = new player.Player({ gender: this.gender_,scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+      console.log(this.gender_)
+
+    });
 
     // swipe gesture variables and event listeners
     this.swipeLeft = false;
@@ -204,7 +233,7 @@ class BasicWorldDemo {
     this.menuMusic.play();
   }
 
-  _OnStart(msg) {
+  _OnStart() {
     this.menuMusic.pause();
     document.getElementById('game-menu').style.display = 'none';
     this._gameStarted = true;
@@ -301,7 +330,7 @@ class BasicWorldDemo {
     const fov = 60;
     const aspect = 1920 / 1080;
     const near = 1.0;
-    const far = 20000.0;
+    const far = 2000.0;
     this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
     this.camera_.position.set(-7, 3, 0);
     this.camera_.lookAt(0, 3, 0);
@@ -538,7 +567,7 @@ class BasicWorldDemo {
     }
 
 
-
+    console.log(this.gender_)
     //initiate all the game objects
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
     this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
@@ -554,7 +583,6 @@ class BasicWorldDemo {
     this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
 
 
-    this.player_ = new player.Player({ scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
     this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
     this.background_ = new background.Background({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();

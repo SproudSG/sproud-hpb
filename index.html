@@ -47,9 +47,9 @@
       <!-- <div id="circle"></div> -->
       <div class="wrapper">
         <div class="quarter left-top" id="quarterOne"></div>
-        <div class="quarter right-top"  id="quarterTwo"></div>
-        <div class="quarter left-bottom"  id="quarterThree"></div>
-        <div class="quarter right-bottom"  id="quarterFour"></div>
+        <div class="quarter right-top" id="quarterTwo"></div>
+        <div class="quarter left-bottom" id="quarterThree"></div>
+        <div class="quarter right-bottom" id="quarterFour"></div>
       </div>
     </div>
 
@@ -76,24 +76,41 @@
         <div class="game-menu-box">
           <audio id="menu-music" autoplay src="./resources/Audio/Game Menu.mp3"></audio>
           <audio id="game-music" src="./resources/Audio/Pirates - 2 min.mp3"></audio>
-          <img src="./resources/MainPage/baileyhah.png"></img>
           <img src="./resources/MainPage/baileyruntitle.png"></img>
-          <img src="./resources/MainPage/baileyhah.png"></img>
-          <p class="rule-color">Game Rules:</li>
-            <li class="rule-color">Dodge all the nasty creatures!</li>
-            <li class="rule-color">Get to the goal!</li>
-            <li class="rule-color">You will earn 500 pts!</li>
-            <li class="play-color">LEFT CLICK TO PLAY!</li>
+          <div>
+            <button id="start-button">Start</button>
+
+          </div>
 
         </div>
+
       </div>
     </div>
-    <!-- play power up video -->
-    <div id="video-container">
-      <video id="powerup" src="resources/PowerUp/powerup.mp4" style="display: none;"></video>
-      <video id="powerdown" src="resources/PowerUp/powerdown.mp4" style="display: none;"></video>
+  </div>
 
+
+  
+
+
+    <div id="gender-selection" style="display: none;">
+      <h2>Choose your character's gender:</h2>
+      <div class="gender-column">
+        <i class="fa-solid fa-person" style="font-size: 100px; color: white"></i>
+        <button id="male-button">Male</button>
+      </div>
+      <div class="gender-column">
+        <i class="fa-solid fa-person-dress"  style="font-size: 100px; color: white"></i>
+        <button id="female-button">Female</button>
+      </div>
     </div>
+
+
+  <!-- play power up video -->
+  <div id="video-container" style="display: none;">
+    <video id="powerup" src="resources/PowerUp/powerup.mp4" style="display: none;"></video>
+    <video id="powerdown" src="resources/PowerUp/powerdown.mp4" style="display: none;"></video>
+
+  </div>
 
   </div>
 

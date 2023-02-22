@@ -48,7 +48,7 @@ export const background = (() => {
           for (let m of materials) {
             if (m) {
               m.specular = new THREE.Color(0x000000);
-              m.emissive = new THREE.Color(0xC0C0C0);
+              m.emissive = new THREE.Color(0xC0C0C0);  
             }
           }    
           c.castShadow = true;
