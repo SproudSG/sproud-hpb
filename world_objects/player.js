@@ -209,10 +209,10 @@ export const player = (() => {
       const box1 = this.params_.box1.GetColliders();
       const box2 = this.params_.box2.GetColliders();
       const box3 = this.params_.box3.GetColliders();
-      const meat = this.params_.meat.GetColliders();
-      const vege = this.params_.vege.GetColliders();
-      const carbs = this.params_.carbs.GetColliders();
-      const trolliumChloride = this.params_.trolliumChloride.GetColliders();
+      // const meat = this.params_.meat.GetColliders();
+      // const vege = this.params_.vege.GetColliders();
+      // const carbs = this.params_.carbs.GetColliders();
+      // const trolliumChloride = this.params_.trolliumChloride.GetColliders();
 
       this.playerBox_.setFromObject(this.mesh_);
 
@@ -233,20 +233,20 @@ export const player = (() => {
       }
 
       //check for trollium chloride monster collision
-      for (let c of trolliumChloride) {
-        const cur = c.collider;
-        this.trolliumChlorideID = c.mesh.uuid;
+      // for (let c of trolliumChloride) {
+      //   const cur = c.collider;
+      //   this.trolliumChlorideID = c.mesh.uuid;
 
-        if (!this.processedtrolliumChlorideIDs.includes(this.trolliumChlorideID) && cur.intersectsBox(this.playerBox_)) {
-          this.processedtrolliumChlorideIDs.push(this.trolliumChlorideID);
-          if (this.immunitiy) {
-            this.immunitiy = false
-          } else {
-            this.gameOver = true;
+      //   if (!this.processedtrolliumChlorideIDs.includes(this.trolliumChlorideID) && cur.intersectsBox(this.playerBox_)) {
+      //     this.processedtrolliumChlorideIDs.push(this.trolliumChlorideID);
+      //     if (this.immunitiy) {
+      //       this.immunitiy = false
+      //     } else {
+      //       this.gameOver = true;
 
-          }
-        }
-      }
+      //     }
+      //   }
+      // }
 
       //if player collides with water
       for (let c of water) {
@@ -367,63 +367,63 @@ export const player = (() => {
       }
 
       //if player collides with meat
-      for (let c of meat) {
+      // for (let c of meat) {
 
-        const cur = c.collider;
-        if (c.mesh) {
-          this.meatID = c.mesh.uuid;
-          if (!this.processedMeatIDs.includes(this.meatID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedMeatIDs.push(this.meatID);
-            this.meatProp = this.meatProp + 1
+      //   const cur = c.collider;
+      //   if (c.mesh) {
+      //     this.meatID = c.mesh.uuid;
+      //     if (!this.processedMeatIDs.includes(this.meatID) && cur.intersectsBox(this.playerBox_)) {
+      //       this.processedMeatIDs.push(this.meatID);
+      //       this.meatProp = this.meatProp + 1
 
-            this.AddFood('meat')
-            this.GetFood()
-            this.params_.meat.ToggleVisible()
+      //       this.AddFood('meat')
+      //       this.GetFood()
+      //       this.params_.meat.ToggleVisible()
 
 
-          }
-        } else {
-          return;
-        }
+      //     }
+      //   } else {
+      //     return;
+      //   }
 
-        //if player collides with meat
-        for (let c of vege) {
+      //   //if player collides with meat
+      //   for (let c of vege) {
 
-          const cur = c.collider;
-          if (c.mesh) {
-            this.vegeID = c.mesh.uuid;
-            if (!this.processedVegeIDs.includes(this.vegeID) && cur.intersectsBox(this.playerBox_)) {
-              this.processedVegeIDs.push(this.vegeID);
-              this.vegeProp = this.vegeProp + 1
+      //     const cur = c.collider;
+      //     if (c.mesh) {
+      //       this.vegeID = c.mesh.uuid;
+      //       if (!this.processedVegeIDs.includes(this.vegeID) && cur.intersectsBox(this.playerBox_)) {
+      //         this.processedVegeIDs.push(this.vegeID);
+      //         this.vegeProp = this.vegeProp + 1
 
-              this.AddFood('vege')
-              this.GetFood()
-              this.params_.vege.ToggleVisible()
-            }
-          } else {
-            return;
-          }
-        }
-        //if player collides with carbs
-        for (let c of carbs) {
+      //         this.AddFood('vege')
+      //         this.GetFood()
+      //         this.params_.vege.ToggleVisible()
+      //       }
+      //     } else {
+      //       return;
+      //     }
+      //   }
+      //   //if player collides with carbs
+      //   for (let c of carbs) {
 
-          const cur = c.collider;
-          if (c.mesh) {
-            this.carbsID = c.mesh.uuid;
-            if (!this.processedCarbsIDs.includes(this.carbsID) && cur.intersectsBox(this.playerBox_)) {
-              this.processedCarbsIDs.push(this.carbsID);
-              this.carbProp = this.carbProp + 1
+      //     const cur = c.collider;
+      //     if (c.mesh) {
+      //       this.carbsID = c.mesh.uuid;
+      //       if (!this.processedCarbsIDs.includes(this.carbsID) && cur.intersectsBox(this.playerBox_)) {
+      //         this.processedCarbsIDs.push(this.carbsID);
+      //         this.carbProp = this.carbProp + 1
 
-              this.AddFood('carbs')
-              this.GetFood()
-              this.params_.carbs.ToggleVisible()
+      //         this.AddFood('carbs')
+      //         this.GetFood()
+      //         this.params_.carbs.ToggleVisible()
 
-            }
-          } else {
-            return;
-          }
-        }
-      }
+      //       }
+      //     } else {
+      //       return;
+      //     }
+      //   }
+      // }
     }
 
     AddFood(food) {

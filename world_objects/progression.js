@@ -31,7 +31,7 @@ export const progression = (() => {
 
                 document.getElementById('monster').style.left = scoreText1 * 4.1 + 'px';
 
-                if (this.progress_ >= 500) {
+                if (this.progress_ >= 100) {
                     document.dispatchEvent(new CustomEvent('score-over'));
                 }
 
