@@ -64,7 +64,7 @@ export const player = (() => {
       this.processedbox3IDs = [];
 
       //map speed
-      this.speed = 0.22
+      this.speed = 0.2
       this.debuff = false;
       this.buff = false;
 
@@ -83,7 +83,6 @@ export const player = (() => {
     }
 
     LoadModel_() {
-      console.log(this.params_.gender)
       let model;
       if (this.params_.gender === "male") {
         model = 'YBotAll.gltf';
@@ -98,7 +97,6 @@ export const player = (() => {
       loader.load(
         model,
         (gltf) => {
-          console.log(gltf)
           this.gltf = gltf
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
@@ -209,44 +207,49 @@ export const player = (() => {
       const box1 = this.params_.box1.GetColliders();
       const box2 = this.params_.box2.GetColliders();
       const box3 = this.params_.box3.GetColliders();
-      // const meat = this.params_.meat.GetColliders();
-      // const vege = this.params_.vege.GetColliders();
-      // const carbs = this.params_.carbs.GetColliders();
-      // const trolliumChloride = this.params_.trolliumChloride.GetColliders();
+      const meat = this.params_.meat.GetColliders();
+      const vege = this.params_.vege.GetColliders();
+      const carbs = this.params_.carbs.GetColliders();
+      const trolliumChloride = this.params_.trolliumChloride.GetColliders();
 
       this.playerBox_.setFromObject(this.mesh_);
 
       //check for shooga glider monster collision
       for (let c of shoogaGlider) {
         const cur = c.collider;
-        this.shoogaGliderID = c.mesh.uuid;
+        if(c.uuid){
+          this.shoogaGliderID = c.mesh.uuid;
+
+        }
 
         if (!this.processedshoogaGliderIDs.includes(this.shoogaGliderID) && cur.intersectsBox(this.playerBox_) && !this.sliding_) {
           this.processedshoogaGliderIDs.push(this.shoogaGliderID);
           if (this.immunitiy) {
             this.immunitiy = false
           } else {
-            this.gameOver = true;
-
+            newStamina = this.stamina_ - 10
+            this.stamina_ = newStamina;
           }
         }
       }
 
       //check for trollium chloride monster collision
-      // for (let c of trolliumChloride) {
-      //   const cur = c.collider;
-      //   this.trolliumChlorideID = c.mesh.uuid;
+      for (let c of trolliumChloride) {
+        const cur = c.collider;
+        if(c.uuid){
+          this.trolliumChlorideID = c.mesh.uuid;
 
-      //   if (!this.processedtrolliumChlorideIDs.includes(this.trolliumChlorideID) && cur.intersectsBox(this.playerBox_)) {
-      //     this.processedtrolliumChlorideIDs.push(this.trolliumChlorideID);
-      //     if (this.immunitiy) {
-      //       this.immunitiy = false
-      //     } else {
-      //       this.gameOver = true;
-
-      //     }
-      //   }
-      // }
+        }
+        if (!this.processedtrolliumChlorideIDs.includes(this.trolliumChlorideID) && cur.intersectsBox(this.playerBox_)) {
+          this.processedtrolliumChlorideIDs.push(this.trolliumChlorideID);
+          if (this.immunitiy) {
+            this.immunitiy = false
+          } else {
+            newStamina = this.stamina_ - 10
+            this.stamina_ = newStamina;
+          }
+        }
+      }
 
       //if player collides with water
       for (let c of water) {
@@ -367,63 +370,63 @@ export const player = (() => {
       }
 
       //if player collides with meat
-      // for (let c of meat) {
+      for (let c of meat) {
 
-      //   const cur = c.collider;
-      //   if (c.mesh) {
-      //     this.meatID = c.mesh.uuid;
-      //     if (!this.processedMeatIDs.includes(this.meatID) && cur.intersectsBox(this.playerBox_)) {
-      //       this.processedMeatIDs.push(this.meatID);
-      //       this.meatProp = this.meatProp + 1
+        const cur = c.collider;
+        if (c.mesh) {
+          this.meatID = c.mesh.uuid;
+          if (!this.processedMeatIDs.includes(this.meatID) && cur.intersectsBox(this.playerBox_)) {
+            this.processedMeatIDs.push(this.meatID);
+            this.meatProp = this.meatProp + 1
 
-      //       this.AddFood('meat')
-      //       this.GetFood()
-      //       this.params_.meat.ToggleVisible()
+            this.AddFood('meat')
+            this.GetFood()
+            this.params_.meat.ToggleVisible()
 
 
-      //     }
-      //   } else {
-      //     return;
-      //   }
+          }
+        } else {
+          return;
+        }
 
-      //   //if player collides with meat
-      //   for (let c of vege) {
+        //if player collides with meat
+        for (let c of vege) {
 
-      //     const cur = c.collider;
-      //     if (c.mesh) {
-      //       this.vegeID = c.mesh.uuid;
-      //       if (!this.processedVegeIDs.includes(this.vegeID) && cur.intersectsBox(this.playerBox_)) {
-      //         this.processedVegeIDs.push(this.vegeID);
-      //         this.vegeProp = this.vegeProp + 1
+          const cur = c.collider;
+          if (c.mesh) {
+            this.vegeID = c.mesh.uuid;
+            if (!this.processedVegeIDs.includes(this.vegeID) && cur.intersectsBox(this.playerBox_)) {
+              this.processedVegeIDs.push(this.vegeID);
+              this.vegeProp = this.vegeProp + 1
 
-      //         this.AddFood('vege')
-      //         this.GetFood()
-      //         this.params_.vege.ToggleVisible()
-      //       }
-      //     } else {
-      //       return;
-      //     }
-      //   }
-      //   //if player collides with carbs
-      //   for (let c of carbs) {
+              this.AddFood('vege')
+              this.GetFood()
+              this.params_.vege.ToggleVisible()
+            }
+          } else {
+            return;
+          }
+        }
+        //if player collides with carbs
+        for (let c of carbs) {
 
-      //     const cur = c.collider;
-      //     if (c.mesh) {
-      //       this.carbsID = c.mesh.uuid;
-      //       if (!this.processedCarbsIDs.includes(this.carbsID) && cur.intersectsBox(this.playerBox_)) {
-      //         this.processedCarbsIDs.push(this.carbsID);
-      //         this.carbProp = this.carbProp + 1
+          const cur = c.collider;
+          if (c.mesh) {
+            this.carbsID = c.mesh.uuid;
+            if (!this.processedCarbsIDs.includes(this.carbsID) && cur.intersectsBox(this.playerBox_)) {
+              this.processedCarbsIDs.push(this.carbsID);
+              this.carbProp = this.carbProp + 1
 
-      //         this.AddFood('carbs')
-      //         this.GetFood()
-      //         this.params_.carbs.ToggleVisible()
+              this.AddFood('carbs')
+              this.GetFood()
+              this.params_.carbs.ToggleVisible()
 
-      //       }
-      //     } else {
-      //       return;
-      //     }
-      //   }
-      // }
+            }
+          } else {
+            return;
+          }
+        }
+      }
     }
 
     AddFood(food) {
@@ -504,9 +507,6 @@ export const player = (() => {
 
       }
 
-      console.log(this.propArray)
-
-
 
       const backgroundColor1 = getComputedStyle(quaterOne).getPropertyValue('background-color');
       const backgroundColor2 = getComputedStyle(quarterTwo).getPropertyValue('background-color');
@@ -525,7 +525,6 @@ export const player = (() => {
 
       if (this.propArray.length == 4) {
         if (vegePortion == 2 && meatPortion == 1 && carbsPortion == 1) {
-          console.log(vegePortion, meatPortion, carbsPortion)
           this.immunitiy = true;
           this.propArray = [];
         } else {
@@ -550,6 +549,10 @@ export const player = (() => {
       const result = this.box;
       callback(result);
       this.box = ""
+    }
+    getStamina(callback) {
+      const result = this.stamina_;
+      callback(result);
     }
 
 
@@ -681,8 +684,6 @@ export const player = (() => {
           this.velocity_ += acceleration;
           this.velocity_ = Math.max(this.velocity_, -100);
 
-          console.log(this.sliding_)
-
         }
 
 
@@ -701,7 +702,13 @@ export const player = (() => {
           }
         }
       } else {
-        this.action.stop();
+        if (!this.mixer_) {
+          return;
+
+        } else {
+          this.action.stop();
+
+        }
         this.paused = true
       }
 
@@ -720,21 +727,21 @@ export const player = (() => {
       if (!pause) {
         //check speed decay
         if (this.buff) {
-          if (this.speed > 0.22) {
+          if (this.speed > 0.2) {
             this.speed -= (timeElapsed / 10)
           }
-          if (this.speed < 0.22) {
-            this.speed = 0.22
+          if (this.speed < 0.2) {
+            this.speed = 0.2
             this.buff = false
           }
         }
 
         if (this.debuff) {
-          if (this.speed > 0.22) {
-            this.speed = 0.22
+          if (this.speed > 0.2) {
+            this.speed = 0.2
             this.debuff = false
           }
-          if (this.speed < 0.22) {
+          if (this.speed < 0.2) {
             this.speed += (timeElapsed / 10)
 
           }

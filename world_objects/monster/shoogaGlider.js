@@ -44,10 +44,16 @@ export const shoogaGlider = (() => {
     }
 
     PauseAnimation_() {
+      if (!this.mixer) {
+        return
+      }
       this.action.stop()
     }
 
     PlayAnimation_() {
+      if (!this.mixer) {
+        return
+      }
       this.action.play()
     }
 

@@ -433,3 +433,15 @@ div.quarter.right-bottom {
   flex-direction: column;
   align-items: center;
 }
+
+
+#click-start {
+  position: fixed;
+  z-index: 999999999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  overflow: hidden;
+}

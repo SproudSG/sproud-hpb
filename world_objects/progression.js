@@ -5,17 +5,17 @@ export const progression = (() => {
             this.progress_ = 0.0;
         }
 
-        Update(timeElapsed, pause, buffspeed, speed) {
-            this.UpdateProgression_(timeElapsed, pause, buffspeed, speed);
+        Update(timeElapsed, pause, buffspeed, speed,stage) {
+            this.UpdateProgression_(timeElapsed, pause, buffspeed, speed,stage);
         }
 
         //Progression 
-        UpdateProgression_(timeElapsed, pause, buffspeed, speed) {
+        UpdateProgression_(timeElapsed, pause, buffspeed, speed, stage) {
             if (!pause) {
 
                 //if speed buff is active, move the person faster/ slower on the progression UI 
                 if (buffspeed) {
-                    this.progress_ += ((timeElapsed * 10.0) * (speed / 0.22));
+                    this.progress_ += ((timeElapsed * 10.0) * (speed / 0.2));
                 }
                 else {
                     this.progress_ += timeElapsed * 10.0;
@@ -31,8 +31,16 @@ export const progression = (() => {
 
                 document.getElementById('monster').style.left = scoreText1 * 4.1 + 'px';
 
-                if (this.progress_ >= 100) {
-                    document.dispatchEvent(new CustomEvent('score-over'));
+                if (this.progress_ >= 500) {
+                    if (stage == 1) {
+                        document.dispatchEvent(new CustomEvent('score-over'));
+                    } else if (stage == 2) {
+                        document.dispatchEvent(new CustomEvent('score-over1'));
+
+                    }else if (stage == 3) {
+                        document.dispatchEvent(new CustomEvent('score-over2'));
+
+                    }
                 }
 
             }

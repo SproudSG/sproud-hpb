@@ -46,10 +46,16 @@ export const trolliumChloride = (() => {
     }
 
     PauseAnimation_() {
+      if (!this.mixer) {
+        return
+      }
       this.action.stop()
     }
 
     PlayAnimation_() {
+      if (!this.mixer) {
+        return
+      }
       this.action.play()
     }
 
@@ -76,6 +82,7 @@ export const trolliumChloride = (() => {
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
+      this.paused = false
     }
 
     GetColliders() {
@@ -111,23 +118,39 @@ export const trolliumChloride = (() => {
     }
 
 
-    Update(timeElapsed,speed) {
+    Update(timeElapsed,speed, paused) {
       this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed);
+      this.UpdateColliders_(timeElapsed,speed,paused);
 
     }
 
-    UpdateColliders_(timeElapsed,speed) {
+    UpdateColliders_(timeElapsed,speed,paused) {
       const invisible = [];
       const visible = [];
 
+
+
       for (let obj of this.objects_) {
+
+  
         obj.position.x -= timeElapsed * speed;
 
         if(obj.position.x < 25){
             obj.position.y = -5
             obj.PlayAnimation_()
-
+            if (paused) {
+              obj.PauseAnimation_()
+              this.paused = true
+            } else if (this.paused == true) {
+              for (let obj of this.objects_) {
+                obj.PlayAnimation_()
+      
+              }
+              this.paused = false
+      
+            }
+    
+            
         }
 
         if (obj.position.x < 0) {
