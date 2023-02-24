@@ -21,7 +21,6 @@ export const oilSlik = (() => {
             const loader = new GLTFLoader();
             loader.setPath('./resources/OilSilk/');
             loader.load('OilSilkChase.gltf', (gltf) => {
-                console.log(gltf)
                 this.mesh_ = gltf.scene;
 
                 this.mesh_.quaternion.setFromAxisAngle(

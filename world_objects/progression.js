@@ -11,7 +11,7 @@ export const progression = (() => {
 
         //Progression 
         UpdateProgression_(timeElapsed, pause, buffspeed, speed, stage) {
-            if (!pause) {
+            if (!pause && timeElapsed < 0.1) {
 
                 //if speed buff is active, move the person faster/ slower on the progression UI 
                 if (buffspeed) {

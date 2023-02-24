@@ -8,7 +8,7 @@ export const trolliumChloride = (() => {
   class TrolliumChlorideObject {
     constructor(params) {
       this.position = new THREE.Vector3(0, 0, 0);
-      this.quaternion = new THREE.Quaternion();
+      this.quaternion = new THREE.Quaternion()//.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
       this.scale = 1.0;
 
       this.collider = new THREE.Box3();
@@ -26,9 +26,9 @@ export const trolliumChloride = (() => {
         this.gltf = gltf
         //add model to the scene
         this.params_.scene.add(this.mesh);
-        this.mesh.quaternion.setFromAxisAngle(
-            new THREE.Vector3(0, 1, 0), Math.PI / 2);
+        //this.mesh.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
 
+        // Rotate the mesh around the x-axis
 
         // Extract the animation clips from the gltf file
 
@@ -43,6 +43,8 @@ export const trolliumChloride = (() => {
 
     UpdateCollider_() {
       this.collider.setFromObject(this.mesh);
+    // console.log(`The position of the box is: (${this.collider.position.x}, ${this.collider.position.y}, ${this.collider.position.z})`);
+
     }
 
     PauseAnimation_() {
@@ -64,9 +66,10 @@ export const trolliumChloride = (() => {
         return;
       }
       this.mesh.position.copy(this.position);
-      this.mesh.quaternion.copy(this.quaternion);
+      //this.mesh.rotation.set(0, -Math.PI / 2, 0)
       this.mesh.scale.setScalar(this.scale);
       this.UpdateCollider_();
+
       // play animation 
       if (this.mixer) {
         this.mixer.update(timeElapsed);
@@ -93,7 +96,7 @@ export const trolliumChloride = (() => {
       this.objects_[0].mesh.visible = false;
     }
 
-   
+
     SpawnObj_(timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
@@ -104,6 +107,12 @@ export const trolliumChloride = (() => {
       for (var i = 0; i < spawnPosition.length; i++) {
         if (this.counter_ == i) {
           obj = new TrolliumChlorideObject(this.params_);
+
+          // obj.quaternion.setFromAxisAngle(
+          //   new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+
+
+
 
           obj.position.x = spawnPosition[i]
           obj.position.z = 6
@@ -118,13 +127,13 @@ export const trolliumChloride = (() => {
     }
 
 
-    Update(timeElapsed,speed, paused) {
+    Update(timeElapsed, speed, paused) {
       this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed,paused);
+      this.UpdateColliders_(timeElapsed, speed, paused);
 
     }
 
-    UpdateColliders_(timeElapsed,speed,paused) {
+    UpdateColliders_(timeElapsed, speed, paused) {
       const invisible = [];
       const visible = [];
 
@@ -132,28 +141,26 @@ export const trolliumChloride = (() => {
 
       for (let obj of this.objects_) {
 
-  
+
         obj.position.x -= timeElapsed * speed;
 
-        if(obj.position.x < 25){
-            obj.position.y = -5
-            obj.PlayAnimation_()
-            if (paused) {
-              obj.PauseAnimation_()
-              this.paused = true
-            } else if (this.paused == true) {
-              for (let obj of this.objects_) {
-                obj.PlayAnimation_()
-      
-              }
-              this.paused = false
-      
+        if (obj.position.x < 25) {
+          // obj.position.y = -4
+          obj.PlayAnimation_()
+          if (paused) {
+            obj.PauseAnimation_()
+            this.paused = true
+          } else if (this.paused == true) {
+            for (let obj of this.objects_) {
+              obj.PlayAnimation_()
+
             }
-    
-            
+            this.paused = false
+
+          }
         }
 
-        if (obj.position.x < 0) {
+        if (obj.position.x < -10) {
           invisible.push(obj);
           obj.mesh.visible = false;
         } else {

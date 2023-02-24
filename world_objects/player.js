@@ -217,8 +217,8 @@ export const player = (() => {
       //check for shooga glider monster collision
       for (let c of shoogaGlider) {
         const cur = c.collider;
-        if(c.uuid){
-          this.shoogaGliderID = c.mesh.uuid;
+        if (c.mesh) {
+          this.shoogaGliderID = c.mesh.id;
 
         }
 
@@ -226,9 +226,20 @@ export const player = (() => {
           this.processedshoogaGliderIDs.push(this.shoogaGliderID);
           if (this.immunitiy) {
             this.immunitiy = false
+
+            document.querySelector('#quarterOne').style.backgroundColor = '#333'
+            document.querySelector('#quarterTwo').style.backgroundColor = '#333'
+            document.querySelector('#quarterThree').style.backgroundColor = '#333'
+            document.querySelector('#quarterFour').style.backgroundColor = '#333'
           } else {
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
+
+            document.querySelector('#video-container').style.backgroundColor = '#754c4c7d'
+            setTimeout(() => {
+              // Reset the background color to the original color
+              document.querySelector('#video-container').style.backgroundColor = 'transparent'
+            }, 2000)
           }
         }
       }
@@ -236,17 +247,32 @@ export const player = (() => {
       //check for trollium chloride monster collision
       for (let c of trolliumChloride) {
         const cur = c.collider;
-        if(c.uuid){
-          this.trolliumChlorideID = c.mesh.uuid;
-
+        if (c.mesh) {
+          this.trolliumChlorideID = c.mesh.id;
         }
+
         if (!this.processedtrolliumChlorideIDs.includes(this.trolliumChlorideID) && cur.intersectsBox(this.playerBox_)) {
           this.processedtrolliumChlorideIDs.push(this.trolliumChlorideID);
+
+
           if (this.immunitiy) {
             this.immunitiy = false
+
+            document.querySelector('#quarterOne').style.backgroundColor = '#333'
+            document.querySelector('#quarterTwo').style.backgroundColor = '#333'
+            document.querySelector('#quarterThree').style.backgroundColor = '#333'
+            document.querySelector('#quarterFour').style.backgroundColor = '#333'
+
           } else {
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
+
+
+            document.querySelector('#video-container').style.backgroundColor = '#754c4c7d'
+            setTimeout(() => {
+              // Reset the background color to the original color
+              document.querySelector('#video-container').style.backgroundColor = 'transparent'
+            }, 2000)
           }
         }
       }
@@ -753,14 +779,15 @@ export const player = (() => {
 
     // Stamina
     UpdateStamina_(timeElapsed, pause) {
-      if (!pause) {
+      if (!pause && timeElapsed < 0.1) {
+
         this.stamina_ -= timeElapsed * 5
         const staminaText = (Math.round(this.stamina_ * 10) / 10).toLocaleString(
           'en-US', { minimumIntegerDigits: 3, useGrouping: false });
 
         document.getElementById("stamina").style.width = staminaText + "%"
         if (this.stamina_ <= 0) {
-          this.gameOver = true
+          //this.gameOver = true
         }
       }
 

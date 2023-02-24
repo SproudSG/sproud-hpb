@@ -372,7 +372,7 @@ class BasicWorldDemo {
     loader.load('piratemap.fbx', (fbx) => {
       fbx.castShadow = true;
       fbx.receiveShadow = true;
-      fbx.position.set(-15, 0, 0);
+      fbx.position.set(-5, 0, 0);
       fbx.rotation.set(0, Math.PI / 2, 0);
       fbx.scale.setScalar(0.0095);
 
@@ -455,13 +455,33 @@ class BasicWorldDemo {
 
       //handle map position 
       const animate = () => {
-        if (this._gameStarted) {
+
+        if (this._gameStarted && !this.isPaused) {
           const speed = this.speed_
           this.mesh.position.x -= speed;
-        }
 
+        } 
         this.animationId = requestAnimationFrame(animate);
+
       }
+
+
+
+      //detect shit
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+          console.log("User has tabbed out of the page");
+
+          this.objSpeed = 0
+          this.monSpeed = 0
+          this.speedy = 0
+          this.speedz = 0
+          cancelAnimationFrame(this.animationId);
+          this.isPaused = true;
+
+        } 
+      });
+
 
       animate();
 
@@ -606,15 +626,15 @@ class BasicWorldDemo {
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
     this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
     this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
-    this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
-    this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
-    this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
-    this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
-    this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
-    this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
-    this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
-    this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
-    this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
+    this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 });
+    this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 });
+    this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 });
+    this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
+    this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
+    this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
+    this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
+    this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
+    this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
     this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
     this.background_ = new background.Background({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
@@ -799,7 +819,7 @@ class BasicWorldDemo {
               fbx.receiveShadow = true;
               fbx.position.set(-5, 0, 0);
               fbx.rotation.set(0, Math.PI / 2, 0);
-              fbx.scale.setScalar(0.01);
+              fbx.scale.setScalar(0.0095);
 
               const texturePath = './resources/Map/textures/piratemap/';
               const texture1 = new THREE.TextureLoader().load(texturePath + 'path.png');
@@ -1003,7 +1023,7 @@ class BasicWorldDemo {
                 fbx.receiveShadow = true;
                 fbx.position.set(-5, 0, 0);
                 fbx.rotation.set(0, Math.PI / 2, 0);
-                fbx.scale.setScalar(0.01);
+                fbx.scale.setScalar(0.0095);
 
                 const texturePath = './resources/Map/textures/piratemap/';
                 const texture1 = new THREE.TextureLoader().load(texturePath + 'path.png');
