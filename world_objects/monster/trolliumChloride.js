@@ -8,7 +8,7 @@ export const trolliumChloride = (() => {
   class TrolliumChlorideObject {
     constructor(params) {
       this.position = new THREE.Vector3(0, 0, 0);
-      this.quaternion = new THREE.Quaternion()//.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+      this.quaternion = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
       this.scale = 1.0;
 
       this.collider = new THREE.Box3();
@@ -26,11 +26,7 @@ export const trolliumChloride = (() => {
         this.gltf = gltf
         //add model to the scene
         this.params_.scene.add(this.mesh);
-        //this.mesh.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
 
-        // Rotate the mesh around the x-axis
-
-        // Extract the animation clips from the gltf file
 
 
         const animations = gltf.animations;
@@ -43,8 +39,13 @@ export const trolliumChloride = (() => {
 
     UpdateCollider_() {
       this.collider.setFromObject(this.mesh);
-    // console.log(`The position of the box is: (${this.collider.position.x}, ${this.collider.position.y}, ${this.collider.position.z})`);
+      this.collider.min.z = -8.07592529296875;
+      this.collider.max.z = 10.939229736328125;
+      this.collider.max.y = 0.18;
+      this.collider.max.x = this.collider.max.x-10
+      this.collider.min.x = this.collider.min.x+5
 
+      console.log(this.collider)
     }
 
     PauseAnimation_() {
@@ -66,7 +67,7 @@ export const trolliumChloride = (() => {
         return;
       }
       this.mesh.position.copy(this.position);
-      //this.mesh.rotation.set(0, -Math.PI / 2, 0)
+      this.mesh.quaternion.copy(this.quaternion)
       this.mesh.scale.setScalar(this.scale);
       this.UpdateCollider_();
 
@@ -107,16 +108,10 @@ export const trolliumChloride = (() => {
       for (var i = 0; i < spawnPosition.length; i++) {
         if (this.counter_ == i) {
           obj = new TrolliumChlorideObject(this.params_);
-
-          // obj.quaternion.setFromAxisAngle(
-          //   new THREE.Vector3(0, 1, 0), -Math.PI / 2);
-
-
-
-
+          obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
           obj.position.x = spawnPosition[i]
-          obj.position.z = 6
-          obj.position.y = -5
+          obj.position.z = 8
+          obj.position.y = -6
 
           obj.scale = 0.02;
           this.objects_.push(obj);
@@ -145,7 +140,6 @@ export const trolliumChloride = (() => {
         obj.position.x -= timeElapsed * speed;
 
         if (obj.position.x < 25) {
-          // obj.position.y = -4
           obj.PlayAnimation_()
           if (paused) {
             obj.PauseAnimation_()

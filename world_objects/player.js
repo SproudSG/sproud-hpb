@@ -249,7 +249,7 @@ export const player = (() => {
         const cur = c.collider;
         if (c.mesh) {
           this.trolliumChlorideID = c.mesh.id;
-        }
+      }
 
         if (!this.processedtrolliumChlorideIDs.includes(this.trolliumChlorideID) && cur.intersectsBox(this.playerBox_)) {
           this.processedtrolliumChlorideIDs.push(this.trolliumChlorideID);
