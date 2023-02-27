@@ -6,6 +6,8 @@ import { player } from './world_objects/player.js';
 import { shoogaGlider } from './world_objects/monster/shoogaGlider.js';
 import { trolliumChloride } from './world_objects/monster/trolliumChloride.js';
 import { pitfall } from './world_objects/obstacle/pitfall.js';
+import { wallrun } from './world_objects/obstacle/wallrun.js';
+
 import { background } from './world_objects/background.js';
 import { progression } from './world_objects/progression.js';
 import { water } from './world_objects/drinks/water.js';
@@ -148,6 +150,7 @@ class BasicWorldDemo {
     this.loaded = false;
     this.gender_ = null;
     this.stage = 1;
+    this.wallPosition = [];
 
     //init
     this._gameStarted = false;
@@ -460,7 +463,7 @@ class BasicWorldDemo {
           const speed = this.speed_
           this.mesh.position.x -= speed;
 
-        } 
+        }
         this.animationId = requestAnimationFrame(animate);
 
       }
@@ -479,7 +482,7 @@ class BasicWorldDemo {
           cancelAnimationFrame(this.animationId);
           this.isPaused = true;
 
-        } 
+        }
       });
 
 
@@ -626,6 +629,8 @@ class BasicWorldDemo {
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
     this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
     this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
+    this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
+
     this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 });
     this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 });
     this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 });
@@ -781,6 +786,8 @@ class BasicWorldDemo {
             this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
             this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
             this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
+            this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
+
             this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
             this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
             this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
@@ -1120,6 +1127,7 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.wallrun_.Update(timeElapsed, this.objSpeed)
 
         this.loaded = true;
 
@@ -1129,6 +1137,8 @@ class BasicWorldDemo {
 
     //load the game assets and animations
     if (this.stage == 1) {
+      this.wallrun_.Update(timeElapsed, this.objSpeed)
+
       this.water_.Update(timeElapsed, this.objSpeed)
       this.soda_.Update(timeElapsed, this.objSpeed)
       this.fruitDrink_.Update(timeElapsed, this.objSpeed)
@@ -1158,8 +1168,13 @@ class BasicWorldDemo {
       this.carbs_.Update(timeElapsed, this.objSpeed)
       this.trolliumChloride_.Update(timeElapsed, this.objSpeed, pause)
     }
+    //get position of wall from wallrun.js
+    this.wallrun_.GetPosition(result => {
+      this.wallPosition = result
+    });
 
-    this.player_.Update(timeElapsed, pause);
+
+    this.player_.Update(timeElapsed, pause, this.wallPosition);
     this.oilSlik_.Update(timeElapsed);
     this.background_.Update(timeElapsed);
     this.progression_.Update(timeElapsed, pause, this.buffspeed, this.speed_, this.stage);

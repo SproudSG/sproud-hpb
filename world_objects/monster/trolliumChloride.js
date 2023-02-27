@@ -42,10 +42,8 @@ export const trolliumChloride = (() => {
       this.collider.min.z = -8.07592529296875;
       this.collider.max.z = 10.939229736328125;
       this.collider.max.y = 0.18;
-      this.collider.max.x = this.collider.max.x-10
-      this.collider.min.x = this.collider.min.x+5
-
-      console.log(this.collider)
+      this.collider.max.x = this.collider.max.x - 10;
+      this.collider.min.x = this.collider.min.x + 5;
     }
 
     PauseAnimation_() {

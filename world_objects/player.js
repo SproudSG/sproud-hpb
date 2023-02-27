@@ -51,6 +51,9 @@ export const player = (() => {
       this.carbProp = 0;
       this.propArray = [];
 
+      //wall variables
+      this.onWall = false;
+      this.endWall = false;
       //sheild variables
       this.immunitiy = false;
 
@@ -142,6 +145,40 @@ export const player = (() => {
       this.action.play();
 
 
+    }
+
+
+    RightWallRunAnimation_() {
+      if (!this.mixer_) {
+        return;
+
+      }
+      this.action.stop();
+      const clip = this.gltf.animations[2];
+      this.action = this.mixer_.clipAction(clip);
+      this.action.play();
+    }
+
+    LeftWallRunAnimation_() {
+      if (!this.mixer_) {
+        return;
+
+      }
+      this.action.stop();
+      const clip = this.gltf.animations[3];
+      this.action = this.mixer_.clipAction(clip);
+      this.action.play();
+    }
+
+    DownAnimation_() {
+      if (!this.mixer_) {
+        return;
+
+      }
+      this.action.stop();
+      const clip = this.gltf.animations[12];
+      this.action = this.mixer_.clipAction(clip);
+      this.action.play();
     }
 
     RunAnimation_() {
@@ -249,7 +286,7 @@ export const player = (() => {
         const cur = c.collider;
         if (c.mesh) {
           this.trolliumChlorideID = c.mesh.id;
-      }
+        }
 
         if (!this.processedtrolliumChlorideIDs.includes(this.trolliumChlorideID) && cur.intersectsBox(this.playerBox_)) {
           this.processedtrolliumChlorideIDs.push(this.trolliumChlorideID);
@@ -605,6 +642,19 @@ export const player = (() => {
       baileyWoo.play();
     }
 
+    SwipeFullLeft() {
+
+      if (this.position_.z <= 3) {
+        this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
+        if (this.position_.z == -3) {
+          this.keys_.left = false;
+        }
+      } else if (this.position_.z == -3) {
+        return;
+      }
+      var baileyWoo = document.getElementById("bailey-woo");
+      baileyWoo.play();
+    }
 
     SwipeRight() {
       if (this.position_.z >= 0) {
@@ -628,10 +678,13 @@ export const player = (() => {
 
     SwipeUp() {
       if (this.position_.y == 0.0) {
-        this.velocity_ = 30;
-        this.inAir_ = true;
-        var baileyYay = document.getElementById("bailey-yay");
-        baileyYay.play();
+        if (this.position_.z == 0 || this.position_.z == -3 || this.position_.z == 3) {
+          this.velocity_ = 30;
+          this.inAir_ = true;
+          var baileyYay = document.getElementById("bailey-yay");
+          baileyYay.play();
+        }
+
       }
       if (this.inAir_) {
         this.JumpAnimation_()
@@ -655,13 +708,95 @@ export const player = (() => {
     }
 
 
-    Update(timeElapsed, pause) {
-
+    Update(timeElapsed, pause, wallPosition) {
       if (!pause) {
+
+
         if (this.paused == true) {
           this.action.play();
           this.paused = false
         }
+
+
+
+        // wall running sheesh hard coded
+        if (wallPosition.length != 0 ) {
+          //wall running right wall mechanics
+          if (wallPosition[0].x < 15 && wallPosition[0].x > -15) {
+            //dont jump u die 
+            if (this.position_.y == 0 && wallPosition[1].x > 15 && wallPosition[0].x > 0) {
+              this.gameOver = true
+            }
+            //right wall first -> if u jump and go to right , u will stay in that y position.
+            if (this.inAir_ && this.keys_.right) {
+              this.SwipeRight()
+              if (this.position_.z == 3) {
+                this.position_.y = this.position_.y
+                this.inAir_ = false;
+                this.onWall = true;
+                this.RightWallRunAnimation_()
+              }
+
+            }
+
+            //click left way too early
+            if (this.onWall && this.keys_.left && wallPosition[1].x > 15) {
+              this.SwipeLeft()
+              this.inAir_ = true
+            }
+
+
+          }
+          //fall down when wall ends
+          if (!this.endWall && wallPosition[0].x < -15 && this.position_.z == 3) {
+            this.inAir_ = true;
+            this.endWall = true;
+            this.RunAnimation_()
+          }
+
+
+
+          //wall running left wall mechanics
+          if (wallPosition[1].x < 15 && wallPosition[1].x > -15) {
+
+            //dont jump u die 
+            if (this.position_.y == 0 && wallPosition[1].x > -10) {
+              this.gameOver = true
+            }
+
+            //left wall
+            if (!this.inAir_ && this.keys_.left) {
+              this.SwipeFullLeft()
+              if (this.position_.z == -3) {
+                this.onWall = true;
+                this.LeftWallRunAnimation_()
+              }
+
+            }
+
+            if (this.onWall && this.keys_.right && this.position_.z == -3) {
+              this.SwipeRight()
+              this.inAir_ = true
+            }
+
+
+          }
+          //fall down when wall ends
+          if (!this.endWall && wallPosition[1].x < -15) {
+            this.inAir_ = true;
+            this.endWall = true;
+            this.onWall = false;
+
+          }
+        }
+
+
+
+
+
+
+
+
         //player movement with keyboard controls
         if (this.keys_.space && this.position_.y == 0.0) {
           this.SwipeUp(timeElapsed)
@@ -675,7 +810,7 @@ export const player = (() => {
         if (!this.inAir_) {
           if (this.keys_.left) {
 
-            if (!this.keys_.right) {
+            if (!this.keys_.right && !this.onWall) {
               this.SwipeLeft()
             }
           }
