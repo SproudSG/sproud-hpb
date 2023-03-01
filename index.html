@@ -38,13 +38,7 @@
           <div class="w3-blue" style="height:24px;width:100%" id="stamina"></div>
         </div>
       </div>
-      <!-- <div class="circle">
-        <div class="quarter top-left" id="quarterOne"></div>
-        <div class="quarter top-right" id="quarterTwo"></div>
-        <div class="quarter bottom-left" id="quarterThree"></div>
-        <div class="quarter bottom-right" id="quarterFour"></div>
-      </div> -->
-      <!-- <div id="circle"></div> -->
+
       <div class="wrapper">
         <div class="quarter left-top" id="quarterOne"></div>
         <div class="quarter right-top" id="quarterTwo"></div>
@@ -65,10 +59,9 @@
       </div>
     </div>
     <div class="ui">
-      <div class="you-win-layout" id="you-win">
-        <div class="you-win-text">YOU WIN!</div>
-        <div class="five-hundred-text">+500 pts!</div>
-        <div class="ten-seconds-text" id="you-win-countdown-text"> seconds to main page..</div>
+      <div class="game-over-layout" id="final-score">
+        <div class="you-win-text" id="score"></div>
+        <div class="ten-seconds-text" > FINAL SCORE</div>
       </div>
     </div>
     <div class="ui">
@@ -88,32 +81,50 @@
   </div>
 
 
-  
 
 
-    <div id="gender-selection" style="display: none;">
-      <h2>Choose your character's gender:</h2>
-      <div class="gender-column">
-        <i class="fa-solid fa-person" style="font-size: 100px; color: white"></i>
-        <button id="male-button">Male</button>
-      </div>
-      <div class="gender-column">
-        <i class="fa-solid fa-person-dress"  style="font-size: 100px; color: white"></i>
-        <button id="female-button">Female</button>
-      </div>
+
+  <div id="gender-selection" style="display: none;">
+    <h2>Choose your character's gender:</h2>
+    <div class="gender-column">
+      <i class="fa-solid fa-person" style="font-size: 100px; color: white"></i>
+      <button id="male-button">Male</button>
     </div>
+    <div class="gender-column">
+      <i class="fa-solid fa-person-dress" style="font-size: 100px; color: white"></i>
+      <button id="female-button">Female</button>
+    </div>
+  </div>
 
 
   <!-- play power up video -->
   <div id="video-container" style="display: none;">
     <video id="powerup" src="resources/PowerUp/powerup.mp4" style="display: none;"></video>
     <video id="powerdown" src="resources/PowerUp/powerdown.mp4" style="display: none;"></video>
+    <video id="nextStage" src="resources/nextStage.mp4" style="display: none;"></video>
 
   </div>
   <div id="click-start" style="display: none;">
-
+    <div class="ui">
+      <div class="you-win-layout">
+        <div class="you-win-text">CLICK TO CONTINUE</div>
+      </div>
+    </div>
   </div>
-
+  <div id="loading-2" style="display: none;">
+    <div class="ui">
+      <div class="you-win-layout">
+        <div class="you-win-text">LOADING STAGE 2 </div>
+      </div>
+    </div>
+  </div>
+  <div id="loading-3" style="display: none;">
+    <div class="ui">
+      <div class="you-win-layout">
+        <div class="you-win-text">LOADING STAGE 3</div>
+      </div>
+    </div>
+  </div>
 
   </div>
 

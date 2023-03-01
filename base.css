@@ -67,9 +67,8 @@ body {
   margin-bottom: 100px;
 }
 
-.you-win-layout {
+.final-score-layout {
   opacity: 0.0;
-
   visibility: hidden;
   height: 100%;
   width: 100%;
@@ -79,6 +78,30 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1;
+}
+
+.you-win-layout {
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.you-win-layout.active {
+  opacity: 1.0;
+  visibility: visible;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.you-win-text {
+  font-size: 5em;
+  color: white;
+  text-shadow: 8px 8px black;
+  margin-bottom: 50px;
 }
 
 .you-win-layout.active {
@@ -265,6 +288,8 @@ li {
   right: 0;
   background-color: transparent;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 #powerup {
@@ -275,7 +300,24 @@ li {
   transform: translate(-50%, -50%);
   transition: 1s;
   width: 100%;
+  height: 100%;
+
 }
+
+#nextStage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  animation: move 1s ease;
+  transform: translate(-50%, -50%);
+  transition: 1s;
+  width: 100%;
+  height: 100%;
+
+  z-index: 99999999999999999999999999999;
+}
+
+
 
 #powerdown {
   position: absolute;
@@ -285,6 +327,9 @@ li {
   transform: translate(-50%, -50%);
   transition: 1s;
   width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+
 }
 
 @keyframes move {
@@ -395,7 +440,7 @@ div.quarter.right-bottom {
 #start-button {
 
   width: 50%;
-  background-color:antiquewhite;
+  background-color: antiquewhite;
   border-radius: 10px;
   border-color: blanchedalmond;
 }

@@ -138,8 +138,8 @@ class BasicWorldDemo {
   constructor() {
 
     //game end & you win & after video count down
-    this.countdown_ = 6;
-    this.countdown1_ = 6;
+    this.countdown_ = 16;
+    this.countdown1_ = 16;
     this.totalStamina = 0;
 
     this.resumeCountdown_ = 3;
@@ -221,6 +221,11 @@ class BasicWorldDemo {
     this.videoContainer = document.getElementById("video-container");
 
 
+    //next stage cut scenes
+    this.nextStageVideo_ = document.getElementById("nextStage");
+
+    
+
   }
 
   //HPB boxes video handler functions
@@ -242,6 +247,16 @@ class BasicWorldDemo {
   closePowerdownVideo() {
     this.powerdownVideo_.style.display = "none";
     this.powerdownVideo_.currentTime = 0;
+  }
+
+  playNextStageVideo() {
+    this.nextStageVideo_.style.display = "block";
+    this.nextStageVideo_.play();
+  }
+
+  closeNextStageVideo() {
+    this.nextStageVideo_.style.display = "none";
+    this.nextStageVideo_.currentTime = 0;
   }
 
   //music player
@@ -441,7 +456,6 @@ class BasicWorldDemo {
 
       });
 
-
       // if power up video ends, then unpause everything
       this.powerupVideo_.addEventListener("ended", () => {
         this.closePowerupVideo();
@@ -453,6 +467,27 @@ class BasicWorldDemo {
       this.powerdownVideo_.addEventListener("ended", () => {
         this.closePowerdownVideo();
         this.powerCountdown_ = true
+
+      });
+
+      // if next stage video ends, then unpause everything
+      this.nextStageVideo_.addEventListener("ended", () => {
+        this.closeNextStageVideo();
+
+        if(this.stage === 1){
+          document.getElementById('loading-2').style.display = 'block';
+
+        }else if ( this.stage === 2){
+          document.getElementById('loading-3').style.display = 'block';
+
+        }else if ( this.stage === 3) {
+          document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
+
+          document.getElementById('final-score').classList.toggle('active');
+        }
+        while (this.scene_.children.length > 0) {
+          this.scene_.remove(this.scene_.children[0]);
+        }
 
       });
 
@@ -691,8 +726,7 @@ class BasicWorldDemo {
     if (!this.eventAdded && this.stage == 1) {
       document.addEventListener('score-over', () => {
         this.gameOver_ = true;
-        document.getElementById('you-win').classList.toggle('active');
-
+        this.playNextStageVideo()
         this.Pause()
 
         this.player_.getStamina(result => {
@@ -705,10 +739,7 @@ class BasicWorldDemo {
         this.intervalId_ = setInterval(() => {
 
           this.countdown_--;
-          document.getElementById('you-win-countdown-text').textContent = this.countdown_ + ' seconds to main screen';
-          if (this.countdown_ === 4) {
-
-
+          if (this.scene_.children.length === 0) {
 
 
             // set randon positoin for drinks
@@ -786,8 +817,6 @@ class BasicWorldDemo {
             this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
             this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
             this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
-            this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
-
             this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
             this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
             this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
@@ -801,6 +830,7 @@ class BasicWorldDemo {
             this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
             this.background_ = new background.Background({ scene: this.scene_ });
             this.progression_ = new progression.ProgressionManager();
+            this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
 
 
@@ -878,20 +908,13 @@ class BasicWorldDemo {
             })
           } else if (this.countdown_ === 0) {
             this.previousRAF_ = null;
+            document.getElementById('loading-2').style.display = 'none';
             document.getElementById('click-start').style.display = 'block';
-            document.getElementById('you-win').classList.toggle('active');
             clearInterval(this.intervalId_);
-            this.countdown_ = 6
-
-          } else if (this.countdown_ === 5) {
-            while (this.scene_.children.length > 0) {
-              this.scene_.remove(this.scene_.children[0]);
-            }
           }
         }, 1000);
       });
       this.eventAdded = true;
-
 
     }
 
@@ -899,28 +922,21 @@ class BasicWorldDemo {
     if (!this.eventAdded1 && this.stage == 2) {
 
       document.addEventListener('score-over1', () => {
-        this.stage = 3
         this.gameOver_ = true;
+        this.playNextStageVideo()
+
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
           console.log(this.totalStamina)
         });
 
-        document.getElementById('you-win').classList.toggle('active');
         this.Pause()
-        // Remove any references to the objects
-        if (this.stage == 3) {
-
 
           this.intervalId_ = setInterval(() => {
             this.countdown1_--;
-            document.getElementById('you-win-countdown-text').textContent = this.countdown1_ + ' seconds to main screen';
-            if (this.countdown1_ === 4) {
+            if (this.scene_.children.length === 0) {
 
-
-
-
-              // set randon positoin for drinks
+              // set randon position for drinks
               let arrDrinks1 = [];
               let arrDrinks2 = [];
               let arrDrinks3 = [];
@@ -1008,6 +1024,7 @@ class BasicWorldDemo {
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
               this.background_ = new background.Background({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
+              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
               let light = new THREE.DirectionalLight(0xffffff, 1);
 
@@ -1077,24 +1094,18 @@ class BasicWorldDemo {
 
 
                 this.gameOver_ = false;
-
+                this.stage = 3
               })
             } else if (this.countdown1_ === 0) {
               this.previousRAF_ = null;
               document.getElementById('click-start').style.display = 'block';
-
-              document.getElementById('you-win').classList.toggle('active');
+              document.getElementById('loading-3').style.display = 'none';
               clearInterval(this.intervalId_);
-            } else if (this.countdown1_ === 5) {
-              while (this.scene_.children.length > 0) {
-                this.scene_.remove(this.scene_.children[0]);
-              }
             }
           }, 1000);
-        }
-
       });
       this.eventAdded1 = true;
+
     }
 
 
@@ -1106,19 +1117,13 @@ class BasicWorldDemo {
           this.totalStamina = this.totalStamina + result
           console.log(this.totalStamina)
         });
+        this.playNextStageVideo()
 
-        document.getElementById('you-win').classList.toggle('active');
-        this.intervalId_ = setInterval(() => {
-          this.countdown_--;
-          document.getElementById('you-win-countdown-text').textContent = this.countdown_ + ' seconds to main screen';
-          if (this.countdown_ === 0) {
-            clearInterval(this.intervalId_);
-            location.assign(location.href);
-          }
-        }, 1000);
       });
       this.eventAdded2 = true;
     }
+
+
     //preload the game assets
     if (this.gameOver_ || !this._gameStarted) {
       if (!this.loaded) {
@@ -1127,7 +1132,6 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
-        this.wallrun_.Update(timeElapsed, this.objSpeed)
 
         this.loaded = true;
 
@@ -1137,8 +1141,6 @@ class BasicWorldDemo {
 
     //load the game assets and animations
     if (this.stage == 1) {
-      this.wallrun_.Update(timeElapsed, this.objSpeed)
-
       this.water_.Update(timeElapsed, this.objSpeed)
       this.soda_.Update(timeElapsed, this.objSpeed)
       this.fruitDrink_.Update(timeElapsed, this.objSpeed)
@@ -1155,6 +1157,7 @@ class BasicWorldDemo {
       this.carbs_.Update(timeElapsed, this.objSpeed)
       this.trolliumChloride_.Update(timeElapsed, this.objSpeed, pause)
     } else if (this.stage == 3) {
+      this.wallrun_.Update(timeElapsed, this.objSpeed)
       this.hpbLogo_.Update(timeElapsed, this.objSpeed)
       this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
       this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
@@ -1173,8 +1176,7 @@ class BasicWorldDemo {
       this.wallPosition = result
     });
 
-
-    this.player_.Update(timeElapsed, pause, this.wallPosition);
+    this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight);
     this.oilSlik_.Update(timeElapsed);
     this.background_.Update(timeElapsed);
     this.progression_.Update(timeElapsed, pause, this.buffspeed, this.speed_, this.stage);
@@ -1219,6 +1221,14 @@ class BasicWorldDemo {
 
     //checks for swipe gestures
     if (this.swipeLeft) {
+      if (this.player_.position_.y != 0) {
+        if (this.player_.position_.z <= -3) {
+          this.swipeLeft = false;
+        }
+
+        return
+
+      }
       this.player_.SwipeLeft();
       this.isSwiping = true
 
@@ -1227,8 +1237,19 @@ class BasicWorldDemo {
         this.isSwiping = false;
 
       }
+
+
     }
     if (this.swipeRight) {
+
+      if (this.player_.position_.y != 0) {
+        if (this.player_.position_.z >= 3) {
+          this.swipeRight = false;
+        }
+
+        return
+
+      }
       this.player_.SwipeRight();
       this.isSwiping = true
 

@@ -81,9 +81,9 @@ export const wallrun = (() => {
         SpawnObj_(timeElapsed) {
             this.progress_ += timeElapsed * 10.0;
 
-            const spawnPosition = [80, 100]
+            const spawnPosition = [80, 100, 200, 220]
             let obj = null;
-            let zPosition = 5; // initialize the zPosition to positive 5
+            let zPosition = -5; // initialize the zPosition to positive 5
 
             for (var i = 0; i < spawnPosition.length; i++) {
                 if (this.counter_ == i) {
