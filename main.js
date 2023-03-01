@@ -139,7 +139,7 @@ class BasicWorldDemo {
 
     //game end & you win & after video count down
     this.countdown_ = 10;
-    this.countdown1_ = 16;
+    this.countdown1_ = 10;
     this.totalStamina = 0;
     this.stopTime = false;
 
