@@ -1,0 +1,447 @@
+{
+    "asset": {
+        "copyright": "(C)2023 post",
+        "generator": "maya2glTF v1.4.0 3d7ba8eaf03e",
+        "version": "2.0"
+    },
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "scene": 0,
+    "nodes": [
+        {
+            "name": "stg3",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "stage3b_GEO",
+            "mesh": 0
+        }
+    ],
+    "meshes": [
+        {
+            "name": "stage3b_GEOShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 1,
+                        "POSITION": 2,
+                        "TANGENT": 3,
+                        "TEXCOORD_0": 4
+                    },
+                    "indices": 0,
+                    "mode": 4,
+                    "material": 0
+                },
+                {
+                    "attributes": {
+                        "NORMAL": 6,
+                        "POSITION": 7,
+                        "TANGENT": 8,
+                        "TEXCOORD_0": 9
+                    },
+                    "indices": 5,
+                    "mode": 4,
+                    "material": 1
+                },
+                {
+                    "attributes": {
+                        "NORMAL": 11,
+                        "POSITION": 12,
+                        "TANGENT": 13,
+                        "TEXCOORD_0": 14,
+                        "TEXCOORD_1": 15
+                    },
+                    "indices": 10,
+                    "mode": 4,
+                    "material": 1
+                }
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "name": "stg3land_colour",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        },
+        {
+            "name": "stg3props_colour",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 1
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        }
+    ],
+    "textures": [
+        {
+            "sampler": 0,
+            "source": 0
+        },
+        {
+            "sampler": 0,
+            "source": 1
+        }
+    ],
+    "images": [
+        {
+            "uri": "stg3land_colour.png"
+        },
+        {
+            "uri": "stg3props_colour.png"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    ],
+    "accessors": [
+        {
+            "name": "stage3b_GEOShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 5616,
+            "max": [
+                4705
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "stage3b_GEOShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 4706,
+            "max": [
+                0.9435659050941468,
+                1.0,
+                0.8643108010292053
+            ],
+            "min": [
+                -0.9705340266227722,
+                0.0873912125825882,
+                -0.9041038155555724
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "stage3b_GEOShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 56472,
+            "componentType": 5126,
+            "count": 4706,
+            "max": [
+                7358.60205078125,
+                144.8782958984375,
+                10438.990234375
+            ],
+            "min": [
+                -6897.1572265625,
+                -1419.9547119140626,
+                -10561.13671875
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "stage3b_GEOShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 4706,
+            "max": [
+                0.9956327676773072,
+                0.961376965045929,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -0.8053703904151917,
+                -0.9650043845176696,
+                -0.9999996423721314,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "stage3b_GEOShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 4706,
+            "max": [
+                0.9876501560211182,
+                0.9897125959396362
+            ],
+            "min": [
+                0.03786337003111839,
+                0.1269127726554871
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "stage3b_GEOShape#1/indices",
+            "bufferView": 0,
+            "byteOffset": 11232,
+            "componentType": 5123,
+            "count": 32754,
+            "max": [
+                8353
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "stage3b_GEOShape#1/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 112944,
+            "componentType": 5126,
+            "count": 8354,
+            "max": [
+                0.9998924732208252,
+                0.999986469745636,
+                0.999980330467224
+            ],
+            "min": [
+                -0.999964475631714,
+                -1.0,
+                -0.9999803900718688
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "stage3b_GEOShape#1/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 213192,
+            "componentType": 5126,
+            "count": 8354,
+            "max": [
+                10695.314453125,
+                3703.0166015625,
+                9787.38671875
+            ],
+            "min": [
+                -11153.931640625,
+                -3360.08056640625,
+                -9456.078125
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "stage3b_GEOShape#1/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 75296,
+            "componentType": 5126,
+            "count": 8354,
+            "max": [
+                0.9999815225601196,
+                0.9979353547096252,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -0.9961512684822084,
+                -1.0,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "stage3b_GEOShape#1/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 37648,
+            "componentType": 5126,
+            "count": 8354,
+            "max": [
+                0.9904760122299194,
+                0.9817497730255128
+            ],
+            "min": [
+                0.008887404575943947,
+                0.008623898029327393
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "stage3b_GEOShape#2/indices",
+            "bufferView": 0,
+            "byteOffset": 76740,
+            "componentType": 5123,
+            "count": 831,
+            "max": [
+                830
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "stage3b_GEOShape#2/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 313440,
+            "componentType": 5126,
+            "count": 831,
+            "max": [
+                0.9886411428451538,
+                0.5178933143615723,
+                0.9997565150260924
+            ],
+            "min": [
+                -0.5191853046417236,
+                -0.6346396803855896,
+                0.15017159283161164
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "stage3b_GEOShape#2/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 323412,
+            "componentType": 5126,
+            "count": 831,
+            "max": [
+                7373.8740234375,
+                2108.598388671875,
+                5805.1513671875
+            ],
+            "min": [
+                -8547.892578125,
+                -752.446533203125,
+                -7535.517578125
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "stage3b_GEOShape#2/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 208960,
+            "componentType": 5126,
+            "count": 831,
+            "max": [
+                0.9999972581863404,
+                0.655764102935791,
+                0.8564662337303162,
+                1.0
+            ],
+            "min": [
+                -0.9708422422409058,
+                -0.6338609457015991,
+                -0.9826170802116394,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "stage3b_GEOShape#2/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 104480,
+            "componentType": 5126,
+            "count": 831,
+            "max": [
+                0.26294493675231936,
+                0.9549869894981384
+            ],
+            "min": [
+                0.010552451014518738,
+                0.8501564264297485
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "stage3b_GEOShape#2/vertices/TEXCOORD_1",
+            "bufferView": 3,
+            "byteOffset": 111128,
+            "componentType": 5126,
+            "count": 831,
+            "max": [
+                0.9583471417427064,
+                1.0
+            ],
+            "min": [
+                0.009351213462650776,
+                -0.003360867965966463
+            ],
+            "type": "VEC2"
+        }
+    ],
+    "bufferViews": [
+        {
+            "name": "stage3b/data/indices-2",
+            "buffer": 0,
+            "byteOffset": 673416,
+            "byteLength": 78402,
+            "target": 34963
+        },
+        {
+            "name": "stage3b/data/vertices-12",
+            "buffer": 0,
+            "byteOffset": 222256,
+            "byteLength": 333384,
+            "byteStride": 12,
+            "target": 34962
+        },
+        {
+            "name": "stage3b/data/vertices-16",
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 222256,
+            "byteStride": 16,
+            "target": 34962
+        },
+        {
+            "name": "stage3b/data/vertices-8",
+            "buffer": 0,
+            "byteOffset": 555640,
+            "byteLength": 117776,
+            "byteStride": 8,
+            "target": 34962
+        }
+    ],
+    "buffers": [
+        {
+            "name": "stage3b/data",
+            "byteLength": 751818,
+            "uri": "stage3b0.bin"
+        }
+    ]
+}

@@ -1021,7 +1021,7 @@ export const player = (() => {
     UpdateStamina_(timeElapsed, pause) {
       if (!pause && timeElapsed < 0.1) {
 
-        this.stamina_ -= timeElapsed * 5
+        this.stamina_ -= timeElapsed * 2
         const staminaText = (Math.round(this.stamina_ * 10) / 10).toLocaleString(
           'en-US', { minimumIntegerDigits: 3, useGrouping: false });
 
