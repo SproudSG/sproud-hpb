@@ -1,6 +1,6 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.module.js';
+import * as THREE from '../../node_modules/three/build/three.module.js';
 
-import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/FBXLoader.js';
+import { FBXLoader } from "../../node_modules/three/examples/jsm/loaders/FBXLoader.js";
 
 
 export const pitfall = (() => {
@@ -75,9 +75,16 @@ export const pitfall = (() => {
         SpawnObj_(timeElapsed) {
             this.progress_ += timeElapsed * 10.0;
 
-            const spawnPosition = [70,200]
+            const spawnPosition = [70, 200]
 
             let obj = null;
+
+            const arr = [];
+            for (let i = 0; i < spawnPosition.length; i++) {
+                const randomValue = Math.random() < 0.5 ? -2 : 2;
+                arr.push(randomValue);
+            }
+
 
             for (var i = 0; i < spawnPosition.length; i++) {
                 if (this.counter_ == i) {
@@ -85,8 +92,10 @@ export const pitfall = (() => {
 
                     obj.position.x = spawnPosition[i]
                     obj.position.y = 0.1
+                    obj.position.z = arr[i]
 
-                    obj.scale = 0.05;
+
+                    obj.scale = 0.025;
                     this.objects_.push(obj);
                     this.counter_++
                 }

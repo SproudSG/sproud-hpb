@@ -1,6 +1,6 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.module.js';
-import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/loaders/GLTFLoader.js";
+import * as THREE from './node_modules/three/build/three.module.js';
+// import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
+import { GLTFLoader } from "./node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 import { player } from './world_objects/player.js';
 import { shoogaGlider } from './world_objects/monster/shoogaGlider.js';
@@ -1395,23 +1395,23 @@ class BasicWorldDemo {
 }
 
 //fps stats
-var stats = new Stats();
-stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-document.body.appendChild(stats.dom)
+// var stats = new Stats();
+// stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+// document.body.appendChild(stats.dom)
 
-function animate() {
+// function animate() {
 
-  stats.begin();
+//   stats.begin();
 
-  // monitored code goes here
+//   // monitored code goes here
 
-  stats.end();
+//   stats.end();
 
-  requestAnimationFrame(animate);
+//   requestAnimationFrame(animate);
 
-}
+// }
 
-requestAnimationFrame(animate);
+// requestAnimationFrame(animate);
 
 let _APP = null;
 
