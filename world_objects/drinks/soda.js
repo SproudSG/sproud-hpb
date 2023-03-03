@@ -90,7 +90,7 @@ export const soda = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.03;
+          obj.scale = 0.05;
           this.objects_.push(obj);
           this.counter_++
         }

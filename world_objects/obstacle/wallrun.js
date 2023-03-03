@@ -83,14 +83,14 @@ export const wallrun = (() => {
 
             const spawnPosition = [80, 100, 200, 220]
             let obj = null;
-            let zPosition = -5; // initialize the zPosition to positive 5
+            let zPosition = 5; // initialize the zPosition to positive 5
 
             for (var i = 0; i < spawnPosition.length; i++) {
                 if (this.counter_ == i) {
                     obj = new WallObject(this.params_);
 
                     obj.position.x = spawnPosition[i]
-                    obj.position.y = 0
+                    obj.position.y = -2
                     obj.position.z = zPosition; // set the zPosition for the object
 
                     obj.scale = 0.15;

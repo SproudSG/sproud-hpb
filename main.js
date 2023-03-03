@@ -981,6 +981,7 @@ class BasicWorldDemo {
                 this.previousRAF_ = null;
                 document.getElementById('loading-2').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
+                this.countdown_ = 3
                 clearInterval(this.intervalId_);
               }
             }, 1000);
@@ -1333,14 +1334,7 @@ class BasicWorldDemo {
 
       //checks for swipe gestures
       if (this.swipeLeft) {
-        if (this.player_.position_.y != 0) {
-          if (this.player_.position_.z <= -3) {
-            this.swipeLeft = false;
-          }
 
-          return
-
-        }
         this.player_.SwipeLeft();
         this.isSwiping = true
 
@@ -1354,14 +1348,7 @@ class BasicWorldDemo {
       }
       if (this.swipeRight) {
 
-        if (this.player_.position_.y != 0) {
-          if (this.player_.position_.z >= 3) {
-            this.swipeRight = false;
-          }
 
-          return
-
-        }
         this.player_.SwipeRight();
         this.isSwiping = true
 
@@ -1392,7 +1379,15 @@ class BasicWorldDemo {
         document.getElementById('countdown-text').textContent = this.countdown_ + ' seconds to main screen';
         if (this.countdown_ === 0) {
           clearInterval(this.intervalId_);
-          location.assign(location.href);
+          this.playNextStageVideo()
+          this.eventAdded = false;
+          this.eventAdded1 = false;
+          this.eventAdded2= false;
+          this.stage = this.stage-1
+          this.Pause()
+          this.countdown1_ = 10
+          document.getElementById('game-over').classList.toggle('active');
+
         }
       }, 1000);
     }

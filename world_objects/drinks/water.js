@@ -96,7 +96,7 @@ export const water = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.02;
+          obj.scale = 0.04;
           this.objects_.push(obj);
           this.counter_++
         }

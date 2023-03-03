@@ -116,7 +116,7 @@ export const player = (() => {
           this.gltf = gltf
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
-          this.mesh_.scale.set(0.01, 0.01, 0.01);
+          this.mesh_.scale.set(0.012, 0.012, 0.012);
           this.mesh_.position.x = 0;				    //Position (x = right+ left-) 
           this.mesh_.position.y = 0;				    //Position (y = up+, down-)
           this.mesh_.position.z = 0;				    //Position (z = front +, back-)
@@ -708,8 +708,7 @@ export const player = (() => {
         if (this.position_.z == 0 || this.position_.z == -3 || this.position_.z == 3) {
           this.velocity_ = 30;
           this.inAir_ = true;
-          var baileyYay = document.getElementById("bailey-yay");
-          baileyYay.play();
+
         }
 
       }
@@ -859,8 +858,10 @@ export const player = (() => {
               }
 
               //left wall
-              if (!this.inAir_ && (this.keys_.right || swipeRight)  && this.position_.z != 3) {
+              if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3) {
                 this.SwipeFullRight()
+                this.RightWallRunAnimation_()
+
                 if (this.position_.z >= 3) {
                   this.onWall = true;
                   this.RightWallRunAnimation_()
@@ -889,12 +890,6 @@ export const player = (() => {
         }
 
 
-
-
-
-
-
-
         //player movement with keyboard controls
         if (this.keys_.space && this.position_.y == 0.0) {
           this.SwipeUp(timeElapsed)
@@ -905,31 +900,30 @@ export const player = (() => {
 
         }
 
-        if (!this.inAir_) {
-          if (this.keys_.left) {
+        if (this.keys_.left) {
 
-            if (!this.keys_.right && !this.onWall) {
-              this.SwipeLeft()
-            } else if (this.onWall && this.position_.z == -3) {
-              this.keys_.left = false;
-
-            }
+          if (!this.keys_.right && !this.onWall) {
+            this.SwipeLeft()
+          } else if (this.onWall && this.position_.z == -3) {
+            this.keys_.left = false;
 
           }
-          if (this.keys_.right && !this.onWall) {
-            this.SwipeRight()
 
-          } else if (this.onWall && this.position_.z == 3) {
-            this.keys_.right = false;
+        }
+        if (this.keys_.right && !this.onWall) {
+          this.SwipeRight()
 
-          }
+        } else if (this.onWall && this.position_.z == 3) {
+          this.keys_.right = false;
+
         }
 
         //jump and slide calculation.
         if (this.inAir_) {
-          const acceleration = -75 * timeElapsed;
-
+          const acceleration = -105 * timeElapsed;
           this.position_.y += timeElapsed * (this.velocity_ + acceleration * 0.5);
+
+
           this.position_.y = Math.max(this.position_.y, 0.0);
 
           this.velocity_ += acceleration;
@@ -941,7 +935,7 @@ export const player = (() => {
         }
 
         if (this.sliding_) {
-          const acceleration = -25 * timeElapsed;
+          const acceleration = -11 * timeElapsed;
 
           this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
           this.slideTimer_ = Math.min(this.slideTimer_, 0.0);
@@ -1021,13 +1015,13 @@ export const player = (() => {
     UpdateStamina_(timeElapsed, pause) {
       if (!pause && timeElapsed < 0.1) {
 
-        this.stamina_ -= timeElapsed * 2
+        this.stamina_ -= timeElapsed * 3.5
         const staminaText = (Math.round(this.stamina_ * 10) / 10).toLocaleString(
           'en-US', { minimumIntegerDigits: 3, useGrouping: false });
 
         document.getElementById("stamina").style.width = staminaText + "%"
         if (this.stamina_ <= 0) {
-          //this.gameOver = true
+          this.gameOver = true
         }
       }
 
