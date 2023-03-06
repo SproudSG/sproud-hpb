@@ -27,11 +27,11 @@ export const progression = (() => {
 
                 if (this.progress_ >= 510) {
                     if (stage == 1) {
-                        document.dispatchEvent(new CustomEvent('score-over'));
-                    } else if (stage == 2) {
                         document.dispatchEvent(new CustomEvent('score-over1'));
-                    }else if (stage == 3) {
+                    } else if (stage == 2) {
                         document.dispatchEvent(new CustomEvent('score-over2'));
+                    }else if (stage == 3) {
+                        document.dispatchEvent(new CustomEvent('score-over3'));
 
                     }
                 }

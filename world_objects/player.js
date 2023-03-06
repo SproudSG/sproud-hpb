@@ -1,3 +1,8 @@
+// import * as THREE from 'https://storage.googleapis.com/sproud-hpb/node_modules/three/build/three.module.js';
+
+// import { GLTFLoader } from "https://storage.googleapis.com/sproud-hpb/node_modules/three/examples/jsm/loaders/GLTFLoader.js";
+
+
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
 import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
@@ -148,7 +153,6 @@ export const player = (() => {
     SlideAnimation_() {
       if (!this.mixer_) {
         return;
-
       }
       this.action.stop();
       const clip = this.gltf.animations[4];
@@ -164,7 +168,6 @@ export const player = (() => {
     RightWallRunAnimation_() {
       if (!this.mixer_) {
         return;
-
       }
       this.action.stop();
       const clip = this.gltf.animations[2];
@@ -935,7 +938,7 @@ export const player = (() => {
         }
 
         if (this.sliding_) {
-          const acceleration = -11 * timeElapsed;
+          const acceleration = -12 * timeElapsed;
 
           this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
           this.slideTimer_ = Math.min(this.slideTimer_, 0.0);

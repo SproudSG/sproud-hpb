@@ -304,7 +304,7 @@ li {
 
 }
 
-#nextStage {
+#nextStage1, #nextStage2, #nextStage3, #nextStage4 {
   position: absolute;
   top: 50%;
   left: 50%;

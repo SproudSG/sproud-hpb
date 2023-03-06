@@ -1,6 +1,10 @@
 import * as THREE from './node_modules/three/build/three.module.js';
-// import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
+import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
 import { GLTFLoader } from "./node_modules/three/examples/jsm/loaders/GLTFLoader.js";
+
+// import * as THREE from 'https://storage.googleapis.com/sproud-hpb/node_modules/three/build/three.module.js';
+// import { GLTFLoader } from "https://storage.googleapis.com/sproud-hpb/node_modules/three/examples/jsm/loaders/GLTFLoader.js";
+
 
 import { player } from './world_objects/player.js';
 import { shoogaGlider } from './world_objects/monster/shoogaGlider.js';
@@ -142,11 +146,12 @@ class BasicWorldDemo {
     this.countdown1_ = 10;
     this.totalStamina = 0;
     this.stopTime = false;
-
+    this.gameOverCountdown_ = 3
 
     this.resumeCountdown_ = 3;
     this.powerCountdown_ = false;
     this.intervalId_ = null;
+
 
     //load assets & world variables 
     this.loaded = false;
@@ -224,7 +229,10 @@ class BasicWorldDemo {
 
 
     //next stage cut scenes
-    this.nextStageVideo_ = document.getElementById("nextStage");
+    this.nextStageVideo1_ = document.getElementById("nextStage1");
+    this.nextStageVideo2_ = document.getElementById("nextStage2");
+    this.nextStageVideo3_ = document.getElementById("nextStage3");
+    this.nextStageVideo4_ = document.getElementById("nextStage4");
 
 
     // if power up video ends, then unpause everything
@@ -242,17 +250,47 @@ class BasicWorldDemo {
     });
 
     // if next stage video ends, then unpause everything
-    this.nextStageVideo_.addEventListener("ended", () => {
-      this.closeNextStageVideo();
+    this.nextStageVideo1_.addEventListener("ended", () => {
+      // this.closeNextStageVideo();
+
+      // while (this.scene_.children.length > 0) {
+      //   this.scene_.remove(this.scene_.children[0]);
+      // }
+
+    });
+
+    // if next stage video ends, then unpause everything
+    this.nextStageVideo2_.addEventListener("ended", () => {
+      this.closeNextStageVideo2();
 
       if (this.stage === 1) {
         document.getElementById('loading-2').style.display = 'block';
-        this.stage1VideoPlayed = true
+      }
+      while (this.scene_.children.length > 0) {
+        this.scene_.remove(this.scene_.children[0]);
+      }
 
-      } else if (this.stage === 2) {
+    });
+
+    // if next stage video ends, then unpause everything
+    this.nextStageVideo3_.addEventListener("ended", () => {
+      this.closeNextStageVideo3();
+
+      if (this.stage === 2) {
         document.getElementById('loading-3').style.display = 'block';
 
-      } else if (this.stage === 3) {
+      }
+      while (this.scene_.children.length > 0) {
+        this.scene_.remove(this.scene_.children[0]);
+      }
+
+    });
+
+    // if next stage video ends, then unpause everything
+    this.nextStageVideo4_.addEventListener("ended", () => {
+      this.closeNextStageVideo4();
+
+      if (this.stage === 3) {
         document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
         this.stopTime = false
 
@@ -264,9 +302,9 @@ class BasicWorldDemo {
       }
 
     });
-
-
   }
+
+
 
   //HPB boxes video handler functions
   playPowerupVideo() {
@@ -289,16 +327,45 @@ class BasicWorldDemo {
     this.powerdownVideo_.currentTime = 0;
   }
 
-  playNextStageVideo() {
-    this.nextStageVideo_.style.display = "block";
-    this.nextStageVideo_.play();
+  // playNextStageVideo1() {
+  //   this.nextStageVideo_.style.display = "block";
+  //   this.nextStageVideo_.play();
+  // }
+
+  // closeNextStageVideo1() {
+  //   this.nextStageVideo_.style.display = "none";
+  //   this.nextStageVideo_.currentTime = 0;
+  // }
+
+  playNextStageVideo2() {
+    this.nextStageVideo2_.style.display = "block";
+    this.nextStageVideo2_.play();
   }
 
-  closeNextStageVideo() {
-    this.nextStageVideo_.style.display = "none";
-    this.nextStageVideo_.currentTime = 0;
+  closeNextStageVideo2() {
+    this.nextStageVideo2_.style.display = "none";
+    this.nextStageVideo2_.currentTime = 0;
   }
 
+  playNextStageVideo3() {
+    this.nextStageVideo3_.style.display = "block";
+    this.nextStageVideo3_.play();
+  }
+
+  closeNextStageVideo3() {
+    this.nextStageVideo3_.style.display = "none";
+    this.nextStageVideo3_.currentTime = 0;
+  }
+
+  playVictoryVid() {
+    this.nextStageVideo4_.style.display = "block";
+    this.nextStageVideo4_.play();
+  }
+
+  closeNextStageVideo4() {
+    this.nextStageVideo4_.style.display = "none";
+    this.nextStageVideo4_.currentTime = 0;
+  }
   //music player
   _playMenuMusic() {
     this.menuMusic.play();
@@ -770,20 +837,20 @@ class BasicWorldDemo {
   Step_(timeElapsed, pause) {
     //if game is won
     if (!this.eventAdded && this.stage == 1) {
-      document.addEventListener('score-over', () => {
+      document.addEventListener('score-over1', () => {
         this.gameOver_ = true;
         this.stopTime = true
         this.Pause()
-        this.playNextStageVideo()
+        this.playNextStageVideo2()
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
           console.log(this.totalStamina)
         });
 
-        this.nextStageVideo_.addEventListener("ended", () => {
+        this.nextStageVideo2_.addEventListener("ended", () => {
           if (this.stage === 1) {
             this.intervalId_ = setInterval(() => {
-
+              console.log("HI2123")
               this.countdown_--;
               if (this.scene_.children.length === 0) {
 
@@ -971,17 +1038,15 @@ class BasicWorldDemo {
 
 
                 this.gameOver_ = false;
-                this.stage = 2
-                this.stopTime = false
-
+                this.stage = 2;
+                this.stopTime = false;
+                this.gameOverCountdown_ = 3;
                 this.RAF_();
-
               } else if (this.countdown_ === 0) {
 
                 this.previousRAF_ = null;
                 document.getElementById('loading-2').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
-                this.countdown_ = 3
                 clearInterval(this.intervalId_);
               }
             }, 1000);
@@ -999,20 +1064,20 @@ class BasicWorldDemo {
 
     if (!this.eventAdded1 && this.stage == 2) {
 
-      document.addEventListener('score-over1', () => {
+      document.addEventListener('score-over2', () => {
         this.gameOver_ = true;
         this.stopTime = true
         this.Pause()
-        this.playNextStageVideo()
+        this.playNextStageVideo3()
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
           console.log(this.totalStamina)
         });
 
-        this.nextStageVideo_.addEventListener("ended", () => {
+        this.nextStageVideo3_.addEventListener("ended", () => {
           if (this.stage === 2) {
             this.intervalId_ = setInterval(() => {
-
+              console.log("HI")
               this.countdown1_--;
               if (this.scene_.children.length === 0) {
 
@@ -1197,14 +1262,14 @@ class BasicWorldDemo {
 
 
                 this.gameOver_ = false;
-                this.stage = 3
-                this.stopTime = false
-
+                this.stage = 3;
+                this.stopTime = false;
+                this.gameOverCountdown_ = 3;
                 this.RAF_();
               } else if (this.countdown1_ === 0) {
                 this.previousRAF_ = null;
-                document.getElementById('click-start').style.display = 'block';
                 document.getElementById('loading-3').style.display = 'none';
+                document.getElementById('click-start').style.display = 'block';
                 clearInterval(this.intervalId_);
               }
             }, 1000);
@@ -1220,7 +1285,7 @@ class BasicWorldDemo {
 
     //if player wins stage 3
     if (!this.eventAdded2 && this.stage == 3) {
-      document.addEventListener('score-over2', () => {
+      document.addEventListener('score-over3', () => {
         this.gameOver_ = true;
         this.stopTime = true;
 
@@ -1228,7 +1293,7 @@ class BasicWorldDemo {
           this.totalStamina = this.totalStamina + result
           console.log(this.totalStamina)
         });
-        this.playNextStageVideo()
+        this.playVictoryVid()
 
       });
       this.eventAdded2 = true;
@@ -1375,19 +1440,28 @@ class BasicWorldDemo {
       this.gameOver_ = true;
       document.getElementById('game-over').classList.toggle('active');
       this.intervalId_ = setInterval(() => {
-        this.countdown_--;
-        document.getElementById('countdown-text').textContent = this.countdown_ + ' seconds to main screen';
-        if (this.countdown_ === 0) {
+        this.gameOverCountdown_--;
+        document.getElementById('countdown-text').textContent = this.gameOverCountdown_ + ' seconds to main screen';
+        if (this.gameOverCountdown_ === 0) {
           clearInterval(this.intervalId_);
-          this.playNextStageVideo()
-          this.eventAdded = false;
-          this.eventAdded1 = false;
-          this.eventAdded2= false;
-          this.stage = this.stage-1
-          this.Pause()
-          this.countdown1_ = 10
-          document.getElementById('game-over').classList.toggle('active');
+          this.stage = this.stage - 1
 
+          if (this.stage == 1) {
+            this.playNextStageVideo2()
+            this.eventAdded = false;
+            this.countdown_ = 10
+
+          } else if (this.stage == 2) {
+            this.playNextStageVideo3()
+            this.eventAdded1 = false;
+            this.countdown1_ = 10
+
+          }
+
+          this.stopTime = true
+
+          this.Pause()
+          document.getElementById('game-over').classList.toggle('active');
         }
       }, 1000);
     }
@@ -1395,23 +1469,23 @@ class BasicWorldDemo {
 }
 
 //fps stats
-// var stats = new Stats();
-// stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-// document.body.appendChild(stats.dom)
+var stats = new Stats();
+stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom)
 
-// function animate() {
+function animate() {
 
-//   stats.begin();
+  stats.begin();
 
-//   // monitored code goes here
+  // monitored code goes here
 
-//   stats.end();
+  stats.end();
 
-//   requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 
-// }
+}
 
-// requestAnimationFrame(animate);
+requestAnimationFrame(animate);
 
 let _APP = null;
 

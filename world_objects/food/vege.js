@@ -1,3 +1,10 @@
+// import * as THREE from 'https://storage.googleapis.com/sproud-hpb/node_modules/three/build/three.module.js';
+
+// import { FBXLoader } from "https://storage.googleapis.com/sproud-hpb/node_modules/three/examples/jsm/loaders/FBXLoader.js";
+
+
+
+
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
 import { FBXLoader } from "../../node_modules/three/examples/jsm/loaders/FBXLoader.js";
