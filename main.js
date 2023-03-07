@@ -46,97 +46,6 @@ void main() {
 }`;
 
 
-const _PCSS = `
-#define LIGHT_WORLD_SIZE 0.05
-#define LIGHT_FRUSTUM_WIDTH 3.75
-#define LIGHT_SIZE_UV (LIGHT_WORLD_SIZE / LIGHT_FRUSTUM_WIDTH)
-#define NEAR_PLANE 1.0
-
-#define NUM_SAMPLES 17
-#define NUM_RINGS 11
-#define BLOCKER_SEARCH_NUM_SAMPLES NUM_SAMPLES
-#define PCF_NUM_SAMPLES NUM_SAMPLES
-
-vec2 poissonDisk[NUM_SAMPLES];
-
-void initPoissonSamples( const in vec2 randomSeed ) {
-  float ANGLE_STEP = PI2 * float( NUM_RINGS ) / float( NUM_SAMPLES );
-  float INV_NUM_SAMPLES = 1.0 / float( NUM_SAMPLES );
-
-  // jsfiddle that shows sample pattern: https://jsfiddle.net/a16ff1p7/
-  float angle = rand( randomSeed ) * PI2;
-  float radius = INV_NUM_SAMPLES;
-  float radiusStep = radius;
-
-  for( int i = 0; i < NUM_SAMPLES; i ++ ) {
-    poissonDisk[i] = vec2( cos( angle ), sin( angle ) ) * pow( radius, 0.75 );
-    radius += radiusStep;
-    angle += ANGLE_STEP;
-  }
-}
-
-float penumbraSize( const in float zReceiver, const in float zBlocker ) { // Parallel plane estimation
-  return (zReceiver - zBlocker) / zBlocker;
-}
-
-float findBlocker( sampler2D shadowMap, const in vec2 uv, const in float zReceiver ) {
-  // This uses similar triangles to compute what
-  // area of the shadow map we should search
-  float searchRadius = LIGHT_SIZE_UV * ( zReceiver - NEAR_PLANE ) / zReceiver;
-  float blockerDepthSum = 0.0;
-  int numBlockers = 0;
-
-  for( int i = 0; i < BLOCKER_SEARCH_NUM_SAMPLES; i++ ) {
-    float shadowMapDepth = unpackRGBAToDepth(texture2D(shadowMap, uv + poissonDisk[i] * searchRadius));
-    if ( shadowMapDepth < zReceiver ) {
-      blockerDepthSum += shadowMapDepth;
-      numBlockers ++;
-    }
-  }
-
-  if( numBlockers == 0 ) return -1.0;
-
-  return blockerDepthSum / float( numBlockers );
-}
-
-float PCF_Filter(sampler2D shadowMap, vec2 uv, float zReceiver, float filterRadius ) {
-  float sum = 0.0;
-  for( int i = 0; i < PCF_NUM_SAMPLES; i ++ ) {
-    float depth = unpackRGBAToDepth( texture2D( shadowMap, uv + poissonDisk[ i ] * filterRadius ) );
-    if( zReceiver <= depth ) sum += 1.0;
-  }
-  for( int i = 0; i < PCF_NUM_SAMPLES; i ++ ) {
-    float depth = unpackRGBAToDepth( texture2D( shadowMap, uv + -poissonDisk[ i ].yx * filterRadius ) );
-    if( zReceiver <= depth ) sum += 1.0;
-  }
-  return sum / ( 2.0 * float( PCF_NUM_SAMPLES ) );
-}
-
-float PCSS ( sampler2D shadowMap, vec4 coords ) {
-  vec2 uv = coords.xy;
-  float zReceiver = coords.z; // Assumed to be eye-space z in this code
-
-  initPoissonSamples( uv );
-  // STEP 1: blocker search
-  float avgBlockerDepth = findBlocker( shadowMap, uv, zReceiver );
-
-  //There are no occluders so early out (this saves filtering)
-  if( avgBlockerDepth == -1.0 ) return 1.0;
-
-  // STEP 2: penumbra size
-  float penumbraRatio = penumbraSize( zReceiver, avgBlockerDepth );
-  float filterRadius = penumbraRatio * LIGHT_SIZE_UV * NEAR_PLANE / zReceiver;
-
-  // STEP 3: filtering
-  //return avgBlockerDepth;
-  return PCF_Filter( shadowMap, uv, zReceiver, filterRadius );
-}
-`;
-
-const _PCSSGetShadow = `
-return PCSS( shadowMap, shadowCoord );
-`;
-
 
 class BasicWorldDemo {
   constructor() {
@@ -145,13 +54,13 @@ class BasicWorldDemo {
     this.countdown_ = 10;
     this.countdown1_ = 10;
     this.totalStamina = 0;
-    this.stopTime = false;
-    this.gameOverCountdown_ = 3
-
+    this.stopTime = true;
     this.resumeCountdown_ = 3;
     this.powerCountdown_ = false;
     this.intervalId_ = null;
 
+    //first load
+    this.firstLoad = true;
 
     //load assets & world variables 
     this.loaded = false;
@@ -161,7 +70,6 @@ class BasicWorldDemo {
 
     //init
     this._gameStarted = false;
-
     this._Initialize();
 
     //on load music 
@@ -182,7 +90,7 @@ class BasicWorldDemo {
 
     //handle start game (male)
     document.getElementById('male-button').addEventListener('click', () => {
-      this._OnStart();
+      this.playNextStageVideo1()
       document.getElementById('video-container').style.display = 'block';
       document.getElementById('gender-selection').style.display = 'none';
       this.gender_ = "male"
@@ -192,7 +100,7 @@ class BasicWorldDemo {
 
     //handle start game (female)
     document.getElementById('female-button').addEventListener('click', () => {
-      this._OnStart();
+      this.playNextStageVideo1()
       document.getElementById('video-container').style.display = 'block';
       document.getElementById('gender-selection').style.display = 'none';
       this.gender_ = "female"
@@ -251,11 +159,35 @@ class BasicWorldDemo {
 
     // if next stage video ends, then unpause everything
     this.nextStageVideo1_.addEventListener("ended", () => {
-      // this.closeNextStageVideo();
+      if (this.firstLoad) {
+        this.firstLoad = false;
+        this.closeNextStageVideo1();
+        document.getElementById('loading-1').style.display = 'block';
+        this.stopTime = false
+        document.getElementById('game-menu').style.display = 'none';
+        // 
+        this.RAF_()
+
+        let newCountdown = 7;
+        let newIntervalId = setInterval(() => {
+          newCountdown--;
+          if (newCountdown === 0) {
+            clearInterval(newIntervalId);
+
+            document.getElementById('loading-1').style.display = 'none';
+            document.getElementById('click-start').style.display = 'block';
+
+          }
+        }, 1000);
+
+
+
+      }
 
       // while (this.scene_.children.length > 0) {
       //   this.scene_.remove(this.scene_.children[0]);
       // }
+
 
     });
 
@@ -324,16 +256,19 @@ class BasicWorldDemo {
     this.powerdownVideo_.currentTime = 0;
   }
 
-  // playNextStageVideo1() {
-  //   this.nextStageVideo_.style.display = "block";
-  //   this.nextStageVideo_.play();
-  // }
+  //stage 1 cutscene
+  playNextStageVideo1() {
+    this.nextStageVideo1_.style.display = "block";
+    this.nextStageVideo1_.play();
+  }
 
-  // closeNextStageVideo1() {
-  //   this.nextStageVideo_.style.display = "none";
-  //   this.nextStageVideo_.currentTime = 0;
-  // }
+  closeNextStageVideo1() {
+    this.nextStageVideo1_.style.display = "none";
+    this.nextStageVideo1_.currentTime = 0;
+  }
 
+
+  //stage 2 cutscene
   playNextStageVideo2() {
     this.nextStageVideo2_.style.display = "block";
     this.nextStageVideo2_.play();
@@ -344,6 +279,7 @@ class BasicWorldDemo {
     this.nextStageVideo2_.currentTime = 0;
   }
 
+  //stage 3 cutscene
   playNextStageVideo3() {
     this.nextStageVideo3_.style.display = "block";
     this.nextStageVideo3_.play();
@@ -354,6 +290,8 @@ class BasicWorldDemo {
     this.nextStageVideo3_.currentTime = 0;
   }
 
+
+  //victory videos
   playVictoryVid() {
     this.nextStageVideo4_.style.display = "block";
     this.nextStageVideo4_.play();
@@ -371,7 +309,6 @@ class BasicWorldDemo {
   //start the game
   _OnStart() {
     this.menuMusic.pause();
-    document.getElementById('game-menu').style.display = 'none';
     this._gameStarted = true;
     var gameMusic = document.getElementById("game-music");
     gameMusic.play();
@@ -430,23 +367,6 @@ class BasicWorldDemo {
     this.buffspeed = false;
     this.restartStage = false;
 
-    // overwrite shadowmap code
-    // let shadowCode = THREE.ShaderChunk.shadowmap_pars_fragment;
-
-    // shadowCode = shadowCode.replace(
-    //   '#ifdef USE_SHADOWMAP',
-    //   '#ifdef USE_SHADOWMAP' +
-    //   _PCSS
-    // );
-
-    // shadowCode = shadowCode.replace(
-    //   '#if defined( SHADOWMAP_TYPE_PCF )',
-    //   _PCSSGetShadow +
-    //   '#if defined( SHADOWMAP_TYPE_PCF )'
-    // );
-
-    // THREE.ShaderChunk.shadowmap_pars_fragment = shadowCode;
-
     // renderer
     this.threejs_ = new THREE.WebGLRenderer({
       antialias: true,
@@ -464,6 +384,8 @@ class BasicWorldDemo {
       this.OnWindowResize_();
     }, false);
 
+
+    //camera
     const fov = 60;
     const aspect = 1920 / 1080;
     const near = 1.0;
@@ -474,6 +396,7 @@ class BasicWorldDemo {
     } else {
       far = 2000
     }
+
     this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
     this.camera_.position.set(-7, 3.5, 0);
     this.camera_.lookAt(0, 3.5, 0);
@@ -587,6 +510,10 @@ class BasicWorldDemo {
         this.isPaused = false;
         document.getElementById('click-start').style.display = 'none';
         this.restartStage = false;
+      } else {
+        this._OnStart()
+        document.getElementById('click-start').style.display = 'none';
+
       }
 
     });
@@ -740,7 +667,7 @@ class BasicWorldDemo {
       arrLogo3.push(value3 * 3);
     }
 
-    // set random position for food
+    //set random position for food
     let food1 = [];
     let food2 = [];
     let food3 = [];
@@ -1033,7 +960,6 @@ class BasicWorldDemo {
 
               this.gameOver_ = false;
               this.stopTime = false;
-              this.gameOverCountdown_ = 3;
               this.RAF_();
             } else if (this.countdown_ === 0) {
               this.previousRAF_ = null;
@@ -1255,7 +1181,6 @@ class BasicWorldDemo {
 
               this.gameOver_ = false;
               this.stopTime = false;
-              this.gameOverCountdown_ = 3;
               this.RAF_();
             } else if (this.countdown1_ === 0) {
               this.previousRAF_ = null;
@@ -1309,40 +1234,40 @@ class BasicWorldDemo {
       return;
     }
 
-    //load the game assets and animations
-    if (this.stage == 1) {
-      this.water_.Update(timeElapsed, this.objSpeed)
-      this.soda_.Update(timeElapsed, this.objSpeed)
-      this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-      this.pitfall_.Update(timeElapsed, this.objSpeed)
+    if (this._gameStarted) {
+      //load the game assets and animations
+      if (this.stage == 1) {
+        this.water_.Update(timeElapsed, this.objSpeed)
+        this.soda_.Update(timeElapsed, this.objSpeed)
+        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
+        this.pitfall_.Update(timeElapsed, this.objSpeed)
 
-    } else if (this.stage == 2) {
-      this.water_.Update(timeElapsed, this.objSpeed)
-      this.soda_.Update(timeElapsed, this.objSpeed)
-      this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-      this.pitfall_.Update(timeElapsed, this.objSpeed)
-      this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy, pause);
-      this.vege_.Update(timeElapsed, this.objSpeed)
-      this.meat_.Update(timeElapsed, this.objSpeed)
-      this.carbs_.Update(timeElapsed, this.objSpeed)
-      this.trolliumChloride_.Update(timeElapsed, this.objSpeed, pause)
-    } else if (this.stage == 3) {
-      this.wallrun_.Update(timeElapsed, this.objSpeed)
-      this.hpbLogo_.Update(timeElapsed, this.objSpeed)
-      this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
-      this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
-      this.water_.Update(timeElapsed, this.objSpeed)
-      this.soda_.Update(timeElapsed, this.objSpeed)
-      this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-      this.pitfall_.Update(timeElapsed, this.objSpeed)
-      this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy, pause);
-      this.vege_.Update(timeElapsed, this.objSpeed)
-      this.meat_.Update(timeElapsed, this.objSpeed)
-      this.carbs_.Update(timeElapsed, this.objSpeed)
-      this.trolliumChloride_.Update(timeElapsed, this.objSpeed, pause)
-    }
+      } else if (this.stage == 2) {
+        this.water_.Update(timeElapsed, this.objSpeed)
+        this.soda_.Update(timeElapsed, this.objSpeed)
+        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
+        this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy, pause);
+        this.vege_.Update(timeElapsed, this.objSpeed)
+        this.meat_.Update(timeElapsed, this.objSpeed)
+        this.carbs_.Update(timeElapsed, this.objSpeed)
+        this.trolliumChloride_.Update(timeElapsed, this.objSpeed, pause)
+      } else if (this.stage == 3) {
+        this.wallrun_.Update(timeElapsed, this.objSpeed)
+        this.hpbLogo_.Update(timeElapsed, this.objSpeed)
+        this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
+        this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
+        this.water_.Update(timeElapsed, this.objSpeed)
+        this.soda_.Update(timeElapsed, this.objSpeed)
+        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
+        this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy, pause);
+        this.vege_.Update(timeElapsed, this.objSpeed)
+        this.meat_.Update(timeElapsed, this.objSpeed)
+        this.carbs_.Update(timeElapsed, this.objSpeed)
+        this.trolliumChloride_.Update(timeElapsed, this.objSpeed, pause)
+      }
 
-    if (!this.gameOver_) {
       //get position of wall from wallrun.js
       this.wallrun_.GetPosition(result => {
         this.wallPosition = result
@@ -1429,9 +1354,7 @@ class BasicWorldDemo {
     }
 
     //if game is over (lost)
-    if (this.player_.gameOver && !this.gameOver_) {
-
-
+    if (this._gameStarted && this.player_.gameOver && !this.gameOver_) {
 
 
       this.gameOver_ = true;
@@ -1457,12 +1380,7 @@ class BasicWorldDemo {
         this.stopTime = true
 
         this.Pause()
-
-
       });
-
-
-
 
     }
   }
