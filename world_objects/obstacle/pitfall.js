@@ -1,13 +1,12 @@
 // import * as THREE from 'https://storage.googleapis.com/sproud-hpb/node_modules/three/build/three.module.js';
 
-// import { FBXLoader } from "https://storage.googleapis.com/sproud-hpb/node_modules/three/examples/jsm/loaders/FBXLoader.js";
-
+// import { GLTFLoader } from "https://storage.googleapis.com/sproud-hpb/node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 
 
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
-import { FBXLoader } from "../../node_modules/three/examples/jsm/loaders/FBXLoader.js";
+import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 
 export const pitfall = (() => {
@@ -28,19 +27,12 @@ export const pitfall = (() => {
         LoadModel_() {
 
 
-            const loader = new FBXLoader();
+            const loader = new GLTFLoader();
             loader.setPath('./resources/Pitfall/');
 
-            loader.load('pit.fbx', (fbx) => {
-                this.mesh = fbx
+            loader.load('pit.gltf', (gltf) => {
+                this.mesh = gltf.scene
                 this.params_.scene.add(this.mesh);
-
-                fbx.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material.map = new THREE.TextureLoader().load('./resources/Pitfall/texture/pit_albedo.jpg');
-
-                    }
-                });
             });
 
         }
@@ -98,11 +90,12 @@ export const pitfall = (() => {
                     obj = new PitfallObject(this.params_);
 
                     obj.position.x = spawnPosition[i]
-                    obj.position.y = 0.1
+                    obj.position.y = 0
                     obj.position.z = arr[i]
 
+                   
 
-                    obj.scale = 0.025;
+                    obj.scale = 0.008;
                     this.objects_.push(obj);
                     this.counter_++
                 }

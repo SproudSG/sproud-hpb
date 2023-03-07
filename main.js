@@ -428,6 +428,7 @@ class BasicWorldDemo {
     this.speedy = 12;
     this.animationId;
     this.buffspeed = false;
+    this.restartStage = false;
 
     // overwrite shadowmap code
     // let shadowCode = THREE.ShaderChunk.shadowmap_pars_fragment;
@@ -474,8 +475,8 @@ class BasicWorldDemo {
       far = 2000
     }
     this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    this.camera_.position.set(-7, 3, 0);
-    this.camera_.lookAt(0, 3, 0);
+    this.camera_.position.set(-8, 3.5, 0);
+    this.camera_.lookAt(0, 3.5, 0);
 
     //scene
     this.scene_ = new THREE.Scene();
@@ -575,11 +576,8 @@ class BasicWorldDemo {
       }
     });
 
-
-    //handle second stage "click to continue"
-    document.getElementById('click-start').addEventListener('click', () => {
-
-      if (this.isPaused) {
+    document.addEventListener('keydown', () => {
+      if (this.restartStage) {
         this.animationId = requestAnimationFrame(animate);
 
         this.objSpeed = 12
@@ -588,7 +586,7 @@ class BasicWorldDemo {
         this.speedz = 3
         this.isPaused = false;
         document.getElementById('click-start').style.display = 'none';
-
+        this.restartStage = false;
       }
 
     });
@@ -598,7 +596,6 @@ class BasicWorldDemo {
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) {
         console.log("User has tabbed out of the page");
-
         this.objSpeed = 0
         this.monSpeed = 0
         this.speedy = 0
@@ -1039,10 +1036,12 @@ class BasicWorldDemo {
               this.gameOverCountdown_ = 3;
               this.RAF_();
             } else if (this.countdown_ === 0) {
-
               this.previousRAF_ = null;
+              this.restartStage = true;
+
               document.getElementById('loading-2').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
+
               clearInterval(this.intervalId_);
             }
           }, 1000);
@@ -1260,8 +1259,10 @@ class BasicWorldDemo {
               this.RAF_();
             } else if (this.countdown1_ === 0) {
               this.previousRAF_ = null;
+              this.restartStage = true;
               document.getElementById('loading-3').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
+
               clearInterval(this.intervalId_);
             }
           }, 1000);

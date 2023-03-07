@@ -32,6 +32,11 @@ export const player = (() => {
       this.trolliumChlorideID = null;
       this.processedtrolliumChlorideIDs = [];
 
+      
+      //pitfall variables
+      this.pitfallID = null;
+      this.processedPitfallIDs = [];
+
       //water variables
       this.waterID = null;
       this.processedWaterIDs = [];
@@ -264,6 +269,7 @@ export const player = (() => {
       const vege = this.params_.vege.GetColliders();
       const carbs = this.params_.carbs.GetColliders();
       const trolliumChloride = this.params_.trolliumChloride.GetColliders();
+      const pitfall = this.params_.pitfall.GetColliders();
 
       this.playerBox_.setFromObject(this.mesh_);
 
@@ -327,6 +333,21 @@ export const player = (() => {
               document.querySelector('#video-container').style.backgroundColor = 'transparent'
             }, 2000)
           }
+        }
+      }
+
+      //if player collides with pitfall
+      for (let c of pitfall) {
+
+        const cur = c.collider;
+        if (c.mesh) {
+          this.pitfallID = c.mesh.uuid;
+          if (!this.processedPitfallIDs.includes(this.pitfallID) && cur.intersectsBox(this.playerBox_)) {
+            this.processedPitfallIDs.push(this.pitfallID);
+            this.gameOver = true;
+          }
+        } else {
+          return;
         }
       }
 

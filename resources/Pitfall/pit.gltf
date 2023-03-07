@@ -1,0 +1,223 @@
+{
+    "asset": {
+        "copyright": "(C)2023 post",
+        "generator": "maya2glTF v1.4.0 3d7ba8eaf03e",
+        "version": "2.0"
+    },
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "scene": 0,
+    "nodes": [
+        {
+            "name": "pit_GEO_low",
+            "children": [
+                1
+            ],
+            "translation": [
+                0.0,
+                1.3469494581222537,
+                0.0
+            ]
+        },
+        {
+            "name": "pit_GEO_low:PIV",
+            "mesh": 0,
+            "translation": [
+                0.0,
+                -1.3469494581222537,
+                0.0
+            ]
+        }
+    ],
+    "meshes": [
+        {
+            "name": "pit_GEO_lowShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 1,
+                        "POSITION": 2,
+                        "TANGENT": 3,
+                        "TEXCOORD_0": 4
+                    },
+                    "indices": 0,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "name": "pit",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        }
+    ],
+    "textures": [
+        {
+            "sampler": 0,
+            "source": 0
+        }
+    ],
+    "images": [
+        {
+            "uri": "pit_colour.png"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    ],
+    "accessors": [
+        {
+            "name": "pit_GEO_lowShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 2172,
+            "max": [
+                544
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "pit_GEO_lowShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 545,
+            "max": [
+                0.9976877570152284,
+                1.0,
+                0.9994356036186218
+            ],
+            "min": [
+                -0.9999727010726928,
+                -0.9766330122947692,
+                -0.9929531812667848
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "pit_GEO_lowShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 6540,
+            "componentType": 5126,
+            "count": 545,
+            "max": [
+                348.3377685546875,
+                109.78597259521485,
+                242.6552734375
+            ],
+            "min": [
+                -348.3377685546875,
+                -30.416887283325197,
+                -242.65478515625
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "pit_GEO_lowShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 545,
+            "max": [
+                0.99986469745636,
+                0.922335684299469,
+                0.999467670917511,
+                1.0
+            ],
+            "min": [
+                -0.9971103072166444,
+                -0.973190188407898,
+                -0.997644543647766,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "pit_GEO_lowShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 545,
+            "max": [
+                0.9951042532920836,
+                0.972740352153778
+            ],
+            "min": [
+                0.01031643245369196,
+                0.010864615440368653
+            ],
+            "type": "VEC2"
+        }
+    ],
+    "bufferViews": [
+        {
+            "name": "pit/data/indices-2",
+            "buffer": 0,
+            "byteOffset": 26160,
+            "byteLength": 4344,
+            "target": 34963
+        },
+        {
+            "name": "pit/data/vertices-12",
+            "buffer": 0,
+            "byteOffset": 8720,
+            "byteLength": 13080,
+            "byteStride": 12,
+            "target": 34962
+        },
+        {
+            "name": "pit/data/vertices-16",
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 8720,
+            "byteStride": 16,
+            "target": 34962
+        },
+        {
+            "name": "pit/data/vertices-8",
+            "buffer": 0,
+            "byteOffset": 21800,
+            "byteLength": 4360,
+            "byteStride": 8,
+            "target": 34962
+        }
+    ],
+    "buffers": [
+        {
+            "name": "pit/data",
+            "byteLength": 30504,
+            "uri": "pit0.bin"
+        }
+    ]
+}
