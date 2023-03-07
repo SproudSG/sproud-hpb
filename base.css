@@ -487,3 +487,8 @@ div.quarter.right-bottom {
   background-color: transparent;
   overflow: hidden;
 }
+
+#try-again-button {
+  z-index: 999999999;
+
+}

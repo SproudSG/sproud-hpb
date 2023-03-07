@@ -263,9 +263,8 @@ class BasicWorldDemo {
     this.nextStageVideo2_.addEventListener("ended", () => {
       this.closeNextStageVideo2();
 
-      if (this.stage === 1) {
-        document.getElementById('loading-2').style.display = 'block';
-      }
+      document.getElementById('loading-2').style.display = 'block';
+
       while (this.scene_.children.length > 0) {
         this.scene_.remove(this.scene_.children[0]);
       }
@@ -276,10 +275,9 @@ class BasicWorldDemo {
     this.nextStageVideo3_.addEventListener("ended", () => {
       this.closeNextStageVideo3();
 
-      if (this.stage === 2) {
-        document.getElementById('loading-3').style.display = 'block';
+      document.getElementById('loading-3').style.display = 'block';
 
-      }
+
       while (this.scene_.children.length > 0) {
         this.scene_.remove(this.scene_.children[0]);
       }
@@ -290,13 +288,12 @@ class BasicWorldDemo {
     this.nextStageVideo4_.addEventListener("ended", () => {
       this.closeNextStageVideo4();
 
-      if (this.stage === 3) {
-        document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
-        this.stopTime = false
+      document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
+      this.stopTime = false
 
-        this.RAF_();
-        document.getElementById('final-score').classList.toggle('active');
-      }
+      this.RAF_();
+      document.getElementById('final-score').classList.toggle('active');
+
       while (this.scene_.children.length > 0) {
         this.scene_.remove(this.scene_.children[0]);
       }
@@ -841,6 +838,7 @@ class BasicWorldDemo {
         this.gameOver_ = true;
         this.stopTime = true
         this.Pause()
+        this.stage = 2;
         this.playNextStageVideo2()
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
@@ -848,212 +846,207 @@ class BasicWorldDemo {
         });
 
         this.nextStageVideo2_.addEventListener("ended", () => {
-          if (this.stage === 1) {
-            this.intervalId_ = setInterval(() => {
-              console.log("HI2123")
-              this.countdown_--;
-              if (this.scene_.children.length === 0) {
+          this.intervalId_ = setInterval(() => {
+            console.log("HI2123")
+            this.countdown_--;
+            if (this.scene_.children.length === 0) {
 
-                // set randon positoin for drinks
-                let arrDrinks1 = [];
-                let arrDrinks2 = [];
-                let arrDrinks3 = [];
+              // set randon positoin for drinks
+              let arrDrinks1 = [];
+              let arrDrinks2 = [];
+              let arrDrinks3 = [];
 
-                for (let i = 0; i < 6; i++) {
-                  let value1 = Math.floor(Math.random() * 3) - 1;
-                  let value2 = Math.floor(Math.random() * 3) - 1;
-                  let value3 = Math.floor(Math.random() * 3) - 1;
+              for (let i = 0; i < 6; i++) {
+                let value1 = Math.floor(Math.random() * 3) - 1;
+                let value2 = Math.floor(Math.random() * 3) - 1;
+                let value3 = Math.floor(Math.random() * 3) - 1;
 
-                  while (value1 === value2) {
-                    value2 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  while (value1 === value3 || value2 === value3) {
-                    value3 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  arrDrinks1.push(value1 * 3);
-                  arrDrinks2.push(value2 * 3);
-                  arrDrinks3.push(value3 * 3);
+                while (value1 === value2) {
+                  value2 = Math.floor(Math.random() * 3) - 1;
                 }
 
-
-                // set randonm positoin for box logos
-                let arrLogo1 = [];
-                let arrLogo2 = [];
-                let arrLogo3 = [];
-
-                for (let i = 0; i < 3; i++) {
-                  let value1 = Math.floor(Math.random() * 3) - 1;
-                  let value2 = Math.floor(Math.random() * 3) - 1;
-                  let value3 = Math.floor(Math.random() * 3) - 1;
-
-                  while (value1 === value2) {
-                    value2 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  while (value1 === value3 || value2 === value3) {
-                    value3 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  arrLogo1.push(value1 * 3);
-                  arrLogo2.push(value2 * 3);
-                  arrLogo3.push(value3 * 3);
+                while (value1 === value3 || value2 === value3) {
+                  value3 = Math.floor(Math.random() * 3) - 1;
                 }
 
-                // set randonm position for box logos
-                let food1 = [];
-                let food2 = [];
-                let food3 = [];
-
-                for (let i = 0; i < 4; i++) {
-                  let value1 = Math.floor(Math.random() * 3) - 1;
-                  let value2 = Math.floor(Math.random() * 3) - 1;
-                  let value3 = Math.floor(Math.random() * 3) - 1;
-
-                  while (value1 === value2) {
-                    value2 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  while (value1 === value3 || value2 === value3) {
-                    value3 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  food1.push(value1 * 3);
-                  food2.push(value2 * 3);
-                  food3.push(value3 * 3);
-                }
-
-
-                //initiate all the game objects
-                this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
-                this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-                this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
-                this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
-                this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
-                this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
-                this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
-                this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
-                this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
-                this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
-                this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
-                this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-                this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-                this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
-                this.background_ = new background.Background({ scene: this.scene_ });
-                this.progression_ = new progression.ProgressionManager();
-                this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
-
-
-
-
-                let light = new THREE.DirectionalLight(0xffffff, 1);
-
-                this.scene_.add(light);
-
-                light = new THREE.HemisphereLight(0x202020, 0x004080, 1.5);
-                this.scene_.add(light);
-
-                light = new THREE.PointLight(0xb6bfcc, 1.5, 200, 4);
-                light.position.set(-7, 20, 0);
-                this.scene_.add(light);
-
-                this.scene_.background = new THREE.Color(0x808080);
-                this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
-
-                const loader = new GLTFLoader();
-                loader.setPath('./resources/Map/Stage2/');
-                loader.load('stage2a.gltf', (gltf) => {
-                  this.mesh = gltf.scene;
-
-                  gltf.castShadow = true;
-                  gltf.receiveShadow = true;
-                  this.mesh.position.set(-5, 0, 0);
-                  this.mesh.rotation.set(0, -Math.PI / 2, 0.03);
-                  this.mesh.scale.setScalar(0.0095);
-
-
-                  this.scene_.add(this.mesh);
-
-                });
-                loader.load('stage2a.gltf', (gltf) => {
-                  this.mesh1 = gltf.scene;
-
-                  gltf.castShadow = true;
-                  gltf.receiveShadow = true;
-                  this.mesh1.position.set(192, 0, 0);
-                  this.mesh1.rotation.set(0, -Math.PI / 2, 0.03);
-                  this.mesh1.scale.setScalar(0.0095);
-
-
-                  this.scene_.add(this.mesh1);
-
-                });
-                loader.load('stage2b.gltf', (gltf) => {
-                  this.mesh2 = gltf.scene;
-
-                  gltf.castShadow = true;
-                  gltf.receiveShadow = true;
-                  this.mesh2.position.set(389, 0, 0);
-                  this.mesh2.rotation.set(0, -Math.PI / 2, 0.03);
-                  this.mesh2.scale.setScalar(0.0095);
-
-
-                  this.scene_.add(this.mesh2);
-
-                });
-                loader.load('stage2c.gltf', (gltf) => {
-                  this.mesh3 = gltf.scene;
-
-                  gltf.castShadow = true;
-                  gltf.receiveShadow = true;
-                  this.mesh3.position.set(581, 0, -0.5);
-                  this.mesh3.rotation.set(0, -Math.PI / 2, 0.03);
-                  this.mesh3.scale.setScalar(0.0095);
-
-
-                  this.scene_.add(this.mesh3);
-
-                });
-
-
-
-                const uniforms = {
-                  topColor: { value: new THREE.Color(0x00008B) },
-                  bottomColor: { value: new THREE.Color(0x89b2eb) },
-                  offset: { value: 33 },
-                  exponent: { value: 0.6 }
-                };
-
-                const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
-                const skyMat = new THREE.ShaderMaterial({
-                  uniforms: uniforms,
-                  vertexShader: _VS,
-                  fragmentShader: _FS,
-                  side: THREE.BackSide,
-                });
-
-
-                this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
-
-
-                this.gameOver_ = false;
-                this.stage = 2;
-                this.stopTime = false;
-                this.gameOverCountdown_ = 3;
-                this.RAF_();
-              } else if (this.countdown_ === 0) {
-
-                this.previousRAF_ = null;
-                document.getElementById('loading-2').style.display = 'none';
-                document.getElementById('click-start').style.display = 'block';
-                clearInterval(this.intervalId_);
+                arrDrinks1.push(value1 * 3);
+                arrDrinks2.push(value2 * 3);
+                arrDrinks3.push(value3 * 3);
               }
-            }, 1000);
+
+
+              // set randonm positoin for box logos
+              let arrLogo1 = [];
+              let arrLogo2 = [];
+              let arrLogo3 = [];
+
+              for (let i = 0; i < 3; i++) {
+                let value1 = Math.floor(Math.random() * 3) - 1;
+                let value2 = Math.floor(Math.random() * 3) - 1;
+                let value3 = Math.floor(Math.random() * 3) - 1;
+
+                while (value1 === value2) {
+                  value2 = Math.floor(Math.random() * 3) - 1;
+                }
+
+                while (value1 === value3 || value2 === value3) {
+                  value3 = Math.floor(Math.random() * 3) - 1;
+                }
+
+                arrLogo1.push(value1 * 3);
+                arrLogo2.push(value2 * 3);
+                arrLogo3.push(value3 * 3);
+              }
+
+              // set randonm position for box logos
+              let food1 = [];
+              let food2 = [];
+              let food3 = [];
+
+              for (let i = 0; i < 4; i++) {
+                let value1 = Math.floor(Math.random() * 3) - 1;
+                let value2 = Math.floor(Math.random() * 3) - 1;
+                let value3 = Math.floor(Math.random() * 3) - 1;
+
+                while (value1 === value2) {
+                  value2 = Math.floor(Math.random() * 3) - 1;
+                }
+
+                while (value1 === value3 || value2 === value3) {
+                  value3 = Math.floor(Math.random() * 3) - 1;
+                }
+
+                food1.push(value1 * 3);
+                food2.push(value2 * 3);
+                food3.push(value3 * 3);
+              }
+
+
+              //initiate all the game objects
+              this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
+              this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
+              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
+              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
+              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
+              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
+              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
+              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
+              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
+              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
+              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
+              this.background_ = new background.Background({ scene: this.scene_ });
+              this.progression_ = new progression.ProgressionManager();
+              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
 
 
-          }
+
+              let light = new THREE.DirectionalLight(0xffffff, 1);
+
+              this.scene_.add(light);
+
+              light = new THREE.HemisphereLight(0x202020, 0x004080, 1.5);
+              this.scene_.add(light);
+
+              light = new THREE.PointLight(0xb6bfcc, 1.5, 200, 4);
+              light.position.set(-7, 20, 0);
+              this.scene_.add(light);
+
+              this.scene_.background = new THREE.Color(0x808080);
+              this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
+
+              const loader = new GLTFLoader();
+              loader.setPath('./resources/Map/Stage2/');
+              loader.load('stage2a.gltf', (gltf) => {
+                this.mesh = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh.position.set(-5, 0, 0);
+                this.mesh.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh);
+
+              });
+              loader.load('stage2a.gltf', (gltf) => {
+                this.mesh1 = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh1.position.set(192, 0, 0);
+                this.mesh1.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh1.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh1);
+
+              });
+              loader.load('stage2b.gltf', (gltf) => {
+                this.mesh2 = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh2.position.set(389, 0, 0);
+                this.mesh2.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh2.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh2);
+
+              });
+              loader.load('stage2c.gltf', (gltf) => {
+                this.mesh3 = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh3.position.set(581, 0, -0.5);
+                this.mesh3.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh3.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh3);
+
+              });
+
+
+
+              const uniforms = {
+                topColor: { value: new THREE.Color(0x00008B) },
+                bottomColor: { value: new THREE.Color(0x89b2eb) },
+                offset: { value: 33 },
+                exponent: { value: 0.6 }
+              };
+
+              const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
+              const skyMat = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: _VS,
+                fragmentShader: _FS,
+                side: THREE.BackSide,
+              });
+
+
+              this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
+
+
+              this.gameOver_ = false;
+              this.stopTime = false;
+              this.gameOverCountdown_ = 3;
+              this.RAF_();
+            } else if (this.countdown_ === 0) {
+
+              this.previousRAF_ = null;
+              document.getElementById('loading-2').style.display = 'none';
+              document.getElementById('click-start').style.display = 'block';
+              clearInterval(this.intervalId_);
+            }
+          }, 1000);
+
         })
 
       });
@@ -1068,6 +1061,7 @@ class BasicWorldDemo {
         this.gameOver_ = true;
         this.stopTime = true
         this.Pause()
+        this.stage = 3;
         this.playNextStageVideo3()
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
@@ -1075,206 +1069,204 @@ class BasicWorldDemo {
         });
 
         this.nextStageVideo3_.addEventListener("ended", () => {
-          if (this.stage === 2) {
-            this.intervalId_ = setInterval(() => {
-              console.log("HI")
-              this.countdown1_--;
-              if (this.scene_.children.length === 0) {
+          this.intervalId_ = setInterval(() => {
+            console.log("HI")
+            this.countdown1_--;
+            if (this.scene_.children.length === 0) {
 
-                // set randon position for drinks
-                let arrDrinks1 = [];
-                let arrDrinks2 = [];
-                let arrDrinks3 = [];
+              // set randon position for drinks
+              let arrDrinks1 = [];
+              let arrDrinks2 = [];
+              let arrDrinks3 = [];
 
-                for (let i = 0; i < 6; i++) {
-                  let value1 = Math.floor(Math.random() * 3) - 1;
-                  let value2 = Math.floor(Math.random() * 3) - 1;
-                  let value3 = Math.floor(Math.random() * 3) - 1;
+              for (let i = 0; i < 6; i++) {
+                let value1 = Math.floor(Math.random() * 3) - 1;
+                let value2 = Math.floor(Math.random() * 3) - 1;
+                let value3 = Math.floor(Math.random() * 3) - 1;
 
-                  while (value1 === value2) {
-                    value2 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  while (value1 === value3 || value2 === value3) {
-                    value3 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  arrDrinks1.push(value1 * 3);
-                  arrDrinks2.push(value2 * 3);
-                  arrDrinks3.push(value3 * 3);
+                while (value1 === value2) {
+                  value2 = Math.floor(Math.random() * 3) - 1;
                 }
 
-
-                // set randonm positoin for box logos
-                let arrLogo1 = [];
-                let arrLogo2 = [];
-                let arrLogo3 = [];
-
-                for (let i = 0; i < 3; i++) {
-                  let value1 = Math.floor(Math.random() * 3) - 1;
-                  let value2 = Math.floor(Math.random() * 3) - 1;
-                  let value3 = Math.floor(Math.random() * 3) - 1;
-
-                  while (value1 === value2) {
-                    value2 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  while (value1 === value3 || value2 === value3) {
-                    value3 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  arrLogo1.push(value1 * 3);
-                  arrLogo2.push(value2 * 3);
-                  arrLogo3.push(value3 * 3);
+                while (value1 === value3 || value2 === value3) {
+                  value3 = Math.floor(Math.random() * 3) - 1;
                 }
 
-                // set randonm position for box logos
-                let food1 = [];
-                let food2 = [];
-                let food3 = [];
-
-                for (let i = 0; i < 4; i++) {
-                  let value1 = Math.floor(Math.random() * 3) - 1;
-                  let value2 = Math.floor(Math.random() * 3) - 1;
-                  let value3 = Math.floor(Math.random() * 3) - 1;
-
-                  while (value1 === value2) {
-                    value2 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  while (value1 === value3 || value2 === value3) {
-                    value3 = Math.floor(Math.random() * 3) - 1;
-                  }
-
-                  food1.push(value1 * 3);
-                  food2.push(value2 * 3);
-                  food3.push(value3 * 3);
-                }
-
-
-                //initiate all the game objects
-                this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
-                this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-                this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
-                this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
-                this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
-                this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
-                this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
-                this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
-                this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
-                this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
-                this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
-                this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-                this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-                this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
-                this.background_ = new background.Background({ scene: this.scene_ });
-                this.progression_ = new progression.ProgressionManager();
-                this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
-
-                let light = new THREE.DirectionalLight(0xffffff, 1);
-
-                this.scene_.add(light);
-
-                light = new THREE.HemisphereLight(0x202020, 0x004080, 1.5);
-                this.scene_.add(light);
-
-                light = new THREE.PointLight(0xb6bfcc, 1.5, 200, 4);
-                light.position.set(-7, 20, 0);
-                this.scene_.add(light);
-
-                this.scene_.background = new THREE.Color(0x808080);
-                this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
-
-                const loader = new GLTFLoader();
-                loader.setPath('./resources/Map/Stage3/');
-                loader.load('stage3start.gltf', (gltf) => {
-                  this.mesh = gltf.scene;
-
-                  gltf.castShadow = true;
-                  gltf.receiveShadow = true;
-                  this.mesh.position.set(-5, 0, -0.5);
-                  this.mesh.rotation.set(0, -Math.PI / 2, 0);
-                  this.mesh.scale.setScalar(0.0095);
-
-
-                  this.scene_.add(this.mesh);
-
-                });
-                loader.load('stage3a.gltf', (gltf) => {
-                  this.mesh1 = gltf.scene;
-
-                  gltf.castShadow = true;
-                  gltf.receiveShadow = true;
-                  this.mesh1.position.set(192, 0, -0.5);
-                  this.mesh1.rotation.set(0, -Math.PI / 2, 0);
-                  this.mesh1.scale.setScalar(0.0095);
-
-
-                  this.scene_.add(this.mesh1);
-
-                });
-                loader.load('stage3b.gltf', (gltf) => {
-                  this.mesh2 = gltf.scene;
-
-                  gltf.castShadow = true;
-                  gltf.receiveShadow = true;
-                  this.mesh2.position.set(389, 0, -0.5);
-                  this.mesh2.rotation.set(0, -Math.PI / 2, 0);
-                  this.mesh2.scale.setScalar(0.0095);
-
-
-                  this.scene_.add(this.mesh2);
-
-                });
-                loader.load('stage3a.gltf', (gltf) => {
-                  this.mesh3 = gltf.scene;
-
-                  gltf.castShadow = true;
-                  gltf.receiveShadow = true;
-                  this.mesh3.position.set(581, 0, -0.5);
-                  this.mesh3.rotation.set(0, -Math.PI / 2, 0);
-                  this.mesh3.scale.setScalar(0.0095);
-
-
-                  this.scene_.add(this.mesh3);
-
-                });
-
-
-
-                const uniforms = {
-                  topColor: { value: new THREE.Color(0x0077FF) },
-                  bottomColor: { value: new THREE.Color(0x89b2eb) },
-                  offset: { value: 33 },
-                  exponent: { value: 0.6 }
-                };
-
-                const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
-                const skyMat = new THREE.ShaderMaterial({
-                  uniforms: uniforms,
-                  vertexShader: _VS,
-                  fragmentShader: _FS,
-                  side: THREE.BackSide,
-                });
-
-
-                this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
-
-
-                this.gameOver_ = false;
-                this.stage = 3;
-                this.stopTime = false;
-                this.gameOverCountdown_ = 3;
-                this.RAF_();
-              } else if (this.countdown1_ === 0) {
-                this.previousRAF_ = null;
-                document.getElementById('loading-3').style.display = 'none';
-                document.getElementById('click-start').style.display = 'block';
-                clearInterval(this.intervalId_);
+                arrDrinks1.push(value1 * 3);
+                arrDrinks2.push(value2 * 3);
+                arrDrinks3.push(value3 * 3);
               }
-            }, 1000);
 
-          }
+
+              // set randonm positoin for box logos
+              let arrLogo1 = [];
+              let arrLogo2 = [];
+              let arrLogo3 = [];
+
+              for (let i = 0; i < 3; i++) {
+                let value1 = Math.floor(Math.random() * 3) - 1;
+                let value2 = Math.floor(Math.random() * 3) - 1;
+                let value3 = Math.floor(Math.random() * 3) - 1;
+
+                while (value1 === value2) {
+                  value2 = Math.floor(Math.random() * 3) - 1;
+                }
+
+                while (value1 === value3 || value2 === value3) {
+                  value3 = Math.floor(Math.random() * 3) - 1;
+                }
+
+                arrLogo1.push(value1 * 3);
+                arrLogo2.push(value2 * 3);
+                arrLogo3.push(value3 * 3);
+              }
+
+              // set randonm position for box logos
+              let food1 = [];
+              let food2 = [];
+              let food3 = [];
+
+              for (let i = 0; i < 4; i++) {
+                let value1 = Math.floor(Math.random() * 3) - 1;
+                let value2 = Math.floor(Math.random() * 3) - 1;
+                let value3 = Math.floor(Math.random() * 3) - 1;
+
+                while (value1 === value2) {
+                  value2 = Math.floor(Math.random() * 3) - 1;
+                }
+
+                while (value1 === value3 || value2 === value3) {
+                  value3 = Math.floor(Math.random() * 3) - 1;
+                }
+
+                food1.push(value1 * 3);
+                food2.push(value2 * 3);
+                food3.push(value3 * 3);
+              }
+
+
+              //initiate all the game objects
+              this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
+              this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
+              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
+              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
+              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
+              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
+              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
+              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
+              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
+              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
+              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
+              this.background_ = new background.Background({ scene: this.scene_ });
+              this.progression_ = new progression.ProgressionManager();
+              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
+
+              let light = new THREE.DirectionalLight(0xffffff, 1);
+
+              this.scene_.add(light);
+
+              light = new THREE.HemisphereLight(0x202020, 0x004080, 1.5);
+              this.scene_.add(light);
+
+              light = new THREE.PointLight(0xb6bfcc, 1.5, 200, 4);
+              light.position.set(-7, 20, 0);
+              this.scene_.add(light);
+
+              this.scene_.background = new THREE.Color(0x808080);
+              this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
+
+              const loader = new GLTFLoader();
+              loader.setPath('./resources/Map/Stage3/');
+              loader.load('stage3start.gltf', (gltf) => {
+                this.mesh = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh.position.set(-5, 0, -0.5);
+                this.mesh.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh);
+
+              });
+              loader.load('stage3a.gltf', (gltf) => {
+                this.mesh1 = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh1.position.set(192, 0, -0.5);
+                this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh1.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh1);
+
+              });
+              loader.load('stage3b.gltf', (gltf) => {
+                this.mesh2 = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh2.position.set(389, 0, -0.5);
+                this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh2.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh2);
+
+              });
+              loader.load('stage3a.gltf', (gltf) => {
+                this.mesh3 = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh3.position.set(581, 0, -0.5);
+                this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh3.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh3);
+
+              });
+
+
+
+              const uniforms = {
+                topColor: { value: new THREE.Color(0x0077FF) },
+                bottomColor: { value: new THREE.Color(0x89b2eb) },
+                offset: { value: 33 },
+                exponent: { value: 0.6 }
+              };
+
+              const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
+              const skyMat = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: _VS,
+                fragmentShader: _FS,
+                side: THREE.BackSide,
+              });
+
+
+              this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
+
+
+              this.gameOver_ = false;
+              this.stopTime = false;
+              this.gameOverCountdown_ = 3;
+              this.RAF_();
+            } else if (this.countdown1_ === 0) {
+              this.previousRAF_ = null;
+              document.getElementById('loading-3').style.display = 'none';
+              document.getElementById('click-start').style.display = 'block';
+              clearInterval(this.intervalId_);
+            }
+          }, 1000);
+
+
 
         })
       });
@@ -1437,33 +1429,40 @@ class BasicWorldDemo {
 
     //if game is over (lost)
     if (this.player_.gameOver && !this.gameOver_) {
+
+
+
+
       this.gameOver_ = true;
       document.getElementById('game-over').classList.toggle('active');
-      this.intervalId_ = setInterval(() => {
-        this.gameOverCountdown_--;
-        document.getElementById('countdown-text').textContent = this.gameOverCountdown_ + ' seconds to main screen';
-        if (this.gameOverCountdown_ === 0) {
-          clearInterval(this.intervalId_);
-          this.stage = this.stage - 1
 
-          if (this.stage == 1) {
-            this.playNextStageVideo2()
-            this.eventAdded = false;
-            this.countdown_ = 10
+      document.getElementById('try-again-button').addEventListener('click', () => {
 
-          } else if (this.stage == 2) {
-            this.playNextStageVideo3()
-            this.eventAdded1 = false;
-            this.countdown1_ = 10
+        document.getElementById('game-over').classList.remove('active');
+        console.log(this.stage)
 
-          }
+        if (this.stage == 2) {
+          this.playNextStageVideo2()
+          this.eventAdded = false;
+          this.countdown_ = 10
 
-          this.stopTime = true
+        } else if (this.stage == 3) {
+          this.playNextStageVideo3()
+          this.eventAdded1 = false;
+          this.countdown1_ = 10
 
-          this.Pause()
-          document.getElementById('game-over').classList.toggle('active');
         }
-      }, 1000);
+
+        this.stopTime = true
+
+        this.Pause()
+
+
+      });
+
+
+
+
     }
   }
 }

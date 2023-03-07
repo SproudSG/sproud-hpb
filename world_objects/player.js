@@ -894,11 +894,11 @@ export const player = (() => {
 
 
         //player movement with keyboard controls
-        if (this.keys_.space && this.position_.y == 0.0) {
+        if (this.keys_.space && this.position_.y == 0.0 && !this.sliding_) {
           this.SwipeUp(timeElapsed)
         }
 
-        if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_) {
+        if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_ && !this.inAir_) {
           this.SwipeDown()
 
         }
