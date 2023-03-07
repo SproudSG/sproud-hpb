@@ -1,6 +1,6 @@
 {
 	"version": 1,
-	"id":"YBotAll",
+	"id":"YBotAll_v002",
 	"name":"All",
 	"animations": {
 		"clip2": {
@@ -39,15 +39,6 @@
 			"postPlaybackMood": null,
 			"duration": 1.041666667
 		},
-		"Slide": {
-			"version": 1,
-			"id": "Slide",
-			"name": "slide",
-			"kind": "Puppeteer",
-			"mood": null,
-			"postPlaybackMood": null,
-			"duration": 1.541666667
-		},
 		"DrunkRun": {
 			"version": 1,
 			"id": "DrunkRun",
@@ -74,24 +65,6 @@
 			"mood": null,
 			"postPlaybackMood": null,
 			"duration": 1.541666667
-		},
-		"WallRunLeft": {
-			"version": 1,
-			"id": "WallRunLeft",
-			"name": "wallrunleft",
-			"kind": "Puppeteer",
-			"mood": null,
-			"postPlaybackMood": null,
-			"duration": 0.9166666667
-		},
-		"WallRunRight": {
-			"version": 1,
-			"id": "WallRunRight",
-			"name": "wallrunright",
-			"kind": "Puppeteer",
-			"mood": null,
-			"postPlaybackMood": null,
-			"duration": 0.9166666667
 		},
 		"BigJump": {
 			"version": 1,
@@ -164,6 +137,33 @@
 			"mood": null,
 			"postPlaybackMood": null,
 			"duration": 1.541666667
+		},
+		"SlideToRun": {
+			"version": 1,
+			"id": "SlideToRun",
+			"name": "slidetorun",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.083333333
+		},
+		"WallRunLeft": {
+			"version": 1,
+			"id": "WallRunLeft",
+			"name": "wallrunleft",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.9166666667
+		},
+		"WallRunRight": {
+			"version": 1,
+			"id": "WallRunRight",
+			"name": "wallrunright",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.9166666667
 		}
 	}
 }

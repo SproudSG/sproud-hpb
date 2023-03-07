@@ -111,7 +111,7 @@ export const player = (() => {
     LoadModel_() {
       let model;
       if (this.params_.gender === "male") {
-        model = 'YBotAll.gltf';
+        model = 'YBotAll_v002.gltf';
       } else {
         model = 'YBotGetHitAll.gltf'
       }
@@ -123,6 +123,7 @@ export const player = (() => {
       loader.load(
         model,
         (gltf) => {
+          console.log(gltf)
           this.gltf = gltf
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
@@ -197,7 +198,7 @@ export const player = (() => {
 
       }
       this.action.stop();
-      const clip = this.gltf.animations[12];
+      const clip = this.gltf.animations[4];
       this.action = this.mixer_.clipAction(clip);
       this.action.play();
     }
@@ -959,7 +960,7 @@ export const player = (() => {
         }
 
         if (this.sliding_) {
-          const acceleration = -12 * timeElapsed;
+          const acceleration = -8.8 * timeElapsed;
 
           this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
           this.slideTimer_ = Math.min(this.slideTimer_, 0.0);
