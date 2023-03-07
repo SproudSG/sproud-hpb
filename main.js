@@ -475,7 +475,7 @@ class BasicWorldDemo {
       far = 2000
     }
     this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    this.camera_.position.set(-8, 3.5, 0);
+    this.camera_.position.set(-7, 3.5, 0);
     this.camera_.lookAt(0, 3.5, 0);
 
     //scene

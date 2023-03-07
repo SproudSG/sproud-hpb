@@ -126,7 +126,7 @@ export const player = (() => {
           this.gltf = gltf
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
-          this.mesh_.scale.set(0.012, 0.012, 0.012);
+          this.mesh_.scale.set(0.013, 0.013, 0.013);
           this.mesh_.position.x = 0;				    //Position (x = right+ left-) 
           this.mesh_.position.y = 0;				    //Position (y = up+, down-)
           this.mesh_.position.z = 0;				    //Position (z = front +, back-)
@@ -944,8 +944,8 @@ export const player = (() => {
 
         //jump and slide calculation.
         if (this.inAir_) {
-          const acceleration = -105 * timeElapsed;
-          this.position_.y += timeElapsed * (this.velocity_ + acceleration * 0.5);
+          const acceleration = -105 * (timeElapsed/1.6);
+          this.position_.y += (timeElapsed/1.6 ) * (this.velocity_ + acceleration * 0.5);
 
 
           this.position_.y = Math.max(this.position_.y, 0.0);

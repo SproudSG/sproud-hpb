@@ -95,7 +95,7 @@ export const pitfall = (() => {
 
                    
 
-                    obj.scale = 0.008;
+                    obj.scale = 0.01;
                     this.objects_.push(obj);
                     this.counter_++
                 }
