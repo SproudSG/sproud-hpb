@@ -74,7 +74,7 @@ export const pitfall = (() => {
         SpawnObj_(timeElapsed) {
             this.progress_ += timeElapsed * 10.0;
 
-            const spawnPosition = [70, 200]
+            const spawnPosition = [70, 240]
 
             let obj = null;
 

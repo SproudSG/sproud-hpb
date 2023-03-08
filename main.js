@@ -787,8 +787,8 @@ class BasicWorldDemo {
     //if he loses stage 1
     if (!this.eventAdded3 && this.stage == 1) {
       document.addEventListener('score-over', () => {
-      this.nextStageVideo1_.addEventListener("ended", () => {
-        this.intervalId_ = setInterval(() => {
+        this.nextStageVideo1_.addEventListener("ended", () => {
+          this.intervalId_ = setInterval(() => {
             console.log("HI21")
             this.countdown_--;
             if (this.scene_.children.length === 0) {
@@ -900,6 +900,7 @@ class BasicWorldDemo {
               this.scene_.background = new THREE.Color(0x808080);
               this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
 
+              //load map
               const loader = new GLTFLoader();
               loader.setPath('./resources/Map/Stage1/');
               loader.load('stage1a.gltf', (gltf) => {
@@ -907,21 +908,22 @@ class BasicWorldDemo {
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh.position.set(-5, 0, 0);
-                this.mesh.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh.position.set(-5, 0, -0.5);
+                this.mesh.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh.scale.setScalar(0.0095);
 
 
                 this.scene_.add(this.mesh);
 
               });
+              loader.setPath('./resources/Map/Stage1/');
               loader.load('stage1b.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh1.position.set(192, 0, 0);
-                this.mesh1.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh1.position.set(192, 0, -0.5);
+                this.mesh1.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh1.scale.setScalar(0.0095);
 
 
@@ -933,8 +935,8 @@ class BasicWorldDemo {
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh2.position.set(389, 0, 0);
-                this.mesh2.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh2.position.set(389, 0, -0.5);
+                this.mesh2.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh2.scale.setScalar(0.0095);
 
 
@@ -947,7 +949,7 @@ class BasicWorldDemo {
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
                 this.mesh3.position.set(581, 0, -0.5);
-                this.mesh3.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.0095);
 
 
@@ -989,11 +991,11 @@ class BasicWorldDemo {
               document.getElementById('click-start').style.display = 'block';
 
             }
-          
-        }, 1000);
 
+          }, 1000);
+
+        })
       })
-    })
       this.eventAdded3 = true;
     }
 
@@ -1012,7 +1014,6 @@ class BasicWorldDemo {
 
         this.nextStageVideo2_.addEventListener("ended", () => {
           this.intervalId_ = setInterval(() => {
-            console.log("HI2123")
             this.countdown1_--;
             if (this.scene_.children.length === 0) {
 
@@ -1169,7 +1170,7 @@ class BasicWorldDemo {
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh3.position.set(581, 0, -0.5);
+                this.mesh3.position.set(581, 0, 0);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0.03);
                 this.mesh3.scale.setScalar(0.0095);
 
@@ -1236,7 +1237,6 @@ class BasicWorldDemo {
 
         this.nextStageVideo3_.addEventListener("ended", () => {
           this.intervalId_ = setInterval(() => {
-            console.log("HI")
             this.countdown2_--;
             if (this.scene_.children.length === 0) {
 
@@ -1359,7 +1359,7 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh);
 
               });
-              loader.load('stage3a.gltf', (gltf) => {
+              loader.load('stage3wallrun2.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
 
                 gltf.castShadow = true;
@@ -1604,7 +1604,6 @@ class BasicWorldDemo {
       document.getElementById('try-again-button').addEventListener('click', () => {
 
         document.getElementById('game-over').classList.remove('active');
-        console.log(this.stage)
 
         if (this.stage == 2) {
           this.playNextStageVideo2()

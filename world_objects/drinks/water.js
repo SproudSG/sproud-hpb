@@ -78,13 +78,8 @@ export const water = (() => {
       return this.objects_;
     }
 
-    ToggleVisible(counter) {
+    ToggleVisible() {
 
-      //correction if statement
-      // if(counter != 0 ){
-      //   counter--
-      // }
-      // this.objects_[counter].mesh.visible = false;
       this.objects_[0].mesh.visible = false;
 
     }
@@ -92,7 +87,7 @@ export const water = (() => {
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [50, 130, 210, 290, 370, 450]
+      const spawnPosition = [50, 130, 270, 350, 430, 500]
 
       let obj = null;
 

@@ -12,26 +12,16 @@ export const wallrun = (() => {
     class WallObject {
         constructor(params) {
             this.position = new THREE.Vector3(0, 0, 0);
-            this.quaternion = new THREE.Quaternion()//.setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 2);;
+            this.quaternion = new THREE.Quaternion()
             this.scale = 1.0;
-
             this.collider = new THREE.Box3();
             this.params_ = params;
             this.LoadModel_();
             this.mixer = null;
         }
 
-        // load the monster
+        // load the model
         LoadModel_() {
-
-
-            // const loader = new FBXLoader();
-            // loader.setPath('./resources/Pitfall/');
-
-            // loader.load('pit.fbx', (fbx) => {
-            //     this.mesh = fbx
-            //     this.params_.scene.add(this.mesh); 
-            // });
 
             const loader = new GLTFLoader();
             loader.setPath('./resources/Wall/');
@@ -84,7 +74,7 @@ export const wallrun = (() => {
         SpawnObj_(timeElapsed) {
             this.progress_ += timeElapsed * 10.0;
 
-            const spawnPosition = [80, 100, 200, 220]
+            const spawnPosition = [195, 212]
             let obj = null;
             let zPosition = 5; // initialize the zPosition to positive 5
 
@@ -96,7 +86,7 @@ export const wallrun = (() => {
                     obj.position.y = -2
                     obj.position.z = zPosition; // set the zPosition for the object
 
-                    obj.scale = 0.15;
+                    obj.scale = 0.14;
                     this.objects_.push(obj);
                     this.counter_++
                     zPosition *= -1; // toggle the zPosition between positive and negative

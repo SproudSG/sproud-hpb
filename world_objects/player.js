@@ -784,11 +784,36 @@ export const player = (() => {
               //right wall first -> if u jump and go to right , u will stay in that y position.
               if (this.inAir_ && (this.keys_.right || swipeRight)) {
                 this.SwipeRight()
-                if (this.position_.z == 3) {
-                  this.position_.y = this.position_.y
+                if (this.position_.z >= 2.6) {
+                  this.position_.z = 3
+                  if(this.position_.y != 3){
+                    if(this.position_.y > 3){
+                      this.position_.y = this.position_.y - (timeElapsed*2)
+
+                    }else{
+                      this.position_.y = this.position_.y + (timeElapsed*2)
+
+                    }
+
+                  }
                   this.inAir_ = false;
                   this.onWall = true;
                   this.RightWallRunAnimation_()
+                }
+              }
+
+              if(this.onWall){
+                console.log(this.position_.y)
+
+                if(this.position_.y != 3){
+                  if(this.position_.y > 3){
+                    this.position_.y = this.position_.y - (timeElapsed*2)
+
+                  }else{
+                    this.position_.y = this.position_.y + (timeElapsed*2)
+
+                  }
+
                 }
               }
 
@@ -851,7 +876,7 @@ export const player = (() => {
               if (this.inAir_ && (this.keys_.left || swipeLeft)) {
                 this.SwipeLeft()
                 if (this.position_.z == -3) {
-                  this.position_.y = this.position_.y
+                  this.position_.y = 2
                   this.inAir_ = false;
                   this.onWall = true;
                   this.LeftWallRunAnimation_()

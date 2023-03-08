@@ -82,7 +82,7 @@ export const meat = (() => {
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [120, 180, 280, 330]
+      const spawnPosition = [120, 170, 280, 330]
 
       let obj = null;
 
