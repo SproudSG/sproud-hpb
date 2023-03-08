@@ -5,8 +5,8 @@ export const progression = (() => {
             this.progress_ = 0.0;
         }
 
-        Update(timeElapsed, pause, buffspeed, speed,stage) {
-            this.UpdateProgression_(timeElapsed, pause, buffspeed, speed,stage);
+        Update(timeElapsed, pause, buffspeed, speed, stage) {
+            this.UpdateProgression_(timeElapsed, pause, buffspeed, speed, stage);
         }
 
         //Progression 
@@ -30,7 +30,7 @@ export const progression = (() => {
                         document.dispatchEvent(new CustomEvent('score-over1'));
                     } else if (stage == 2) {
                         document.dispatchEvent(new CustomEvent('score-over2'));
-                    }else if (stage == 3) {
+                    } else if (stage == 3) {
                         document.dispatchEvent(new CustomEvent('score-over3'));
 
                     }

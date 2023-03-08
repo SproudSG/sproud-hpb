@@ -8,7 +8,7 @@ import * as THREE from '../../node_modules/three/build/three.module.js';
 
 import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
-import {math} from './math.js';
+import { math } from './math.js';
 
 export const background = (() => {
 
@@ -36,7 +36,7 @@ export const background = (() => {
         this.scale_ = math.rand_range(10, 20);
 
         const q = new THREE.Quaternion().setFromAxisAngle(
-            new THREE.Vector3(0, 1, 0), math.rand_range(0, 360));
+          new THREE.Vector3(0, 1, 0), math.rand_range(0, 360));
         this.quaternion_.copy(q);
 
         this.mesh_.traverse(c => {
@@ -48,25 +48,27 @@ export const background = (() => {
           if (!(c.material instanceof Array)) {
             materials = [c.material];
           }
-  
+
           for (let m of materials) {
             if (m) {
               m.specular = new THREE.Color(0x000000);
-              m.emissive = new THREE.Color(0xC0C0C0);  
+              m.emissive = new THREE.Color(0xC0C0C0);
             }
-          }    
+          }
           c.castShadow = true;
           c.receiveShadow = true;
         });
       });
     }
 
-    Update(timeElapsed) {
+    Update(timeElapsed, isPaused) {
       if (!this.mesh_) {
         return;
       }
 
       this.position_.x -= timeElapsed * 10;
+
+
       if (this.position_.x < -100) {
         this.position_.x = math.rand_range(2000, 3000);
       }
@@ -186,10 +188,14 @@ export const background = (() => {
     }
     */
 
-    Update(timeElapsed) {
-      for (let c of this.clouds_) {
-        c.Update(timeElapsed);
+    Update(timeElapsed, isPaused) {
+      if (!isPaused) {
+        console.log(isPaused)
+        for (let c of this.clouds_) {
+          c.Update(timeElapsed, isPaused);
+        }
       }
+
       /*
       for (let c of this.crap_) {
         c.Update(timeElapsed);
@@ -199,6 +205,6 @@ export const background = (() => {
   }
 
   return {
-      Background: Background,
+    Background: Background,
   };
 })();

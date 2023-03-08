@@ -66,6 +66,8 @@ export const player = (() => {
       this.endWall = false;
       this.wallArray = []
       this.wallLoaded = false;
+      this.toggleJumpAnimation = false;
+
       //sheild variables
       this.immunitiy = false;
 
@@ -123,7 +125,6 @@ export const player = (() => {
       loader.load(
         model,
         (gltf) => {
-          console.log(gltf)
           this.gltf = gltf
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
@@ -803,7 +804,6 @@ export const player = (() => {
               }
 
               if(this.onWall){
-                console.log(this.position_.y)
 
                 if(this.position_.y != 3){
                   if(this.position_.y > 3){
@@ -820,6 +820,7 @@ export const player = (() => {
               //click left way too early
               if (this.onWall && (this.keys_.left || swipeLeft) && this.wallArray[1].x > 15) {
                 this.SwipeLeft()
+                this.onWall = false;
                 this.inAir_ = true
               }
 
@@ -844,7 +845,14 @@ export const player = (() => {
               //left wall
               if (!this.inAir_ && (this.keys_.left || swipeLeft) && this.position_.z != -3) {
                 this.SwipeFullLeft()
-                if (this.position_.z >= -3) {
+
+              if(this.position_.z != 3 || this.position_.z != -3 ){
+                if(!this.toggleJumpAnimation){
+                  this.toggleJumpAnimation = true;
+                  this.JumpAnimation_()
+                }
+              }
+                if (this.position_.z <= -2.6) {
                   this.onWall = true;
                   this.LeftWallRunAnimation_()
                 }

@@ -64,6 +64,9 @@ class BasicWorldDemo {
     //first load
     this.firstLoad = true;
 
+    //pause
+    this.allowPause = false;
+
     //load assets & world variables 
     this.loaded = false;
     this.gender_ = null;
@@ -73,6 +76,7 @@ class BasicWorldDemo {
     //init
     this._gameStarted = false;
     this._Initialize();
+    this.checkStartGame = false;
 
     //on load music 
     this.menuMusic = document.getElementById("menu-music");
@@ -486,21 +490,26 @@ class BasicWorldDemo {
     //key down event listener
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') {
-        if (this.isPaused) {
-          this.animationId = requestAnimationFrame(animate);
+        if (this.allowPause) {
+          if (this.isPaused) {
+            this.animationId = requestAnimationFrame(animate);
+            this.objSpeed = 12
+            this.monSpeed = 52
+            this.speedy = 12
+            this.speedz = 3
+            this.isPaused = false;
+            document.querySelector('#video-container').style.backgroundColor = 'transparent'
 
-          this.objSpeed = 12
-          this.monSpeed = 52
-          this.speedy = 12
-          this.speedz = 3
-          this.isPaused = false;
-        } else {
-          this.objSpeed = 0
-          this.monSpeed = 0
-          this.speedy = 0
-          this.speedz = 0
-          cancelAnimationFrame(this.animationId);
-          this.isPaused = true;
+          } else {
+            this.objSpeed = 0
+            this.monSpeed = 0
+            this.speedy = 0
+            this.speedz = 0
+            cancelAnimationFrame(this.animationId);
+            this.isPaused = true;
+            document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
+
+          }
         }
       }
     });
@@ -518,8 +527,13 @@ class BasicWorldDemo {
         this.isPaused = false;
         document.getElementById('click-start').style.display = 'none';
         this.restartStage = false;
-      } else if (this.startGame) {
+        this.allowPause = true;
+
+      } else if (this.startGame && !this.checkStartGame) {
+        this.checkStartGame = true;
         this._OnStart()
+        this.allowPause = true;
+
         document.getElementById('click-start').style.display = 'none';
 
       }
@@ -530,7 +544,6 @@ class BasicWorldDemo {
     document.addEventListener('keydown', () => {
       if (this.restartStage) {
         this.animationId = requestAnimationFrame(animate);
-
         this.objSpeed = 12
         this.monSpeed = 52
         this.speedy = 12
@@ -538,9 +551,14 @@ class BasicWorldDemo {
         this.isPaused = false;
         document.getElementById('click-start').style.display = 'none';
         this.restartStage = false;
-      } else if (this.startGame) {
+        this.allowPause = true;
+
+      } else if (this.startGame && !this.checkStartGame) {
+        this.checkStartGame = true;
+
         this._OnStart()
         document.getElementById('click-start').style.display = 'none';
+        this.allowPause = true;
 
       }
 
@@ -738,6 +756,12 @@ class BasicWorldDemo {
     this.background_ = new background.Background({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
 
+
+    //for shield 
+    if (this.stage == 1) {
+      document.querySelector('.wrapper').style.display = 'none';
+    }
+
     //final variables 
     this.gameOver_ = false;
     this.previousRAF_ = null;
@@ -789,7 +813,6 @@ class BasicWorldDemo {
       document.addEventListener('score-over', () => {
         this.nextStageVideo1_.addEventListener("ended", () => {
           this.intervalId_ = setInterval(() => {
-            console.log("HI21")
             this.countdown_--;
             if (this.scene_.children.length === 0) {
 
@@ -1003,8 +1026,10 @@ class BasicWorldDemo {
     if (!this.eventAdded && this.stage == 1) {
       document.addEventListener('score-over1', () => {
         this.gameOver_ = true;
+        this.allowPause = false;
         this.stopTime = true
         this.Pause()
+
         this.stage = 2;
         this.playNextStageVideo2()
         this.player_.getStamina(result => {
@@ -1206,7 +1231,7 @@ class BasicWorldDemo {
             } else if (this.countdown1_ === 0) {
               this.previousRAF_ = null;
               this.restartStage = true;
-
+              document.querySelector('.wrapper').style.display = 'block';
               document.getElementById('loading-2').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
 
@@ -1227,6 +1252,7 @@ class BasicWorldDemo {
       document.addEventListener('score-over2', () => {
         this.gameOver_ = true;
         this.stopTime = true
+        this.allowPause = false;
         this.Pause()
         this.stage = 3;
         this.playNextStageVideo3()
@@ -1326,7 +1352,6 @@ class BasicWorldDemo {
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
-              this.background_ = new background.Background({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
@@ -1402,8 +1427,8 @@ class BasicWorldDemo {
 
 
               const uniforms = {
-                topColor: { value: new THREE.Color(0x0077FF) },
-                bottomColor: { value: new THREE.Color(0x89b2eb) },
+                topColor: { value: new THREE.Color(0x0c1445) },
+                bottomColor: { value: new THREE.Color(0x38285c) },
                 offset: { value: 33 },
                 exponent: { value: 0.6 }
               };
@@ -1445,6 +1470,7 @@ class BasicWorldDemo {
     //if player wins stage 3
     if (!this.eventAdded2 && this.stage == 3) {
       document.addEventListener('score-over3', () => {
+        this.allowPause = false;
         this.gameOver_ = true;
         this.stopTime = true;
 
@@ -1516,7 +1542,7 @@ class BasicWorldDemo {
 
       this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight);
       this.oilSlik_.Update(timeElapsed);
-      this.background_.Update(timeElapsed);
+      this.background_.Update(timeElapsed, pause);
       this.progression_.Update(timeElapsed, pause, this.buffspeed, this.speed_, this.stage);
 
 
@@ -1597,7 +1623,7 @@ class BasicWorldDemo {
     //if game is over (lost)
     if (this._gameStarted && this.player_.gameOver && !this.gameOver_) {
 
-
+      this.allowPause = false;
       this.gameOver_ = true;
       document.getElementById('game-over').classList.toggle('active');
 
