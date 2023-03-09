@@ -1,0 +1,205 @@
+{
+	"version": 1,
+	"id":"YBotAll_v003",
+	"name":"All",
+	"animations": {
+		"clip2": {
+			"version": 1,
+			"id": "clip2",
+			"name": "clip2",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.04166666667
+		},
+		"Run": {
+			"version": 1,
+			"id": "Run",
+			"name": "run",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.5
+		},
+		"RunLeft": {
+			"version": 1,
+			"id": "RunLeft",
+			"name": "runleft",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1
+		},
+		"RunRight": {
+			"version": 1,
+			"id": "RunRight",
+			"name": "runright",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.041666667
+		},
+		"DrunkRun": {
+			"version": 1,
+			"id": "DrunkRun",
+			"name": "drunkrun",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.833333333
+		},
+		"DrunkRunRight": {
+			"version": 1,
+			"id": "DrunkRunRight",
+			"name": "drunkrunright",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.5
+		},
+		"DrunkRunLeft": {
+			"version": 1,
+			"id": "DrunkRunLeft",
+			"name": "drunkrunleft",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.541666667
+		},
+		"BigJump": {
+			"version": 1,
+			"id": "BigJump",
+			"name": "bigjump",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.375
+		},
+		"RunJump": {
+			"version": 1,
+			"id": "RunJump",
+			"name": "runjump",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.9166666667
+		},
+		"DoubleJumpToRun": {
+			"version": 1,
+			"id": "DoubleJumpToRun",
+			"name": "doublejumptorun",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.458333333
+		},
+		"BigJumpToRun": {
+			"version": 1,
+			"id": "BigJumpToRun",
+			"name": "bigjumptorun",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 3
+		},
+		"BigBodyBlow": {
+			"version": 1,
+			"id": "BigBodyBlow",
+			"name": "bigbodyblow",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.583333333
+		},
+		"StumbleBackwards": {
+			"version": 1,
+			"id": "StumbleBackwards",
+			"name": "stumblebackwards",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 3.333333333
+		},
+		"FallFlat": {
+			"version": 1,
+			"id": "FallFlat",
+			"name": "fallflat",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.541666667
+		},
+		"FallingFlatImpact": {
+			"version": 1,
+			"id": "FallingFlatImpact",
+			"name": "fallingflatimpact",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.541666667
+		},
+		"SlideToRun": {
+			"version": 1,
+			"id": "SlideToRun",
+			"name": "slidetorun",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.083333333
+		},
+		"WallRunRightCycle": {
+			"version": 1,
+			"id": "WallRunRightCycle",
+			"name": "wallrunrightcycle",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.625
+		},
+		"WallRunLeftCycle": {
+			"version": 1,
+			"id": "WallRunLeftCycle",
+			"name": "wallrunleftcycle",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.625
+		},
+		"WallRunRightStart": {
+			"version": 1,
+			"id": "WallRunRightStart",
+			"name": "wallrunrightstart",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.166666667
+		},
+		"WallRunRightEnd": {
+			"version": 1,
+			"id": "WallRunRightEnd",
+			"name": "wallrunrightend",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.25
+		},
+		"WallRunLeftStart": {
+			"version": 1,
+			"id": "WallRunLeftStart",
+			"name": "wallrunleftstart",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.166666667
+		},
+		"WallRunLeftEnd": {
+			"version": 1,
+			"id": "WallRunLeftEnd",
+			"name": "wallrunleftend",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.25
+		}
+	}
+}

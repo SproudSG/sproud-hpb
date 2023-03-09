@@ -61,7 +61,7 @@ export const background = (() => {
       });
     }
 
-    Update(timeElapsed, isPaused) {
+    Update(timeElapsed) {
       if (!this.mesh_) {
         return;
       }
@@ -190,9 +190,8 @@ export const background = (() => {
 
     Update(timeElapsed, isPaused) {
       if (!isPaused) {
-        console.log(isPaused)
         for (let c of this.clouds_) {
-          c.Update(timeElapsed, isPaused);
+          c.Update(timeElapsed);
         }
       }
 

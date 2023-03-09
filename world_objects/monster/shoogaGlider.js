@@ -155,21 +155,15 @@ export const shoogaGlider = (() => {
           this.paused = false
 
         }
+        
         obj.position.x -= timeElapsed * speed;
+        if (obj.position.y != 1 && obj.position.x <= 250) {
+          console.log(obj.position.x)
 
-        // console.log(obj.position.z)
-        // if (obj.position.z < -3 || obj.position.z > 3) {
-        //   obj.position.z -= timeElapsed * -speedz;
-
-        // }else{
-        //   obj.position.z -= timeElapsed * speedz;
-
-        // }
-        if (obj.position.y != 1) {
           if (obj.position.y < 1) {
             obj.position.y = 1
           } else {
-            obj.position.y -= timeElapsed * speedy;
+            obj.position.y -= timeElapsed * (speedy*2 );
 
           }
         }

@@ -485,7 +485,71 @@ class BasicWorldDemo {
 
     });
 
+    //pause 
+    var playButton = document.getElementById("playButton");
+    var pauseButton = document.getElementById("pauseButton");
 
+    // Add event listeners to the buttons
+    playButton.addEventListener("click", ()=>{
+      if (this.allowPause) {
+        if (this.isPaused) {
+          this.animationId = requestAnimationFrame(animate);
+          this.objSpeed = 12
+          this.monSpeed = 52
+          this.speedy = 12
+          this.speedz = 3
+          this.isPaused = false;
+          document.querySelector('#video-container').style.backgroundColor = 'transparent'
+          document.querySelector('#pauseDiv').style.display = 'none'
+          playButton.style.display = 'none'
+          pauseButton.style.display = 'block'
+
+        } else {
+          this.objSpeed = 0
+          this.monSpeed = 0
+          this.speedy = 0
+          this.speedz = 0
+          cancelAnimationFrame(this.animationId);
+          this.isPaused = true;
+          document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
+          document.querySelector('#pauseDiv').style.display = 'block'
+          playButton.style.display = 'block'
+          pauseButton.style.display = 'none'
+
+        }
+      }
+    });
+
+     // Add event listeners to the buttons
+     pauseButton.addEventListener("click", ()=>{
+      if (this.allowPause) {
+        if (this.isPaused) {
+          this.animationId = requestAnimationFrame(animate);
+          this.objSpeed = 12
+          this.monSpeed = 52
+          this.speedy = 12
+          this.speedz = 3
+          this.isPaused = false;
+          document.querySelector('#video-container').style.backgroundColor = 'transparent'
+          document.querySelector('#pauseDiv').style.display = 'none'
+          playButton.style.display = 'none'
+          pauseButton.style.display = 'block'
+
+        } else {
+          this.objSpeed = 0
+          this.monSpeed = 0
+          this.speedy = 0
+          this.speedz = 0
+          cancelAnimationFrame(this.animationId);
+          this.isPaused = true;
+          document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
+          document.querySelector('#pauseDiv').style.display = 'block'
+          playButton.style.display = 'block'
+          pauseButton.style.display = 'none'
+
+        }
+      }
+    });
 
     //key down event listener
     document.addEventListener('keydown', event => {
@@ -499,6 +563,9 @@ class BasicWorldDemo {
             this.speedz = 3
             this.isPaused = false;
             document.querySelector('#video-container').style.backgroundColor = 'transparent'
+            document.querySelector('#pauseDiv').style.display = 'none'
+            playButton.style.display = 'none'
+            pauseButton.style.display = 'block'
 
           } else {
             this.objSpeed = 0
@@ -508,6 +575,9 @@ class BasicWorldDemo {
             cancelAnimationFrame(this.animationId);
             this.isPaused = true;
             document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
+            document.querySelector('#pauseDiv').style.display = 'block'
+            playButton.style.display = 'block'
+            pauseButton.style.display = 'none'
 
           }
         }
@@ -528,11 +598,13 @@ class BasicWorldDemo {
         document.getElementById('click-start').style.display = 'none';
         this.restartStage = false;
         this.allowPause = true;
+        pauseButton.style.display = 'block'
 
       } else if (this.startGame && !this.checkStartGame) {
         this.checkStartGame = true;
         this._OnStart()
         this.allowPause = true;
+        pauseButton.style.display = 'block'
 
         document.getElementById('click-start').style.display = 'none';
 
@@ -552,9 +624,11 @@ class BasicWorldDemo {
         document.getElementById('click-start').style.display = 'none';
         this.restartStage = false;
         this.allowPause = true;
+        pauseButton.style.display = 'block'
 
       } else if (this.startGame && !this.checkStartGame) {
         this.checkStartGame = true;
+        pauseButton.style.display = 'block'
 
         this._OnStart()
         document.getElementById('click-start').style.display = 'none';
@@ -1029,7 +1103,7 @@ class BasicWorldDemo {
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
-
+        pauseButton.style.display = 'none'
         this.stage = 2;
         this.playNextStageVideo2()
         this.player_.getStamina(result => {
@@ -1254,6 +1328,8 @@ class BasicWorldDemo {
         this.stopTime = true
         this.allowPause = false;
         this.Pause()
+        pauseButton.style.display = 'none'
+
         this.stage = 3;
         this.playNextStageVideo3()
         this.player_.getStamina(result => {
@@ -1473,6 +1549,7 @@ class BasicWorldDemo {
         this.allowPause = false;
         this.gameOver_ = true;
         this.stopTime = true;
+        pauseButton.style.display = 'none'
 
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
@@ -1626,6 +1703,7 @@ class BasicWorldDemo {
       this.allowPause = false;
       this.gameOver_ = true;
       document.getElementById('game-over').classList.toggle('active');
+      pauseButton.style.display = 'none'
 
       document.getElementById('try-again-button').addEventListener('click', () => {
 

@@ -12,7 +12,7 @@ export const wallrun = (() => {
     class WallObject {
         constructor(params) {
             this.position = new THREE.Vector3(0, 0, 0);
-            this.quaternion = new THREE.Quaternion()
+            this.quaternion = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
             this.scale = 1.0;
             this.collider = new THREE.Box3();
             this.params_ = params;
@@ -20,12 +20,12 @@ export const wallrun = (() => {
             this.mixer = null;
         }
 
-        // load the model
+        // load the model        
         LoadModel_() {
 
             const loader = new GLTFLoader();
             loader.setPath('./resources/Wall/');
-            loader.load('scene.gltf', (gltf) => {
+            loader.load('walltorun.gltf', (gltf) => {
                 this.mesh = gltf.scene;
 
                 this.params_.scene.add(this.mesh);
@@ -74,19 +74,19 @@ export const wallrun = (() => {
         SpawnObj_(timeElapsed) {
             this.progress_ += timeElapsed * 10.0;
 
-            const spawnPosition = [195, 212]
+            const spawnPosition = [193, 210]
             let obj = null;
-            let zPosition = 5; // initialize the zPosition to positive 5
+            let zPosition = -7.7; // initialize the zPosition to positive 5
 
             for (var i = 0; i < spawnPosition.length; i++) {
                 if (this.counter_ == i) {
                     obj = new WallObject(this.params_);
 
                     obj.position.x = spawnPosition[i]
-                    obj.position.y = -2
+                    obj.position.y = -12
                     obj.position.z = zPosition; // set the zPosition for the object
 
-                    obj.scale = 0.14;
+                    obj.scale = 0.015;
                     this.objects_.push(obj);
                     this.counter_++
                     zPosition *= -1; // toggle the zPosition between positive and negative

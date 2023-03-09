@@ -492,3 +492,17 @@ div.quarter.right-bottom {
   z-index: 999999999;
 
 }
+
+/* pause  play button*/
+.button-container {
+  position: absolute;
+  top: 0;
+  right: 20px;
+}
+
+.button-container > img {
+  width:60px;
+  z-index: 5;
+  position: relative;
+
+}

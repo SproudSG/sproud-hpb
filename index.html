@@ -15,7 +15,7 @@
   <script src="./main.js" type="module">
   </script>
   <div class="container" id="container">
-
+    <!-- stamina -->
     <div class="ui">
 
       <div class="stamina-layout">
@@ -47,8 +47,17 @@
       </div>
     </div>
 
+    <!-- pause -->
     <div class="ui">
-      <div class="game-over-layout" id="game-over" >
+      <div class="button-container">
+        <img src="./resources/play_button.png" style="display: none;" id="playButton" ></img>
+        <img src="./resources/pause_button.png" style="display: none;" id="pauseButton"></img>
+      </div>
+    </div>
+
+
+    <div class="ui">
+      <div class="game-over-layout" id="game-over">
         <div class="game-over-text">GAME OVER</div>
         <button id="try-again-button">Try Again</button>
       </div>
@@ -114,6 +123,11 @@
     <video preload="metadata" id="nextStage3" src="./resources/nextStage.mp4" style="display: none;"></video>
     <video preload="metadata" id="nextStage4" src="./resources/nextStage.mp4" style="display: none;"></video>
 
+    <div class="ui" id="pauseDiv" style="display: none;">
+      <div class="you-win-layout">
+        <div class="you-win-text">PAUSED</div>
+      </div>
+    </div>
   </div>
   <div id="click-start" style="display: none;">
     <div class="ui">
