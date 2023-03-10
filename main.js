@@ -1672,6 +1672,19 @@ class BasicWorldDemo {
         }
       });
 
+
+      //check if player collides with the pit
+      this.player_.getPitCollide(result => {
+        if (result) {
+          setTimeout(() => {
+            this.Pause()
+            this.player_.position_.y = this.player_.position_.y - timeElapsed
+          }, 200);
+    
+        }
+      });
+
+
       //checks whether player collides with box from player.js
       this.player_.getBoxCollide(result => {
         this.box_ = result

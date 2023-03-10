@@ -34,6 +34,7 @@ export const player = (() => {
       //pitfall variables
       this.pitfallID = null;
       this.processedPitfallIDs = [];
+      this.pitCollide = false;
 
       //water variables
       this.waterID = null;
@@ -155,7 +156,7 @@ export const player = (() => {
         }
       );
     }
-
+    //player model animations
     SlideAnimation_() {
       if (!this.mixer_) {
         return;
@@ -170,6 +171,22 @@ export const player = (() => {
 
     }
 
+
+    FallAnimation_() {
+      if (!this.mixer_) {
+        return;
+      }
+      this.action.stop();
+      const clip = this.gltf.animations[20];
+      this.action = this.mixer_.clipAction(clip);
+      this.action.setLoop(THREE.LoopOnce);
+
+      this.action.play();
+      setTimeout(() => {
+        this.gameOver = true;
+      }, this.action.getClip().duration *1000);
+
+    }
 
     RightWallRunAnimation_() {
       if (!this.mixer_) {
@@ -187,7 +204,7 @@ export const player = (() => {
         clip = this.gltf.animations[10];
         this.action = this.mixer_.clipAction(clip);
         this.action.play();
-      },  this.action.getClip().duration * 970);
+      }, this.action.getClip().duration * 970);
     }
 
     LeftWallRunAnimation_() {
@@ -363,7 +380,10 @@ export const player = (() => {
           this.pitfallID = c.mesh.uuid;
           if (!this.processedPitfallIDs.includes(this.pitfallID) && cur.intersectsBox(this.playerBox_)) {
             this.processedPitfallIDs.push(this.pitfallID);
-            this.gameOver = true;
+            // this.gameOver = true;
+            console.log(c.position.z)
+            this.FallAnimation_()
+            this.pitCollide = true;
           }
         } else {
           return;
@@ -669,6 +689,12 @@ export const player = (() => {
       callback(result);
       this.box = ""
     }
+
+    getPitCollide(callback) {
+      const result = this.pitCollide
+      callback(result);
+    }
+
     getStamina(callback) {
       const result = this.stamina_;
       callback(result);
@@ -781,307 +807,307 @@ export const player = (() => {
 
     Update(timeElapsed, pause, wallPosition, swipeLeft, swipeRight) {
 
-        if (!this.wallLoaded) {
-          this.wallArray = wallPosition
-          this.wallLoaded = true;
-        }
-        // wall running sheesh hard coded
-        if (this.wallArray.length != 0) {
-          //wall running right wall mechanics
-          if (this.wallArray[0].z > 0) {
-            if (this.wallArray[0].x < 15 && this.wallArray[0].x > -15) {
-              //dont jump u die 
-              if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0) {
-                this.gameOver = true
-              }
-              //right wall first -> if u jump and go to right , u will stay in that y position.
-              if (this.inAir_ && (this.keys_.right || swipeRight)) {
-                this.SwipeRight()
-                if (this.position_.z >= 2.6) {
-                  this.position_.z = 3
-                  if (this.position_.y != 3) {
-                    if (this.position_.y > 3) {
-                      this.position_.y = this.position_.y - (timeElapsed * 2)
-                      if(this.position_.y < 3.1){
-                        this.position_.y = 3
-                      }
-                    } else {
-                      this.position_.y = this.position_.y + (timeElapsed * 2)
-                      if(this.position_.y > 2.9){
-                        this.position_.y = 3
-                      }
-                    }
-
-                  }
-                  this.inAir_ = false;
-                  this.onWall = true;
-                  this.RightWallRunAnimation_()
-                }
-              }
-
-              if (this.onWall) {
-
+      if (!this.wallLoaded) {
+        this.wallArray = wallPosition
+        this.wallLoaded = true;
+      }
+      // wall running sheesh hard coded
+      if (this.wallArray.length != 0) {
+        //wall running right wall mechanics
+        if (this.wallArray[0].z > 0) {
+          if (this.wallArray[0].x < 15 && this.wallArray[0].x > -15) {
+            //dont jump u die 
+            if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0) {
+              this.gameOver = true
+            }
+            //right wall first -> if u jump and go to right , u will stay in that y position.
+            if (this.inAir_ && (this.keys_.right || swipeRight)) {
+              this.SwipeRight()
+              if (this.position_.z >= 2.6) {
+                this.position_.z = 3
                 if (this.position_.y != 3) {
                   if (this.position_.y > 3) {
                     this.position_.y = this.position_.y - (timeElapsed * 2)
-                    if(this.position_.y < 3.1){
+                    if (this.position_.y < 3.1) {
                       this.position_.y = 3
                     }
                   } else {
                     this.position_.y = this.position_.y + (timeElapsed * 2)
-                    if(this.position_.y > 2.9){
+                    if (this.position_.y > 2.9) {
                       this.position_.y = 3
                     }
                   }
 
                 }
+                this.inAir_ = false;
+                this.onWall = true;
+                this.RightWallRunAnimation_()
               }
-
-              //click left way too early
-              if (this.onWall && (this.keys_.left || swipeLeft) && this.wallArray[1].x > 15) {
-                this.SwipeLeft()
-                this.onWall = false;
-                this.inAir_ = true
-              }
-
-
-            }
-            //fall down when wall ends
-            if (this.wallArray[0].x < -15 && this.position_.z == 3) {
-              this.inAir_ = true;
-              this.RunAnimation_()
             }
 
+            if (this.onWall) {
 
-
-            //wall running left wall mechanics
-            if (this.wallArray[1].x < 15 && this.wallArray[1].x > -15) {
-
-              //dont jump u die 
-              if (this.position_.y == 0 && this.wallArray[1].x > -10) {
-                this.gameOver = true
-              }
-
-              //left wall
-              if (!this.inAir_ && (this.keys_.left || swipeLeft) && this.position_.z != -3) {
-                this.SwipeFullLeft()
-
-                if (this.position_.z != 3 || this.position_.z != -3) {
-                  if (!this.toggleJumpAnimation) {
-                    this.toggleJumpAnimation = true;
-                    this.JumpAnimation_()
+              if (this.position_.y != 3) {
+                if (this.position_.y > 3) {
+                  this.position_.y = this.position_.y - (timeElapsed * 2)
+                  if (this.position_.y < 3.1) {
+                    this.position_.y = 3
+                  }
+                } else {
+                  this.position_.y = this.position_.y + (timeElapsed * 2)
+                  if (this.position_.y > 2.9) {
+                    this.position_.y = 3
                   }
                 }
-                if (this.position_.z <= -2.6) {
-                  this.toggleJumpAnimation = false;
-                  this.onWall = true;
-                  this.LeftWallRunAnimation_()
-                }
 
               }
-
-
-              if (this.onWall && (this.keys_.right || swipeRight) && this.position_.z == -3) {
-                this.SwipeRight()
-                this.inAir_ = true
-              }
-
-
             }
-            //fall down when wall ends
-            if (this.wallArray[1].x < -15) {
-              this.inAir_ = true;
+
+            //click left way too early
+            if (this.onWall && (this.keys_.left || swipeLeft) && this.wallArray[1].x > 15) {
+              this.SwipeLeft()
               this.onWall = false;
-              this.wallArray.splice(0, 2);
+              this.inAir_ = true
             }
-          } else {
 
-            if (this.wallArray[0].x < 15 && this.wallArray[0].x > -15) {
-              //dont jump u die 
-              if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0) {
-                this.gameOver = true
-              }
-              //left wall first -> if u jump and go to right , u will stay in that y position.
-              if (this.inAir_ && (this.keys_.left || swipeLeft)) {
-                this.SwipeLeft()
 
-                if (this.position_.z <= -2.6) {
-                  this.position_.z = -3
-                  if (this.position_.y != 3) {
-                    if (this.position_.y > 3) {
-                      this.position_.y = this.position_.y - (timeElapsed * 2)
-                      if(this.position_.y < 3.1){
-                        this.position_.y = 3
-                      }
-                    } else {
-                      this.position_.y = this.position_.y + (timeElapsed * 2)
-                      if(this.position_.y > 2.9){
-                        this.position_.y = 3
-                      }
-                    }
+          }
+          //fall down when wall ends
+          if (this.wallArray[0].x < -15 && this.position_.z == 3) {
+            this.inAir_ = true;
+            this.RunAnimation_()
+          }
 
-                  }
-                  this.inAir_ = false;
-                  this.onWall = true;
-                  this.LeftWallRunAnimation_()
+
+
+          //wall running left wall mechanics
+          if (this.wallArray[1].x < 15 && this.wallArray[1].x > -15) {
+
+            //dont jump u die 
+            if (this.position_.y == 0 && this.wallArray[1].x > -10) {
+              this.gameOver = true
+            }
+
+            //left wall
+            if (!this.inAir_ && (this.keys_.left || swipeLeft) && this.position_.z != -3) {
+              this.SwipeFullLeft()
+
+              if (this.position_.z != 3 || this.position_.z != -3) {
+                if (!this.toggleJumpAnimation) {
+                  this.toggleJumpAnimation = true;
+                  this.JumpAnimation_()
                 }
-
-
+              }
+              if (this.position_.z <= -2.6) {
+                this.toggleJumpAnimation = false;
+                this.onWall = true;
+                this.LeftWallRunAnimation_()
               }
 
+            }
 
-              if (this.onWall) {
 
+            if (this.onWall && (this.keys_.right || swipeRight) && this.position_.z == -3) {
+              this.SwipeRight()
+              this.inAir_ = true
+            }
+
+
+          }
+          //fall down when wall ends
+          if (this.wallArray[1].x < -15) {
+            this.inAir_ = true;
+            this.onWall = false;
+            this.wallArray.splice(0, 2);
+          }
+        } else {
+
+          if (this.wallArray[0].x < 15 && this.wallArray[0].x > -15) {
+            //dont jump u die 
+            if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0) {
+              this.gameOver = true
+            }
+            //left wall first -> if u jump and go to right , u will stay in that y position.
+            if (this.inAir_ && (this.keys_.left || swipeLeft)) {
+              this.SwipeLeft()
+
+              if (this.position_.z <= -2.6) {
+                this.position_.z = -3
                 if (this.position_.y != 3) {
                   if (this.position_.y > 3) {
                     this.position_.y = this.position_.y - (timeElapsed * 2)
-                    if(this.position_.y < 3.1){
+                    if (this.position_.y < 3.1) {
                       this.position_.y = 3
                     }
                   } else {
                     this.position_.y = this.position_.y + (timeElapsed * 2)
-                    if(this.position_.y > 2.9){
+                    if (this.position_.y > 2.9) {
                       this.position_.y = 3
                     }
                   }
 
                 }
-              }
-              //click left way too early
-              if (this.onWall && (this.keys_.right || swipeRight) && this.wallArray[1].x > 15) {
-                this.SwipeRight()
-                this.inAir_ = true
+                this.inAir_ = false;
+                this.onWall = true;
+                this.LeftWallRunAnimation_()
               }
 
 
             }
-            //fall down when wall ends
-            if (this.wallArray[0].x < -15 && this.position_.z == -3) {
-              this.inAir_ = true;
-              this.RunAnimation_()
-            }
 
 
+            if (this.onWall) {
 
-            //wall running left wall mechanics
-            if (this.wallArray[1].x < 15 && this.wallArray[1].x > -15) {
-
-              //dont jump u die 
-              if (this.position_.y == 0 && this.wallArray[1].x > -10) {
-                this.gameOver = true
-              }
-
-              //left wall
-              if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3) {
-                this.SwipeFullRight()
-                if (this.position_.z != 3 || this.position_.z != -3) {
-                  if (!this.toggleJumpAnimation) {
-                    this.toggleJumpAnimation = true;
-                    this.JumpAnimation_()
+              if (this.position_.y != 3) {
+                if (this.position_.y > 3) {
+                  this.position_.y = this.position_.y - (timeElapsed * 2)
+                  if (this.position_.y < 3.1) {
+                    this.position_.y = 3
+                  }
+                } else {
+                  this.position_.y = this.position_.y + (timeElapsed * 2)
+                  if (this.position_.y > 2.9) {
+                    this.position_.y = 3
                   }
                 }
-                if (this.position_.z >= 2.6) {
-                  this.onWall = true;
-                  this.toggleJumpAnimation = false;
-                  this.RightWallRunAnimation_()
+
+              }
+            }
+            //click left way too early
+            if (this.onWall && (this.keys_.right || swipeRight) && this.wallArray[1].x > 15) {
+              this.SwipeRight()
+              this.inAir_ = true
+            }
+
+
+          }
+          //fall down when wall ends
+          if (this.wallArray[0].x < -15 && this.position_.z == -3) {
+            this.inAir_ = true;
+            this.RunAnimation_()
+          }
+
+
+
+          //wall running left wall mechanics
+          if (this.wallArray[1].x < 15 && this.wallArray[1].x > -15) {
+
+            //dont jump u die 
+            if (this.position_.y == 0 && this.wallArray[1].x > -10) {
+              this.gameOver = true
+            }
+
+            //left wall
+            if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3) {
+              this.SwipeFullRight()
+              if (this.position_.z != 3 || this.position_.z != -3) {
+                if (!this.toggleJumpAnimation) {
+                  this.toggleJumpAnimation = true;
+                  this.JumpAnimation_()
                 }
-
               }
-
-
-
-              if (this.onWall && (this.keys_.left || swipeLeft) && this.position_.z == -3) {
-                this.SwipeLeft()
-                this.inAir_ = true
+              if (this.position_.z >= 2.6) {
+                this.onWall = true;
+                this.toggleJumpAnimation = false;
+                this.RightWallRunAnimation_()
               }
-
 
             }
-            //fall down when wall ends
-            if (this.wallArray[1].x < -15) {
-              this.inAir_ = true;
-              this.onWall = false;
-              this.wallArray.splice(0, 2);
+
+
+
+            if (this.onWall && (this.keys_.left || swipeLeft) && this.position_.z == -3) {
+              this.SwipeLeft()
+              this.inAir_ = true
             }
 
 
           }
-
-        }
-
-
-        //player movement with keyboard controls
-        if (this.keys_.space && this.position_.y == 0.0 && !this.sliding_) {
-          this.SwipeUp(timeElapsed)
-        }
-
-        if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_ && !this.inAir_) {
-          this.SwipeDown()
-
-        }
-
-        if (this.keys_.left) {
-
-          if (!this.keys_.right && !this.onWall) {
-            this.SwipeLeft()
-          } else if (this.onWall && this.position_.z == -3) {
-            this.keys_.left = false;
-
+          //fall down when wall ends
+          if (this.wallArray[1].x < -15) {
+            this.inAir_ = true;
+            this.onWall = false;
+            this.wallArray.splice(0, 2);
           }
 
-        }
-        if (this.keys_.right && !this.onWall) {
-          this.SwipeRight()
-
-        } else if (this.onWall && this.position_.z == 3) {
-          this.keys_.right = false;
 
         }
 
-        //jump and slide calculation.
-        if (this.inAir_) {
-          const acceleration = -105 * (timeElapsed / 1.6);
-          this.position_.y += (timeElapsed / 1.6) * (this.velocity_ + acceleration * 0.5);
+      }
 
 
-          this.position_.y = Math.max(this.position_.y, 0.0);
+      //player movement with keyboard controls
+      if (this.keys_.space && this.position_.y == 0.0 && !this.sliding_) {
+        this.SwipeUp(timeElapsed)
+      }
 
-          this.velocity_ += acceleration;
-          this.velocity_ = Math.max(this.velocity_, -100);
-          if (this.position_.y == 0) {
-            this.RunAnimation_();
+      if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_ && !this.inAir_) {
+        this.SwipeDown()
 
-          }
-        }
+      }
 
-        if (this.sliding_) {
-          const acceleration = -8.8 * timeElapsed;
+      if (this.keys_.left) {
 
-          this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
-          this.slideTimer_ = Math.min(this.slideTimer_, 0.0);
-          this.slideTimer_ = Math.max(this.slideTimer_, -1.0);
-
-          this.velocity_ += acceleration;
-          this.velocity_ = Math.max(this.velocity_, -100);
+        if (!this.keys_.right && !this.onWall) {
+          this.SwipeLeft()
+        } else if (this.onWall && this.position_.z == -3) {
+          this.keys_.left = false;
 
         }
 
+      }
+      if (this.keys_.right && !this.onWall) {
+        this.SwipeRight()
 
-        if (this.position_.y == 0.0) {
-          this.inAir_ = false;
+      } else if (this.onWall && this.position_.z == 3) {
+        this.keys_.right = false;
+
+      }
+
+      //jump and slide calculation.
+      if (this.inAir_) {
+        const acceleration = -105 * (timeElapsed / 1.6);
+        this.position_.y += (timeElapsed / 1.6) * (this.velocity_ + acceleration * 0.5);
+
+
+        this.position_.y = Math.max(this.position_.y, 0.0);
+
+        this.velocity_ += acceleration;
+        this.velocity_ = Math.max(this.velocity_, -100);
+        if (this.position_.y == 0) {
+          this.RunAnimation_();
 
         }
+      }
+
+      if (this.sliding_) {
+        const acceleration = -8.8 * timeElapsed;
+
+        this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
+        this.slideTimer_ = Math.min(this.slideTimer_, 0.0);
+        this.slideTimer_ = Math.max(this.slideTimer_, -1.0);
+
+        this.velocity_ += acceleration;
+        this.velocity_ = Math.max(this.velocity_, -100);
+
+      }
+
+
+      if (this.position_.y == 0.0) {
+        this.inAir_ = false;
+
+      }
 
 
 
-        if (this.position_.y <= 0.0 && this.sliding_ == true) {
-          if (this.slideTimer_ == 0) {
-            this.downPressed_ = false;
-            this.sliding_ = false;
-            this.RunAnimation_();
-          }
+      if (this.position_.y <= 0.0 && this.sliding_ == true) {
+        if (this.slideTimer_ == 0) {
+          this.downPressed_ = false;
+          this.sliding_ = false;
+          this.RunAnimation_();
         }
-      
+      }
+
 
       //update player animation, position and check collision
       if (this.mesh_) {
