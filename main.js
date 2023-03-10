@@ -51,9 +51,9 @@ class BasicWorldDemo {
   constructor() {
 
     //game end & you win & after video count down
-    this.countdown2_ = 10;
-    this.countdown1_ = 10;
-    this.countdown0_ = 10;
+    this.countdown2_ = 7;
+    this.countdown1_ = 7;
+    this.countdown0_ = 7;
 
     this.totalStamina = 0;
     this.stopTime = true;
@@ -590,7 +590,7 @@ class BasicWorldDemo {
         this.restartStage = false;
         this.allowPause = true;
         pauseButton.style.display = 'block'
-
+        this.player_.position_.z = 0
       } else if (this.startGame && !this.checkStartGame) {
         this.checkStartGame = true;
         this._OnStart()
@@ -615,6 +615,7 @@ class BasicWorldDemo {
         this.restartStage = false;
         this.allowPause = true;
         pauseButton.style.display = 'block'
+        this.player_.position_.z = 0
 
       } else if (this.startGame && !this.checkStartGame) {
         this.checkStartGame = true;
@@ -1088,7 +1089,7 @@ class BasicWorldDemo {
 
 
               const uniforms = {
-                topColor: { value: new THREE.Color(0x00008B) },
+                topColor: { value: new THREE.Color(0x0c1445) },
                 bottomColor: { value: new THREE.Color(0x89b2eb) },
                 offset: { value: 33 },
                 exponent: { value: 0.6 }
@@ -1678,11 +1679,19 @@ class BasicWorldDemo {
         if (result) {
           setTimeout(() => {
             this.Pause()
-            this.player_.position_.y = this.player_.position_.y - timeElapsed
+            this.player_.position_.y = this.player_.position_.y - timeElapsed*2
           }, 200);
     
         }
       });
+
+      //check if player fails wall jump
+      if(this.player_.wallFail){
+        setTimeout(() => {
+          this.Pause()
+          this.player_.position_.y = this.player_.position_.y - timeElapsed*6
+        }, 200);
+      }
 
 
       //checks whether player collides with box from player.js
