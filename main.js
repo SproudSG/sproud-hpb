@@ -63,6 +63,10 @@ class BasicWorldDemo {
 
     //first load
     this.firstLoad = true;
+    this.showChase = true;
+    this.cameraX = 15;
+    this.cameraY = 5.5;
+    this.cameraZ = -10;
 
     //pause
     this.allowPause = false;
@@ -399,17 +403,12 @@ class BasicWorldDemo {
     const fov = 60;
     const aspect = 1920 / 1080;
     const near = 1.0;
-    let far;
-    if (this.stage === 1) {
-      far = 20000.0;
-
-    } else {
-      far = 2000
-    }
+    const far = 1300;
 
     this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    this.camera_.position.set(-7, 3.5, 0);
-    this.camera_.lookAt(0, 3.5, 0);
+
+    this.camera_.position.set(this.cameraX, this.cameraY, this.cameraZ);
+    this.camera_.lookAt(0, this.cameraY, 0);
 
     //scene
     this.scene_ = new THREE.Scene();
@@ -484,13 +483,26 @@ class BasicWorldDemo {
       this.scene_.add(this.mesh3);
 
     });
+    loader.load('stage1b.gltf', (gltf) => {
+      this.mesh4 = gltf.scene;
+
+      gltf.castShadow = true;
+      gltf.receiveShadow = true;
+      this.mesh4.position.set(773, 0, -0.5);
+      this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+      this.mesh4.scale.setScalar(0.0095);
+
+
+      this.scene_.add(this.mesh4);
+
+    });
 
     //pause 
     var playButton = document.getElementById("playButton");
     var pauseButton = document.getElementById("pauseButton");
 
     // Add event listeners to the buttons
-    playButton.addEventListener("click", ()=>{
+    playButton.addEventListener("click", () => {
       if (this.allowPause) {
         if (this.isPaused) {
           this.animationId = requestAnimationFrame(animate);
@@ -520,8 +532,8 @@ class BasicWorldDemo {
       }
     });
 
-     // Add event listeners to the buttons
-     pauseButton.addEventListener("click", ()=>{
+    // Add event listeners to the buttons
+    pauseButton.addEventListener("click", () => {
       if (this.allowPause) {
         if (this.isPaused) {
           this.animationId = requestAnimationFrame(animate);
@@ -561,17 +573,20 @@ class BasicWorldDemo {
             this.monSpeed = 52
             this.speedy = 12
             this.speedz = 3
+            this.stopTime= false;
+            this.RAF_()
             this.isPaused = false;
+            
             document.querySelector('#video-container').style.backgroundColor = 'transparent'
             document.querySelector('#pauseDiv').style.display = 'none'
             playButton.style.display = 'none'
             pauseButton.style.display = 'block'
-
           } else {
             this.objSpeed = 0
             this.monSpeed = 0
             this.speedy = 0
             this.speedz = 0
+            this.stopTime= true;
             cancelAnimationFrame(this.animationId);
             this.isPaused = true;
             document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
@@ -605,7 +620,6 @@ class BasicWorldDemo {
         this._OnStart()
         this.allowPause = true;
         pauseButton.style.display = 'block'
-
         document.getElementById('click-start').style.display = 'none';
 
       }
@@ -629,7 +643,6 @@ class BasicWorldDemo {
       } else if (this.startGame && !this.checkStartGame) {
         this.checkStartGame = true;
         pauseButton.style.display = 'block'
-
         this._OnStart()
         document.getElementById('click-start').style.display = 'none';
         this.allowPause = true;
@@ -642,13 +655,43 @@ class BasicWorldDemo {
     //detect shit
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) {
-        console.log("User has tabbed out of the page");
-        this.objSpeed = 0
-        this.monSpeed = 0
-        this.speedy = 0
-        this.speedz = 0
-        cancelAnimationFrame(this.animationId);
-        this.isPaused = true;
+        // console.log("User has tabbed out of the page");
+        // this.objSpeed = 0
+        // this.monSpeed = 0
+        // this.speedy = 0
+        // this.speedz = 0
+        // cancelAnimationFrame(this.animationId);
+        // this.isPaused = true;
+
+        if (this.allowPause) {
+          if (this.isPaused) {
+            this.animationId = requestAnimationFrame(animate);
+            this.objSpeed = 12
+            this.monSpeed = 52
+            this.speedy = 12
+            this.speedz = 3
+            this.isPaused = false;
+            document.querySelector('#video-container').style.backgroundColor = 'transparent'
+            document.querySelector('#pauseDiv').style.display = 'none'
+            playButton.style.display = 'none'
+            pauseButton.style.display = 'block'
+
+          } else {
+            this.objSpeed = 0
+            this.monSpeed = 0
+            this.speedy = 0
+            this.speedz = 0
+            cancelAnimationFrame(this.animationId);
+            this.isPaused = true;
+ 
+
+            document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
+            document.querySelector('#pauseDiv').style.display = 'block'
+            playButton.style.display = 'block'
+            pauseButton.style.display = 'none'
+
+          }
+        }
 
       }
     });
@@ -663,6 +706,9 @@ class BasicWorldDemo {
         this.mesh1.position.x -= speed;
         this.mesh2.position.x -= speed;
         this.mesh3.position.x -= speed;
+        if (this.mesh4) {
+          this.mesh4.position.x -= speed;
+        }
 
       }
       this.animationId = requestAnimationFrame(animate);
@@ -814,12 +860,11 @@ class BasicWorldDemo {
     //initiate all the game objects
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
     this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-    this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
+    this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase });
     this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
-
-    this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 });
-    this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 });
-    this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 });
+    this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
+    this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
+    this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
     this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
@@ -869,6 +914,7 @@ class BasicWorldDemo {
         if (this.previousRAF_ === null) {
           this.previousRAF_ = t;
         }
+        console.log(t)
         this.RAF_();
         this.Step_((t - this.previousRAF_) / 1000.0, this.isPaused);
         this.threejs_.render(this.scene_, this.camera_);
@@ -882,6 +928,26 @@ class BasicWorldDemo {
   //what the animation does
 
   Step_(timeElapsed, pause) {
+    //      this.camera_.position.set(-7, 3.5, 0);
+    // this.cameraX = 10;
+    // this.cameraY = 5.5;
+    // this.cameraZ = -7;
+    if (this.showChase && this._gameStarted) {
+      if (this.cameraX > -7) {
+        this.cameraX = this.cameraX - 0.1
+      }
+      if (this.cameraY > 3.5) {
+        this.cameraY = this.cameraY - 0.02
+
+      }
+      if (this.cameraZ < 0) {
+        this.cameraZ = this.cameraZ + 0.03
+
+      }
+      this.camera_.position.set(this.cameraX, this.cameraY, this.cameraZ);
+      this.camera_.lookAt(0, this.cameraY, 0)
+    }
+
     //if he loses stage 1
     if (!this.eventAdded3 && this.stage == 1) {
       document.addEventListener('score-over', () => {
@@ -1096,10 +1162,13 @@ class BasicWorldDemo {
       this.eventAdded3 = true;
     }
 
-    //if game is won
+    //stage 1 won
     if (!this.eventAdded && this.stage == 1) {
       document.addEventListener('score-over1', () => {
+        this.showChase = false;
         this.gameOver_ = true;
+        this.camera_.position.set(-7, 3.5, 0);
+
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
@@ -1320,7 +1389,7 @@ class BasicWorldDemo {
 
     }
 
-
+    //stage 2 won
     if (!this.eventAdded1 && this.stage == 2) {
 
       document.addEventListener('score-over2', () => {
@@ -1699,6 +1768,8 @@ class BasicWorldDemo {
 
     //if game is over (lost)
     if (this._gameStarted && this.player_.gameOver && !this.gameOver_) {
+      this.showChase = false;
+      this.camera_.position.set(-7, 3.5, 0);
 
       this.allowPause = false;
       this.gameOver_ = true;

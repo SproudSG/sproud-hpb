@@ -31,7 +31,7 @@ export const oilSlik = (() => {
                     new THREE.Vector3(0, 1, 0), Math.PI / 2);
         
         
-                this.mesh_.scale.set(0.2, 0.2, 0.2);
+                this.mesh_.scale.set(0.3, 0.3, 0.3);
 
                 this.params_.scene.add(this.mesh_);
 

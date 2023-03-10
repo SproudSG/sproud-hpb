@@ -82,9 +82,13 @@ export const fruitDrink = (() => {
    
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
-
       const spawnPosition = [50, 130, 270, 350, 430, 500]
-
+      
+      if (this.params_.firstChase) {
+        for (let i = 0; i < spawnPosition.length; i++) {
+          spawnPosition[i] += 100;
+        }
+      }
       let obj = null;
 
       for (var i = 0; i < spawnPosition.length; i++) {

@@ -75,7 +75,12 @@ export const pitfall = (() => {
             this.progress_ += timeElapsed * 10.0;
 
             const spawnPosition = [70, 240]
-
+      
+            if (this.params_.firstChase) {
+                for (let i = 0; i < spawnPosition.length; i++) {
+                  spawnPosition[i] += 100;
+                }
+              }
             let obj = null;
 
             const arr = [];
