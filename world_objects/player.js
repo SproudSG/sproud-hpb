@@ -23,8 +23,6 @@ export const player = (() => {
       this.slideTimer_ = 0;
       this.playerBox_ = new THREE.Box3();
 
-      //paused
-      this.paused = false;
 
       //monster variables
       this.shoogaGliderID = null;
@@ -782,13 +780,6 @@ export const player = (() => {
 
 
     Update(timeElapsed, pause, wallPosition, swipeLeft, swipeRight) {
-      if (!pause) {
-
-        if (this.paused == true) {
-          this.action.play();
-          this.paused = false
-        }
-
 
         if (!this.wallLoaded) {
           this.wallArray = wallPosition
@@ -1090,16 +1081,7 @@ export const player = (() => {
             this.RunAnimation_();
           }
         }
-      } else {
-        if (!this.mixer_) {
-          return;
-
-        } else {
-          this.action.stop();
-
-        }
-        this.paused = true
-      }
+      
 
       //update player animation, position and check collision
       if (this.mesh_) {

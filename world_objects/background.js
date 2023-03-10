@@ -188,12 +188,11 @@ export const background = (() => {
     }
     */
 
-    Update(timeElapsed, isPaused) {
-      if (!isPaused) {
-        for (let c of this.clouds_) {
-          c.Update(timeElapsed);
-        }
+    Update(timeElapsed) {
+      for (let c of this.clouds_) {
+        c.Update(timeElapsed);
       }
+
 
       /*
       for (let c of this.crap_) {

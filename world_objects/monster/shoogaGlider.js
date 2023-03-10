@@ -47,20 +47,6 @@ export const shoogaGlider = (() => {
       this.collider.setFromObject(this.mesh);
     }
 
-    PauseAnimation_() {
-      if (!this.mixer) {
-        return
-      }
-      this.action.stop()
-    }
-
-    PlayAnimation_() {
-      if (!this.mixer) {
-        return
-      }
-      this.action.play()
-    }
-
     Update(timeElapsed) {
       if (!this.mesh) {
         return;
@@ -83,8 +69,6 @@ export const shoogaGlider = (() => {
       this.speed_ = 50;
       this.speedz_ = 6
       this.speedy_ = 12
-
-      this.paused = false;
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
@@ -133,33 +117,20 @@ export const shoogaGlider = (() => {
     }
 
 
-    Update(timeElapsed, speed, speedz, speedy, paused) {
+    Update(timeElapsed, speed, speedz, speedy) {
       this.SpawnObj_(timeElapsed);
-      this.UpdateColliders_(timeElapsed, speed, speedz, speedy, paused);
+      this.UpdateColliders_(timeElapsed, speed, speedz, speedy);
     }
 
     //sets the speed of the spawned monsters
-    UpdateColliders_(timeElapsed, speed, speedz, speedy, paused) {
+    UpdateColliders_(timeElapsed, speed, speedz, speedy,) {
       const invisible = [];
       const visible = [];
 
       for (let obj of this.objects_) {
-        if (paused) {
-          obj.PauseAnimation_()
-          this.paused = true
-        } else if (this.paused == true) {
-          for (let obj of this.objects_) {
-            obj.PlayAnimation_()
-
-          }
-          this.paused = false
-
-        }
         
         obj.position.x -= timeElapsed * speed;
         if (obj.position.y != 1 && obj.position.x <= 250) {
-          console.log(obj.position.x)
-
           if (obj.position.y < 1) {
             obj.position.y = 1
           } else {

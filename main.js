@@ -510,24 +510,13 @@ class BasicWorldDemo {
           this.monSpeed = 52
           this.speedy = 12
           this.speedz = 3
+          this.stopTime = false;
+          this.RAF_()
           this.isPaused = false;
           document.querySelector('#video-container').style.backgroundColor = 'transparent'
           document.querySelector('#pauseDiv').style.display = 'none'
           playButton.style.display = 'none'
           pauseButton.style.display = 'block'
-
-        } else {
-          this.objSpeed = 0
-          this.monSpeed = 0
-          this.speedy = 0
-          this.speedz = 0
-          cancelAnimationFrame(this.animationId);
-          this.isPaused = true;
-          document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
-          document.querySelector('#pauseDiv').style.display = 'block'
-          playButton.style.display = 'block'
-          pauseButton.style.display = 'none'
-
         }
       }
     });
@@ -535,23 +524,12 @@ class BasicWorldDemo {
     // Add event listeners to the buttons
     pauseButton.addEventListener("click", () => {
       if (this.allowPause) {
-        if (this.isPaused) {
-          this.animationId = requestAnimationFrame(animate);
-          this.objSpeed = 12
-          this.monSpeed = 52
-          this.speedy = 12
-          this.speedz = 3
-          this.isPaused = false;
-          document.querySelector('#video-container').style.backgroundColor = 'transparent'
-          document.querySelector('#pauseDiv').style.display = 'none'
-          playButton.style.display = 'none'
-          pauseButton.style.display = 'block'
-
-        } else {
+        if (!this.isPaused) {
           this.objSpeed = 0
           this.monSpeed = 0
           this.speedy = 0
           this.speedz = 0
+          this.stopTime = true;
           cancelAnimationFrame(this.animationId);
           this.isPaused = true;
           document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
@@ -573,10 +551,9 @@ class BasicWorldDemo {
             this.monSpeed = 52
             this.speedy = 12
             this.speedz = 3
-            this.stopTime= false;
+            this.stopTime = false;
             this.RAF_()
             this.isPaused = false;
-            
             document.querySelector('#video-container').style.backgroundColor = 'transparent'
             document.querySelector('#pauseDiv').style.display = 'none'
             playButton.style.display = 'none'
@@ -586,7 +563,7 @@ class BasicWorldDemo {
             this.monSpeed = 0
             this.speedy = 0
             this.speedz = 0
-            this.stopTime= true;
+            this.stopTime = true;
             cancelAnimationFrame(this.animationId);
             this.isPaused = true;
             document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
@@ -601,7 +578,6 @@ class BasicWorldDemo {
 
     //handle second stage "click to continue"
     document.getElementById('click-start').addEventListener('click', () => {
-
       if (this.restartStage) {
         this.animationId = requestAnimationFrame(animate);
 
@@ -653,46 +629,23 @@ class BasicWorldDemo {
 
 
     //detect shit
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        // console.log("User has tabbed out of the page");
-        // this.objSpeed = 0
-        // this.monSpeed = 0
-        // this.speedy = 0
-        // this.speedz = 0
-        // cancelAnimationFrame(this.animationId);
-        // this.isPaused = true;
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
 
         if (this.allowPause) {
-          if (this.isPaused) {
-            this.animationId = requestAnimationFrame(animate);
-            this.objSpeed = 12
-            this.monSpeed = 52
-            this.speedy = 12
-            this.speedz = 3
-            this.isPaused = false;
-            document.querySelector('#video-container').style.backgroundColor = 'transparent'
-            document.querySelector('#pauseDiv').style.display = 'none'
-            playButton.style.display = 'none'
-            pauseButton.style.display = 'block'
+          this.objSpeed = 0
+          this.monSpeed = 0
+          this.speedy = 0
+          this.speedz = 0
+          this.stopTime = true;
+          cancelAnimationFrame(this.animationId);
+          this.isPaused = true;
+          document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
+          document.querySelector('#pauseDiv').style.display = 'block'
+          playButton.style.display = 'block'
+          pauseButton.style.display = 'none'
 
-          } else {
-            this.objSpeed = 0
-            this.monSpeed = 0
-            this.speedy = 0
-            this.speedz = 0
-            cancelAnimationFrame(this.animationId);
-            this.isPaused = true;
- 
-
-            document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
-            document.querySelector('#pauseDiv').style.display = 'block'
-            playButton.style.display = 'block'
-            pauseButton.style.display = 'none'
-
-          }
         }
-
       }
     });
 
@@ -727,6 +680,7 @@ class BasicWorldDemo {
         //check if power up video is done playing then executes this
         startCountdown();
         this.powerCountdown_ = false;
+
       }
     }, 10);
 
@@ -743,6 +697,12 @@ class BasicWorldDemo {
           this.speedy = 12
           this.speedz = 3
           this.isPaused = false;
+          this.stopTime = false;
+
+          this.allowPause = true;
+          pauseButton.style.display = 'block'
+
+          this.RAF_()
           clearInterval(this.intervalId_);
           document.getElementById('countdown').classList.toggle('active');
 
@@ -909,18 +869,23 @@ class BasicWorldDemo {
 
   //start the animation 
   RAF_() {
-    if (!this.stopTime) {
-      requestAnimationFrame((t) => {
+    requestAnimationFrame((t) => {
+      if (!this.stopTime) {
+
         if (this.previousRAF_ === null) {
           this.previousRAF_ = t;
         }
-        console.log(t)
+
+        if ((t - this.previousRAF_ > 200)) {
+          this.previousRAF_ = t
+        }
         this.RAF_();
         this.Step_((t - this.previousRAF_) / 1000.0, this.isPaused);
         this.threejs_.render(this.scene_, this.camera_);
         this.previousRAF_ = t;
-      });
-    }
+      }
+    });
+
 
   }
 
@@ -941,7 +906,7 @@ class BasicWorldDemo {
 
       }
       if (this.cameraZ < 0) {
-        this.cameraZ = this.cameraZ + 0.03
+        this.cameraZ = this.cameraZ + 0.04
 
       }
       this.camera_.position.set(this.cameraX, this.cameraY, this.cameraZ);
@@ -1660,11 +1625,11 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
-        this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy, pause);
+        this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
         this.vege_.Update(timeElapsed, this.objSpeed)
         this.meat_.Update(timeElapsed, this.objSpeed)
         this.carbs_.Update(timeElapsed, this.objSpeed)
-        this.trolliumChloride_.Update(timeElapsed, this.objSpeed, pause)
+        this.trolliumChloride_.Update(timeElapsed, this.objSpeed)
       } else if (this.stage == 3) {
         this.wallrun_.Update(timeElapsed, this.objSpeed)
         this.hpbLogo_.Update(timeElapsed, this.objSpeed)
@@ -1674,11 +1639,11 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
-        this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy, pause);
+        this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
         this.vege_.Update(timeElapsed, this.objSpeed)
         this.meat_.Update(timeElapsed, this.objSpeed)
         this.carbs_.Update(timeElapsed, this.objSpeed)
-        this.trolliumChloride_.Update(timeElapsed, this.objSpeed, pause)
+        this.trolliumChloride_.Update(timeElapsed, this.objSpeed)
       }
 
       //get position of wall from wallrun.js
@@ -1688,7 +1653,7 @@ class BasicWorldDemo {
 
       this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight);
       this.oilSlik_.Update(timeElapsed);
-      this.background_.Update(timeElapsed, pause);
+      this.background_.Update(timeElapsed);
       this.progression_.Update(timeElapsed, pause, this.buffspeed, this.speed_, this.stage);
 
 
@@ -1714,12 +1679,20 @@ class BasicWorldDemo {
         if (this.box_ == "powerup" && !this.playedVideo_) {
           this.box_ = ""
           this.playedVideo_ = true;
+          this.stopTime = true;
+          this.allowPause = false;
+          pauseButton.style.display = 'none'
+
           this.Pause()
           this.playPowerupVideo()
         } else if (this.box_ == "powerdown" && !this.playedVideo_) {
           this.box_ = ""
           this.playedVideo_ = true;
+          this.allowPause = false;
+          pauseButton.style.display = 'none'
+
           this.Pause()
+          this.stopTime = true;
           this.playPowerdownVideo()
 
         }
