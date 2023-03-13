@@ -51,9 +51,9 @@ class BasicWorldDemo {
   constructor() {
 
     //game end & you win & after video count down
-    this.countdown2_ = 7;
-    this.countdown1_ = 7;
-    this.countdown0_ = 7;
+    this.countdown2_ = 6;
+    this.countdown1_ = 6;
+    this.countdown0_ = 6;
 
     this.totalStamina = 0;
     this.stopTime = true;
@@ -181,12 +181,19 @@ class BasicWorldDemo {
         let newCountdown = 7;
         let newIntervalId = setInterval(() => {
           newCountdown--;
+          console.log("hi")
           if (newCountdown === 0) {
-            clearInterval(newIntervalId);
-            this.startGame = true;
-            document.getElementById('loading-1').style.display = 'none';
-            document.getElementById('click-start').style.display = 'block';
-            document.dispatchEvent(new CustomEvent('score-over'));
+            if (this.scene_.children.length >= 56) {
+              clearInterval(newIntervalId);
+              this.startGame = true;
+              document.getElementById('loading-1').style.display = 'none';
+              document.getElementById('click-start').style.display = 'block';
+
+
+              document.dispatchEvent(new CustomEvent('score-over'));
+            } else {
+              newCountdown = 3
+            }
 
           }
         }, 1000);
@@ -597,7 +604,6 @@ class BasicWorldDemo {
         this.allowPause = true;
         pauseButton.style.display = 'block'
         document.getElementById('click-start').style.display = 'none';
-
       }
 
     });
@@ -894,10 +900,7 @@ class BasicWorldDemo {
   //what the animation does
 
   Step_(timeElapsed, pause) {
-    //      this.camera_.position.set(-7, 3.5, 0);
-    // this.cameraX = 10;
-    // this.cameraY = 5.5;
-    // this.cameraZ = -7;
+    //pan the camera
     if (this.showChase && this._gameStarted) {
       if (this.cameraX > -7) {
         this.cameraX = this.cameraX - 0.1
@@ -1111,14 +1114,16 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown_ === 0) {
-              clearInterval(this.intervalId_);
-
-              this.previousRAF_ = null;
-              this.restartStage = true;
-
-              document.getElementById('loading-1').style.display = 'none';
-              document.getElementById('click-start').style.display = 'block';
-
+              if(this.scene_.children.length >= 55){
+                clearInterval(this.intervalId_);
+                this.previousRAF_ = null;
+                this.restartStage = true;
+                document.getElementById('loading-1').style.display = 'none';
+                document.getElementById('click-start').style.display = 'block';
+              }else {
+                this.countdown_ = 3
+              }
+      
             }
 
           }, 1000);
@@ -1198,12 +1203,12 @@ class BasicWorldDemo {
                 arrLogo3.push(value3 * 3);
               }
 
-              // set randonm position for box logos
+              // set randonm position for food
               let food1 = [];
               let food2 = [];
               let food3 = [];
 
-              for (let i = 0; i < 4; i++) {
+              for (let i = 0; i < 6; i++) {
                 let value1 = Math.floor(Math.random() * 3) - 1;
                 let value2 = Math.floor(Math.random() * 3) - 1;
                 let value3 = Math.floor(Math.random() * 3) - 1;
@@ -1338,13 +1343,19 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown1_ === 0) {
-              this.previousRAF_ = null;
-              this.restartStage = true;
-              document.querySelector('.wrapper').style.display = 'block';
-              document.getElementById('loading-2').style.display = 'none';
-              document.getElementById('click-start').style.display = 'block';
-
-              clearInterval(this.intervalId_);
+              if(this.scene_.children.length >= 73){
+                this.previousRAF_ = null;
+                this.restartStage = true;
+                document.querySelector('.wrapper').style.display = 'block';
+                document.getElementById('loading-2').style.display = 'none';
+                document.getElementById('click-start').style.display = 'block';
+  
+                clearInterval(this.intervalId_);
+                this.player_.propArray = []
+              }else {
+                this.countdown1_ = 3
+              }
+            
             }
           }, 1000);
 
@@ -1424,12 +1435,12 @@ class BasicWorldDemo {
                 arrLogo3.push(value3 * 3);
               }
 
-              // set randonm position for box logos
+              // set randonm position for food
               let food1 = [];
               let food2 = [];
               let food3 = [];
 
-              for (let i = 0; i < 4; i++) {
+              for (let i = 0; i < 6; i++) {
                 let value1 = Math.floor(Math.random() * 3) - 1;
                 let value2 = Math.floor(Math.random() * 3) - 1;
                 let value3 = Math.floor(Math.random() * 3) - 1;
@@ -1560,12 +1571,16 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown2_ === 0) {
-              this.previousRAF_ = null;
-              this.restartStage = true;
-              document.getElementById('loading-3').style.display = 'none';
-              document.getElementById('click-start').style.display = 'block';
-
-              clearInterval(this.intervalId_);
+              if(this.scene_.children.length >= 59 ){
+                this.previousRAF_ = null;
+                this.restartStage = true;
+                document.getElementById('loading-3').style.display = 'none';
+                document.getElementById('click-start').style.display = 'block';
+                this.player_.propArray = []
+                clearInterval(this.intervalId_);
+              }else{
+                this.countdown2_ = 3
+              }
             }
           }, 1000);
 
@@ -1679,17 +1694,17 @@ class BasicWorldDemo {
         if (result) {
           setTimeout(() => {
             this.Pause()
-            this.player_.position_.y = this.player_.position_.y - timeElapsed*2
+            this.player_.position_.y = this.player_.position_.y - timeElapsed * 2
           }, 200);
-    
+
         }
       });
 
       //check if player fails wall jump
-      if(this.player_.wallFail){
+      if (this.player_.wallFail) {
         setTimeout(() => {
           this.Pause()
-          this.player_.position_.y = this.player_.position_.y - timeElapsed*6
+          this.player_.position_.y = this.player_.position_.y - timeElapsed * 6
         }, 200);
       }
 
@@ -1778,17 +1793,17 @@ class BasicWorldDemo {
         if (this.stage == 2) {
           this.playNextStageVideo2()
           this.eventAdded = false;
-          this.countdown1_ = 10
+          this.countdown1_ = 6
 
         } else if (this.stage == 3) {
           this.playNextStageVideo3()
           this.eventAdded1 = false;
-          this.countdown2_ = 10
+          this.countdown2_ = 6
 
         } else if (this.stage == 1) {
           this.playNextStageVideo1()
           this.eventAdded3 = false;
-          this.countdown_ = 10
+          this.countdown_ = 6
 
         }
 

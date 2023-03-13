@@ -70,6 +70,7 @@ export const player = (() => {
 
       //sheild variables
       this.immunitiy = false;
+      this.shieldTime = 100;
 
       //HPB box logo variables
       this.box = "";
@@ -331,7 +332,9 @@ export const player = (() => {
           this.processedshoogaGliderIDs.push(this.shoogaGliderID);
           if (this.immunitiy) {
             this.immunitiy = false
-
+            this.propArray = []
+            document.getElementById("fullShield").style.zIndex = "0";
+            this.shieldTime = 100
             document.querySelector('#quarterOne').style.backgroundColor = '#333'
             document.querySelector('#quarterTwo').style.backgroundColor = '#333'
             document.querySelector('#quarterThree').style.backgroundColor = '#333'
@@ -362,7 +365,9 @@ export const player = (() => {
 
           if (this.immunitiy) {
             this.immunitiy = false
-
+            this.propArray = []
+            document.getElementById("fullShield").style.zIndex = "0";
+            this.shieldTime = 100
             document.querySelector('#quarterOne').style.backgroundColor = '#333'
             document.querySelector('#quarterTwo').style.backgroundColor = '#333'
             document.querySelector('#quarterThree').style.backgroundColor = '#333'
@@ -582,107 +587,97 @@ export const player = (() => {
     AddFood(food) {
       if (this.propArray.length >= 4) {
         this.propArray.shift(); // Remove the first (oldest) item
+
+
       }
       this.propArray.push(food); // Add the new item to the end of the array
     }
 
     GetFood() {
+      console.log(this.propArray)
 
       let vegePortion = 0;
       let meatPortion = 0;
       let carbsPortion = 0;
 
-      let quaterOne = document.querySelector('#quarterOne')
-      let quarterTwo = document.querySelector('#quarterTwo')
-      let quarterThree = document.querySelector('#quarterThree')
-      let quarterFour = document.querySelector('#quarterFour')
+      if (!this.immunitiy) {
 
-      let colorOne;
-      let colorTwo;
-      let colorThree;
-      let colorFour;
+        let quaterOne = document.querySelector('#quarterOne')
+        let quarterTwo = document.querySelector('#quarterTwo')
+        let quarterThree = document.querySelector('#quarterThree')
+        let quarterFour = document.querySelector('#quarterFour')
 
-      for (let i = 0; i < this.propArray.length; i++) {
-        if (this.propArray[i] === "vege") {
-          vegePortion = vegePortion + 1
+        let colorOne;
+        let colorTwo;
+        let colorThree;
+        let colorFour;
 
-          if (i == 0) {
-            colorOne = "#228B22"
-          } else if (i == 1) {
-            colorTwo = "#228B22"
+        for (let i = 0; i < this.propArray.length; i++) {
+          if (this.propArray[i] === "vege") {
+            vegePortion = vegePortion + 1
 
-          } else if (i == 2) {
-            colorThree = "#228B22"
+            if (i == 0) {
+              colorOne = "#228B22"
+            } else if (i == 1) {
+              colorTwo = "#228B22"
 
-          } else if (i == 3) {
-            colorFour = "#228B22"
+            } else if (i == 2) {
+              colorThree = "#228B22"
+
+            } else if (i == 3) {
+              colorFour = "#228B22"
+
+            }
+
+
+          } else if (this.propArray[i] === "meat") {
+            meatPortion = meatPortion + 1
+
+            if (i == 0) {
+              colorOne = "#8B4513"
+            } else if (i == 1) {
+              colorTwo = "#8B4513"
+
+            } else if (i == 2) {
+              colorThree = "#8B4513"
+
+            } else if (i == 3) {
+              colorFour = "#8B4513"
+
+            }
+
+          } else if (this.propArray[i] === "carbs") {
+            carbsPortion = carbsPortion + 1
+
+            if (i == 0) {
+              colorOne = "#FFF8DC"
+            } else if (i == 1) {
+              colorTwo = "#FFF8DC"
+
+            } else if (i == 2) {
+              colorThree = "#FFF8DC"
+
+            } else if (i == 3) {
+              colorFour = "#FFF8DC"
+
+            }
 
           }
 
-
-        } else if (this.propArray[i] === "meat") {
-          meatPortion = meatPortion + 1
-
-          if (i == 0) {
-            colorOne = "#8B4513"
-          } else if (i == 1) {
-            colorTwo = "#8B4513"
-
-          } else if (i == 2) {
-            colorThree = "#8B4513"
-
-          } else if (i == 3) {
-            colorFour = "#8B4513"
-
-          }
-
-        } else if (this.propArray[i] === "carbs") {
-          carbsPortion = carbsPortion + 1
-
-          if (i == 0) {
-            colorOne = "#FFF8DC"
-          } else if (i == 1) {
-            colorTwo = "#FFF8DC"
-
-          } else if (i == 2) {
-            colorThree = "#FFF8DC"
-
-          } else if (i == 3) {
-            colorFour = "#FFF8DC"
-
-          }
 
         }
 
-
-      }
-
-
-      const backgroundColor1 = getComputedStyle(quaterOne).getPropertyValue('background-color');
-      const backgroundColor2 = getComputedStyle(quarterTwo).getPropertyValue('background-color');
-      const backgroundColor3 = getComputedStyle(quarterThree).getPropertyValue('background-color');
-      const backgroundColor4 = getComputedStyle(quarterFour).getPropertyValue('background-color');
-
-      if (backgroundColor1 === 'rgb(51, 51, 51)' || backgroundColor1 === '#333') {
         quaterOne.style.backgroundColor = colorOne
-      } else if (backgroundColor2 === 'rgb(51, 51, 51)' || backgroundColor2 === '#333') {
         quarterTwo.style.backgroundColor = colorTwo
-      } else if (backgroundColor3 === 'rgb(51, 51, 51)' || backgroundColor3 === '#333') {
         quarterThree.style.backgroundColor = colorThree
-      } else if (backgroundColor4 === 'rgb(51, 51, 51)' || backgroundColor4 === '#333') {
         quarterFour.style.backgroundColor = colorFour
       }
 
       if (this.propArray.length == 4) {
         if (vegePortion == 2 && meatPortion == 1 && carbsPortion == 1) {
           this.immunitiy = true;
-          this.propArray = [];
-        } else {
-          quaterOne.style.backgroundColor = '#333'
-          quarterTwo.style.backgroundColor = '#333'
-          quarterThree.style.backgroundColor = '#333'
-          quarterFour.style.backgroundColor = '#333'
 
+          document.getElementById("fullShield").style.zIndex = "1";
         }
       }
     }
@@ -817,6 +812,21 @@ export const player = (() => {
 
 
     Update(timeElapsed, pause, wallPosition, swipeLeft, swipeRight) {
+
+      if(this.immunitiy) {
+        this.shieldTime -= timeElapsed * 10.0;
+        document.getElementById("fullShield").style.height = this.shieldTime+ "%"
+        if(this.shieldTime <=0){
+          document.getElementById("fullShield").style.zIndex = "0";
+          document.querySelector('#quarterOne').style.backgroundColor = '#333'
+          document.querySelector('#quarterTwo').style.backgroundColor = '#333'
+          document.querySelector('#quarterThree').style.backgroundColor = '#333'
+          document.querySelector('#quarterFour').style.backgroundColor = '#333'
+          this.propArray = []
+          this.immunitiy = false;
+        }
+      }
+
 
       if (!this.wallLoaded) {
         this.wallArray = wallPosition

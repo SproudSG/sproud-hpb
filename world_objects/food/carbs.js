@@ -82,7 +82,7 @@ export const carbs = (() => {
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [120, 170, 280, 330]
+      const spawnPosition = [120, 170, 280, 330, 360, 420]
 
       let obj = null;
 
