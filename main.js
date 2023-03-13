@@ -153,19 +153,6 @@ class BasicWorldDemo {
     this.nextStageVideo4_ = document.getElementById("nextStage4");
 
 
-    // if power up video ends, then unpause everything
-    this.powerupVideo_.addEventListener("ended", () => {
-      this.closePowerupVideo();
-      this.powerCountdown_ = true
-
-    });
-
-    // if power down video ends, then unpause everything
-    this.powerdownVideo_.addEventListener("ended", () => {
-      this.closePowerdownVideo();
-      this.powerCountdown_ = true
-
-    });
 
     // if next stage video ends, then unpause everything
     this.nextStageVideo1_.addEventListener("ended", () => {
@@ -675,21 +662,23 @@ class BasicWorldDemo {
 
     }
 
-
-
     animate();
 
-    //checker for game over
-    setInterval(() => {
-      if (this.gameOver_) {
-        cancelAnimationFrame(this.animationId);
-      } else if (this.powerCountdown_) {
-        //check if power up video is done playing then executes this
-        startCountdown();
-        this.powerCountdown_ = false;
+    // if power up video ends, then unpause everything
+    document.getElementById("powerup").addEventListener("ended", () => {
+      this.closePowerupVideo();
+      this.powerCountdown_ = true
+      startCountdown();
+    });
 
-      }
-    }, 10);
+    // if power down video ends, then unpause everything
+    document.getElementById("powerdown").addEventListener("ended", () => {
+      this.closePowerdownVideo();
+      this.powerCountdown_ = true
+      startCountdown();
+
+    });
+
 
     //count down after power up video has been played
     const startCountdown = () => {
@@ -705,7 +694,7 @@ class BasicWorldDemo {
           this.speedz = 3
           this.isPaused = false;
           this.stopTime = false;
-
+          
           this.allowPause = true;
           pauseButton.style.display = 'block'
 
@@ -1114,16 +1103,16 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown_ === 0) {
-              if(this.scene_.children.length >= 55){
+              if (this.scene_.children.length >= 55) {
                 clearInterval(this.intervalId_);
                 this.previousRAF_ = null;
                 this.restartStage = true;
                 document.getElementById('loading-1').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
-              }else {
+              } else {
                 this.countdown_ = 3
               }
-      
+
             }
 
           }, 1000);
@@ -1343,19 +1332,19 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown1_ === 0) {
-              if(this.scene_.children.length >= 73){
+              if (this.scene_.children.length >= 73) {
                 this.previousRAF_ = null;
                 this.restartStage = true;
                 document.querySelector('.wrapper').style.display = 'block';
                 document.getElementById('loading-2').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
-  
+
                 clearInterval(this.intervalId_);
                 this.player_.propArray = []
-              }else {
+              } else {
                 this.countdown1_ = 3
               }
-            
+
             }
           }, 1000);
 
@@ -1571,14 +1560,14 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown2_ === 0) {
-              if(this.scene_.children.length >= 59 ){
+              if (this.scene_.children.length >= 59) {
                 this.previousRAF_ = null;
                 this.restartStage = true;
                 document.getElementById('loading-3').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
                 this.player_.propArray = []
                 clearInterval(this.intervalId_);
-              }else{
+              } else {
                 this.countdown2_ = 3
               }
             }
@@ -1709,6 +1698,7 @@ class BasicWorldDemo {
       }
 
 
+
       //checks whether player collides with box from player.js
       this.player_.getBoxCollide(result => {
         this.box_ = result
@@ -1716,11 +1706,11 @@ class BasicWorldDemo {
         if (this.box_ == "powerup" && !this.playedVideo_) {
           this.box_ = ""
           this.playedVideo_ = true;
-          this.stopTime = true;
           this.allowPause = false;
           pauseButton.style.display = 'none'
 
           this.Pause()
+          this.stopTime = true;
           this.playPowerupVideo()
         } else if (this.box_ == "powerdown" && !this.playedVideo_) {
           this.box_ = ""
@@ -1779,13 +1769,15 @@ class BasicWorldDemo {
     //if game is over (lost)
     if (this._gameStarted && this.player_.gameOver && !this.gameOver_) {
       this.showChase = false;
-      this.camera_.position.set(-7, 3.5, 0);
-
       this.allowPause = false;
       this.gameOver_ = true;
-      document.getElementById('game-over').classList.toggle('active');
       pauseButton.style.display = 'none'
+      this.resumeCountdown_ = 3;
+      this.playedVideo_ = false
 
+      document.getElementById("fullShield").style.zIndex = "0";
+      document.querySelector('#video-container').style.backgroundColor = 'transparent'
+      document.getElementById('game-over').classList.toggle('active');
       document.getElementById('try-again-button').addEventListener('click', () => {
 
         document.getElementById('game-over').classList.remove('active');
@@ -1799,6 +1791,7 @@ class BasicWorldDemo {
           this.playNextStageVideo3()
           this.eventAdded1 = false;
           this.countdown2_ = 6
+          
 
         } else if (this.stage == 1) {
           this.playNextStageVideo1()

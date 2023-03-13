@@ -62,11 +62,11 @@ export const player = (() => {
 
       //wall variables
       this.onWall = false;
-      this.endWall = false;
       this.wallArray = []
       this.wallLoaded = false;
       this.toggleJumpAnimation = false;
       this.wallFail = false;
+      this.wallEnd = false;
 
       //sheild variables
       this.immunitiy = false;
@@ -262,11 +262,29 @@ export const player = (() => {
         return;
 
       }
+      this.wallEnd = false;
       this.action.stop();
       const clip = this.gltf.animations[15];
       this.action = this.mixer_.clipAction(clip);
       this.action.play();
     }
+
+    BigJumpAnimation_() {
+      if (!this.mixer_) {
+        return;
+
+      }
+      this.action.stop();
+      const clip = this.gltf.animations[14];
+      this.action = this.mixer_.clipAction(clip);
+      this.action.setLoop(THREE.LoopOnce);
+      this.action.time = 0.5;
+      this.action.timeScale = 1.5;
+      this.action.play();
+
+
+    }
+
 
 
     //event listener for keyboard controls
@@ -395,8 +413,6 @@ export const player = (() => {
           this.pitfallID = c.mesh.uuid;
           if (!this.processedPitfallIDs.includes(this.pitfallID) && cur.intersectsBox(this.playerBox_)) {
             this.processedPitfallIDs.push(this.pitfallID);
-            // this.gameOver = true;
-            console.log(c.position.z)
             this.FallAnimation_()
             this.inAir_ = false;
             this.pitCollide = true;
@@ -594,8 +610,6 @@ export const player = (() => {
     }
 
     GetFood() {
-      console.log(this.propArray)
-
       let vegePortion = 0;
       let meatPortion = 0;
       let carbsPortion = 0;
@@ -813,10 +827,10 @@ export const player = (() => {
 
     Update(timeElapsed, pause, wallPosition, swipeLeft, swipeRight) {
 
-      if(this.immunitiy) {
+      if (this.immunitiy) {
         this.shieldTime -= timeElapsed * 10.0;
-        document.getElementById("fullShield").style.height = this.shieldTime+ "%"
-        if(this.shieldTime <=0){
+        document.getElementById("fullShield").style.height = this.shieldTime + "%"
+        if (this.shieldTime <= 0) {
           document.getElementById("fullShield").style.zIndex = "0";
           document.querySelector('#quarterOne').style.backgroundColor = '#333'
           document.querySelector('#quarterTwo').style.backgroundColor = '#333'
@@ -839,12 +853,10 @@ export const player = (() => {
           if (this.wallArray[0].x < 15 && this.wallArray[0].x > -15 && !this.wallFail) {
             //dont jump u die 
             if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0 && !this.wallFail) {
-              console.log("bye")
               this.wallFail = true;
               this.inAir_ = false;
               this.FallAnimation_()
             }
-            console.log(this.wallFail)
 
             //click left way too early
             if (this.onWall && (this.keys_.left || swipeLeft) && this.wallArray[1].x > 15) {
@@ -920,10 +932,10 @@ export const player = (() => {
               this.FallAnimation_()
 
             }
-
             //left wall
             if (!this.inAir_ && (this.keys_.left || swipeLeft) && this.position_.z != -3 && !this.wallFail) {
               this.SwipeFullLeft()
+              console.log(swipeLeft)
 
               if (this.position_.z != 3 || this.position_.z != -3) {
                 if (!this.toggleJumpAnimation) {
@@ -956,6 +968,8 @@ export const player = (() => {
             this.inAir_ = true;
             this.onWall = false;
             this.wallArray.splice(0, 2);
+            this.BigJumpAnimation_()
+            this.wallEnd = true;
           }
         } else {
           // IF WALL STARTS FROM THE LEFT
@@ -1050,7 +1064,6 @@ export const player = (() => {
                 this.onWall = true;
                 this.toggleJumpAnimation = false;
                 this.RightWallRunAnimation_()
-                console.log("Hahah")
               }
 
             }
@@ -1116,8 +1129,13 @@ export const player = (() => {
         this.velocity_ += acceleration;
         this.velocity_ = Math.max(this.velocity_, -100);
         if (this.position_.y == 0) {
-          this.RunAnimation_();
-
+          if (!this.wallEnd) {
+            this.RunAnimation_();
+          } else {
+            setTimeout(() => {
+              this.RunAnimation_()
+            }, 900);
+          }
         }
       }
 
