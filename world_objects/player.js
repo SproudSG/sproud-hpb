@@ -724,7 +724,6 @@ export const player = (() => {
 
     //player movement with swipe gestures
     SwipeLeft() {
-
       if (this.position_.z <= 0) {
         this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
         if (this.position_.z <= -3) {
@@ -825,8 +824,16 @@ export const player = (() => {
     }
 
 
-    Update(timeElapsed, pause, wallPosition, swipeLeft, swipeRight) {
+    Update(timeElapsed, pause, wallPosition, swipeLeft, swipeRight, showChase) {
 
+      if (showChase) {
+        this.keys_.left = false;
+        this.keys_.right = false;
+        this.keys_.space = false;
+        this.keys_.down = false;
+      }
+
+      //if shield is active
       if (this.immunitiy) {
         this.shieldTime -= timeElapsed * 10.0;
         document.getElementById("fullShield").style.height = this.shieldTime + "%"
@@ -934,8 +941,9 @@ export const player = (() => {
             }
             //left wall
             if (!this.inAir_ && (this.keys_.left || swipeLeft) && this.position_.z != -3 && !this.wallFail) {
+
               this.SwipeFullLeft()
-              console.log(swipeLeft)
+
 
               if (this.position_.z != 3 || this.position_.z != -3) {
                 if (!this.toggleJumpAnimation) {
@@ -975,7 +983,6 @@ export const player = (() => {
           // IF WALL STARTS FROM THE LEFT
           if (this.wallArray[0].x < 14 && this.wallArray[0].x > -14) {
             //dont jump u die 
-            console.log(this.wallArray[0].x)
             if (this.position_.y == 0 && this.wallArray[1].x > 14 && this.wallArray[0].x > 0) {
               this.wallFail = true;
               this.FallAnimation_()

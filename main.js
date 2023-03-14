@@ -168,7 +168,6 @@ class BasicWorldDemo {
         let newCountdown = 7;
         let newIntervalId = setInterval(() => {
           newCountdown--;
-          console.log("hi")
           if (newCountdown === 0) {
             if (this.scene_.children.length >= 56) {
               clearInterval(newIntervalId);
@@ -333,6 +332,9 @@ class BasicWorldDemo {
 
   handleTouchMove(event) {
     if (this.isSwiping) {
+      return;
+    }
+    if (this.showChase) {
       return;
     }
     this.endX = event.changedTouches[0].clientX;
@@ -694,7 +696,6 @@ class BasicWorldDemo {
           this.speedz = 3
           this.isPaused = false;
           this.stopTime = false;
-          
           this.allowPause = true;
           pauseButton.style.display = 'block'
 
@@ -901,6 +902,8 @@ class BasicWorldDemo {
       if (this.cameraZ < 0) {
         this.cameraZ = this.cameraZ + 0.04
 
+      } else {
+        this.showChase = false;
       }
       this.camera_.position.set(this.cameraX, this.cameraY, this.cameraZ);
       this.camera_.lookAt(0, this.cameraY, 0)
@@ -1005,8 +1008,6 @@ class BasicWorldDemo {
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
 
-
-
               let light = new THREE.DirectionalLight(0xffffff, 1);
 
               this.scene_.add(light);
@@ -1079,7 +1080,6 @@ class BasicWorldDemo {
               });
 
 
-
               const uniforms = {
                 topColor: { value: new THREE.Color(0x0c1445) },
                 bottomColor: { value: new THREE.Color(0x89b2eb) },
@@ -1128,17 +1128,16 @@ class BasicWorldDemo {
         this.showChase = false;
         this.gameOver_ = true;
         this.camera_.position.set(-7, 3.5, 0);
-
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
-        pauseButton.style.display = 'none'
         this.stage = 2;
         this.playNextStageVideo2()
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
-          console.log(this.totalStamina)
         });
+
+        pauseButton.style.display = 'none'
 
         this.nextStageVideo2_.addEventListener("ended", () => {
           this.intervalId_ = setInterval(() => {
@@ -1369,7 +1368,6 @@ class BasicWorldDemo {
         this.playNextStageVideo3()
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
-          console.log(this.totalStamina)
         });
 
         this.nextStageVideo3_.addEventListener("ended", () => {
@@ -1592,7 +1590,6 @@ class BasicWorldDemo {
 
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
-          console.log(this.totalStamina)
         });
         this.playVictoryVid()
 
@@ -1656,7 +1653,7 @@ class BasicWorldDemo {
         this.wallPosition = result
       });
 
-      this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight);
+      this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight, this.showChase);
       this.oilSlik_.Update(timeElapsed);
       this.background_.Update(timeElapsed);
       this.progression_.Update(timeElapsed, pause, this.buffspeed, this.speed_, this.stage);
@@ -1730,40 +1727,68 @@ class BasicWorldDemo {
 
       //checks for swipe gestures
       if (this.swipeLeft) {
+        if (!this.player_.pitCollide) {
+          if (!this.player_.wallFail) {
+            if (!this.player_.onWall) {
+              this.player_.SwipeLeft();
+              this.isSwiping = true
+            }
 
-        this.player_.SwipeLeft();
-        this.isSwiping = true
-
-        if (this.player_.position_.z == -3 || this.player_.position_.z == 0) {
-          this.swipeLeft = false;
-          this.isSwiping = false;
-
+            if (this.player_.onWall) {
+              if (this.player_.position_.z == -3) {
+                this.swipeLeft = false;
+                this.isSwiping = false;
+              }
+            } else {
+              if (this.player_.position_.z == -3 || this.player_.position_.z == 0) {
+                this.swipeLeft = false;
+                this.isSwiping = false;
+              }
+            }
+          }
         }
-
-
       }
       if (this.swipeRight) {
+        if (!this.player_.pitCollide) {
+          if (!this.player_.wallFail) {
 
+            if (!this.player_.onWall) {
+              this.player_.SwipeRight();
+              this.isSwiping = true
+            }
 
-        this.player_.SwipeRight();
-        this.isSwiping = true
-
-        if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
-          this.swipeRight = false;
-          this.isSwiping = false;
-
+            if (this.player_.onWall) {
+              if (this.player_.position_.z == 3) {
+                this.swipeRight = false;
+                this.isSwiping = false;
+              }
+            } else {
+              if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
+                this.swipeRight = false;
+                this.isSwiping = false;
+              }
+            }
+          }
         }
       }
+
       if (this.swipeUp) {
-        this.player_.SwipeUp(timeElapsed);
-        this.swipeUp = false;
+        if (!this.player_.pitCollide) {
+          if (!this.player_.wallFail) {
+            this.player_.SwipeUp(timeElapsed);
+            this.swipeUp = false;
+          }
+        }
+
       }
       if (this.swipeDown) {
-
-        this.player_.SwipeDown(timeElapsed);
-        this.swipeDown = false;
+        if (!this.player_.pitCollide) {
+          if (!this.player_.wallFail) {
+            this.player_.SwipeDown(timeElapsed);
+            this.swipeDown = false;
+          }
+        }
       }
-
     }
 
     //if game is over (lost)
@@ -1771,9 +1796,9 @@ class BasicWorldDemo {
       this.showChase = false;
       this.allowPause = false;
       this.gameOver_ = true;
-      pauseButton.style.display = 'none'
       this.resumeCountdown_ = 3;
       this.playedVideo_ = false
+      pauseButton.style.display = 'none'
 
       document.getElementById("fullShield").style.zIndex = "0";
       document.querySelector('#video-container').style.backgroundColor = 'transparent'
@@ -1791,7 +1816,6 @@ class BasicWorldDemo {
           this.playNextStageVideo3()
           this.eventAdded1 = false;
           this.countdown2_ = 6
-          
 
         } else if (this.stage == 1) {
           this.playNextStageVideo1()
@@ -1801,7 +1825,6 @@ class BasicWorldDemo {
         }
 
         this.stopTime = true
-
         this.Pause()
       });
 
