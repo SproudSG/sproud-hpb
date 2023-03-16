@@ -1,5 +1,5 @@
 import * as THREE from './node_modules/three/build/three.module.js';
-import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
+import Stats from './node_modules/stats.js/src/Stats.js'
 import { GLTFLoader } from "./node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 // import * as THREE from 'https://storage.googleapis.com/sproud-hpb/node_modules/three/build/three.module.js';
