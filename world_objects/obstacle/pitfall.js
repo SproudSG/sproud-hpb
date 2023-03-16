@@ -95,7 +95,7 @@ export const pitfall = (() => {
                     obj = new PitfallObject(this.params_);
 
                     obj.position.x = spawnPosition[i]
-                    obj.position.y = 0
+                    obj.position.y = 0.2
                     obj.position.z = arr[i]
 
                    

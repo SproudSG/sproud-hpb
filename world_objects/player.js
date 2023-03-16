@@ -413,9 +413,22 @@ export const player = (() => {
           this.pitfallID = c.mesh.uuid;
           if (!this.processedPitfallIDs.includes(this.pitfallID) && cur.intersectsBox(this.playerBox_)) {
             this.processedPitfallIDs.push(this.pitfallID);
-            this.FallAnimation_()
-            this.inAir_ = false;
-            this.pitCollide = true;
+
+            if (this.immunitiy) {
+              this.immunitiy = false
+              this.propArray = []
+              document.getElementById("fullShield").style.zIndex = "0";
+              this.shieldTime = 100
+              document.querySelector('#quarterOne').style.backgroundColor = '#333'
+              document.querySelector('#quarterTwo').style.backgroundColor = '#333'
+              document.querySelector('#quarterThree').style.backgroundColor = '#333'
+              document.querySelector('#quarterFour').style.backgroundColor = '#333'
+
+            } else {
+              this.FallAnimation_()
+              this.inAir_ = false;
+              this.pitCollide = true;
+            }
           }
         } else {
           return;
@@ -493,10 +506,8 @@ export const player = (() => {
         if (c.mesh) {
           this.box1ID = c.mesh.uuid;
           if (!this.processedbox1IDs.includes(this.box1ID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedWaterIDs.push(this.box1ID);
+            this.processedbox1IDs.push(this.box1ID);
             this.box = "powerup"
-            this.speed = 0.54;
-            this.buff = true;
             this.params_.box1.ToggleVisible();
           }
         } else {
@@ -510,11 +521,9 @@ export const player = (() => {
         const cur = c.collider;
         if (c.mesh) {
           this.box2ID = c.mesh.uuid;
-          if (!this.processedbox1IDs.includes(this.box2ID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedWaterIDs.push(this.box2ID);
+          if (!this.processedbox2IDs.includes(this.box2ID) && cur.intersectsBox(this.playerBox_)) {
+            this.processedbox2IDs.push(this.box2ID);
             this.box = "powerdown"
-            this.speed = 0.05;
-            this.debuff = true;
             this.params_.box2.ToggleVisible();
           }
         } else {
@@ -529,10 +538,8 @@ export const player = (() => {
         if (c.mesh) {
           this.box3ID = c.mesh.uuid;
           if (!this.processedbox3IDs.includes(this.box3ID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedWaterIDs.push(this.box3ID);
+            this.processedbox3IDs.push(this.box3ID);
             this.box = "powerdown"
-            this.speed = 0.05;
-            this.debuff = true;
             this.params_.box3.ToggleVisible();
           }
         } else {
@@ -699,11 +706,6 @@ export const player = (() => {
 
 
     //send back callbacks for speed and collision
-    getSpeed(callback) {
-      const result = this.speed;
-      callback(result);
-    }
-
     getBoxCollide(callback) {
       const result = this.box;
       callback(result);

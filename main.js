@@ -374,7 +374,6 @@ class BasicWorldDemo {
     this.speedz = 3;
     this.speedy = 12;
     this.animationId;
-    this.buffspeed = false;
     this.restartStage = false;
 
     // renderer
@@ -1656,23 +1655,8 @@ class BasicWorldDemo {
       this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight, this.showChase);
       this.oilSlik_.Update(timeElapsed);
       this.background_.Update(timeElapsed);
-      this.progression_.Update(timeElapsed, pause, this.buffspeed, this.speed_, this.stage);
+      this.progression_.Update(timeElapsed, pause, this.stage);
 
-
-
-      //get speed of player from player.js
-      this.player_.getSpeed(result => {
-        this.speed_ = result
-        //if speed is not default, meaning the player has a speed buff/debuff
-        if (this.speed_ != 0.2 && !pause) {
-          this.objSpeed = 12 * (this.speed_ / 0.2)
-          this.buffspeed = true;
-
-        } else {
-          this.buffspeed = false;
-
-        }
-      });
 
 
       //check if player collides with the pit
