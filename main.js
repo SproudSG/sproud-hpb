@@ -76,6 +76,7 @@ class BasicWorldDemo {
     this.gender_ = null;
     this.stage = 1;
     this.wallPosition = [];
+    // this.oilSlikCatch = false
 
     //init
     this._gameStarted = false;
@@ -83,12 +84,12 @@ class BasicWorldDemo {
     this.checkStartGame = false;
 
     //on load music 
-    this.menuMusic = document.getElementById("menu-music");
-    this._playMenuMusic();
-    document.addEventListener('DOMContentLoaded', () => {
-      this._playMenuMusic();
+    // this.menuMusic = document.getElementById("menu-music");
+    // this._playMenuMusic();
+    // document.addEventListener('DOMContentLoaded', () => {
+    //   this._playMenuMusic();
 
-    });
+    // });
 
 
     //handle gender selection
@@ -310,12 +311,12 @@ class BasicWorldDemo {
   }
   //music player
   _playMenuMusic() {
-    this.menuMusic.play();
+    // this.menuMusic.play();
   }
 
   //start the game
   _OnStart() {
-    this.menuMusic.pause();
+    // this.menuMusic.pause();
     this._gameStarted = true;
     var gameMusic = document.getElementById("game-music");
     gameMusic.play();
@@ -891,21 +892,25 @@ class BasicWorldDemo {
   Step_(timeElapsed, pause) {
     //pan the camera
     if (this.showChase && this._gameStarted) {
-      if (this.cameraX > -7) {
+      if (this.cameraX > -10) {
         this.cameraX = this.cameraX - 0.1
       }
-      if (this.cameraY > 3.5) {
+      if (this.cameraY > 5) {
         this.cameraY = this.cameraY - 0.02
 
       }
       if (this.cameraZ < 0) {
         this.cameraZ = this.cameraZ + 0.04
 
-      } else {
+      }
+
+      if (this.cameraX <= -10 && this.cameraY <= 5 && this.cameraZ >= 0) {
         this.showChase = false;
       }
+      this.camera_.lookAt(0, 2, 0)
+
       this.camera_.position.set(this.cameraX, this.cameraY, this.cameraZ);
-      this.camera_.lookAt(0, this.cameraY, 0)
+
     }
 
     //if he loses stage 1
@@ -1126,7 +1131,6 @@ class BasicWorldDemo {
       document.addEventListener('score-over1', () => {
         this.showChase = false;
         this.gameOver_ = true;
-        this.camera_.position.set(-7, 3.5, 0);
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
@@ -1653,7 +1657,7 @@ class BasicWorldDemo {
       });
 
       this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight, this.showChase);
-      this.oilSlik_.Update(timeElapsed);
+      this.oilSlik_.Update(timeElapsed, pause, this.showChase);
       this.background_.Update(timeElapsed);
       this.progression_.Update(timeElapsed, pause, this.stage);
 
@@ -1670,6 +1674,36 @@ class BasicWorldDemo {
         }
       });
 
+      //check if player runs out of stamina
+      this.player_.getCollapse(result => {
+        console.log(result)
+
+        if (result) {
+          if (this.player_.position_.y > 0) {
+            this.player_.position_.y = this.player_.position_.y - timeElapsed * 6
+
+          }
+          if (this.player_.position_.x < 3) {
+            this.player_.position_.x = this.player_.position_.x + timeElapsed * 6
+
+          }
+          setTimeout(() => {
+
+            this.objSpeed = 0
+            this.monSpeed = 0
+            this.speedy = 0
+            this.speedz = 0
+            this.isPaused = true
+            if (this.oilSlik_.mesh_.position.x < 0) {
+              this.oilSlik_.mesh_.position.x += timeElapsed * 6
+              this.oilSlik_.mesh_.scale.set(0.3, 0.3, 0.3)
+            }
+
+          }, 400);
+
+        }
+      });
+
       //check if player fails wall jump
       if (this.player_.wallFail) {
         setTimeout(() => {
@@ -1678,6 +1712,17 @@ class BasicWorldDemo {
         }, 200);
       }
 
+      //check stamina level for oil slik catching up
+      // this.player_.getStamina(result => {
+      //   if (result < 60) {
+
+      //     this.oilSlikCatch = true;
+
+      //   } else if (result > 60) {
+      //     this.oilSlikCatch = false;
+
+      //   }
+      // });
 
 
       //checks whether player collides with box from player.js
@@ -1711,45 +1756,50 @@ class BasicWorldDemo {
 
       //checks for swipe gestures
       if (this.swipeLeft) {
-        if (!this.player_.pitCollide) {
-          if (!this.player_.wallFail) {
-            if (!this.player_.onWall) {
-              this.player_.SwipeLeft();
-              this.isSwiping = true
-            }
-
-            if (this.player_.onWall) {
-              if (this.player_.position_.z == -3) {
-                this.swipeLeft = false;
-                this.isSwiping = false;
+        if (!this.player_.collapse) {
+          if (!this.player_.pitCollide) {
+            if (!this.player_.wallFail) {
+              if (!this.player_.onWall) {
+                this.player_.SwipeLeft();
+                this.isSwiping = true
               }
-            } else {
-              if (this.player_.position_.z == -3 || this.player_.position_.z == 0) {
-                this.swipeLeft = false;
-                this.isSwiping = false;
+
+              if (this.player_.onWall) {
+                if (this.player_.position_.z == -3) {
+                  this.swipeLeft = false;
+                  this.isSwiping = false;
+                }
+              } else {
+                if (this.player_.position_.z == -3 || this.player_.position_.z == 0) {
+                  this.swipeLeft = false;
+                  this.isSwiping = false;
+                }
               }
             }
           }
         }
       }
       if (this.swipeRight) {
-        if (!this.player_.pitCollide) {
-          if (!this.player_.wallFail) {
+        if (!this.player_.collapse) {
 
-            if (!this.player_.onWall) {
-              this.player_.SwipeRight();
-              this.isSwiping = true
-            }
+          if (!this.player_.pitCollide) {
+            if (!this.player_.wallFail) {
 
-            if (this.player_.onWall) {
-              if (this.player_.position_.z == 3) {
-                this.swipeRight = false;
-                this.isSwiping = false;
+              if (!this.player_.onWall) {
+                this.player_.SwipeRight();
+                this.isSwiping = true
               }
-            } else {
-              if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
-                this.swipeRight = false;
-                this.isSwiping = false;
+
+              if (this.player_.onWall) {
+                if (this.player_.position_.z == 3) {
+                  this.swipeRight = false;
+                  this.isSwiping = false;
+                }
+              } else {
+                if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
+                  this.swipeRight = false;
+                  this.isSwiping = false;
+                }
               }
             }
           }
@@ -1757,19 +1807,23 @@ class BasicWorldDemo {
       }
 
       if (this.swipeUp) {
-        if (!this.player_.pitCollide) {
-          if (!this.player_.wallFail) {
-            this.player_.SwipeUp(timeElapsed);
-            this.swipeUp = false;
+        if (!this.player_.collapse) {
+          if (!this.player_.pitCollide) {
+            if (!this.player_.wallFail) {
+              this.player_.SwipeUp(timeElapsed);
+              this.swipeUp = false;
+            }
           }
         }
 
       }
       if (this.swipeDown) {
-        if (!this.player_.pitCollide) {
-          if (!this.player_.wallFail) {
-            this.player_.SwipeDown(timeElapsed);
-            this.swipeDown = false;
+        if (!this.player_.collapse) {
+          if (!this.player_.pitCollide) {
+            if (!this.player_.wallFail) {
+              this.player_.SwipeDown(timeElapsed);
+              this.swipeDown = false;
+            }
           }
         }
       }

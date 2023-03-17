@@ -29,6 +29,7 @@ export const player = (() => {
       this.processedshoogaGliderIDs = [];
       this.trolliumChlorideID = null;
       this.processedtrolliumChlorideIDs = [];
+      this.collapse = false;
 
 
       //pitfall variables
@@ -131,9 +132,6 @@ export const player = (() => {
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
           this.mesh_.scale.set(0.013, 0.013, 0.013);
-          this.mesh_.position.x = 0;				    //Position (x = right+ left-) 
-          this.mesh_.position.y = 0;				    //Position (y = up+, down-)
-          this.mesh_.position.z = 0;				    //Position (z = front +, back-)
           this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
 
           const m = new THREE.AnimationMixer(this.mesh_);
@@ -186,7 +184,6 @@ export const player = (() => {
       const clip = this.gltf.animations[20];
       this.action = this.mixer_.clipAction(clip);
       this.action.setLoop(THREE.LoopOnce);
-
       this.action.play();
       setTimeout(() => {
         this.gameOver = true;
@@ -297,6 +294,7 @@ export const player = (() => {
       };
 
       document.addEventListener('keydown', (event) => {
+        if(!this.collapse){
         if (!this.pitCollide) {
           if (!this.wallFail) {
             if (event.keyCode === 37) {
@@ -309,6 +307,7 @@ export const player = (() => {
               this.keys_.down = true;
             }
           }
+        }
         }
       });
 
@@ -722,6 +721,10 @@ export const player = (() => {
       callback(result);
     }
 
+    getCollapse(callback) {
+      const result = this.collapse
+      callback(result);
+    }
 
 
     //player movement with swipe gestures
@@ -1225,8 +1228,11 @@ export const player = (() => {
           'en-US', { minimumIntegerDigits: 3, useGrouping: false });
 
         document.getElementById("stamina").style.width = staminaText + "%"
-        if (this.stamina_ <= 0) {
-          this.gameOver = true
+        if (this.stamina_ <= 0 && !this.collapse && !this.onWall) {
+          this.collapse = true;
+          this.inAir_ = false;
+          this.sliding_ = false;
+          this.FallAnimation_();
         }
       }
 

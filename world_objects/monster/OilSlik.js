@@ -12,11 +12,9 @@ export const oilSlik = (() => {
     class OilSlik {
         constructor(params) {
             //player properties
-            this.position_ = new THREE.Vector3(-10, 0, 0);
-            this.playerBox_ = new THREE.Box3();
+            this.position_ = new THREE.Vector3(-5, 0, 0);
             this.speed_ = 2;
-
-
+            this.slowCheck = false;
             this.params_ = params;
             this.LoadModel_();
         }
@@ -27,11 +25,9 @@ export const oilSlik = (() => {
             loader.load('OilSilkChase.gltf', (gltf) => {
                 this.mesh_ = gltf.scene;
 
-                this.mesh_.quaternion.setFromAxisAngle(
-                    new THREE.Vector3(0, 1, 0), Math.PI / 2);
-        
-        
-                this.mesh_.scale.set(0.3, 0.3, 0.3);
+                this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
+                this.mesh_.position.copy(this.position_);
+                this.mesh_.scale.set(0.2, 0.2, 0.2);
 
                 this.params_.scene.add(this.mesh_);
 
@@ -44,18 +40,27 @@ export const oilSlik = (() => {
             });
         }
 
-        //checks if player collides with any other mesh
-        CheckCollisions_() {
-        }
 
-
-        Update(timeElapsed) {
-
+        Update(timeElapsed, pause, chase, slow) {
+            console.log()
             if (this.mesh_) {
                 this.mixer_.update(timeElapsed);
-                this.mesh_.position.copy(this.position_);
-                this.CheckCollisions_();
-                // this.mesh_.position.x = timeElapsed * this.speed_;
+                if (chase && this.mesh_.position.x < -8.5 && !pause) {
+                    this.mesh_.position.x += timeElapsed * this.speed_;
+                }
+
+                if (!chase && this.mesh_.position.x > -12 && !pause) {
+                    this.mesh_.position.x -= timeElapsed * this.speed_;
+                }
+
+                if (!slow && !this.slowCheck && !pause) {
+                    if (this.mesh_.position.x > -12) {
+                        this.mesh_.position.x -= timeElapsed * this.speed_;
+                    } else {
+                        this.slowCheck = true
+                    }
+
+                }
 
             }
 

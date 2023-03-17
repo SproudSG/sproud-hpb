@@ -56,7 +56,6 @@ export const pitfall = (() => {
         constructor(params) {
             this.objects_ = [];
             this.unused_ = [];
-            this.speed_ = 12;
             this.params_ = params;
             this.counter_ = 0;
             this.spawn_ = 0;
