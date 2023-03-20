@@ -423,6 +423,16 @@ div.full {
   bottom: 0;
 }
 
+
+.key {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 40%;
+  left: 20px;
+  overflow: hidden;
+}
+
 div.quarter {
   position: absolute;
   width: 50px;

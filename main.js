@@ -273,18 +273,33 @@ class BasicWorldDemo {
   closeNextStageVideo1() {
     this.nextStageVideo1_.style.display = "none";
     this.nextStageVideo1_.currentTime = 0;
+    this.nextStageVideo1_.pause();
   }
 
 
   //stage 2 cutscene
   playNextStageVideo2() {
     this.nextStageVideo2_.style.display = "block";
-    this.nextStageVideo2_.play();
+    if (this.nextStageVideo2_.paused) {
+      this.nextStageVideo2_.play()
+      console.log('Video is no tplaying.');
+
+      if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+        // code to execute if the platform is iOS
+        console.log("This device is running iOS.");
+      } else {
+        // code to execute if the platform is not iOS
+        console.log("This device is not running iOS.");
+      }
+    } else {
+      console.log('Video is playing.');
+    }
   }
 
   closeNextStageVideo2() {
     this.nextStageVideo2_.style.display = "none";
     this.nextStageVideo2_.currentTime = 0;
+    this.nextStageVideo2_.pause();
   }
 
   //stage 3 cutscene
@@ -296,6 +311,7 @@ class BasicWorldDemo {
   closeNextStageVideo3() {
     this.nextStageVideo3_.style.display = "none";
     this.nextStageVideo3_.currentTime = 0;
+    this.nextStageVideo3_.pause();
   }
 
 
@@ -308,6 +324,7 @@ class BasicWorldDemo {
   closeNextStageVideo4() {
     this.nextStageVideo4_.style.display = "none";
     this.nextStageVideo4_.currentTime = 0;
+    this.nextStageVideo4_.pause();
   }
   //music player
   _playMenuMusic() {
@@ -493,7 +510,7 @@ class BasicWorldDemo {
 
     });
 
-    //pause 
+    //pause DOM elements
     var playButton = document.getElementById("playButton");
     var pauseButton = document.getElementById("pauseButton");
 
@@ -501,18 +518,7 @@ class BasicWorldDemo {
     playButton.addEventListener("click", () => {
       if (this.allowPause) {
         if (this.isPaused) {
-          this.animationId = requestAnimationFrame(animate);
-          this.objSpeed = 12
-          this.monSpeed = 52
-          this.speedy = 12
-          this.speedz = 3
-          this.stopTime = false;
-          this.RAF_()
-          this.isPaused = false;
-          document.querySelector('#video-container').style.backgroundColor = 'transparent'
-          document.querySelector('#pauseDiv').style.display = 'none'
-          playButton.style.display = 'none'
-          pauseButton.style.display = 'block'
+          startPauseCountdown()
         }
       }
     });
@@ -521,18 +527,7 @@ class BasicWorldDemo {
     pauseButton.addEventListener("click", () => {
       if (this.allowPause) {
         if (!this.isPaused) {
-          this.objSpeed = 0
-          this.monSpeed = 0
-          this.speedy = 0
-          this.speedz = 0
-          this.stopTime = true;
-          cancelAnimationFrame(this.animationId);
-          this.isPaused = true;
-          document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
-          document.querySelector('#pauseDiv').style.display = 'block'
-          playButton.style.display = 'block'
-          pauseButton.style.display = 'none'
-
+          startPause()
         }
       }
     });
@@ -541,33 +536,73 @@ class BasicWorldDemo {
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') {
         if (this.allowPause) {
-          if (this.isPaused) {
-            this.animationId = requestAnimationFrame(animate);
-            this.objSpeed = 12
-            this.monSpeed = 52
-            this.speedy = 12
-            this.speedz = 3
-            this.stopTime = false;
-            this.RAF_()
-            this.isPaused = false;
-            document.querySelector('#video-container').style.backgroundColor = 'transparent'
-            document.querySelector('#pauseDiv').style.display = 'none'
-            playButton.style.display = 'none'
-            pauseButton.style.display = 'block'
-          } else {
-            this.objSpeed = 0
-            this.monSpeed = 0
-            this.speedy = 0
-            this.speedz = 0
-            this.stopTime = true;
-            cancelAnimationFrame(this.animationId);
-            this.isPaused = true;
-            document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
-            document.querySelector('#pauseDiv').style.display = 'block'
-            playButton.style.display = 'block'
-            pauseButton.style.display = 'none'
+          if (this.isPaused && !this.pauseCountdownActive) {
+            startPauseCountdown()
+          } else if(!this.pauseCountdownActive){
+            startPause()
 
           }
+        }
+      }
+    });
+
+    //pause the game
+    const startPause = () => {
+      this.objSpeed = 0
+      this.monSpeed = 0
+      this.speedy = 0
+      this.speedz = 0
+      this.stopTime = true;
+      cancelAnimationFrame(this.animationId);
+      this.isPaused = true;
+      document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
+      document.querySelector('#pauseDiv').style.display = 'block'
+      playButton.style.display = 'block'
+      pauseButton.style.display = 'none'
+    }
+
+    //count down after power up video has been played
+    const startPauseCountdown = () => {
+      this.pauseCountdownActive = true
+      playButton.style.display = 'none'
+      document.querySelector('#video-container').style.backgroundColor = 'transparent'
+      document.querySelector('#pauseDiv').style.display = 'none'
+      document.getElementById('countdown').classList.toggle('active');
+      this.intervalId_ = setInterval(() => {
+        this.resumeCountdown_--;
+        document.getElementById('power-countdown-text').textContent = this.resumeCountdown_;
+        if (this.resumeCountdown_ === 0) {
+          this.animationId = requestAnimationFrame(animate);
+          this.objSpeed = 12
+          this.monSpeed = 52
+          this.speedy = 12
+          this.speedz = 3
+          this.stopTime = false;
+          this.RAF_()
+          this.isPaused = false;
+
+          playButton.style.display = 'none'
+          pauseButton.style.display = 'block'
+
+          clearInterval(this.intervalId_);
+          document.getElementById('countdown').classList.toggle('active');
+
+          // Start another countdown
+          document.getElementById('power-countdown-text').textContent = 3;
+          this.resumeCountdown_ = 3;
+          this.pauseCountdownActive = false
+
+
+
+        }
+      }, 1000)
+    }
+
+    //detect alt tabs
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        if (this.allowPause && !this.pauseCountdownActive) {
+          startPause()
         }
       }
     });
@@ -623,27 +658,6 @@ class BasicWorldDemo {
 
     });
 
-
-    //detect shit
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) {
-
-        if (this.allowPause) {
-          this.objSpeed = 0
-          this.monSpeed = 0
-          this.speedy = 0
-          this.speedz = 0
-          this.stopTime = true;
-          cancelAnimationFrame(this.animationId);
-          this.isPaused = true;
-          document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
-          document.querySelector('#pauseDiv').style.display = 'block'
-          playButton.style.display = 'block'
-          pauseButton.style.display = 'none'
-
-        }
-      }
-    });
 
 
     //handle map position 
@@ -720,7 +734,6 @@ class BasicWorldDemo {
         }
       }, 1000)
     }
-
 
 
     //for the sky
@@ -1134,13 +1147,12 @@ class BasicWorldDemo {
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
+        pauseButton.style.display = 'none'
         this.stage = 2;
         this.playNextStageVideo2()
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
         });
-
-        pauseButton.style.display = 'none'
 
         this.nextStageVideo2_.addEventListener("ended", () => {
           this.intervalId_ = setInterval(() => {
@@ -1340,9 +1352,8 @@ class BasicWorldDemo {
                 document.querySelector('.wrapper').style.display = 'block';
                 document.getElementById('loading-2').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
-
-                clearInterval(this.intervalId_);
                 this.player_.propArray = []
+                clearInterval(this.intervalId_);
               } else {
                 this.countdown1_ = 3
               }
@@ -1564,6 +1575,7 @@ class BasicWorldDemo {
               if (this.scene_.children.length >= 59) {
                 this.previousRAF_ = null;
                 this.restartStage = true;
+                document.getElementById("keyContainer").style.display = 'block';
                 document.getElementById('loading-3').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
                 this.player_.propArray = []
@@ -1676,8 +1688,6 @@ class BasicWorldDemo {
 
       //check if player runs out of stamina
       this.player_.getCollapse(result => {
-        console.log(result)
-
         if (result) {
           if (this.player_.position_.y > 0) {
             this.player_.position_.y = this.player_.position_.y - timeElapsed * 6
