@@ -303,7 +303,18 @@ li {
   left: 50%;
   animation: moveDown 1s ease;
   transform: translate(-50%, -50%);
-  transition: 1s;
+  min-width: 100%;
+  min-height: 100%;
+
+}
+
+#powerdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  animation: moveDown 1s ease;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
   min-width: 100%;
   min-height: 100%;
 
@@ -325,21 +336,6 @@ li {
   z-index: 9;
 }
 
-
-
-#powerdown {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  animation: moveDown 1s;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover !important;
-
-}
-
 @-webkit-keyframes moveDown {
   0% {
     -webkit-transform: translate(-50%, -200%);
@@ -348,7 +344,7 @@ li {
   }
 
   100% {
-    -webkit-transform: translate(-50%, -200%);
+    -webkit-transform: translate(-50%, -50%);
     -webkit-animation-timing-function: ease;
 
   }
@@ -358,13 +354,11 @@ li {
   0% {
     transform: translate(-50%, -200%);
     animation-timing-function: ease;
-
   }
 
   100% {
     transform: translate(-50%, -50%);
     animation-timing-function: ease;
-
   }
 }
 
@@ -574,3 +568,13 @@ div.quarter.right-bottom {
 }
 
 
+#click-end {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  overflow: hidden;
+}

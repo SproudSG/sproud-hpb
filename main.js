@@ -90,7 +90,7 @@ class BasicWorldDemo {
     //   this._playMenuMusic();
 
     // });
-    
+
 
 
     //handle gender selection
@@ -281,20 +281,8 @@ class BasicWorldDemo {
   //stage 2 cutscene
   playNextStageVideo2() {
     this.nextStageVideo2_.style.display = "block";
-    if (this.nextStageVideo2_.paused) {
-      this.nextStageVideo2_.play()
-      console.log('Video is no tplaying.');
+    this.nextStageVideo2_.play()
 
-      if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-        // code to execute if the platform is iOS
-        console.log("This device is running iOS.");
-      } else {
-        // code to execute if the platform is not iOS
-        console.log("This device is not running iOS.");
-      }
-    } else {
-      console.log('Video is playing.');
-    }
   }
 
   closeNextStageVideo2() {
@@ -399,7 +387,7 @@ class BasicWorldDemo {
     this.threejs_ = new THREE.WebGLRenderer({
       antialias: true,
     });
-
+    console.log(window.devicePixelRatio)
     this.threejs_.outputEncoding = THREE.sRGBEncoding;
     this.threejs_.gammaFactor = 0.1;
     this.threejs_.shadowMap.enabled = true;
@@ -636,7 +624,28 @@ class BasicWorldDemo {
       }
     });
 
-    //handle second stage "click to continue"
+
+    //handle "click to continue" after game is won for IOS devices
+    document.getElementById('click-end').addEventListener('click', () => {
+      if (this.stage == 2) {
+
+        document.getElementById('click-end').style.display = 'none';
+        this.playNextStageVideo2()
+
+      } else if (this.stage == 3) {
+       
+        document.getElementById('click-end').style.display = 'none';
+        this.playNextStageVideo3()
+      }else if (this.stage == 4){
+        document.getElementById('click-end').style.display = 'none';
+        this.playVictoryVid()
+      }
+
+    });
+
+
+
+    //handle "click to continue" after video has ended and stage has loaded
     document.getElementById('click-start').addEventListener('click', () => {
       if (this.startstage) {
         this.animationId = requestAnimationFrame(animate);
@@ -1178,7 +1187,20 @@ class BasicWorldDemo {
         this.Pause()
         pauseButton.style.display = 'none'
         this.stage = 2;
-        this.playNextStageVideo2()
+
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
+          // code to execute if the platform is iOS
+          console.log("This device is running iOS.");
+
+          document.getElementById('click-end').style.display = 'block';
+
+        } else {
+          // code to execute if the platform is not iOS
+          console.log("This device is not running iOS.");
+          this.playNextStageVideo2()
+
+        }
+
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
         });
@@ -1408,7 +1430,20 @@ class BasicWorldDemo {
         pauseButton.style.display = 'none'
 
         this.stage = 3;
-        this.playNextStageVideo3()
+
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
+          // code to execute if the platform is iOS
+          console.log("This device is running iOS.");
+
+          document.getElementById('click-end').style.display = 'block';
+
+        } else {
+          // code to execute if the platform is not iOS
+          console.log("This device is not running iOS.");
+          this.playNextStageVideo3()
+
+        }
+
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
         });
@@ -1631,11 +1666,24 @@ class BasicWorldDemo {
         this.gameOver_ = true;
         this.stopTime = true;
         pauseButton.style.display = 'none'
-
+        this.stage = 4
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
         });
-        this.playVictoryVid()
+
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
+          // code to execute if the platform is iOS
+          console.log("This device is running iOS.");
+
+          document.getElementById('click-end').style.display = 'block';
+
+        } else {
+          // code to execute if the platform is not iOS
+          console.log("This device is not running iOS.");
+          this.playVictoryVid()
+
+        }
+
 
       });
       this.eventAdded2 = true;
@@ -1869,7 +1917,7 @@ class BasicWorldDemo {
     }
 
 
-    if(this.restartStage && !this.checkRestart){
+    if (this.restartStage && !this.checkRestart) {
       this.checkRestart = true;
       this.allowPause = false;
       this.restartStage = false;
@@ -1922,10 +1970,8 @@ class BasicWorldDemo {
         document.getElementById('game-over').classList.remove('active');
 
         if (this.stage == 2) {
-          this.playNextStageVideo2()
           this.eventAdded = false;
           this.countdown1_ = 6
-
         } else if (this.stage == 3) {
           this.playNextStageVideo3()
           this.eventAdded1 = false;
