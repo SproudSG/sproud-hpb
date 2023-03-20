@@ -90,7 +90,7 @@ body {
   align-items: center;
 }
 
-#pauseDiv{
+#pauseDiv {
   z-index: 2;
 
 }
@@ -301,7 +301,7 @@ li {
   position: absolute;
   top: 50%;
   left: 50%;
-  animation: move 1s ease;
+  animation: moveDown 1s ease;
   transform: translate(-50%, -50%);
   transition: 1s;
   min-width: 100%;
@@ -316,9 +316,9 @@ li {
   position: absolute;
   top: 50%;
   left: 50%;
-  animation: move 1s ease;
+  animation: moveDown 1s;
   transform: translate(-50%, -50%);
-  transition: 1s;
+  -webkit-transform: translate(-50%, -50%);
   min-width: 100%;
   min-height: 100%;
 
@@ -331,22 +331,40 @@ li {
   position: absolute;
   top: 50%;
   left: 50%;
-  animation: move 1s ease;
+  animation: moveDown 1s;
   transform: translate(-50%, -50%);
-  transition: 1s;
+  -webkit-transform: translate(-50%, -50%);
   min-width: 100%;
   min-height: 100%;
   object-fit: cover !important;
 
 }
 
-@keyframes move {
+@-webkit-keyframes moveDown {
+  0% {
+    -webkit-transform: translate(-50%, -200%);
+    -webkit-animation-timing-function: ease;
+
+  }
+
+  100% {
+    -webkit-transform: translate(-50%, -200%);
+    -webkit-animation-timing-function: ease;
+
+  }
+}
+
+@keyframes moveDown {
   0% {
     transform: translate(-50%, -200%);
+    animation-timing-function: ease;
+
   }
 
   100% {
     transform: translate(-50%, -50%);
+    animation-timing-function: ease;
+
   }
 }
 
@@ -545,3 +563,14 @@ div.quarter.right-bottom {
   position: relative;
 
 }
+
+.pauseOptions {
+  color: white;
+  padding-top: 15px;
+}
+
+.pauseOptions:hover {
+  cursor: pointer;
+}
+
+
