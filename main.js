@@ -85,11 +85,15 @@ class BasicWorldDemo {
 
     //on load music 
     this.menuMusic = document.getElementById("menu-music");
-    document.addEventListener('DOMContentLoaded', () => {
-      this._playMenuMusic();
+    this.gameMusic = document.getElementById("game-music")
+    this.menuMusicToggle = false;
+    window.addEventListener('touchstart', () => {
+      if ((/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) &&  !this.menuMusicToggle) {
+        // code to execute if the platform is iOS
+        this._playMenuMusic();
+      }
 
-    });
-
+    })
 
 
     //handle gender selection
@@ -101,6 +105,8 @@ class BasicWorldDemo {
 
     //handle start game (male)
     document.getElementById('male-button').addEventListener('click', () => {
+      this.menuMusic.pause();
+      this.menuMusicToggle = true;
       this.playNextStageVideo1()
       document.getElementById('video-container').style.display = 'block';
       document.getElementById('gender-selection').style.display = 'none';
@@ -111,6 +117,8 @@ class BasicWorldDemo {
 
     //handle start game (female)
     document.getElementById('female-button').addEventListener('click', () => {
+      this.menuMusic.pause();
+      this.menuMusicToggle = true;
       this.playNextStageVideo1()
       document.getElementById('video-container').style.display = 'block';
       document.getElementById('gender-selection').style.display = 'none';
@@ -240,11 +248,11 @@ class BasicWorldDemo {
 
     });
 
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
       // loaded
       console.log("loaded")
-  }, false); 
-  
+    }, false);
+
   }
 
 
@@ -327,10 +335,8 @@ class BasicWorldDemo {
 
   //start the game
   _OnStart() {
-    this.menuMusic.pause();
     this._gameStarted = true;
-    var gameMusic = document.getElementById("game-music");
-    gameMusic.play();
+    this.gameMusic.play();
   }
 
 
@@ -558,15 +564,14 @@ class BasicWorldDemo {
 
     // Add event listeners to the buttons
     volumeButton.addEventListener("click", () => {
-      var player = document.getElementById("menu-music");
-      var gameMusic = document.getElementById("game-music");
-      if (gameMusic.volume == 1 ) {
-        gameMusic.volume = 0;
+
+      if (!this.gameMusic.paused && this.menuMusicToggle) {
+        this.gameMusic.pause()
         volumeButton.style.display = 'none'
         muteButton.style.display = 'block'
       }
-      if (player.volume == 1 && !this._gameStarted) {
-        player.volume = 0;
+      if (!this.menuMusicToggle) {
+        this.menuMusic.pause()
         volumeButton.style.display = 'none'
         muteButton.style.display = 'block'
       }
@@ -575,16 +580,14 @@ class BasicWorldDemo {
 
     // Add event listeners to the buttons
     muteButton.addEventListener("click", () => {
-      var player = document.getElementById("menu-music");
 
-      var gameMusic = document.getElementById("game-music");
-      if (gameMusic.volume == 0 ) {
-        gameMusic.volume = 1;
+      if (this.gameMusic.paused && this.menuMusicToggle) {
+        this.gameMusic.play()
         volumeButton.style.display = 'block'
         muteButton.style.display = 'none'
       }
-      if (player.volume == 0 && !this._gameStarted) {
-        player.volume = 1;
+      if (!this.menuMusicToggle) {
+        this.menuMusic.play()
         volumeButton.style.display = 'block'
         muteButton.style.display = 'none'
       }
