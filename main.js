@@ -84,12 +84,11 @@ class BasicWorldDemo {
     this.checkStartGame = false;
 
     //on load music 
-    // this.menuMusic = document.getElementById("menu-music");
-    // this._playMenuMusic();
-    // document.addEventListener('DOMContentLoaded', () => {
-    //   this._playMenuMusic();
+    this.menuMusic = document.getElementById("menu-music");
+    document.addEventListener('DOMContentLoaded', () => {
+      this._playMenuMusic();
 
-    // });
+    });
 
 
 
@@ -240,6 +239,12 @@ class BasicWorldDemo {
       }
 
     });
+
+    window.addEventListener("load", function() {
+      // loaded
+      console.log("loaded")
+  }, false); 
+  
   }
 
 
@@ -317,12 +322,12 @@ class BasicWorldDemo {
   }
   //music player
   _playMenuMusic() {
-    // this.menuMusic.play();
+    this.menuMusic.play();
   }
 
   //start the game
   _OnStart() {
-    // this.menuMusic.pause();
+    this.menuMusic.pause();
     this._gameStarted = true;
     var gameMusic = document.getElementById("game-music");
     gameMusic.play();
@@ -502,6 +507,8 @@ class BasicWorldDemo {
     //pause DOM elements
     var playButton = document.getElementById("playButton");
     var pauseButton = document.getElementById("pauseButton");
+    var volumeButton = document.getElementById("volumeButton");
+    var muteButton = document.getElementById("muteButton");
     var quitButton = document.getElementById("quitBtn");
     var restartButton = document.getElementById("restartBtn");
     var continueButton = document.getElementById("continueBtn");
@@ -548,6 +555,43 @@ class BasicWorldDemo {
         }
       }
     });
+
+    // Add event listeners to the buttons
+    volumeButton.addEventListener("click", () => {
+      var player = document.getElementById("menu-music");
+      var gameMusic = document.getElementById("game-music");
+      if (gameMusic.volume == 1 ) {
+        gameMusic.volume = 0;
+        volumeButton.style.display = 'none'
+        muteButton.style.display = 'block'
+      }
+      if (player.volume == 1 && !this._gameStarted) {
+        player.volume = 0;
+        volumeButton.style.display = 'none'
+        muteButton.style.display = 'block'
+      }
+
+    });
+
+    // Add event listeners to the buttons
+    muteButton.addEventListener("click", () => {
+      var player = document.getElementById("menu-music");
+
+      var gameMusic = document.getElementById("game-music");
+      if (gameMusic.volume == 0 ) {
+        gameMusic.volume = 1;
+        volumeButton.style.display = 'block'
+        muteButton.style.display = 'none'
+      }
+      if (player.volume == 0 && !this._gameStarted) {
+        player.volume = 1;
+        volumeButton.style.display = 'block'
+        muteButton.style.display = 'none'
+      }
+
+
+    });
+
 
     //key down event listener
     document.addEventListener('keydown', event => {
@@ -628,15 +672,12 @@ class BasicWorldDemo {
     //handle "click to continue" after game is won for IOS devices
     document.getElementById('click-end').addEventListener('click', () => {
       if (this.stage == 2) {
-
         document.getElementById('click-end').style.display = 'none';
         this.playNextStageVideo2()
-
       } else if (this.stage == 3) {
-       
         document.getElementById('click-end').style.display = 'none';
         this.playNextStageVideo3()
-      }else if (this.stage == 4){
+      } else if (this.stage == 4) {
         document.getElementById('click-end').style.display = 'none';
         this.playVictoryVid()
       }
@@ -1970,6 +2011,7 @@ class BasicWorldDemo {
         document.getElementById('game-over').classList.remove('active');
 
         if (this.stage == 2) {
+          this.playNextStageVideo2()
           this.eventAdded = false;
           this.countdown1_ = 6
         } else if (this.stage == 3) {

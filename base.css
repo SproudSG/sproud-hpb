@@ -578,3 +578,17 @@ div.quarter.right-bottom {
   background-color: transparent;
   overflow: hidden;
 }
+
+/* volume */
+.volume-container {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+}
+
+.volume-container>img {
+  width: 60px;
+  z-index: 5;
+  position: relative;
+
+}
