@@ -83,12 +83,16 @@ class BasicWorldDemo {
     this._Initialize();
     this.checkStartGame = false;
 
+    //loading bars
+    this.progressBarContainer = document.getElementById('loading-bar-container');
+
+
     //on load music 
     this.menuMusic = document.getElementById("menu-music");
     this.gameMusic = document.getElementById("game-music")
     this.menuMusicToggle = false;
     window.addEventListener('touchstart', () => {
-      if ((/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) &&  !this.menuMusicToggle) {
+      if ((/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) && !this.menuMusicToggle) {
         // code to execute if the platform is iOS
         this._playMenuMusic();
       }
@@ -173,27 +177,28 @@ class BasicWorldDemo {
         document.getElementById('game-menu').style.display = 'none';
         // 
         this.RAF_()
+        this.progressBarContainer.style.display = 'block';
+        const progressBar = document.getElementById('loading-bar-stage-1');
+        var loadingProgress = 0
 
-        let newCountdown = 7;
-        let newIntervalId = setInterval(() => {
-          newCountdown--;
-          if (newCountdown === 0) {
-            if (this.scene_.children.length >= 56) {
-              clearInterval(newIntervalId);
-              this.startGame = true;
-              document.getElementById('loading-1').style.display = 'none';
-              document.getElementById('click-start').style.display = 'block';
+        var loadingInterval = setInterval(() => {
+          if (loadingProgress < 56) {
+            // Calculate the loading progress as a percentage of the maximum value
+            const progressPercentage = (loadingProgress / 56) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+            loadingProgress = this.scene_.children.length;
+          } else {
+            clearInterval(loadingInterval)
+            progressBar.style.width = `100%`;
+            this.startGame = true;
+            document.getElementById('loading-1').style.display = 'none';
+            document.getElementById('click-start').style.display = 'block';
 
 
-              document.dispatchEvent(new CustomEvent('score-over'));
-            } else {
-              newCountdown = 3
-            }
-
+            document.dispatchEvent(new CustomEvent('score-over'));
           }
-        }, 1000);
 
-
+        }, 50);
 
       } else {
         this.closeNextStageVideo1();
@@ -247,15 +252,7 @@ class BasicWorldDemo {
       }
 
     });
-
-    window.addEventListener("load", function () {
-      // loaded
-      console.log("loaded")
-    }, false);
-
   }
-
-
 
   //HPB boxes video handler functions
   playPowerupVideo() {
@@ -371,9 +368,9 @@ class BasicWorldDemo {
           this.swipeLeft = true;
         }
       } else {
-        if (deltaY > 0) {
+        if (deltaY > 0 && !this.player_.inAir_) {
           this.swipeDown = true;
-        } else {
+        } else if(!this.player_.inAir_){
           this.swipeUp = true;
         }
       }
@@ -396,12 +393,14 @@ class BasicWorldDemo {
 
     // renderer
     this.threejs_ = new THREE.WebGLRenderer({
+      powerPreference: "high-performance",
       antialias: true,
+      alpha: false,
+      precision: 'lowp',
     });
-    console.log(window.devicePixelRatio)
     this.threejs_.outputEncoding = THREE.sRGBEncoding;
-    this.threejs_.gammaFactor = 0.1;
-    this.threejs_.shadowMap.enabled = true;
+    // this.threejs_.gammaFactor = 0.7;
+    this.threejs_.shadowMap.enabled = false;
     this.threejs_.setPixelRatio(window.devicePixelRatio);
     this.threejs_.setSize(window.innerWidth, window.innerHeight);
 
@@ -451,8 +450,6 @@ class BasicWorldDemo {
       this.mesh.position.set(-5, 0, -0.5);
       this.mesh.rotation.set(0, -Math.PI / 2, 0);
       this.mesh.scale.setScalar(0.0095);
-
-
       this.scene_.add(this.mesh);
 
     });
@@ -687,6 +684,17 @@ class BasicWorldDemo {
 
     });
 
+    //handle "click to continue" after game is won for IOS devices
+    document.getElementById('low-graphics').addEventListener('click', () => {
+      this.threejs_.setPixelRatio(0.7);
+    });
+    document.getElementById('med-graphics').addEventListener('click', () => {
+      this.threejs_.setPixelRatio(1);
+    });
+
+    document.getElementById('high-graphics').addEventListener('click', () => {
+      this.threejs_.setPixelRatio(2);
+    });
 
 
     //handle "click to continue" after video has ended and stage has loaded
@@ -1202,19 +1210,33 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown_ === 0) {
-              if (this.scene_.children.length >= 55) {
-                clearInterval(this.intervalId_);
-                this.previousRAF_ = null;
-                this.startstage = true;
-                document.getElementById('loading-1').style.display = 'none';
-                document.getElementById('click-start').style.display = 'block';
-              } else {
+              if (this.scene_.children.length < 55) {
                 this.countdown_ = 3
               }
+            }
+          }, 1000);
 
+          const progressBar = document.getElementById('loading-bar-stage-1');
+          var loadingProgress = 0
+
+          var loadingInterval = setInterval(() => {
+            if (loadingProgress < 55) {
+              // Calculate the loading progress as a percentage of the maximum value
+              const progressPercentage = (loadingProgress / 55) * 100;
+              progressBar.style.width = `${progressPercentage}%`;
+              loadingProgress = this.scene_.children.length;
+            } else {
+              clearInterval(loadingInterval)
+              progressBar.style.width = `100%`;
+              clearInterval(this.intervalId_);
+              this.previousRAF_ = null;
+              this.startstage = true;
+              document.getElementById('loading-1').style.display = 'none';
+              document.getElementById('click-start').style.display = 'block';
             }
 
-          }, 1000);
+          }, 50);
+
 
         })
       })
@@ -1233,16 +1255,9 @@ class BasicWorldDemo {
         this.stage = 2;
 
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
-          // code to execute if the platform is iOS
-          console.log("This device is running iOS.");
-
           document.getElementById('click-end').style.display = 'block';
-
         } else {
-          // code to execute if the platform is not iOS
-          console.log("This device is not running iOS.");
           this.playNextStageVideo2()
-
         }
 
         this.player_.getStamina(result => {
@@ -1441,20 +1456,36 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown1_ === 0) {
-              if (this.scene_.children.length >= 73) {
-                this.previousRAF_ = null;
-                this.startstage = true;
-                document.querySelector('.wrapper').style.display = 'block';
-                document.getElementById('loading-2').style.display = 'none';
-                document.getElementById('click-start').style.display = 'block';
-                this.player_.propArray = []
-                clearInterval(this.intervalId_);
-              } else {
+              if (this.scene_.children.length < 79) {
                 this.countdown1_ = 3
               }
-
             }
           }, 1000);
+
+
+
+          const progressBar = document.getElementById('loading-bar-stage-2');
+          var loadingProgress = 0
+
+          var loadingInterval = setInterval(() => {
+            if (loadingProgress < 79) {
+              // Calculate the loading progress as a percentage of the maximum value
+              const progressPercentage = (loadingProgress / 79) * 100;
+              progressBar.style.width = `${progressPercentage}%`;
+              loadingProgress = this.scene_.children.length;
+            } else {
+              clearInterval(loadingInterval)
+              progressBar.style.width = `100%`;
+              this.previousRAF_ = null;
+              this.startstage = true;
+              document.querySelector('.wrapper').style.display = 'block';
+              document.getElementById('loading-2').style.display = 'none';
+              document.getElementById('click-start').style.display = 'block';
+              this.player_.propArray = []
+              clearInterval(this.intervalId_);
+            }
+
+          }, 50);
 
         })
 
@@ -1476,16 +1507,9 @@ class BasicWorldDemo {
         this.stage = 3;
 
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
-          // code to execute if the platform is iOS
-          console.log("This device is running iOS.");
-
           document.getElementById('click-end').style.display = 'block';
-
         } else {
-          // code to execute if the platform is not iOS
-          console.log("This device is not running iOS.");
           this.playNextStageVideo3()
-
         }
 
         this.player_.getStamina(result => {
@@ -1680,20 +1704,35 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown2_ === 0) {
-              if (this.scene_.children.length >= 59) {
-                this.previousRAF_ = null;
-                this.startstage = true;
-                document.getElementById("keyContainer").style.display = 'block';
-                document.getElementById('loading-3').style.display = 'none';
-                document.getElementById('click-start').style.display = 'block';
-                this.player_.propArray = []
-                clearInterval(this.intervalId_);
-              } else {
+              if (this.scene_.children.length < 65) {
                 this.countdown2_ = 3
               }
             }
           }, 1000);
 
+
+          const progressBar = document.getElementById('loading-bar-stage-3');
+          var loadingProgress = 0
+
+          var loadingInterval = setInterval(() => {
+            if (loadingProgress < 65) {
+              // Calculate the loading progress as a percentage of the maximum value
+              const progressPercentage = (loadingProgress / 65) * 100;
+              progressBar.style.width = `${progressPercentage}%`;
+              loadingProgress = this.scene_.children.length;
+            } else {
+              clearInterval(loadingInterval)
+              progressBar.style.width = `100%`;
+              this.previousRAF_ = null;
+              this.startstage = true;
+              document.getElementById("keyContainer").style.display = 'block';
+              document.getElementById('loading-3').style.display = 'none';
+              document.getElementById('click-start').style.display = 'block';
+              this.player_.propArray = []
+              clearInterval(this.intervalId_);
+            }
+
+          }, 50);
 
 
         })
@@ -1716,16 +1755,9 @@ class BasicWorldDemo {
         });
 
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
-          // code to execute if the platform is iOS
-          console.log("This device is running iOS.");
-
           document.getElementById('click-end').style.display = 'block';
-
         } else {
-          // code to execute if the platform is not iOS
-          console.log("This device is not running iOS.");
           this.playVictoryVid()
-
         }
 
 
@@ -1886,80 +1918,56 @@ class BasicWorldDemo {
 
 
       //checks for swipe gestures
-      if (this.swipeLeft) {
-        if (!this.player_.collapse) {
-          if (!this.player_.pitCollide) {
-            if (!this.player_.wallFail) {
-              if (!this.player_.onWall) {
-                this.player_.SwipeLeft();
-                this.isSwiping = true
-              }
+      if (!this.player_.collapse && !this.player_.pitCollide && !this.player_.wallFail) {
 
-              if (this.player_.onWall) {
-                if (this.player_.position_.z == -3) {
-                  this.swipeLeft = false;
-                  this.isSwiping = false;
-                }
-              } else {
-                if (this.player_.position_.z == -3 || this.player_.position_.z == 0) {
-                  this.swipeLeft = false;
-                  this.isSwiping = false;
-                }
-              }
+        if (this.swipeLeft) {
+          if (!this.player_.onWall) {
+            this.player_.SwipeLeft();
+            this.isSwiping = true
+          }
+
+          if (this.player_.onWall) {
+            if (this.player_.position_.z == -3) {
+              this.swipeLeft = false;
+              this.isSwiping = false;
+            }
+          } else {
+            if (this.player_.position_.z == -3 || this.player_.position_.z == 0) {
+              this.swipeLeft = false;
+              this.isSwiping = false;
             }
           }
         }
-      }
-      if (this.swipeRight) {
-        if (!this.player_.collapse) {
-
-          if (!this.player_.pitCollide) {
-            if (!this.player_.wallFail) {
-
-              if (!this.player_.onWall) {
-                this.player_.SwipeRight();
-                this.isSwiping = true
-              }
-
-              if (this.player_.onWall) {
-                if (this.player_.position_.z == 3) {
-                  this.swipeRight = false;
-                  this.isSwiping = false;
-                }
-              } else {
-                if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
-                  this.swipeRight = false;
-                  this.isSwiping = false;
-                }
-              }
+        if (this.swipeRight) {
+          if (!this.player_.onWall) {
+            this.player_.SwipeRight();
+            this.isSwiping = true
+          }
+          if (this.player_.onWall) {
+            if (this.player_.position_.z == 3) {
+              this.swipeRight = false;
+              this.isSwiping = false;
+            }
+          } else {
+            if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
+              this.swipeRight = false;
+              this.isSwiping = false;
             }
           }
         }
-      }
-
-      if (this.swipeUp) {
-        if (!this.player_.collapse) {
-          if (!this.player_.pitCollide) {
-            if (!this.player_.wallFail) {
-              this.player_.SwipeUp(timeElapsed);
-              this.swipeUp = false;
-            }
-          }
+        if (this.swipeUp && !this.swipeDown) {
+          this.player_.SwipeUp(timeElapsed);
+          this.swipeUp = false;
+      
         }
+        if (this.swipeDown) {
 
-      }
-      if (this.swipeDown) {
-        if (!this.player_.collapse) {
-          if (!this.player_.pitCollide) {
-            if (!this.player_.wallFail) {
-              this.player_.SwipeDown(timeElapsed);
-              this.swipeDown = false;
-            }
-          }
+          this.player_.SwipeDown(timeElapsed);
+          this.swipeDown = false;
+
         }
       }
     }
-
 
     if (this.restartStage && !this.checkRestart) {
       this.checkRestart = true;

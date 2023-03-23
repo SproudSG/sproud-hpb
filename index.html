@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href="base.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script src="https://kit.fontawesome.com/69128b648c.js" crossorigin="anonymous"></script>
+  <script src="./loading.js" type="module">
+  </script>
 
 </head>
 
@@ -64,6 +66,14 @@
         <img src="./resources/volume.png" id="volumeButton"></img>
         <img src="./resources/mute.png" style="display: none;" id="muteButton"></img>
       </div>
+      <div class="ui">
+        <div class="settings-container">
+          <div id="low-graphics"> low </div>
+          <div id="med-graphics"> med </div>
+          <div id="high-graphics"> high </div>
+
+        </div>
+      </div>
     </div>
     <!-- game over -->
     <div class="ui">
@@ -93,9 +103,11 @@
           <audio id="game-music" src="./resources/Audio/Pirates - 2 min.mp3"></audio>
           <img src="./resources/MainPage/baileyruntitle.png"></img>
           <div>
-            <button id="start-button">Start</button>
+            <button id="start-button" style="display: none;">Start</button>
           </div>
-
+          <div id="progress-bar-container">
+            <div id="progress-bar">20%</div>
+          </div>
         </div>
 
       </div>
@@ -130,7 +142,8 @@
   <!-- play power up video -->
   <div id="video-container" style="display: none;">
     <video playsinline preload="auto" id="powerup" src="./resources/PowerUp/powerup.mp4" style="display: none;"></video>
-    <video playsinline preload="auto" id="powerdown" src="./resources/PowerUp/powerdown.mp4" style="display: none;"></video>
+    <video playsinline preload="auto" id="powerdown" src="./resources/PowerUp/powerdown.mp4"
+      style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage1" src="./resources/nextStage.mp4" style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage2" src="./resources/nextStage.mp4" style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage3" src="./resources/nextStage.mp4" style="display: none;"></video>
@@ -165,13 +178,21 @@
     <div class="ui">
       <div class="you-win-layout">
         <div class="you-win-text">LOADING STAGE 1 </div>
+        <div id="loading-bar-container">
+          <div id="loading-bar-stage-1"></div>
+        </div>
       </div>
+
     </div>
+
   </div>
   <div id="loading-2" style="display: none;">
     <div class="ui">
       <div class="you-win-layout">
         <div class="you-win-text">LOADING STAGE 2 </div>
+        <div id="loading-bar-container">
+          <div id="loading-bar-stage-2"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -179,6 +200,9 @@
     <div class="ui">
       <div class="you-win-layout">
         <div class="you-win-text">LOADING STAGE 3</div>
+        <div id="loading-bar-container">
+          <div id="loading-bar-stage-3"></div>
+        </div>
       </div>
     </div>
   </div>

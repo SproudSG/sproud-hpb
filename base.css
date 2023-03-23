@@ -28,6 +28,7 @@ body {
   top: 0;
   left: 0;
   font-family: 'Press Start 2P', cursive;
+  z-index: 2;
 }
 
 @keyframes game-over-anim {
@@ -420,11 +421,13 @@ div.wrapper {
   position: relative;
   width: 100px;
   height: 100px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   top: 12%;
   left: 20px;
-  background-color: #a39c3a !important;
-  overflow: hidden;
+  z-index: 1;
+  overflow:hidden;
 }
 
 div.full {
@@ -591,4 +594,49 @@ div.quarter.right-bottom {
   z-index: 5;
   position: relative;
 
+}
+
+/* test settings */
+.settings-container {
+  position: absolute;
+  top: 130px;
+  right: 20px;
+  z-index: 9;
+}
+
+.settings-container>div:hover {
+  cursor: pointer;
+}
+
+
+
+/* loading bars */
+#progress-bar-container {
+  width: 100%;
+  height: 10px;
+  left: 0;
+  background-color: #f2f2f2;
+}
+
+#progress-bar {
+  width: 0%;
+  height: 100%;
+  background-color: #4CAF50;
+}
+
+
+
+#loading-bar-container {
+  width: 100%;
+  height: 10px;
+  left: 0;
+  background-color: #f2f2f2;
+}
+
+#loading-bar-stage-1,
+#loading-bar-stage-2,
+#loading-bar-stage-3 {
+  width: 0%;
+  height: 100%;
+  background-color: #4CAF50;
 }

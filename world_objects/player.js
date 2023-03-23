@@ -294,20 +294,19 @@ export const player = (() => {
       };
 
       document.addEventListener('keydown', (event) => {
-        if(!this.collapse){
-        if (!this.pitCollide) {
-          if (!this.wallFail) {
-            if (event.keyCode === 37) {
-              this.keys_.left = true;
-            } else if (event.keyCode === 39) {
-              this.keys_.right = true;
-            } else if (event.keyCode === 32) {
-              this.keys_.space = true;
-            } else if (event.keyCode === 40) {
-              this.keys_.down = true;
-            }
+        if (!this.collapse && !this.pitCollide && !this.wallFail) {
+
+          if (event.keyCode === 37) {
+            this.keys_.left = true;
+          } else if (event.keyCode === 39) {
+            this.keys_.right = true;
+          } else if (event.keyCode === 32) {
+            this.keys_.space = true;
+          } else if (event.keyCode === 40) {
+            this.keys_.down = true;
           }
-        }
+
+
         }
       });
 
@@ -729,23 +728,48 @@ export const player = (() => {
 
     //player movement with swipe gestures
     SwipeLeft() {
-      if (this.position_.z <= 0) {
-        this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
-        if (this.position_.z <= -3) {
-          this.position_.z = -3
-          this.keys_.left = false;
-        }
 
-      } else if (this.position_.z <= 3) {
-        this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
-        if (this.position_.z == 0) {
-          this.keys_.left = false;
+      if(this.keys_.right){
+        this.keys_.left = false;
+
+        if (this.position_.z >= 0) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.z >= 3) {
+            this.position_.z = 3
+            this.keys_.right = false;
+          }
+        } else if (this.position_.z >= -3) {
+  
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.z == 0) {
+            this.keys_.right = false;
+          }
+        } else if (this.position_.z == 3) {
+          return;
         }
-      } else if (this.position_.z == -3) {
-        return;
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+      }else{
+        if (this.position_.z <= 0) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.z <= -3) {
+            this.position_.z = -3
+            this.keys_.left = false;
+          }
+  
+        } else if (this.position_.z <= 3) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.z == 0) {
+            this.keys_.left = false;
+          }
+        } else if (this.position_.z == -3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
       }
-      var baileyWoo = document.getElementById("bailey-woo");
-      baileyWoo.play();
+
+
     }
 
     SwipeFullLeft() {
@@ -779,22 +803,45 @@ export const player = (() => {
     }
 
     SwipeRight() {
-      if (this.position_.z >= 0) {
-        this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
-        if (this.position_.z >= 3) {
-          this.position_.z = 3
-          this.keys_.right = false;
+      if(this.keys_.left){
+        this.keys_.right = false;
+        if (this.position_.z <= 0) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.z <= -3) {
+            this.position_.z = -3
+            this.keys_.left = false;
+          }
+  
+        } else if (this.position_.z <= 3) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.z == 0) {
+            this.keys_.left = false;
+          }
+        } else if (this.position_.z == -3) {
+          return;
         }
-      } else if (this.position_.z >= -3) {
-        this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
-        if (this.position_.z == 0) {
-          this.keys_.right = false;
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+      }else{
+        if (this.position_.z >= 0) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.z >= 3) {
+            this.position_.z = 3
+            this.keys_.right = false;
+          }
+        } else if (this.position_.z >= -3) {
+  
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.z == 0) {
+            this.keys_.right = false;
+          }
+        } else if (this.position_.z == 3) {
+          return;
         }
-      } else if (this.position_.z == 3) {
-        return;
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
       }
-      var baileyWoo = document.getElementById("bailey-woo");
-      baileyWoo.play();
+  
     }
 
 
@@ -809,6 +856,8 @@ export const player = (() => {
       }
       if (this.inAir_) {
         this.JumpAnimation_()
+        this.sliding_ = false;
+        this.downPressed_ = false
 
       }
     }
@@ -1103,8 +1152,9 @@ export const player = (() => {
 
 
       //player movement with keyboard controls
-      if (this.keys_.space && this.position_.y == 0.0 && !this.sliding_) {
+      if (this.keys_.space && this.position_.y == 0.0) {
         this.SwipeUp(timeElapsed)
+
       }
 
       if (this.keys_.down && this.position_.y == 0.0 && !this.downPressed_ && !this.inAir_) {
@@ -1112,19 +1162,21 @@ export const player = (() => {
 
       }
 
-      if (this.keys_.left) {
-
-        if (!this.keys_.right && !this.onWall) {
+      if (this.keys_.left && !this.onWall) {
+  
           this.SwipeLeft()
-        } else if (this.onWall && this.position_.z == -3) {
-          this.keys_.left = false;
 
-        }
+       
+      } else if (this.onWall && this.position_.z == -3) {
+        this.keys_.left = false;
 
       }
-      if (this.keys_.right && !this.onWall) {
-        this.SwipeRight()
 
+      if (this.keys_.right && !this.onWall) {
+
+          this.SwipeRight()
+
+    
       } else if (this.onWall && this.position_.z == 3) {
         this.keys_.right = false;
 
@@ -1132,6 +1184,7 @@ export const player = (() => {
 
       //jump and slide calculation.
       if (this.inAir_) {
+
         const acceleration = -105 * (timeElapsed / 1.6);
         this.position_.y += (timeElapsed / 1.6) * (this.velocity_ + acceleration * 0.5);
 
