@@ -28,7 +28,6 @@ body {
   top: 0;
   left: 0;
   font-family: 'Press Start 2P', cursive;
-  z-index: 2;
 }
 
 @keyframes game-over-anim {
@@ -93,7 +92,6 @@ body {
 
 #pauseDiv {
   z-index: 2;
-
 }
 
 .you-win-layout.active {
@@ -639,4 +637,5 @@ div.quarter.right-bottom {
   width: 0%;
   height: 100%;
   background-color: #4CAF50;
+  z-index: 2,
 }

@@ -78,6 +78,14 @@ class BasicWorldDemo {
     this.wallPosition = [];
     // this.oilSlikCatch = false
 
+
+
+    //map rotation randomizer
+    this.mapTurn = 0; // 0 means false, 1 means left and 2 means right. the code is based off this meaning :)
+    this.mapRandomizer =1// Math.floor(Math.random() * 2) + 1;
+    //this.turnWhen = Math.floor(Math.random() * 3) + 1; // Returns a random integer between 1 and 3
+    this.turnWhen = 3 // 1 - 3
+
     //init
     this._gameStarted = false;
     this._Initialize();
@@ -182,9 +190,9 @@ class BasicWorldDemo {
         var loadingProgress = 0
 
         var loadingInterval = setInterval(() => {
-          if (loadingProgress < 56) {
+          if (loadingProgress < 70) {
             // Calculate the loading progress as a percentage of the maximum value
-            const progressPercentage = (loadingProgress / 56) * 100;
+            const progressPercentage = (loadingProgress / 74) * 100;
             progressBar.style.width = `${progressPercentage}%`;
             loadingProgress = this.scene_.children.length;
           } else {
@@ -192,9 +200,7 @@ class BasicWorldDemo {
             progressBar.style.width = `100%`;
             this.startGame = true;
             document.getElementById('loading-1').style.display = 'none';
-            document.getElementById('click-start').style.display = 'block';
-
-
+            document.getElementById('click-start').style.display = 'block'
             document.dispatchEvent(new CustomEvent('score-over'));
           }
 
@@ -370,7 +376,7 @@ class BasicWorldDemo {
       } else {
         if (deltaY > 0 && !this.player_.inAir_) {
           this.swipeDown = true;
-        } else if(!this.player_.inAir_){
+        } else if (!this.player_.inAir_) {
           this.swipeUp = true;
         }
       }
@@ -382,9 +388,9 @@ class BasicWorldDemo {
   //initialize the game
   _Initialize() {
     //speed variables
-    this.speed_ = 0.2;
+    this.speed_ = 0.3;
     this.box_ = "";
-    this.objSpeed = 12;
+    this.objSpeed = 18;
     this.monSpeed = 52;
     this.speedz = 3;
     this.speedy = 12;
@@ -453,14 +459,34 @@ class BasicWorldDemo {
       this.scene_.add(this.mesh);
 
     });
-    loader.setPath('./resources/Map/Stage1/');
     loader.load('stage1b.gltf', (gltf) => {
       this.mesh1 = gltf.scene;
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh1.position.set(192, 0, -0.5);
-      this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+      if (this.mapRandomizer == 2) {
+        if (this.turnWhen == 1) {
+          this.mesh1.position.set(100, 0, 100);
+          this.mesh1.rotation.set(0, Math.PI, 0);
+
+        } else {
+          this.mesh1.position.set(192, 0, -0.5);
+          this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+        }
+      } else {
+        if (this.turnWhen == 1) {
+          this.mesh1.position.set(100, 0, -100);
+          this.mesh1.rotation.set(0, Math.PI * 2, 0);
+
+        } else {
+          this.mesh1.position.set(192, 0, -0.5);
+          this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+        }
+      }
+
+
+
+
       this.mesh1.scale.setScalar(0.0095);
 
 
@@ -472,21 +498,82 @@ class BasicWorldDemo {
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh2.position.set(389, 0, -0.5);
-      this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+
+      if (this.mapRandomizer == 2) {
+        if (this.turnWhen == 1) {
+          this.mesh2.position.set(100, 0, 292);
+          this.mesh2.rotation.set(0, Math.PI, 0);
+
+        } else if (this.turnWhen == 2) {
+          this.mesh2.position.set(300, 0, 100);
+          this.mesh2.rotation.set(0, Math.PI, 0);
+        } else {
+          this.mesh2.position.set(389, 0, -0.5);
+          this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+        }
+      } else {
+        if (this.turnWhen == 1) {
+          this.mesh2.position.set(100, 0, -292);
+          this.mesh2.rotation.set(0, Math.PI * 2, 0);
+
+        } else if (this.turnWhen == 2) {
+          this.mesh2.position.set(300, 0, -100);
+          this.mesh2.rotation.set(0, Math.PI * 2, 0);
+        } else {
+          this.mesh2.position.set(389, 0, -0.5);
+          this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+        }
+      }
+
+
       this.mesh2.scale.setScalar(0.0095);
 
 
       this.scene_.add(this.mesh2);
 
     });
-    loader.load('stage1a.gltf', (gltf) => {
+    loader.load('stage1b.gltf', (gltf) => {
       this.mesh3 = gltf.scene;
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh3.position.set(581, 0, -0.5);
-      this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+
+
+      if (this.mapRandomizer == 2) {
+        if (this.turnWhen == 1) {
+          this.mesh3.position.set(100, 0, 484);
+          this.mesh3.rotation.set(0, Math.PI, 0);
+
+        } else if (this.turnWhen == 2) {
+          this.mesh3.position.set(300, 0, 292);
+          this.mesh3.rotation.set(0, Math.PI, 0);
+        } else if (this.turnWhen == 3) {
+          this.mesh3.position.set(500, 0, 100);
+          this.mesh3.rotation.set(0, Math.PI, 0);
+        } else {
+          this.mesh3.position.set(586, 0, -0.5);
+          this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+        }
+
+      } else {
+        if (this.turnWhen == 1) {
+          this.mesh3.position.set(100, 0, -484);
+          this.mesh3.rotation.set(0, Math.PI * 2, 0);
+
+        } else if (this.turnWhen == 2) {
+          this.mesh3.position.set(300, 0, -292);
+          this.mesh3.rotation.set(0, Math.PI * 2, 0);
+        } else if (this.turnWhen == 3) {
+          this.mesh3.position.set(500, 0, -100);
+          this.mesh3.rotation.set(0, Math.PI * 2, 0);
+        } else {
+          this.mesh3.position.set(586, 0, -0.5);
+          this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+        }
+
+      }
+
+
       this.mesh3.scale.setScalar(0.0095);
 
 
@@ -498,8 +585,45 @@ class BasicWorldDemo {
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh4.position.set(773, 0, -0.5);
-      this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+
+
+
+
+      if (this.mapRandomizer == 2) {
+        if (this.turnWhen == 1) {
+          this.mesh4.position.set(100, 0, 660);
+          this.mesh4.rotation.set(0, Math.PI, 0);
+        } else if (this.turnWhen == 2) {
+          this.mesh4.position.set(300, 0, 482);
+          this.mesh4.rotation.set(0, Math.PI, 0);
+        } else if (this.turnWhen == 3) {
+          this.mesh4.position.set(500, 0, 292);
+          this.mesh4.rotation.set(0, Math.PI, 0);
+
+        } else {
+          this.mesh4.position.set(773, 0, -0.5);
+          this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+
+        }
+
+      } else {
+        if (this.turnWhen == 1) {
+          this.mesh4.position.set(100, 0, -660);
+          this.mesh4.rotation.set(0, Math.PI * 2, 0);
+        } else if (this.turnWhen == 2) {
+          this.mesh4.position.set(300, 0, -482);
+          this.mesh4.rotation.set(0, Math.PI * 2, 0);
+        } else if (this.turnWhen == 3) {
+          this.mesh4.position.set(500, 0, -292);
+          this.mesh4.rotation.set(0, Math.PI * 2, 0);
+
+        } else {
+          this.mesh4.position.set(773, 0, -0.5);
+          this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+
+        }
+      }
+
       this.mesh4.scale.setScalar(0.0095);
 
 
@@ -634,7 +758,7 @@ class BasicWorldDemo {
         document.getElementById('power-countdown-text').textContent = this.resumeCountdown_;
         if (this.resumeCountdown_ === 0) {
           this.animationId = requestAnimationFrame(animate);
-          this.objSpeed = 12
+          this.objSpeed = 18
           this.monSpeed = 52
           this.speedy = 12
           this.speedz = 3
@@ -652,8 +776,6 @@ class BasicWorldDemo {
           document.getElementById('power-countdown-text').textContent = 3;
           this.resumeCountdown_ = 3;
           this.pauseCountdownActive = false
-
-
 
         }
       }, 1000)
@@ -702,7 +824,7 @@ class BasicWorldDemo {
       if (this.startstage) {
         this.animationId = requestAnimationFrame(animate);
 
-        this.objSpeed = 12
+        this.objSpeed = 18
         this.monSpeed = 52
         this.speedy = 12
         this.speedz = 3
@@ -726,7 +848,7 @@ class BasicWorldDemo {
     document.addEventListener('keydown', () => {
       if (this.startstage) {
         this.animationId = requestAnimationFrame(animate);
-        this.objSpeed = 12
+        this.objSpeed = 18
         this.monSpeed = 52
         this.speedy = 12
         this.speedz = 3
@@ -752,16 +874,51 @@ class BasicWorldDemo {
 
     //handle map position 
     const animate = () => {
-
-      if (this._gameStarted && !this.isPaused) {
+      if (this._gameStarted && !this.isPaused && this.mapTurn == 0) {
         const speed = this.speed_
         this.mesh.position.x -= speed;
+        if (this.turnWhen == 1) {
+          if (this.mesh1.position.x < 1) {
+            this.mapTurn = this.mapRandomizer
+          }
+        } else if (this.turnWhen == 2) {
+          if (this.mesh2.position.x < 1) {
+            this.mapTurn = this.mapRandomizer
+          }
+        } else if (this.turnWhen == 3) {
+          if (this.mesh3.position.x < 1) {
+            this.mapTurn = this.mapRandomizer
+          }
+
+        }
         this.mesh1.position.x -= speed;
         this.mesh2.position.x -= speed;
         this.mesh3.position.x -= speed;
         if (this.mesh4) {
           this.mesh4.position.x -= speed;
         }
+
+      } else if (this._gameStarted && !this.isPaused && this.mapTurn !== 0) {
+        const speed = this.speed_
+
+        if (this.mapTurn == 2) {
+          this.mesh.position.z -= speed;
+          this.mesh1.position.z -= speed;
+          this.mesh2.position.z -= speed;
+          this.mesh3.position.z -= speed;
+          if (this.mesh4) {
+            this.mesh4.position.z -= speed;
+          }
+        } else {
+          this.mesh.position.z += speed;
+          this.mesh1.position.z += speed;
+          this.mesh2.position.z += speed;
+          this.mesh3.position.z += speed;
+          if (this.mesh4) {
+            this.mesh4.position.z += speed;
+          }
+        }
+
 
       }
       this.animationId = requestAnimationFrame(animate);
@@ -794,7 +951,7 @@ class BasicWorldDemo {
         document.getElementById('power-countdown-text').textContent = this.resumeCountdown_;
         if (this.resumeCountdown_ === 0) {
           this.animationId = requestAnimationFrame(animate);
-          this.objSpeed = 12
+          this.objSpeed = 18
           this.monSpeed = 52
           this.speedy = 12
           this.speedz = 3
@@ -920,11 +1077,11 @@ class BasicWorldDemo {
     //initiate all the game objects
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
     this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-    this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase });
+    this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, firstChase: this.showChase });
     this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
-    this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-    this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
-    this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+    this.water_ = new water.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks1, firstChase: this.showChase });
+    this.soda_ = new soda.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks2, firstChase: this.showChase });
+    this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks3, firstChase: this.showChase });
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
     this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
@@ -996,25 +1153,61 @@ class BasicWorldDemo {
     //pan the camera
     if (this.showChase && this._gameStarted) {
       if (this.cameraX > -10) {
-        this.cameraX = this.cameraX - 0.1
+        this.cameraX -= 0.2
       }
       if (this.cameraY > 5) {
-        this.cameraY = this.cameraY - 0.02
-
+        this.cameraY -= 0.04
       }
       if (this.cameraZ < 0) {
-        this.cameraZ = this.cameraZ + 0.04
-
+        this.cameraZ += 0.06
       }
 
       if (this.cameraX <= -10 && this.cameraY <= 5 && this.cameraZ >= 0) {
         this.showChase = false;
       }
       this.camera_.lookAt(0, 2, 0)
-
       this.camera_.position.set(this.cameraX, this.cameraY, this.cameraZ);
-
     }
+
+    if (this.mapTurn == 2) {
+      if (this.cameraX < 0) {
+        this.cameraX = +(this.cameraX + 0.2).toFixed(2);
+      } else {
+        this.cameraX = 0;
+      }
+
+      if (this.cameraZ > -10) {
+        this.cameraZ = +(this.cameraZ - 0.2).toFixed(2);
+      }
+
+      this.camera_.lookAt(0, 2, 0);
+
+      this.camera_.position.set(
+        +(this.cameraX).toFixed(2),
+        +(this.cameraY).toFixed(2),
+        +(this.cameraZ).toFixed(2)
+      );
+    } else if (this.mapTurn == 1) {
+      if (this.cameraX < 0) {
+        this.cameraX = +(this.cameraX + 0.2).toFixed(2);
+      } else {
+        this.cameraX = 0;
+      }
+
+      if (this.cameraZ < 10) {
+        this.cameraZ = +(this.cameraZ + 0.2).toFixed(2);
+      }
+
+      this.camera_.lookAt(0, 2, 0);
+
+      this.camera_.position.set(
+        +(this.cameraX).toFixed(2),
+        +(this.cameraY).toFixed(2),
+        +(this.cameraZ).toFixed(2)
+      );
+    }
+
+    console.log(this.camera_.position)
 
     //if he loses stage 1
     if (!this.eventAdded3 && this.stage == 1) {
@@ -1023,7 +1216,6 @@ class BasicWorldDemo {
           this.intervalId_ = setInterval(() => {
             this.countdown_--;
             if (this.scene_.children.length === 0) {
-
               // set randon positoin for drinks
               let arrDrinks1 = [];
               let arrDrinks2 = [];
@@ -1096,23 +1288,24 @@ class BasicWorldDemo {
 
 
               //initiate all the game objects
+
               this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
               this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
-              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
-              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
-              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
-              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
-              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
-              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
-              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
-              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
-              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, firstChase: this.showChase });
+              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
+              this.water_ = new water.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks1, firstChase: this.showChase });
+              this.soda_ = new soda.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks2, firstChase: this.showChase });
+              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks3, firstChase: this.showChase });
+              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
+              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
+              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
+              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
+              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
+              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
               this.background_ = new background.Background({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
-              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
 
 
               let light = new THREE.DirectionalLight(0xffffff, 1);
@@ -1140,19 +1333,37 @@ class BasicWorldDemo {
                 this.mesh.position.set(-5, 0, -0.5);
                 this.mesh.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh.scale.setScalar(0.0095);
-
-
                 this.scene_.add(this.mesh);
 
               });
-              loader.setPath('./resources/Map/Stage1/');
               loader.load('stage1b.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh1.position.set(192, 0, -0.5);
-                this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+                if (this.mapRandomizer == 2) {
+                  if (this.turnWhen == 1) {
+                    this.mesh1.position.set(100, 0, 100);
+                    this.mesh1.rotation.set(0, Math.PI, 0);
+
+                  } else {
+                    this.mesh1.position.set(192, 0, -0.5);
+                    this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+                  }
+                } else {
+                  if (this.turnWhen == 1) {
+                    this.mesh1.position.set(100, 0, -100);
+                    this.mesh1.rotation.set(0, Math.PI * 2, 0);
+
+                  } else {
+                    this.mesh1.position.set(192, 0, -0.5);
+                    this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+                  }
+                }
+
+
+
+
                 this.mesh1.scale.setScalar(0.0095);
 
 
@@ -1164,25 +1375,136 @@ class BasicWorldDemo {
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh2.position.set(389, 0, -0.5);
-                this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+
+                if (this.mapRandomizer == 2) {
+                  if (this.turnWhen == 1) {
+                    this.mesh2.position.set(100, 0, 292);
+                    this.mesh2.rotation.set(0, Math.PI, 0);
+
+                  } else if (this.turnWhen == 2) {
+                    this.mesh2.position.set(300, 0, 100);
+                    this.mesh2.rotation.set(0, Math.PI, 0);
+                  } else {
+                    this.mesh2.position.set(389, 0, -0.5);
+                    this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+                  }
+                } else {
+                  if (this.turnWhen == 1) {
+                    this.mesh2.position.set(100, 0, -292);
+                    this.mesh2.rotation.set(0, Math.PI * 2, 0);
+
+                  } else if (this.turnWhen == 2) {
+                    this.mesh2.position.set(300, 0, -100);
+                    this.mesh2.rotation.set(0, Math.PI * 2, 0);
+                  } else {
+                    this.mesh2.position.set(389, 0, -0.5);
+                    this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+                  }
+                }
+
+
                 this.mesh2.scale.setScalar(0.0095);
 
 
                 this.scene_.add(this.mesh2);
 
               });
-              loader.load('stage1a.gltf', (gltf) => {
+              loader.load('stage1b.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh3.position.set(581, 0, -0.5);
-                this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+
+
+                if (this.mapRandomizer == 2) {
+                  if (this.turnWhen == 1) {
+                    this.mesh3.position.set(100, 0, 484);
+                    this.mesh3.rotation.set(0, Math.PI, 0);
+
+                  } else if (this.turnWhen == 2) {
+                    this.mesh3.position.set(300, 0, 292);
+                    this.mesh3.rotation.set(0, Math.PI, 0);
+                  } else if (this.turnWhen == 3) {
+                    this.mesh3.position.set(500, 0, 100);
+                    this.mesh3.rotation.set(0, Math.PI, 0);
+                  } else {
+                    this.mesh3.position.set(586, 0, -0.5);
+                    this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+                  }
+
+                } else {
+                  if (this.turnWhen == 1) {
+                    this.mesh3.position.set(100, 0, -484);
+                    this.mesh3.rotation.set(0, Math.PI * 2, 0);
+
+                  } else if (this.turnWhen == 2) {
+                    this.mesh3.position.set(300, 0, -292);
+                    this.mesh3.rotation.set(0, Math.PI * 2, 0);
+                  } else if (this.turnWhen == 3) {
+                    this.mesh3.position.set(500, 0, -100);
+                    this.mesh3.rotation.set(0, Math.PI * 2, 0);
+                  } else {
+                    this.mesh3.position.set(586, 0, -0.5);
+                    this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+                  }
+
+                }
+
+
                 this.mesh3.scale.setScalar(0.0095);
 
 
                 this.scene_.add(this.mesh3);
+
+              });
+              loader.load('stage1b.gltf', (gltf) => {
+                this.mesh4 = gltf.scene;
+
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+
+
+
+
+                if (this.mapRandomizer == 2) {
+                  if (this.turnWhen == 1) {
+                    this.mesh4.position.set(100, 0, 660);
+                    this.mesh4.rotation.set(0, Math.PI, 0);
+                  } else if (this.turnWhen == 2) {
+                    this.mesh4.position.set(300, 0, 482);
+                    this.mesh4.rotation.set(0, Math.PI, 0);
+                  } else if (this.turnWhen == 3) {
+                    this.mesh4.position.set(500, 0, 292);
+                    this.mesh4.rotation.set(0, Math.PI, 0);
+
+                  } else {
+                    this.mesh4.position.set(773, 0, -0.5);
+                    this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+
+                  }
+
+                } else {
+                  if (this.turnWhen == 1) {
+                    this.mesh4.position.set(100, 0, -660);
+                    this.mesh4.rotation.set(0, Math.PI * 2, 0);
+                  } else if (this.turnWhen == 2) {
+                    this.mesh4.position.set(300, 0, -482);
+                    this.mesh4.rotation.set(0, Math.PI * 2, 0);
+                  } else if (this.turnWhen == 3) {
+                    this.mesh4.position.set(500, 0, -292);
+                    this.mesh4.rotation.set(0, Math.PI * 2, 0);
+
+                  } else {
+                    this.mesh4.position.set(773, 0, -0.5);
+                    this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+
+                  }
+                }
+
+                this.mesh4.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh4);
 
               });
 
@@ -1220,7 +1542,7 @@ class BasicWorldDemo {
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 55) {
+            if (loadingProgress < 50) {
               // Calculate the loading progress as a percentage of the maximum value
               const progressPercentage = (loadingProgress / 55) * 100;
               progressBar.style.width = `${progressPercentage}%`;
@@ -1246,6 +1568,11 @@ class BasicWorldDemo {
     //stage 1 won
     if (!this.eventAdded && this.stage == 1) {
       document.addEventListener('score-over1', () => {
+        this.turnWhen = 0
+        this.mapTurn = 0;
+        this.camera_.position.set(-10, 5, 0);
+        this.camera_.lookAt(2, 0, 0);
+
         this.showChase = false;
         this.gameOver_ = true;
         this.allowPause = false;
@@ -1341,25 +1668,24 @@ class BasicWorldDemo {
 
 
               //initiate all the game objects
+             
               this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
               this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
-              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
-              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
-              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
-              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
-              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
-              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
-              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
-              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
-              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, firstChase: this.showChase });
+              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
+              this.water_ = new water.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks1, firstChase: this.showChase });
+              this.soda_ = new soda.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks2, firstChase: this.showChase });
+              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, turnWhen: this.turnWhen, mapRandomizer: this.mapRandomizer, position: arrDrinks3, firstChase: this.showChase });
+              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
+              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
+              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
+              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
+              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
+              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
               this.background_ = new background.Background({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
-              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
-
-
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
 
 
               let light = new THREE.DirectionalLight(0xffffff, 1);
@@ -1430,7 +1756,19 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh3);
 
               });
+              loader.load('stage2a.gltf', (gltf) => {
+                this.mesh4 = gltf.scene;
 
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh4.position.set(773, 0, 0);
+                this.mesh4.rotation.set(0, -Math.PI / 2, 0.03);
+                this.mesh4.scale.setScalar(0.0095);
+
+
+                this.scene_.add(this.mesh4);
+
+              });
 
 
               const uniforms = {
@@ -1456,7 +1794,7 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown1_ === 0) {
-              if (this.scene_.children.length < 79) {
+              if (this.scene_.children.length < 77) {
                 this.countdown1_ = 3
               }
             }
@@ -1468,9 +1806,9 @@ class BasicWorldDemo {
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 79) {
+            if (loadingProgress < 77) {
               // Calculate the loading progress as a percentage of the maximum value
-              const progressPercentage = (loadingProgress / 79) * 100;
+              const progressPercentage = (loadingProgress / 77) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
@@ -1771,10 +2109,10 @@ class BasicWorldDemo {
 
       if (!this.loaded) {
 
-        this.water_.Update(timeElapsed, this.objSpeed)
-        this.soda_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-        this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.water_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.soda_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.fruitDrink_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.pitfall_.Update(timeElapsed, this.objSpeed, this.mapTurn)
 
         this.loaded = true;
 
@@ -1785,16 +2123,16 @@ class BasicWorldDemo {
     if (this._gameStarted) {
       //load the game assets and animations
       if (this.stage == 1) {
-        this.water_.Update(timeElapsed, this.objSpeed)
-        this.soda_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-        this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.water_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.soda_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.fruitDrink_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.pitfall_.Update(timeElapsed, this.objSpeed, this.mapTurn)
 
       } else if (this.stage == 2) {
-        this.water_.Update(timeElapsed, this.objSpeed)
-        this.soda_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-        this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.water_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.soda_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.fruitDrink_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.pitfall_.Update(timeElapsed, this.objSpeed, this.mapTurn)
         this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
         this.vege_.Update(timeElapsed, this.objSpeed)
         this.meat_.Update(timeElapsed, this.objSpeed)
@@ -1805,10 +2143,10 @@ class BasicWorldDemo {
         this.hpbLogo_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
-        this.water_.Update(timeElapsed, this.objSpeed)
-        this.soda_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-        this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.water_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.soda_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.fruitDrink_.Update(timeElapsed, this.objSpeed, this.mapTurn)
+        this.pitfall_.Update(timeElapsed, this.objSpeed, this.mapTurn)
         this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
         this.vege_.Update(timeElapsed, this.objSpeed)
         this.meat_.Update(timeElapsed, this.objSpeed)
@@ -1821,8 +2159,8 @@ class BasicWorldDemo {
         this.wallPosition = result
       });
 
-      this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight, this.showChase);
-      this.oilSlik_.Update(timeElapsed, pause, this.showChase);
+      this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight, this.showChase, this.mapTurn);
+      this.oilSlik_.Update(timeElapsed, pause, this.showChase, this.mapTurn);
       this.background_.Update(timeElapsed);
       this.progression_.Update(timeElapsed, pause, this.stage);
 
@@ -1842,14 +2180,37 @@ class BasicWorldDemo {
       //check if player runs out of stamina
       this.player_.getCollapse(result => {
         if (result) {
-          if (this.player_.position_.y > 0) {
-            this.player_.position_.y = this.player_.position_.y - timeElapsed * 6
+          if (!this.mapTurn) {
+            if (this.player_.position_.y > 0) {
+              this.player_.position_.y = this.player_.position_.y - timeElapsed * 6
 
-          }
-          if (this.player_.position_.x < 3) {
-            this.player_.position_.x = this.player_.position_.x + timeElapsed * 6
+            }
+            if (this.player_.position_.x < 3) {
+              this.player_.position_.x = this.player_.position_.x + timeElapsed * 6
 
+            }
+          } else {
+            if (this.mapTurn == 2) {
+              if (this.player_.position_.y > 0) {
+                this.player_.position_.y = this.player_.position_.y - timeElapsed * 6
+
+              }
+              if (this.player_.position_.z < 3) {
+                this.player_.position_.z = this.player_.position_.z + timeElapsed * 6
+
+              }
+            } else if (this.mapTurn == 1) {
+              if (this.player_.position_.y > 0) {
+                this.player_.position_.y = this.player_.position_.y - timeElapsed * 6
+
+              }
+              if (this.player_.position_.z > 3) {
+                this.player_.position_.z = this.player_.position_.z + timeElapsed * 6
+
+              }
+            }
           }
+
           setTimeout(() => {
 
             this.objSpeed = 0
@@ -1857,8 +2218,26 @@ class BasicWorldDemo {
             this.speedy = 0
             this.speedz = 0
             this.isPaused = true
-            if (this.oilSlik_.mesh_.position.x < 0) {
+
+            if (!this.oilSlikPositionChangeChecker) {
+              if (this.mapTurn == 2) {
+                this.oilSlik_.mesh_.position.z = -12
+
+              } else if (this.mapTurn == 1) {
+                this.oilSlik_.mesh_.position.z = 12
+
+              }
+              this.oilSlikPositionChangeChecker = true;
+            }
+
+            if (!this.mapTurn && this.oilSlik_.mesh_.position.x < 0) {
               this.oilSlik_.mesh_.position.x += timeElapsed * 6
+              this.oilSlik_.mesh_.scale.set(0.3, 0.3, 0.3)
+            } else if (this.mapTurn == 2 && this.oilSlik_.mesh_.position.z < 0) {
+              this.oilSlik_.mesh_.position.z += timeElapsed * 6
+              this.oilSlik_.mesh_.scale.set(0.3, 0.3, 0.3)
+            } else if (this.mapTurn == 1 && this.oilSlik_.mesh_.position.z > 0) {
+              this.oilSlik_.mesh_.position.z -= timeElapsed * 6
               this.oilSlik_.mesh_.scale.set(0.3, 0.3, 0.3)
             }
 
@@ -1922,8 +2301,31 @@ class BasicWorldDemo {
 
         if (this.swipeLeft) {
           if (!this.player_.onWall) {
-            this.player_.SwipeLeft();
             this.isSwiping = true
+
+            if (this.mapTurn == 0) {
+
+              this.player_.SwipeLeft()
+              if (this.player_.position_.z == -3 || this.player_.position_.z == 0) {
+                this.swipeLeft = false;
+                this.isSwiping = false;
+              }
+            } else if (this.mapTurn == 1) {
+
+              this.player_.SwipeLeftRotatedLeft()
+
+              if (this.player_.position_.x == -3 || this.player_.position_.x == 0) {
+                this.swipeLeft = false;
+                this.isSwiping = false;
+              }
+            } else if (this.mapTurn == 2) {
+              this.player_.SwipeLeftRotatedRight()
+              console.log(this.player_.position_.x)
+              if (this.player_.position_.x == 3 || this.player_.position_.x == 0) {
+                this.swipeLeft = false;
+                this.isSwiping = false;
+              }
+            }
           }
 
           if (this.player_.onWall) {
@@ -1932,16 +2334,37 @@ class BasicWorldDemo {
               this.isSwiping = false;
             }
           } else {
-            if (this.player_.position_.z == -3 || this.player_.position_.z == 0) {
-              this.swipeLeft = false;
-              this.isSwiping = false;
-            }
+
           }
         }
         if (this.swipeRight) {
           if (!this.player_.onWall) {
-            this.player_.SwipeRight();
             this.isSwiping = true
+
+            if (this.mapTurn == 0) {
+              this.player_.SwipeRight()
+              if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
+                this.swipeRight = false;
+                this.isSwiping = false;
+              }
+            } else if (this.mapTurn == 1) {
+
+              this.player_.SwipeRightRotatedLeft()
+
+              if (this.player_.position_.x == 3 || this.player_.position_.x == 0) {
+                this.swipeRight = false;
+                this.isSwiping = false;
+              }
+            } else if (this.mapTurn == 2) {
+              this.player_.SwipeRightRotatedRight()
+
+              if (this.player_.position_.x == -3 || this.player_.position_.x == 0) {
+                this.swipeRight = false;
+                this.isSwiping = false;
+              }
+            }
+
+
           }
           if (this.player_.onWall) {
             if (this.player_.position_.z == 3) {
@@ -1949,16 +2372,13 @@ class BasicWorldDemo {
               this.isSwiping = false;
             }
           } else {
-            if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
-              this.swipeRight = false;
-              this.isSwiping = false;
-            }
+
           }
         }
         if (this.swipeUp && !this.swipeDown) {
           this.player_.SwipeUp(timeElapsed);
           this.swipeUp = false;
-      
+
         }
         if (this.swipeDown) {
 
@@ -1970,6 +2390,12 @@ class BasicWorldDemo {
     }
 
     if (this.restartStage && !this.checkRestart) {
+      this.mapTurn = 0;
+      this.camera_.position.set(-10, 5, 0);
+      this.camera_.lookAt(0, 2, 0)
+      this.cameraX = -10
+      this.cameraY = 5
+      this.cameraZ = 0
       this.checkRestart = true;
       this.allowPause = false;
       this.restartStage = false;
@@ -2007,6 +2433,12 @@ class BasicWorldDemo {
 
     //if game is over (lost)
     if (this._gameStarted && this.player_.gameOver && !this.gameOver_) {
+      this.mapTurn = 0;
+      this.camera_.position.set(-10, 5, 0);
+      this.camera_.lookAt(0, 2, 0)
+      this.cameraX = -10
+      this.cameraY = 5
+      this.cameraZ = 0
       this.showChase = false;
       this.allowPause = false;
       this.gameOver_ = true;

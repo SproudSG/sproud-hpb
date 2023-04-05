@@ -34,12 +34,13 @@ export const fruitDrink = (() => {
       loader.load('drinks2.fbx', (fbx) => {
 
         this.mesh = fbx.children[9];
+
         this.params_.scene.add(this.mesh);
 
         fbx.traverse((child) => {
           if (child.isMesh) {
-              child.material.map = new THREE.TextureLoader().load('./resources/Drinks/textures/drinks_albedo.jpg');
-            
+            child.material.map = new THREE.TextureLoader().load('./resources/Drinks/textures/drinks_albedo.jpg');
+
           }
         });
       });
@@ -54,8 +55,8 @@ export const fruitDrink = (() => {
       if (!this.mesh) {
         return;
       }
-      this.mesh.position.copy(this.position);
       this.mesh.quaternion.copy(this.quaternion);
+      this.mesh.position.copy(this.position);
       this.mesh.scale.setScalar(this.scale);
       this.UpdateCollider_();
     }
@@ -66,6 +67,7 @@ export const fruitDrink = (() => {
       this.objects_ = [];
       this.unused_ = [];
       this.speed_ = 12;
+      this.counter1_ = 0
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
@@ -79,52 +81,190 @@ export const fruitDrink = (() => {
       this.objects_[0].mesh.visible = false;
     }
 
-   
-    SpawnObj_(position, timeElapsed) {
-      this.progress_ += timeElapsed * 10.0;
-      const spawnPosition = [50, 130, 270, 350, 430, 500]
+    SpawnObjUpdate_() {
+      let spawnPosition;
+      if (this.params_.turnWhen == 1) {
+        spawnPosition = [50]
+
+      } else if (this.params_.turnWhen == 2) {
+        if (this.params_.firstChase) {
+          spawnPosition = [50, 130]
+
+        } else {
+          spawnPosition = [50, 130, 270]
+
+        }
+
+      } else if (this.params_.turnWhen == 3) {
+        spawnPosition = [50, 130, 270, 350, 430]
+
+      }else {
+        spawnPosition = [50, 130, 270, 350, 430, 500]
+
+      }
       
+      let spawnPositionY = [50, 130, 270, 350, 430, 500]
+      let rotation;
+
       if (this.params_.firstChase) {
         for (let i = 0; i < spawnPosition.length; i++) {
-          spawnPosition[i] += 100;
+          spawnPosition[i] += 40;
         }
       }
+
       let obj = null;
+      if (this.params_.mapRandomizer == 1) {
+        spawnPositionY = spawnPositionY.map(y => -y);
+        rotation = Math.PI / 2
+      } else {
+        rotation = -Math.PI / 2
+      }
+      if (this.params_.turnWhen == 1) {
 
-      for (var i = 0; i < spawnPosition.length; i++) {
-        if (this.counter_ == i) {
-          obj = new DrinksObject(this.params_);
+        for (var i = 0; i < spawnPosition.length; i++) {
+          if (this.counter1_ == i) {
 
-          obj.position.x = spawnPosition[i]
-          obj.position.z = position[i]
-          obj.scale = 0.05;
-          this.objects_.push(obj);
-          this.counter_++
+            obj = new DrinksObject(this.params_);
+
+            obj.position.x = spawnPosition[i]
+            obj.position.z = this.params_.position[i]
+            obj.scale = 0.05;
+            this.objects_.push(obj);
+            this.counter1_++
+          }
+        }
+        for (var i = 0; i < spawnPositionY.length; i++) {
+          if (this.counter_ == i) {
+            obj = new DrinksObject(this.params_);
+            obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), rotation);
+
+            obj.position.x = 99.5 + this.params_.position[i]
+            obj.position.z = spawnPositionY[i]
+            obj.scale = 0.05;
+            this.objects_.push(obj);
+            this.counter_++
+          }
+        }
+
+      } else if (this.params_.turnWhen == 2) {
+        for (var i = 0; i < spawnPosition.length; i++) {
+          if (this.counter_ == i) {
+
+            obj = new DrinksObject(this.params_);
+
+            obj.position.x = spawnPosition[i]
+            obj.position.z = this.params_.position[i]
+            obj.scale = 0.05;
+            this.objects_.push(obj);
+            this.counter_++
+
+          }
+        }
+        for (var i = 0; i < spawnPositionY.length; i++) {
+          if (this.counter1_ == i) {
+
+            obj = new DrinksObject(this.params_);
+            obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), rotation);
+
+            obj.position.x = 299.5 + this.params_.position[i]
+            obj.position.z = spawnPositionY[i]
+            obj.scale = 0.05;
+            this.objects_.push(obj);
+
+            this.counter1_++
+
+          }
+        }
+
+
+      } else if (this.params_.turnWhen == 3) {
+        for (var i = 0; i < spawnPosition.length; i++) {
+          if (this.counter_ == i) {
+
+            obj = new DrinksObject(this.params_);
+
+            obj.position.x = spawnPosition[i]
+            obj.position.z = this.params_.position[i]
+            obj.scale = 0.05;
+            this.objects_.push(obj);
+            this.counter_++
+
+          }
+        }
+        for (var i = 0; i < spawnPositionY.length; i++) {
+          if (this.counter1_ == i) {
+
+            obj = new DrinksObject(this.params_);
+            obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), rotation);
+
+            obj.position.x = 500 + this.params_.position[i]
+            obj.position.z = spawnPositionY[i]
+            obj.scale = 0.05;
+            this.objects_.push(obj);
+
+            this.counter1_++
+
+          }
+        }
+
+
+      } else {
+        for (var i = 0; i < spawnPosition.length; i++) {
+          if (this.counter_ == i) {
+
+            obj = new DrinksObject(this.params_);
+
+            obj.position.x = spawnPosition[i]
+            obj.position.z = this.params_.position[i]
+            obj.scale = 0.05;
+            this.objects_.push(obj);
+            this.counter_++
+          }
         }
       }
 
     }
 
 
-    Update(timeElapsed,speed) {
-      this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed);
+    Update(timeElapsed, speed, mapTurn) {
+      this.SpawnObjUpdate_()
 
+      this.UpdateColliders_(timeElapsed, speed, mapTurn);
     }
 
-    UpdateColliders_(timeElapsed,speed) {
+    UpdateColliders_(timeElapsed, speed, mapTurn) {
       const invisible = [];
       const visible = [];
 
-      for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
 
-        if (obj.position.x < -20) {
-          invisible.push(obj);
-          obj.mesh.visible = false;
-        } else {
-          visible.push(obj);
+      for (let obj of this.objects_) {
+        if (mapTurn == 2) {
+          obj.position.z -= timeElapsed * speed;
+          if (obj.position.z < -20) {
+            invisible.push(obj);
+            obj.mesh.visible = false;
+          } else {
+            visible.push(obj);
+          }
+        } else if (mapTurn == 1) {
+          obj.position.z += timeElapsed * speed;
+          if (obj.position.z > 20) {
+            invisible.push(obj);
+            obj.mesh.visible = false;
+          } else {
+            visible.push(obj);
+          }
+        } else if (mapTurn == 0) {
+          obj.position.x -= timeElapsed * speed;
+          if (obj.position.x < -20) {
+            invisible.push(obj);
+            obj.mesh.visible = false;
+          } else {
+            visible.push(obj);
+          }
         }
+
+
 
         obj.Update(timeElapsed);
       }

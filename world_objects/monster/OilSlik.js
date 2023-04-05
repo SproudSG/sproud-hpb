@@ -13,7 +13,7 @@ export const oilSlik = (() => {
         constructor(params) {
             //player properties
             this.position_ = new THREE.Vector3(-5, 0, 0);
-            this.speed_ = 2;
+            this.speed_ = 4;
             this.slowCheck = false;
             this.params_ = params;
             this.LoadModel_();
@@ -41,26 +41,52 @@ export const oilSlik = (() => {
         }
 
 
-        Update(timeElapsed, pause, chase, slow) {
+        Update(timeElapsed, pause, chase, mapTurn) { //there was a 'slow' variable here
             console.log()
             if (this.mesh_) {
-                this.mixer_.update(timeElapsed);
-                if (chase && this.mesh_.position.x < -8.5 && !pause) {
-                    this.mesh_.position.x += timeElapsed * this.speed_;
-                }
 
-                if (!chase && this.mesh_.position.x > -12 && !pause) {
-                    this.mesh_.position.x -= timeElapsed * this.speed_;
-                }
-
-                if (!slow && !this.slowCheck && !pause) {
-                    if (this.mesh_.position.x > -12) {
-                        this.mesh_.position.x -= timeElapsed * this.speed_;
-                    } else {
-                        this.slowCheck = true
+                if (mapTurn == 2) {
+                    this.mesh_.position.x = 0
+                    if (!this.firstTurn) {
+                        this.mesh_.position.z = -18
+                        this.firstTurn = true;
+                    }
+                    this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI * 2);
+                    if (chase && this.mesh_.position.z < -8.5 && !pause) {
+                        this.mesh_.position.z += timeElapsed * this.speed_;
                     }
 
+                } else if (mapTurn == 1) {
+                    this.mesh_.position.x = 0
+                    if (!this.firstTurn) {
+                        this.mesh_.position.z = 18
+                        this.firstTurn = true;
+                    }
+                    this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI);
+                    if (chase && this.mesh_.position.z < 8.5 && !pause) {
+                        this.mesh_.position.z -= timeElapsed * this.speed_;
+                    }
                 }
+                else {
+                    if (chase && this.mesh_.position.x < -8.5 && !pause) {
+                        this.mesh_.position.x += timeElapsed * this.speed_;
+                    }
+
+                    if (!chase && this.mesh_.position.x > -12 && !pause) {
+                        this.mesh_.position.x -= timeElapsed * this.speed_;
+                    }
+                }
+
+
+                this.mixer_.update(timeElapsed);
+
+                // if (!slow && !this.slowCheck && !pause) {
+                //     if (this.mesh_.position.x > -12) {
+                //         this.mesh_.position.x -= timeElapsed * this.speed_;
+                //     } else {
+                //         this.slowCheck = true
+                //     }
+                // }
 
             }
 

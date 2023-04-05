@@ -14,8 +14,8 @@ export const player = (() => {
       //player properties
       this.position_ = new THREE.Vector3(0, 0, 0);
       this.velocity_ = 0.0;
-      this.leftMovementSpeed = -0.3;
-      this.rightMovementSpeed = 0.3;
+      this.leftMovementSpeed = -0.5;
+      this.rightMovementSpeed = 0.5;
       this.jumping_ = false;
       this.inAir_ = false;
       this.sliding_ = false;
@@ -94,7 +94,8 @@ export const player = (() => {
       //key controls
       this.downPressed_ = false;
 
-
+      //player id
+      this.playerUUID = ""
       //init
       this.params_ = params;
       this.LoadModel_();
@@ -131,6 +132,8 @@ export const player = (() => {
           this.gltf = gltf
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
+          this.playerUUID = gltf.scene.uuid
+
           this.mesh_.scale.set(0.013, 0.013, 0.013);
           this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
 
@@ -207,7 +210,7 @@ export const player = (() => {
         clip = this.gltf.animations[10];
         this.action = this.mixer_.clipAction(clip);
         this.action.play();
-      }, this.action.getClip().duration * 970);
+      }, this.action.getClip().duration * 485);
 
     }
 
@@ -228,7 +231,7 @@ export const player = (() => {
         clip = this.gltf.animations[13];
         this.action = this.mixer_.clipAction(clip);
         this.action.play();
-      }, this.action.getClip().duration * 970);
+      }, this.action.getClip().duration * 485);
     }
 
     DownAnimation_() {
@@ -729,7 +732,7 @@ export const player = (() => {
     //player movement with swipe gestures
     SwipeLeft() {
 
-      if(this.keys_.right){
+      if (this.keys_.right) {
         this.keys_.left = false;
 
         if (this.position_.z >= 0) {
@@ -739,7 +742,7 @@ export const player = (() => {
             this.keys_.right = false;
           }
         } else if (this.position_.z >= -3) {
-  
+
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
           if (this.position_.z == 0) {
             this.keys_.right = false;
@@ -749,14 +752,14 @@ export const player = (() => {
         }
         var baileyWoo = document.getElementById("bailey-woo");
         baileyWoo.play();
-      }else{
+      } else {
         if (this.position_.z <= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
           if (this.position_.z <= -3) {
             this.position_.z = -3
             this.keys_.left = false;
           }
-  
+
         } else if (this.position_.z <= 3) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
           if (this.position_.z == 0) {
@@ -770,6 +773,106 @@ export const player = (() => {
       }
 
 
+    }
+
+    SwipeLeftRotatedRight() {
+
+      if (this.keys_.left) {
+        this.keys_.right = false;
+
+
+        if (this.position_.x >= 0) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.x >= 3) {
+            this.position_.x = 3
+            this.keys_.left = false;
+          }
+        } else if (this.position_.x >= -3) {
+
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.x == 0) {
+            this.keys_.left = false;
+          }
+        } else if (this.position_.x == 3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+
+
+
+      } else {
+
+        if (this.position_.x >= 0) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.x >= 3) {
+            this.position_.x = 3
+            this.keys_.right = false;
+          }
+        } else if (this.position_.x >= -3) {
+
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.x == 0) {
+            this.keys_.right = false;
+          }
+        } else if (this.position_.x == 3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+
+      }
+    }
+
+
+    SwipeLeftRotatedLeft() {
+
+      if (this.keys_.left) {
+        this.keys_.right = false;
+
+        if (this.position_.x <= 0) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.x <= -3) {
+
+            this.position_.x = -3
+            this.keys_.left = false;
+          }
+        } else if (this.position_.x <= 3) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.x <= 0) {
+            this.keys_.left = false;
+            this.position_.x = 0
+
+          }
+        } else if (this.position_.x == -3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+
+      } else {
+
+        if (this.position_.x <= 0) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.x <= -3) {
+            this.position_.x = -3
+            this.keys_.right = false;
+          }
+
+        } else if (this.position_.x <= 3) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.x == 0) {
+            this.keys_.right = false;
+          }
+        } else if (this.position_.x == -3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+
+
+       
+      }
     }
 
     SwipeFullLeft() {
@@ -803,7 +906,7 @@ export const player = (() => {
     }
 
     SwipeRight() {
-      if(this.keys_.left){
+      if (this.keys_.left) {
         this.keys_.right = false;
         if (this.position_.z <= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
@@ -811,7 +914,7 @@ export const player = (() => {
             this.position_.z = -3
             this.keys_.left = false;
           }
-  
+
         } else if (this.position_.z <= 3) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
           if (this.position_.z == 0) {
@@ -822,7 +925,7 @@ export const player = (() => {
         }
         var baileyWoo = document.getElementById("bailey-woo");
         baileyWoo.play();
-      }else{
+      } else {
         if (this.position_.z >= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
           if (this.position_.z >= 3) {
@@ -830,7 +933,7 @@ export const player = (() => {
             this.keys_.right = false;
           }
         } else if (this.position_.z >= -3) {
-  
+
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
           if (this.position_.z == 0) {
             this.keys_.right = false;
@@ -841,7 +944,92 @@ export const player = (() => {
         var baileyWoo = document.getElementById("bailey-woo");
         baileyWoo.play();
       }
-  
+
+    }
+
+    SwipeRightRotatedRight() {
+      if (this.keys_.right) {
+        this.keys_.left = false;
+
+        if (this.position_.x <= 0) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.x <= -3) {
+            this.position_.x = -3
+            this.keys_.right = false;
+          }
+
+        } else if (this.position_.x <= 3) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.x == 0) {
+            this.keys_.right = false;
+          }
+        } else if (this.position_.x == -3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+      } else {
+
+        if (this.position_.x <= 0) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.x <= -3) {
+            this.position_.x = -3
+            this.keys_.left = false;
+          }
+
+        } else if (this.position_.x <= 3) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.leftMovementSpeed;
+          if (this.position_.x == 0) {
+            this.keys_.left = false;
+          }
+        } else if (this.position_.x == -3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+      }
+    }
+
+    SwipeRightRotatedLeft() {
+      if (this.keys_.right) {
+        this.keys_.left = false;
+        if (this.position_.x >= 0) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.x >= 3) {
+            this.position_.x = 3
+            this.keys_.right = false;
+          }
+
+        } else if (this.position_.x >= -3) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.x == 0) {
+            this.keys_.right = false;
+          }
+        } else if (this.position_.x == 3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+      } else {
+
+        if (this.position_.x >= 0) {
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.x >= 3) {
+            this.position_.x = 3
+            this.keys_.left = false;
+          }
+        } else if (this.position_.x >= -3) {
+
+          this.position_.x = (Math.round(this.position_.x * 10) / 10) + this.rightMovementSpeed;
+          if (this.position_.x == 0) {
+            this.keys_.left = false;
+          }
+        } else if (this.position_.x == 3) {
+          return;
+        }
+        var baileyWoo = document.getElementById("bailey-woo");
+        baileyWoo.play();
+      }
     }
 
 
@@ -878,7 +1066,7 @@ export const player = (() => {
     }
 
 
-    Update(timeElapsed, pause, wallPosition, swipeLeft, swipeRight, showChase) {
+    Update(timeElapsed, pause, wallPosition, swipeLeft, swipeRight, showChase, mapTurn) {
 
       if (showChase) {
         this.keys_.left = false;
@@ -932,8 +1120,9 @@ export const player = (() => {
             //right wall first -> if u jump and go to right , u will stay in that y position.
             if (this.inAir_ && (this.keys_.right || swipeRight) && !this.wallFail) {
               this.SwipeRight()
-              if (this.position_.z >= 2.6 && !this.wallFail) {
+              console.log(this.position_.z)
 
+              if (this.position_.z >= 2.5 && !this.wallFail) {
                 this.position_.z = 3
                 if (this.position_.y != 3) {
                   if (this.position_.y > 3) {
@@ -1150,7 +1339,6 @@ export const player = (() => {
 
       }
 
-
       //player movement with keyboard controls
       if (this.keys_.space && this.position_.y == 0.0) {
         this.SwipeUp(timeElapsed)
@@ -1163,10 +1351,17 @@ export const player = (() => {
       }
 
       if (this.keys_.left && !this.onWall) {
-  
+        if (mapTurn == 0) {
           this.SwipeLeft()
 
-       
+        } else if (mapTurn == 1) {
+          this.SwipeLeftRotatedLeft()
+        } else if (mapTurn == 2) {
+          this.SwipeLeftRotatedRight()
+        }
+
+
+
       } else if (this.onWall && this.position_.z == -3) {
         this.keys_.left = false;
 
@@ -1174,9 +1369,16 @@ export const player = (() => {
 
       if (this.keys_.right && !this.onWall) {
 
+        if (mapTurn == 0) {
           this.SwipeRight()
 
-    
+        } else if (mapTurn == 1) {
+          this.SwipeRightRotatedLeft()
+        } else if (mapTurn == 2) {
+          this.SwipeRightRotatedRight()
+        }
+
+
       } else if (this.onWall && this.position_.z == 3) {
         this.keys_.right = false;
 
@@ -1235,6 +1437,14 @@ export const player = (() => {
 
       //update player animation, position and check collision
       if (this.mesh_) {
+
+        if (mapTurn == 2) {
+          this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI * 2);
+        } else if (mapTurn == 1) {
+          this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI);
+
+        }
+
         this.mixer_.update(timeElapsed);
         this.mesh_.position.copy(this.position_);
         this.CheckCollisions_();
