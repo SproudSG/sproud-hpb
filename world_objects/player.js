@@ -14,8 +14,8 @@ export const player = (() => {
       //player properties
       this.position_ = new THREE.Vector3(0, 0, 0);
       this.velocity_ = 0.0;
-      this.leftMovementSpeed = -0.3;
-      this.rightMovementSpeed = 0.3;
+      this.leftMovementSpeed = -0.5;
+      this.rightMovementSpeed = 0.5;
       this.jumping_ = false;
       this.inAir_ = false;
       this.sliding_ = false;
@@ -115,9 +115,9 @@ export const player = (() => {
     LoadModel_() {
       let model;
       if (this.params_.gender === "male") {
-        model = 'YBotAll_v004.gltf';
+        model = 'BoyAll_v001.gltf';
       } else {
-        model = 'YBotGetHitAll.gltf'
+        model = 'GirlAll_v001.gltf';
       }
       // Instantiate a loader
       const loader = new GLTFLoader();
@@ -127,7 +127,6 @@ export const player = (() => {
       loader.load(
         model,
         (gltf) => {
-          console.log(gltf)
           this.gltf = gltf
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
@@ -137,7 +136,7 @@ export const player = (() => {
           const m = new THREE.AnimationMixer(this.mesh_);
           this.mixer_ = m;
           this.action;
-          const clip = gltf.animations[1];
+          const clip = THREE.AnimationClip.findByName(gltf.animations, 'Run');
           this.action = this.mixer_.clipAction(clip);
           this.action.play();
 
@@ -162,7 +161,7 @@ export const player = (() => {
         return;
       }
       this.action.stop();
-      const clip = this.gltf.animations[4];
+      const clip = THREE.AnimationClip.findByName(this.gltf.animations, 'SlideToRun');
       this.action = this.mixer_.clipAction(clip);
       this.action.setLoop(THREE.LoopOnce);
 
@@ -181,7 +180,7 @@ export const player = (() => {
         clearTimeout(i);
       }
       this.action.stop();
-      const clip = this.gltf.animations[20];
+      const clip = THREE.AnimationClip.findByName(this.gltf.animations, 'FallFlat');
       this.action = this.mixer_.clipAction(clip);
       this.action.setLoop(THREE.LoopOnce);
       this.action.play();
@@ -196,7 +195,7 @@ export const player = (() => {
         return;
       }
       this.action.stop();
-      let clip = this.gltf.animations[8];
+      const clip = THREE.AnimationClip.findByName(this.gltf.animations, "WallRunRightStart");
       this.action = this.mixer_.clipAction(clip);
       this.action.play();
 
@@ -204,7 +203,7 @@ export const player = (() => {
       setTimeout(() => {
         this.action.stop();
 
-        clip = this.gltf.animations[10];
+        const clip = THREE.AnimationClip.findByName(this.gltf.animations, "WallRunRightCycle");
         this.action = this.mixer_.clipAction(clip);
         this.action.play();
       }, this.action.getClip().duration * 970);
@@ -217,7 +216,7 @@ export const player = (() => {
 
       }
       this.action.stop();
-      let clip = this.gltf.animations[11];
+      const clip = THREE.AnimationClip.findByName(this.gltf.animations, "WallRunLeftStart");
       this.action = this.mixer_.clipAction(clip);
       this.action.play();
 
@@ -225,21 +224,10 @@ export const player = (() => {
       setTimeout(() => {
         this.action.stop();
 
-        clip = this.gltf.animations[13];
+        const clip = THREE.AnimationClip.findByName(this.gltf.animations, "WallRunLeftCycle");
         this.action = this.mixer_.clipAction(clip);
         this.action.play();
       }, this.action.getClip().duration * 970);
-    }
-
-    DownAnimation_() {
-      if (!this.mixer_) {
-        return;
-
-      }
-      this.action.stop();
-      const clip = this.gltf.animations[4];
-      this.action = this.mixer_.clipAction(clip);
-      this.action.play();
     }
 
     RunAnimation_() {
@@ -248,7 +236,7 @@ export const player = (() => {
 
       }
       this.action.stop();
-      const clip = this.gltf.animations[1];
+      const clip = THREE.AnimationClip.findByName(this.gltf.animations, 'Run');
       this.action = this.mixer_.clipAction(clip);
       this.action.play();
     }
@@ -261,7 +249,7 @@ export const player = (() => {
       }
       this.wallEnd = false;
       this.action.stop();
-      const clip = this.gltf.animations[15];
+      const clip = THREE.AnimationClip.findByName(this.gltf.animations, 'RunJump');
       this.action = this.mixer_.clipAction(clip);
       this.action.play();
     }
@@ -272,7 +260,7 @@ export const player = (() => {
 
       }
       this.action.stop();
-      const clip = this.gltf.animations[14];
+      const clip = THREE.AnimationClip.findByName(this.gltf.animations, 'BigJump');
       this.action = this.mixer_.clipAction(clip);
       this.action.setLoop(THREE.LoopOnce);
       this.action.time = 0.5;
@@ -729,7 +717,7 @@ export const player = (() => {
     //player movement with swipe gestures
     SwipeLeft() {
 
-      if(this.keys_.right){
+      if (this.keys_.right) {
         this.keys_.left = false;
 
         if (this.position_.z >= 0) {
@@ -739,7 +727,7 @@ export const player = (() => {
             this.keys_.right = false;
           }
         } else if (this.position_.z >= -3) {
-  
+
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
           if (this.position_.z == 0) {
             this.keys_.right = false;
@@ -749,14 +737,14 @@ export const player = (() => {
         }
         var baileyWoo = document.getElementById("bailey-woo");
         baileyWoo.play();
-      }else{
+      } else {
         if (this.position_.z <= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
           if (this.position_.z <= -3) {
             this.position_.z = -3
             this.keys_.left = false;
           }
-  
+
         } else if (this.position_.z <= 3) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
           if (this.position_.z == 0) {
@@ -803,7 +791,7 @@ export const player = (() => {
     }
 
     SwipeRight() {
-      if(this.keys_.left){
+      if (this.keys_.left) {
         this.keys_.right = false;
         if (this.position_.z <= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
@@ -811,7 +799,7 @@ export const player = (() => {
             this.position_.z = -3
             this.keys_.left = false;
           }
-  
+
         } else if (this.position_.z <= 3) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
           if (this.position_.z == 0) {
@@ -822,7 +810,7 @@ export const player = (() => {
         }
         var baileyWoo = document.getElementById("bailey-woo");
         baileyWoo.play();
-      }else{
+      } else {
         if (this.position_.z >= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
           if (this.position_.z >= 3) {
@@ -830,7 +818,7 @@ export const player = (() => {
             this.keys_.right = false;
           }
         } else if (this.position_.z >= -3) {
-  
+
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
           if (this.position_.z == 0) {
             this.keys_.right = false;
@@ -841,7 +829,7 @@ export const player = (() => {
         var baileyWoo = document.getElementById("bailey-woo");
         baileyWoo.play();
       }
-  
+
     }
 
 
@@ -932,7 +920,7 @@ export const player = (() => {
             //right wall first -> if u jump and go to right , u will stay in that y position.
             if (this.inAir_ && (this.keys_.right || swipeRight) && !this.wallFail) {
               this.SwipeRight()
-              if (this.position_.z >= 2.6 && !this.wallFail) {
+              if (this.position_.z >= 2.5 && !this.wallFail) {
 
                 this.position_.z = 3
                 if (this.position_.y != 3) {
@@ -1163,10 +1151,10 @@ export const player = (() => {
       }
 
       if (this.keys_.left && !this.onWall) {
-  
-          this.SwipeLeft()
 
-       
+        this.SwipeLeft()
+
+
       } else if (this.onWall && this.position_.z == -3) {
         this.keys_.left = false;
 
@@ -1174,9 +1162,9 @@ export const player = (() => {
 
       if (this.keys_.right && !this.onWall) {
 
-          this.SwipeRight()
+        this.SwipeRight()
 
-    
+
       } else if (this.onWall && this.position_.z == 3) {
         this.keys_.right = false;
 

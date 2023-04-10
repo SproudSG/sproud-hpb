@@ -7,7 +7,7 @@
 
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
-import { FBXLoader } from "../../node_modules/three/examples/jsm/loaders/FBXLoader.js";
+import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 
 export const hpbWrongLogo1 = (() => {
@@ -27,19 +27,14 @@ export const hpbWrongLogo1 = (() => {
     //load the drinks
     LoadModel_() {
 
-      const loader = new FBXLoader();
-      loader.setPath('./resources/Food/');
+      const loader = new GLTFLoader();
+      loader.setPath('./resources/crates/');
 
-      loader.load('food.fbx', (fbx) => {
-        this.mesh = fbx.children[1];
+      loader.load('crates.gltf', (gltf) => {
+        this.mesh = gltf.scene.children[1]
+
         this.params_.scene.add(this.mesh);
 
-        fbx.traverse((child) => {
-          if (child.isMesh) {
-              child.material.map = new THREE.TextureLoader().load('./resources/Food/textures/food_albedo.jpg');
-            
-          }
-        });
       });
 
     }
@@ -77,7 +72,7 @@ export const hpbWrongLogo1 = (() => {
       this.objects_[0].mesh.visible = false;
     }
 
-   
+
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
@@ -91,7 +86,9 @@ export const hpbWrongLogo1 = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.015;
+          obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2);
+
+          obj.scale = 0.025;
           this.objects_.push(obj);
           this.counter_++
         }
@@ -100,13 +97,13 @@ export const hpbWrongLogo1 = (() => {
     }
 
 
-    Update(timeElapsed,speed) {
+    Update(timeElapsed, speed) {
       this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed);
+      this.UpdateColliders_(timeElapsed, speed);
 
     }
 
-    UpdateColliders_(timeElapsed,speed) {
+    UpdateColliders_(timeElapsed, speed) {
       const invisible = [];
       const visible = [];
 

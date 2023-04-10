@@ -28,7 +28,6 @@ body {
   top: 0;
   left: 0;
   font-family: 'Press Start 2P', cursive;
-  z-index: 2;
 }
 
 @keyframes game-over-anim {
@@ -93,7 +92,6 @@ body {
 
 #pauseDiv {
   z-index: 2;
-
 }
 
 .you-win-layout.active {
@@ -107,12 +105,6 @@ body {
   color: white;
   text-shadow: 8px 8px black;
   margin-bottom: 50px;
-}
-
-.you-win-layout.active {
-  opacity: 1.0;
-  visibility: visible;
-  transition: opacity 0.5s ease-in-out;
 }
 
 .you-win-text {
@@ -187,6 +179,7 @@ body {
 
 .progress-layout {
   padding-bottom: 10px;
+
 }
 
 .progress-icon {
@@ -427,7 +420,7 @@ div.wrapper {
   top: 12%;
   left: 20px;
   z-index: 1;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 div.full {
@@ -515,19 +508,57 @@ div.quarter.right-bottom {
   top: 0;
   left: 0;
   font-family: 'Press Start 2P', cursive;
-
-  background-color: rgb(228, 223, 201);
-  border-width: 20px;
-  border-style: solid;
-  border-color: rgb(226, 146, 157);
+  background-image: url(./resources/CharacterSelect_BG/Character_select_BG.png);
   padding: 20px;
 }
 
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .gender-column {
+  width: 50%;
+  max-height: 100vh;
+  height: 100vh;
+  float: left;
   display: flex;
-  margin: 80px;
   flex-direction: column;
   align-items: center;
+}
+
+.gender-column img {
+  max-height: 80vh;
+}
+
+.gender-column img:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .gender-column img {
+
+    max-height: 30vh;
+  }
+}
+
+@media (max-width: 500px) {
+  .gender-column img {
+
+    max-height: 30vh;
+  }
+}
+
+.select-player-button img {
+  width: 30%;
+}
+
+.select-player-button img:hover {
+  cursor: pointer;
 }
 
 
@@ -555,20 +586,32 @@ div.quarter.right-bottom {
 }
 
 .button-container>img {
-  width: 60px;
+  width: 120px;
   z-index: 5;
   position: relative;
+
+}
+
+.button-container>img:hover {
+  cursor: pointer;
 
 }
 
 .pauseOptions {
   color: white;
   padding-top: 15px;
+  display: block;
+  text-align: left;
+  margin-bottom: 10px;
+  padding-left: 80px;
+}
+.pauseOptions img {
+ height: 60px;
 }
 
-.pauseOptions:hover {
+.pauseOptions img:hover {
   cursor: pointer;
-}
+ }
 
 
 #click-end {
@@ -590,9 +633,14 @@ div.quarter.right-bottom {
 }
 
 .volume-container>img {
-  width: 60px;
+  width: 120px;
   z-index: 5;
   position: relative;
+
+}
+
+.volume-container>img:hover {
+  cursor: pointer;
 
 }
 
@@ -628,9 +676,9 @@ div.quarter.right-bottom {
 
 #loading-bar-container {
   width: 100%;
-  height: 10px;
+  height: 25px;
   left: 0;
-  background-color: #f2f2f2;
+  background-color: transparent;
 }
 
 #loading-bar-stage-1,
@@ -638,5 +686,39 @@ div.quarter.right-bottom {
 #loading-bar-stage-3 {
   width: 0%;
   height: 100%;
-  background-color: #4CAF50;
+  z-index: 2,
+}
+
+
+/* pause screen */
+#pause-text {
+  margin-top:50px;
+
+  max-width: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pause-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.pause-layout {
+  height: 100%;
+  width: 100%;
+  background-image: url('./resources/Paused/Pause_Screen_Gradient.png');
+  background-position: cover -200px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+}
+
+/* tutorial */
+.file-container{
+  position:absolute;
+  right: 10px;
+  bottom: 10px;
 }

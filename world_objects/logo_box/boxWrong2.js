@@ -7,7 +7,7 @@
 
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
-import { FBXLoader } from "../../node_modules/three/examples/jsm/loaders/FBXLoader.js";
+import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 export const hpbWrongLogo2 = (() => {
 
@@ -26,19 +26,14 @@ export const hpbWrongLogo2 = (() => {
     //load the drinks
     LoadModel_() {
 
-      const loader = new FBXLoader();
-      loader.setPath('./resources/Food/');
+      const loader = new GLTFLoader();
+      loader.setPath('./resources/crates/');
 
-      loader.load('food.fbx', (fbx) => {
-        this.mesh = fbx.children[2];
+      loader.load('crates.gltf', (gltf) => {
+        this.mesh = gltf.scene.children[2]
+
         this.params_.scene.add(this.mesh);
 
-        fbx.traverse((child) => {
-          if (child.isMesh) {
-              child.material.map = new THREE.TextureLoader().load('./resources/Food/textures/food_albedo.jpg');
-            
-          }
-        });
       });
 
     }
@@ -90,7 +85,11 @@ export const hpbWrongLogo2 = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.015;
+          obj.position.y = 1
+
+          obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2);
+
+          obj.scale = 0.025;
           this.objects_.push(obj);
           this.counter_++
         }

@@ -1,6 +1,6 @@
 {
 	"version": 1,
-	"id":"YBotAll_v003",
+	"id":"GirlAll_v001",
 	"name":"All",
 	"animations": {
 		"clip2": {
@@ -165,19 +165,19 @@
 			"postPlaybackMood": null,
 			"duration": 0.625
 		},
-		"WallRunRightStart": {
-			"version": 1,
-			"id": "WallRunRightStart",
-			"name": "wallrunrightstart",
-			"kind": "Puppeteer",
-			"mood": null,
-			"postPlaybackMood": null,
-			"duration": 1.166666667
-		},
 		"WallRunRightEnd": {
 			"version": 1,
 			"id": "WallRunRightEnd",
 			"name": "wallrunrightend",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.25
+		},
+		"WallRunLeftEnd": {
+			"version": 1,
+			"id": "WallRunLeftEnd",
+			"name": "wallrunleftend",
 			"kind": "Puppeteer",
 			"mood": null,
 			"postPlaybackMood": null,
@@ -192,14 +192,14 @@
 			"postPlaybackMood": null,
 			"duration": 1.166666667
 		},
-		"WallRunLeftEnd": {
+		"WallRunRightStart": {
 			"version": 1,
-			"id": "WallRunLeftEnd",
-			"name": "wallrunleftend",
+			"id": "WallRunRightStart",
+			"name": "wallrunrightstart",
 			"kind": "Puppeteer",
 			"mood": null,
 			"postPlaybackMood": null,
-			"duration": 1.25
+			"duration": 1.166666667
 		}
 	}
 }

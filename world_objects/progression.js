@@ -24,7 +24,7 @@ export const progression = (() => {
                     if (stage == 1) {
                         document.dispatchEvent(new CustomEvent('score-over1'));
                     } else if (stage == 2) {
-                         document.dispatchEvent(new CustomEvent('score-over2'));
+                        document.dispatchEvent(new CustomEvent('score-over2'));
                     } else if (stage == 3) {
                         document.dispatchEvent(new CustomEvent('score-over3'));
 

@@ -107,29 +107,47 @@ class BasicWorldDemo {
 
     });
 
-    //handle start game (male)
-    document.getElementById('male-button').addEventListener('click', () => {
-      this.menuMusic.pause();
-      this.menuMusicToggle = true;
-      this.playNextStageVideo1()
-      document.getElementById('video-container').style.display = 'block';
-      document.getElementById('gender-selection').style.display = 'none';
+    //handle gender selection
+    document.getElementById('boy-unselected').addEventListener('click', () => {
       this.gender_ = "male"
-      this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+
+      document.getElementById('boy-unselected').style.display = 'none';
+      document.getElementById('boy-selected').style.display = 'inline-block';
+
+      if (document.getElementById('girl-selected').style.display == 'inline-block') {
+        document.getElementById('girl-unselected').style.display = 'inline-block';
+        document.getElementById('girl-selected').style.display = 'none'
+      }
 
     });
 
-    //handle start game (female)
-    document.getElementById('female-button').addEventListener('click', () => {
-      this.menuMusic.pause();
-      this.menuMusicToggle = true;
-      this.playNextStageVideo1()
-      document.getElementById('video-container').style.display = 'block';
-      document.getElementById('gender-selection').style.display = 'none';
+    document.getElementById('girl-unselected').addEventListener('click', () => {
       this.gender_ = "female"
-      this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+
+      document.getElementById('girl-unselected').style.display = 'none';
+      document.getElementById('girl-selected').style.display = 'inline-block';
+      if (document.getElementById('boy-selected').style.display == 'inline-block') {
+        document.getElementById('boy-unselected').style.display = 'inline-block';
+        document.getElementById('boy-selected').style.display = 'none'
+
+      }
+    });
+
+    //handle start game (male)
+    document.getElementById('select-gender').addEventListener('click', () => {
+      if (this.gender_ === 'male' || this.gender_ === 'female') {
+        console.log("hi")
+        this.menuMusic.pause();
+        this.menuMusicToggle = true;
+        this.playNextStageVideo1()
+        document.getElementById('video-container').style.display = 'block';
+        document.getElementById('gender-selection').style.display = 'none';
+        this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+      }
 
     });
+
+
 
     // swipe gesture variables and event listeners
     this.swipeLeft = false;
@@ -370,7 +388,7 @@ class BasicWorldDemo {
       } else {
         if (deltaY > 0 && !this.player_.inAir_) {
           this.swipeDown = true;
-        } else if(!this.player_.inAir_){
+        } else if (!this.player_.inAir_) {
           this.swipeUp = true;
         }
       }
@@ -508,14 +526,12 @@ class BasicWorldDemo {
     });
 
     //pause DOM elements
-    var playButton = document.getElementById("playButton");
     var pauseButton = document.getElementById("pauseButton");
     var volumeButton = document.getElementById("volumeButton");
     var muteButton = document.getElementById("muteButton");
     var quitButton = document.getElementById("quitBtn");
     var restartButton = document.getElementById("restartBtn");
     var continueButton = document.getElementById("continueBtn");
-    var optionsButton = document.getElementById("optionsBtn");
 
     // Add event listeners to the buttons
     restartButton.addEventListener("click", () => {
@@ -540,15 +556,6 @@ class BasicWorldDemo {
 
     });
 
-
-    // Add event listeners to the buttons
-    playButton.addEventListener("click", () => {
-      if (this.allowPause) {
-        if (this.isPaused) {
-          startPauseCountdown()
-        }
-      }
-    });
 
     // Add event listeners to the buttons
     pauseButton.addEventListener("click", () => {
@@ -596,7 +603,7 @@ class BasicWorldDemo {
     //key down event listener
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') {
-        if (this.allowPause) {
+        if (this.allowPause && !this.isPaused) {
           if (this.isPaused && !this.pauseCountdownActive) {
             startPauseCountdown()
           } else if (!this.pauseCountdownActive) {
@@ -618,14 +625,14 @@ class BasicWorldDemo {
       this.isPaused = true;
       document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
       document.querySelector('#pauseDiv').style.display = 'block'
-      playButton.style.display = 'block'
       pauseButton.style.display = 'none'
+      volumeButton.style.display = 'none'
+
     }
 
     //count down after power up video has been played
     const startPauseCountdown = () => {
       this.pauseCountdownActive = true
-      playButton.style.display = 'none'
       document.querySelector('#video-container').style.backgroundColor = 'transparent'
       document.querySelector('#pauseDiv').style.display = 'none'
       document.getElementById('countdown').classList.toggle('active');
@@ -642,8 +649,9 @@ class BasicWorldDemo {
           this.RAF_()
           this.isPaused = false;
 
-          playButton.style.display = 'none'
           pauseButton.style.display = 'block'
+          volumeButton.style.display = 'block'
+
 
           clearInterval(this.intervalId_);
           document.getElementById('countdown').classList.toggle('active');
@@ -685,16 +693,16 @@ class BasicWorldDemo {
     });
 
     //handle "click to continue" after game is won for IOS devices
-    document.getElementById('low-graphics').addEventListener('click', () => {
-      this.threejs_.setPixelRatio(0.7);
-    });
-    document.getElementById('med-graphics').addEventListener('click', () => {
-      this.threejs_.setPixelRatio(1);
-    });
+    // document.getElementById('low-graphics').addEventListener('click', () => {
+    //   this.threejs_.setPixelRatio(0.7);
+    // });
+    // document.getElementById('med-graphics').addEventListener('click', () => {
+    //   this.threejs_.setPixelRatio(1);
+    // });
 
-    document.getElementById('high-graphics').addEventListener('click', () => {
-      this.threejs_.setPixelRatio(2);
-    });
+    // document.getElementById('high-graphics').addEventListener('click', () => {
+    //   this.threejs_.setPixelRatio(2);
+    // });
 
 
     //handle "click to continue" after video has ended and stage has loaded
@@ -1824,7 +1832,7 @@ class BasicWorldDemo {
       this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight, this.showChase);
       this.oilSlik_.Update(timeElapsed, pause, this.showChase);
       this.background_.Update(timeElapsed);
-      this.progression_.Update(timeElapsed, pause, this.stage);
+      this.progression_.Update(timeElapsed, pause, this.stage, this.gameOver_);
 
 
 
@@ -1850,13 +1858,19 @@ class BasicWorldDemo {
             this.player_.position_.x = this.player_.position_.x + timeElapsed * 6
 
           }
+          this.progression_.progress_ += timeElapsed * 20.0;
+
+          const scoreText1 = (Math.round((this.progression_.progress_ * 10) / 10)).toLocaleString('en-US', { minimumIntegerDigits: 5, useGrouping: false }) / 5;
+
+          document.getElementById('monster').style.left = scoreText1 * 4.1 + 'px';
+          this.objSpeed = 0
+          this.monSpeed = 0
+          this.speedy = 0
+          this.speedz = 0
+          this.isPaused = true
           setTimeout(() => {
 
-            this.objSpeed = 0
-            this.monSpeed = 0
-            this.speedy = 0
-            this.speedz = 0
-            this.isPaused = true
+
             if (this.oilSlik_.mesh_.position.x < 0) {
               this.oilSlik_.mesh_.position.x += timeElapsed * 6
               this.oilSlik_.mesh_.scale.set(0.3, 0.3, 0.3)
@@ -1958,7 +1972,7 @@ class BasicWorldDemo {
         if (this.swipeUp && !this.swipeDown) {
           this.player_.SwipeUp(timeElapsed);
           this.swipeUp = false;
-      
+
         }
         if (this.swipeDown) {
 
@@ -1976,7 +1990,6 @@ class BasicWorldDemo {
       this.gameOver_ = true;
       this.playedVideo_ = false
       pauseButton.style.display = 'none'
-      playButton.style.display = 'none'
 
       document.getElementById("fullShield").style.zIndex = "0";
       document.querySelector('#video-container').style.backgroundColor = 'transparent'

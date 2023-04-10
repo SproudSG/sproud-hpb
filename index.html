@@ -58,22 +58,22 @@
     <div class="ui">
       <div class="button-container">
         <img src="./resources/play_button.png" style="display: none;" id="playButton"></img>
-        <img src="./resources/pause_button.png" style="display: none;" id="pauseButton"></img>
+        <img src="./resources/Buttons/Pause_Button.png" style="display: none;" id="pauseButton"></img>
       </div>
     </div>
     <div class="ui">
       <div class="volume-container">
-        <img src="./resources/volume.png" id="volumeButton"></img>
-        <img src="./resources/mute.png" style="display: none;" id="muteButton"></img>
+        <img src="./resources/Buttons/Sound_Button.png" id="volumeButton"></img>
+        <img src="./resources/Buttons/Mute_Button.png" style="display: none;" id="muteButton"></img>
       </div>
-      <div class="ui">
+      <!-- <div class="ui">
         <div class="settings-container">
           <div id="low-graphics"> low </div>
           <div id="med-graphics"> med </div>
           <div id="high-graphics"> high </div>
 
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- game over -->
     <div class="ui">
@@ -106,7 +106,7 @@
             <button id="start-button" style="display: none;">Start</button>
           </div>
           <div id="progress-bar-container">
-            <div id="progress-bar">20%</div>
+            <div id="progress-bar"></div>
           </div>
         </div>
 
@@ -115,26 +115,28 @@
   </div>
 
   <!-- tutorial container -->
-  <div class="tutorial-container" style="display: none;">
+  <!-- <div class="tutorial-container" style="display: none;">
     <div class="image-container">
       <img src="./resources/profile.png"></img>
     </div>
     <div class="tutorial-text">
-      text texttexttextt exttextte xttexttexttex ttextt xttexttex ttex ttexttext textt ext textte xttext tex ttext text
-      text textte xttex tte xttexttextxtte xttex tte xttexttextxtte xttex tte xttexttextxtte xttex tte xttexttext
+
     </div>
-  </div>
+  </div> -->
 
   <!-- choose gender -->
   <div id="gender-selection" style="display: none;">
-    <h2>Choose your character's gender:</h2>
-    <div class="gender-column">
-      <i class="fa-solid fa-person" style="font-size: 100px; color: white"></i>
-      <button id="male-button">Male</button>
+    <div class="select-player-button">
+      <img src="./resources/Buttons/Select_Player.png" id="select-gender"></img>
     </div>
     <div class="gender-column">
-      <i class="fa-solid fa-person-dress" style="font-size: 100px; color: white"></i>
-      <button id="female-button">Female</button>
+      <img src="./resources/Boy/Character_selection_boy_unselected.png" id="boy-unselected"></img>
+      <img src="./resources/Boy/Character_selection_boy_selected.png" id="boy-selected" style="display: none;"></img>
+
+    </div>
+    <div class="gender-column">
+      <img src="./resources/Girl/Character_selection_girl_unselected.png" id="girl-unselected"></img>
+      <img src="./resources/Girl/Character_selection_girl_selected.png" id="girl-selected" style="display: none;"></img>
     </div>
   </div>
 
@@ -150,14 +152,22 @@
     <video playsinline preload="auto" id="nextStage4" src="./resources/nextStage.mp4" style="display: none;"></video>
 
     <div class="ui" id="pauseDiv" style="display: none;">
-      <div class="you-win-layout">
-        <div class="you-win-text">PAUSED</div>
-        <div class="pauseOptions" id="continueBtn">Continue</div>
-        <div class="pauseOptions" id="restartBtn">Restart</div>
-        <div class="pauseOptions" id="optionsBtn">Options</div>
-        <div class="pauseOptions" id="quitBtn">Quit</div>
+
+      <div class="pause-layout">
+        <div class="pause-text-container">
+          <img src="./resources/Paused/Paused_Screen_Text.png" id="pause-text">
+        </div>
+
+        <div class="pauseOptions"> <img src="./resources/Paused/Continue_Text.png" id="continueBtn"></div>
+        <div class="pauseOptions"><img src="./resources/Paused/Restart_Text.png" id="restartBtn"></div>
+        <div class="pauseOptions"><img src="./resources/Paused/Quit_Text.png" id="quitBtn"></div>
+        <div class="file-container">
+          <img src="./resources/Paused/Pause_Screen_Tips_File.png" >
+
+        </div>
 
       </div>
+
     </div>
   </div>
   <div id="click-start" style="display: none;">
@@ -179,7 +189,7 @@
       <div class="you-win-layout">
         <div class="you-win-text">LOADING STAGE 1 </div>
         <div id="loading-bar-container">
-          <div id="loading-bar-stage-1"></div>
+          <img id="loading-bar-stage-1" src="./resources/Loading_Screen_Info/Loading_Bar.png">
         </div>
       </div>
 
@@ -191,7 +201,7 @@
       <div class="you-win-layout">
         <div class="you-win-text">LOADING STAGE 2 </div>
         <div id="loading-bar-container">
-          <div id="loading-bar-stage-2"></div>
+          <img id="loading-bar-stage-1" src="./resources/Loading_Screen_Info/Loading_Bar.png">
         </div>
       </div>
     </div>
@@ -201,7 +211,7 @@
       <div class="you-win-layout">
         <div class="you-win-text">LOADING STAGE 3</div>
         <div id="loading-bar-container">
-          <div id="loading-bar-stage-3"></div>
+          <img id="loading-bar-stage-1" src="./resources/Loading_Screen_Info/Loading_Bar.png">
         </div>
       </div>
     </div>

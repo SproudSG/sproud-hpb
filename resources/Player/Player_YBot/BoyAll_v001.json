@@ -1,6 +1,6 @@
 {
 	"version": 1,
-	"id":"YBotAll_v002",
+	"id":"BoyAll_v001",
 	"name":"All",
 	"animations": {
 		"clip2": {
@@ -147,23 +147,59 @@
 			"postPlaybackMood": null,
 			"duration": 2.083333333
 		},
-		"WallRunLeft": {
+		"WallRunRightCycle": {
 			"version": 1,
-			"id": "WallRunLeft",
-			"name": "wallrunleft",
+			"id": "WallRunRightCycle",
+			"name": "wallrunrightcycle",
 			"kind": "Puppeteer",
 			"mood": null,
 			"postPlaybackMood": null,
-			"duration": 0.9166666667
+			"duration": 0.625
 		},
-		"WallRunRight": {
+		"WallRunLeftCycle": {
 			"version": 1,
-			"id": "WallRunRight",
-			"name": "wallrunright",
+			"id": "WallRunLeftCycle",
+			"name": "wallrunleftcycle",
 			"kind": "Puppeteer",
 			"mood": null,
 			"postPlaybackMood": null,
-			"duration": 0.9166666667
+			"duration": 0.625
+		},
+		"WallRunRightEnd": {
+			"version": 1,
+			"id": "WallRunRightEnd",
+			"name": "wallrunrightend",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.25
+		},
+		"WallRunLeftEnd": {
+			"version": 1,
+			"id": "WallRunLeftEnd",
+			"name": "wallrunleftend",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.25
+		},
+		"WallRunLeftStart": {
+			"version": 1,
+			"id": "WallRunLeftStart",
+			"name": "wallrunleftstart",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.166666667
+		},
+		"WallRunRightStart": {
+			"version": 1,
+			"id": "WallRunRightStart",
+			"name": "wallrunrightstart",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.166666667
 		}
 	}
 }
