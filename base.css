@@ -30,6 +30,7 @@ body {
   font-family: 'Press Start 2P', cursive;
 }
 
+
 @keyframes game-over-anim {
   from {
     opacity: 0.0;
@@ -59,6 +60,30 @@ body {
   visibility: visible;
   transition: opacity 0.5s ease-in-out;
 }
+
+#final-score-bad-ending {
+  opacity: 0.0;
+
+  visibility: hidden;
+  height: 100%;
+  width: 100%;
+  background-image: url(./resources/Non-Perfect/Nonperfect_ending.png);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+#final-score-bad-ending.active {
+  opacity: 1.0;
+  visibility: visible;
+  transition: opacity 0.5s ease-in-out;
+}
+
+
 
 .game-over-text {
   font-size: 5em;
@@ -317,7 +342,8 @@ li {
 #nextStage1,
 #nextStage2,
 #nextStage3,
-#nextStage4 {
+#nextStage4,
+#nextStage5 {
   position: absolute;
   top: 50%;
   left: 50%;

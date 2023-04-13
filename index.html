@@ -88,10 +88,20 @@
         <div class="game-over-text" id="power-countdown-text">3</div>
       </div>
     </div>
-    <!-- final score -->
+    <!-- final score BAD ENDING -->
     <div class="ui">
-      <div class="game-over-layout" id="final-score">
+      <div id="final-score-bad-ending">
         <div class="you-win-text" id="score"></div>
+        <img src="./resources/Buttons/Retry_Button.png" id="retry-stage-3">
+        <div class="ten-seconds-text"> FINAL SCORE</div>
+      </div>
+    </div>
+
+    <!-- final score GOOD ENDING -->
+    <div class="ui">
+      <div class="game-over-layout" id="final-score-good-ending">
+        <div class="you-win-text" id="score"></div>
+        <img src="./resources/Buttons/Retry_Button.png" id="retry-stage-3">
         <div class="ten-seconds-text"> FINAL SCORE</div>
       </div>
     </div>
@@ -143,13 +153,12 @@
 
   <!-- play power up video -->
   <div id="video-container" style="display: none;">
-    <video playsinline preload="auto" id="powerup" src="./resources/PowerUp/powerup.mp4" style="display: none;"></video>
-    <video playsinline preload="auto" id="powerdown" src="./resources/PowerUp/powerdown.mp4"
-      style="display: none;"></video>
+
     <video playsinline preload="auto" id="nextStage1" src="./resources/nextStage.mp4" style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage2" src="./resources/nextStage.mp4" style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage3" src="./resources/nextStage.mp4" style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage4" src="./resources/nextStage.mp4" style="display: none;"></video>
+    <video playsinline preload="auto" id="nextStage5" src="./resources/nextStage.mp4" style="display: none;"></video>
 
     <div class="ui" id="pauseDiv" style="display: none;">
 
@@ -162,7 +171,7 @@
         <div class="pauseOptions"><img src="./resources/Paused/Restart_Text.png" id="restartBtn"></div>
         <div class="pauseOptions"><img src="./resources/Paused/Quit_Text.png" id="quitBtn"></div>
         <div class="file-container">
-          <img src="./resources/Paused/Pause_Screen_Tips_File.png" >
+          <img src="./resources/Paused/Pause_Screen_Tips_File.png">
 
         </div>
 
@@ -201,7 +210,7 @@
       <div class="you-win-layout">
         <div class="you-win-text">LOADING STAGE 2 </div>
         <div id="loading-bar-container">
-          <img id="loading-bar-stage-1" src="./resources/Loading_Screen_Info/Loading_Bar.png">
+          <img id="loading-bar-stage-2" src="./resources/Loading_Screen_Info/Loading_Bar.png">
         </div>
       </div>
     </div>
@@ -211,7 +220,7 @@
       <div class="you-win-layout">
         <div class="you-win-text">LOADING STAGE 3</div>
         <div id="loading-bar-container">
-          <img id="loading-bar-stage-1" src="./resources/Loading_Screen_Info/Loading_Bar.png">
+          <img id="loading-bar-stage-3" src="./resources/Loading_Screen_Info/Loading_Bar.png">
         </div>
       </div>
     </div>

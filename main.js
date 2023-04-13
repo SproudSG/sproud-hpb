@@ -58,7 +58,6 @@ class BasicWorldDemo {
     this.totalStamina = 0;
     this.stopTime = true;
     this.resumeCountdown_ = 3;
-    this.powerCountdown_ = false;
     this.intervalId_ = null;
 
     //first load
@@ -136,7 +135,6 @@ class BasicWorldDemo {
     //handle start game (male)
     document.getElementById('select-gender').addEventListener('click', () => {
       if (this.gender_ === 'male' || this.gender_ === 'female') {
-        console.log("hi")
         this.menuMusic.pause();
         this.menuMusicToggle = true;
         this.playNextStageVideo1()
@@ -170,18 +168,15 @@ class BasicWorldDemo {
       this.handleTouchMove(event);
     }, { passive: false });
 
-    //power up 
-    this.playedVideo_ = false;
-    this.powerupVideo_ = document.getElementById("powerup");
-    this.powerdownVideo_ = document.getElementById("powerdown");
+
+
     this.videoContainer = document.getElementById("video-container");
-
-
     //next stage cut scenes
     this.nextStageVideo1_ = document.getElementById("nextStage1");
     this.nextStageVideo2_ = document.getElementById("nextStage2");
     this.nextStageVideo3_ = document.getElementById("nextStage3");
     this.nextStageVideo4_ = document.getElementById("nextStage4");
+    this.nextStageVideo5_ = document.getElementById("nextStage5");
 
 
 
@@ -263,34 +258,30 @@ class BasicWorldDemo {
       this.stopTime = false
 
       this.RAF_();
-      document.getElementById('final-score').classList.toggle('active');
+      document.getElementById('final-score-good-ending').classList.toggle('active');
 
       while (this.scene_.children.length > 0) {
         this.scene_.remove(this.scene_.children[0]);
       }
 
     });
-  }
 
-  //HPB boxes video handler functions
-  playPowerupVideo() {
-    this.powerupVideo_.style.display = "block";
-    this.powerupVideo_.play();
-  }
 
-  closePowerupVideo() {
-    this.powerupVideo_.style.display = "none";
-    this.powerupVideo_.currentTime = 0;
-  }
+    // if next stage video ends, then unpause everything
+    this.nextStageVideo5_.addEventListener("ended", () => {
+      this.closeNextStageVideo5();
+      this.stopTime = true
+      this.Pause()
+      document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
+  
+      document.getElementById('final-score-bad-ending').classList.toggle('active');
+      document.getElementById('retry-stage-3').style.zIndex = "999"
 
-  playPowerdownVideo() {
-    this.powerdownVideo_.style.display = "block";
-    this.powerdownVideo_.play();
-  }
+      while (this.scene_.children.length > 0) {
+        this.scene_.remove(this.scene_.children[0]);
+      }
 
-  closePowerdownVideo() {
-    this.powerdownVideo_.style.display = "none";
-    this.powerdownVideo_.currentTime = 0;
+    });
   }
 
   //stage 1 cutscene
@@ -332,7 +323,7 @@ class BasicWorldDemo {
   }
 
 
-  //victory videos
+  //victory videos or defeat videos
   playVictoryVid() {
     this.nextStageVideo4_.style.display = "block";
     this.nextStageVideo4_.play();
@@ -342,6 +333,17 @@ class BasicWorldDemo {
     this.nextStageVideo4_.style.display = "none";
     this.nextStageVideo4_.currentTime = 0;
     this.nextStageVideo4_.pause();
+  }
+
+  playDefeatVid() {
+    this.nextStageVideo5_.style.display = "block";
+    this.nextStageVideo5_.play();
+  }
+
+  closeNextStageVideo5() {
+    this.nextStageVideo5_.style.display = "none";
+    this.nextStageVideo5_.currentTime = 0;
+    this.nextStageVideo5_.pause();
   }
   //music player
   _playMenuMusic() {
@@ -532,6 +534,15 @@ class BasicWorldDemo {
     var quitButton = document.getElementById("quitBtn");
     var restartButton = document.getElementById("restartBtn");
     var continueButton = document.getElementById("continueBtn");
+    var retryStage3 = document.getElementById("retry-stage-3");
+
+    // Add event listeners to the buttons
+    retryStage3.addEventListener("click", () => {
+      this.playNextStageVideo3()
+      this.eventAdded1 = false;
+      document.getElementById('final-score-bad-ending').classList.toggle('active');
+      this.checkRestart = false;
+    });
 
     // Add event listeners to the buttons
     restartButton.addEventListener("click", () => {
@@ -630,7 +641,7 @@ class BasicWorldDemo {
 
     }
 
-    //count down after power up video has been played
+    //count down after unpause
     const startPauseCountdown = () => {
       this.pauseCountdownActive = true
       document.querySelector('#video-container').style.backgroundColor = 'transparent'
@@ -687,23 +698,14 @@ class BasicWorldDemo {
         this.playNextStageVideo3()
       } else if (this.stage == 4) {
         document.getElementById('click-end').style.display = 'none';
-        this.playVictoryVid()
+        if (this.player_.friendsSaved >= 6) {
+          this.playVictoryVid()
+        } else {
+          this.playDefeatVid()
+        }
       }
 
     });
-
-    //handle "click to continue" after game is won for IOS devices
-    // document.getElementById('low-graphics').addEventListener('click', () => {
-    //   this.threejs_.setPixelRatio(0.7);
-    // });
-    // document.getElementById('med-graphics').addEventListener('click', () => {
-    //   this.threejs_.setPixelRatio(1);
-    // });
-
-    // document.getElementById('high-graphics').addEventListener('click', () => {
-    //   this.threejs_.setPixelRatio(2);
-    // });
-
 
     //handle "click to continue" after video has ended and stage has loaded
     document.getElementById('click-start').addEventListener('click', () => {
@@ -778,61 +780,6 @@ class BasicWorldDemo {
 
     animate();
 
-    // if power up video ends, then unpause everything
-    document.getElementById("powerup").addEventListener("ended", () => {
-      this.closePowerupVideo();
-      this.powerCountdown_ = true
-      startCountdown();
-    });
-
-    // if power down video ends, then unpause everything
-    document.getElementById("powerdown").addEventListener("ended", () => {
-      this.closePowerdownVideo();
-      this.powerCountdown_ = true
-      startCountdown();
-
-    });
-
-
-    //count down after power up video has been played
-    const startCountdown = () => {
-      document.getElementById('countdown').classList.toggle('active');
-      this.intervalId_ = setInterval(() => {
-        this.resumeCountdown_--;
-        document.getElementById('power-countdown-text').textContent = this.resumeCountdown_;
-        if (this.resumeCountdown_ === 0) {
-          this.animationId = requestAnimationFrame(animate);
-          this.objSpeed = 12
-          this.monSpeed = 52
-          this.speedy = 12
-          this.speedz = 3
-          this.isPaused = false;
-          this.stopTime = false;
-          this.allowPause = true;
-          pauseButton.style.display = 'block'
-
-          this.RAF_()
-          clearInterval(this.intervalId_);
-          document.getElementById('countdown').classList.toggle('active');
-
-          // Start another countdown
-          let newCountdown = 5;
-          let newIntervalId = setInterval(() => {
-            newCountdown--;
-            if (newCountdown === 0) {
-              clearInterval(newIntervalId);
-              if (this.box_ == "") {
-                this.playedVideo_ = false
-                document.getElementById('power-countdown-text').textContent = 3;
-                this.resumeCountdown_ = 3;
-              }
-
-            }
-          }, 1000);
-        }
-      }, 1000)
-    }
-
 
     //for the sky
     const uniforms = {
@@ -883,7 +830,7 @@ class BasicWorldDemo {
     let arrLogo2 = [];
     let arrLogo3 = [];
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       let value1 = Math.floor(Math.random() * 3) - 1;
       let value2 = Math.floor(Math.random() * 3) - 1;
       let value3 = Math.floor(Math.random() * 3) - 1;
@@ -1061,7 +1008,7 @@ class BasicWorldDemo {
               let arrLogo2 = [];
               let arrLogo3 = [];
 
-              for (let i = 0; i < 3; i++) {
+              for (let i = 0; i < 5; i++) {
                 let value1 = Math.floor(Math.random() * 3) - 1;
                 let value2 = Math.floor(Math.random() * 3) - 1;
                 let value3 = Math.floor(Math.random() * 3) - 1;
@@ -1306,7 +1253,7 @@ class BasicWorldDemo {
               let arrLogo2 = [];
               let arrLogo3 = [];
 
-              for (let i = 0; i < 3; i++) {
+              for (let i = 0; i < 5; i++) {
                 let value1 = Math.floor(Math.random() * 3) - 1;
                 let value2 = Math.floor(Math.random() * 3) - 1;
                 let value3 = Math.floor(Math.random() * 3) - 1;
@@ -1558,7 +1505,7 @@ class BasicWorldDemo {
               let arrLogo2 = [];
               let arrLogo3 = [];
 
-              for (let i = 0; i < 3; i++) {
+              for (let i = 0; i < 5; i++) {
                 let value1 = Math.floor(Math.random() * 3) - 1;
                 let value2 = Math.floor(Math.random() * 3) - 1;
                 let value3 = Math.floor(Math.random() * 3) - 1;
@@ -1757,7 +1704,6 @@ class BasicWorldDemo {
         this.gameOver_ = true;
         this.stopTime = true;
         pauseButton.style.display = 'none'
-        this.stage = 4
         this.player_.getStamina(result => {
           this.totalStamina = this.totalStamina + result
         });
@@ -1765,7 +1711,12 @@ class BasicWorldDemo {
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
           document.getElementById('click-end').style.display = 'block';
         } else {
-          this.playVictoryVid()
+          console.log(this.player_.friendsSaved)
+          if (this.player_.friendsSaved >= 3) {
+            this.playVictoryVid()
+          } else {
+            this.playDefeatVid()
+          }
         }
 
 
@@ -1889,47 +1840,6 @@ class BasicWorldDemo {
         }, 200);
       }
 
-      //check stamina level for oil slik catching up
-      // this.player_.getStamina(result => {
-      //   if (result < 60) {
-
-      //     this.oilSlikCatch = true;
-
-      //   } else if (result > 60) {
-      //     this.oilSlikCatch = false;
-
-      //   }
-      // });
-
-
-      //checks whether player collides with box from player.js
-      this.player_.getBoxCollide(result => {
-        this.box_ = result
-
-        if (this.box_ == "powerup" && !this.playedVideo_) {
-          this.box_ = ""
-          this.playedVideo_ = true;
-          this.allowPause = false;
-          pauseButton.style.display = 'none'
-
-          this.Pause()
-          this.stopTime = true;
-          this.playPowerupVideo()
-        } else if (this.box_ == "powerdown" && !this.playedVideo_) {
-          this.box_ = ""
-          this.playedVideo_ = true;
-          this.allowPause = false;
-          pauseButton.style.display = 'none'
-
-          this.Pause()
-          this.stopTime = true;
-          this.playPowerdownVideo()
-
-        }
-
-
-      });
-
 
       //checks for swipe gestures
       if (!this.player_.collapse && !this.player_.pitCollide && !this.player_.wallFail) {
@@ -1983,14 +1893,14 @@ class BasicWorldDemo {
       }
     }
 
+    //restart stage
     if (this.restartStage && !this.checkRestart) {
       this.checkRestart = true;
       this.allowPause = false;
       this.restartStage = false;
       this.gameOver_ = true;
-      this.playedVideo_ = false
       pauseButton.style.display = 'none'
-
+      console.log(this.stage)
       document.getElementById("fullShield").style.zIndex = "0";
       document.querySelector('#video-container').style.backgroundColor = 'transparent'
       document.querySelector('#pauseDiv').style.display = 'none'
@@ -2001,7 +1911,7 @@ class BasicWorldDemo {
         this.countdown1_ = 6
         this.checkRestart = false;
 
-      } else if (this.stage == 3) {
+      } else if (this.stage == 3 || this.stage == 4) {
         this.playNextStageVideo3()
         this.eventAdded1 = false;
         this.countdown2_ = 6
@@ -2024,7 +1934,6 @@ class BasicWorldDemo {
       this.allowPause = false;
       this.gameOver_ = true;
       this.resumeCountdown_ = 3;
-      this.playedVideo_ = false
       pauseButton.style.display = 'none'
 
       document.getElementById("fullShield").style.zIndex = "0";

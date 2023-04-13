@@ -37,19 +37,17 @@ export const player = (() => {
       this.processedPitfallIDs = [];
       this.pitCollide = false;
 
-      //water variables
+      //drink variables
+      this.drink = "";
       this.waterID = null;
       this.processedWaterIDs = [];
-
-      //soda variables
       this.sodaID = null;
       this.processedSodaIDs = [];
-
-      //fruit drink variables
       this.fruitID = null;
       this.processedFruitIDs = [];
 
       //food variables
+      this.food = "";
       this.meatID = null;
       this.processedMeatIDs = [];
       this.vegeID = null;
@@ -81,6 +79,7 @@ export const player = (() => {
       this.processedbox2IDs = [];
       this.box3ID = null;
       this.processedbox3IDs = [];
+      this.friendsSaved = 0;
 
       //map speed
       this.speed = 0.2
@@ -428,11 +427,25 @@ export const player = (() => {
         if (c.mesh) {
           this.waterID = c.mesh.uuid;
           if (!this.processedWaterIDs.includes(this.waterID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedWaterIDs.push(this.waterID);
-            var newStamina = this.stamina_ + 35;
-            newStamina = Math.min(newStamina, 100)
-            this.stamina_ = newStamina;
-            this.params_.water.ToggleVisible();
+
+
+            if (this.drink === "drank") {
+
+              this.drink = ""
+              this.processedWaterIDs.push(this.waterID);
+            } else {
+              this.drink = "drank"
+              this.processedWaterIDs.push(this.waterID);
+              var newStamina = this.stamina_ + 35;
+              newStamina = Math.min(newStamina, 100)
+              this.stamina_ = newStamina;
+              this.params_.water.ToggleVisible();
+
+              setTimeout(() => {
+                this.drink = ""
+              }, 1000);
+            }
+
           }
         } else {
           return;
@@ -445,17 +458,31 @@ export const player = (() => {
         if (c.mesh) {
           this.sodaID = c.mesh.uuid;
           if (!this.processedSodaIDs.includes(this.sodaID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedSodaIDs.push(this.sodaID);
-            var newStamina = this.stamina_ + 20;
-            newStamina = Math.min(newStamina, 100)
-            this.stamina_ = newStamina;
-            this.params_.soda.ToggleVisible();
-            this.sugarDrinks++
-            if (this.sugarDrinks == 3) {
-              newStamina = this.stamina_ / 2
+
+            if (this.drink === "drank") {
+              this.drink = ""
+              this.processedSodaIDs.push(this.sodaID);
+            } else {
+              this.drink = "drank"
+              this.processedSodaIDs.push(this.sodaID);
+              var newStamina = this.stamina_ + 20;
+              newStamina = Math.min(newStamina, 100)
               this.stamina_ = newStamina;
-              this.sugarDrinks = 0
+              this.params_.soda.ToggleVisible();
+              this.sugarDrinks++
+              setTimeout(() => {
+                this.drink = ""
+              }, 1000);
+              if (this.sugarDrinks == 3) {
+                newStamina = this.stamina_ / 2
+                this.stamina_ = newStamina;
+                this.sugarDrinks = 0
+              }
+
+
             }
+
+
           }
         } else {
           return;
@@ -468,17 +495,32 @@ export const player = (() => {
         if (c.mesh) {
           this.fruitID = c.mesh.uuid;
           if (!this.processedFruitIDs.includes(this.fruitID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedFruitIDs.push(this.fruitID);
-            var newStamina = this.stamina_ + 20;
-            newStamina = Math.min(newStamina, 100)
-            this.stamina_ = newStamina;
-            this.params_.fruitDrink.ToggleVisible();
-            this.sugarDrinks++
-            if (this.sugarDrinks == 3) {
-              newStamina = this.stamina_ / 2
+            console.log(this.drink)
+            if (this.drink === "drank") {
+              this.drink = ""
+              this.processedFruitIDs.push(this.fruitID);
+            } else {
+              this.drink = "drank"
+              this.processedFruitIDs.push(this.fruitID);
+              var newStamina = this.stamina_ + 20;
+              newStamina = Math.min(newStamina, 100)
               this.stamina_ = newStamina;
-              this.sugarDrinks = 0
+              this.params_.fruitDrink.ToggleVisible();
+              this.sugarDrinks++
+              setTimeout(() => {
+                this.drink = ""
+              }, 1000);
+              if (this.sugarDrinks == 3) {
+                newStamina = this.stamina_ / 2
+                this.stamina_ = newStamina;
+                this.sugarDrinks = 0
+              }
+
+
             }
+
+
+
           }
         } else {
           return;
@@ -492,9 +534,17 @@ export const player = (() => {
         if (c.mesh) {
           this.box1ID = c.mesh.uuid;
           if (!this.processedbox1IDs.includes(this.box1ID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedbox1IDs.push(this.box1ID);
-            this.box = "powerup"
-            this.params_.box1.ToggleVisible();
+            if (this.box === "powerdown") {
+              this.processedbox1IDs.push(this.box1ID);
+            } else {
+              this.processedbox1IDs.push(this.box1ID);
+              this.box = "powerup"
+              this.friendsSaved++
+              this.params_.box1.ToggleVisible();
+              setTimeout(() => {
+                this.box = ""
+              }, 1000);
+            }
           }
         } else {
           return;
@@ -508,9 +558,20 @@ export const player = (() => {
         if (c.mesh) {
           this.box2ID = c.mesh.uuid;
           if (!this.processedbox2IDs.includes(this.box2ID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedbox2IDs.push(this.box2ID);
-            this.box = "powerdown"
-            this.params_.box2.ToggleVisible();
+
+            if (this.box === "powerup" || this.box === "powerdown") {
+              this.processedbox2IDs.push(this.box2ID);
+            } else {
+              this.processedbox2IDs.push(this.box2ID);
+              this.box = "powerdown"
+              this.params_.box2.ToggleVisible();
+              setTimeout(() => {
+                this.box = ""
+              }, 1000);
+            }
+
+
+
           }
         } else {
           return;
@@ -524,9 +585,18 @@ export const player = (() => {
         if (c.mesh) {
           this.box3ID = c.mesh.uuid;
           if (!this.processedbox3IDs.includes(this.box3ID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedbox3IDs.push(this.box3ID);
-            this.box = "powerdown"
-            this.params_.box3.ToggleVisible();
+            if (this.box === "powerup" || this.box === "powerdown") {
+              this.processedbox3IDs.push(this.box3ID);
+            } else {
+              this.processedbox3IDs.push(this.box3ID);
+              this.box = "powerdown"
+              this.params_.box3.ToggleVisible();
+              setTimeout(() => {
+                this.box = ""
+              }, 1000);
+            }
+
+
           }
         } else {
           return;
@@ -540,12 +610,21 @@ export const player = (() => {
         if (c.mesh) {
           this.meatID = c.mesh.uuid;
           if (!this.processedMeatIDs.includes(this.meatID) && cur.intersectsBox(this.playerBox_)) {
-            this.processedMeatIDs.push(this.meatID);
-            this.meatProp = this.meatProp + 1
 
-            this.AddFood('meat')
-            this.GetFood()
-            this.params_.meat.ToggleVisible()
+            if (this.food === "ate") {
+              this.processedMeatIDs.push(this.meatID);
+            } else {
+              this.processedMeatIDs.push(this.meatID);
+              this.food = "ate"
+              this.meatProp = this.meatProp + 1
+              this.AddFood('meat')
+              this.GetFood()
+              this.params_.meat.ToggleVisible()
+
+              setTimeout(() => {
+                this.food = ""
+              }, 1000);
+            }
 
 
           }
@@ -560,12 +639,21 @@ export const player = (() => {
           if (c.mesh) {
             this.vegeID = c.mesh.uuid;
             if (!this.processedVegeIDs.includes(this.vegeID) && cur.intersectsBox(this.playerBox_)) {
-              this.processedVegeIDs.push(this.vegeID);
-              this.vegeProp = this.vegeProp + 1
 
-              this.AddFood('vege')
-              this.GetFood()
-              this.params_.vege.ToggleVisible()
+              if (this.food === "ate") {
+                this.processedVegeIDs.push(this.vegeID);
+              } else {
+                this.processedVegeIDs.push(this.vegeID);
+                this.food = "ate"
+                this.vegeProp = this.vegeProp + 1
+                this.AddFood('vege')
+                this.GetFood()
+                this.params_.vege.ToggleVisible()
+
+                setTimeout(() => {
+                  this.food = ""
+                }, 1000);
+              }
             }
           } else {
             return;
@@ -578,12 +666,24 @@ export const player = (() => {
           if (c.mesh) {
             this.carbsID = c.mesh.uuid;
             if (!this.processedCarbsIDs.includes(this.carbsID) && cur.intersectsBox(this.playerBox_)) {
-              this.processedCarbsIDs.push(this.carbsID);
-              this.carbProp = this.carbProp + 1
 
-              this.AddFood('carbs')
-              this.GetFood()
-              this.params_.carbs.ToggleVisible()
+
+              if (this.food === "ate") {
+                this.processedCarbsIDs.push(this.carbsID);
+              } else {
+                this.processedCarbsIDs.push(this.carbsID);
+                this.food = "ate"
+                this.carbProp = this.carbProp + 1
+                this.AddFood('carbs')
+                this.GetFood()
+                this.params_.carbs.ToggleVisible()
+
+
+                setTimeout(() => {
+                  this.food = ""
+                }, 1000);
+              }
+
 
             }
           } else {
@@ -692,12 +792,6 @@ export const player = (() => {
 
 
     //send back callbacks for speed and collision
-    getBoxCollide(callback) {
-      const result = this.box;
-      callback(result);
-      this.box = ""
-    }
-
     getPitCollide(callback) {
       const result = this.pitCollide
       callback(result);
@@ -1001,17 +1095,6 @@ export const player = (() => {
 
             }
 
-
-            // //click right way too early
-            // if (this.onWall && (this.keys_.right || swipeRight) && this.position_.z == -3) {
-            //   this.SwipeRight()
-            //   this.onWall = false;
-            //   this.wallFail = true;
-            //   this.inAir_ = true;
-            //   this.FallAnimation_()
-            // }
-
-
           }
           //fall down when wall ends
           if (this.wallArray[1].x < -15) {
@@ -1021,21 +1104,35 @@ export const player = (() => {
             this.BigJumpAnimation_()
             this.wallEnd = true;
           }
+
         } else {
-          // IF WALL STARTS FROM THE LEFT
-          if (this.wallArray[0].x < 14 && this.wallArray[0].x > -14) {
+
+          //wall start left first
+          if (this.wallArray[0].x < 15 && this.wallArray[0].x > -15 && !this.wallFail) {
             //dont jump u die 
-            if (this.position_.y == 0 && this.wallArray[1].x > 14 && this.wallArray[0].x > 0) {
+            if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0 && !this.wallFail) {
               this.wallFail = true;
+              this.inAir_ = false;
               this.FallAnimation_()
             }
-            //left wall first -> if u jump and go to right , u will stay in that y position.
-            if (this.inAir_ && (this.keys_.left || swipeLeft)) {
-              this.SwipeLeft()
 
-              if (this.position_.z <= -2.6) {
+            //click right way too early
+            if (this.onWall && (this.keys_.right || swipeRight) && this.wallArray[1].x > 15) {
+              this.SwipeRight()
+              this.onWall = false;
+              this.wallFail = true;
+              this.inAir_ = false;
+              this.FallAnimation_()
+
+            }
+
+            //left wall first -> if u jump and go to left , u will stay in that y position.
+            if (this.inAir_ && (this.keys_.left || swipeLeft) && !this.wallFail) {
+              this.SwipeLeft()
+              if (this.position_.z <= -2.5 && !this.wallFail) {
+
                 this.position_.z = -3
-                if (this.position_.y != 3) {
+                if (this.position_.y != -3) {
                   if (this.position_.y > 3) {
                     this.position_.y = this.position_.y - (timeElapsed * 2)
                     if (this.position_.y < 3.1) {
@@ -1053,10 +1150,7 @@ export const player = (() => {
                 this.onWall = true;
                 this.LeftWallRunAnimation_()
               }
-
-
             }
-
 
             if (this.onWall) {
 
@@ -1075,34 +1169,33 @@ export const player = (() => {
 
               }
             }
-            //click left way too early
-            if (this.onWall && (this.keys_.right || swipeRight) && this.wallArray[1].x > 14) {
-              this.SwipeRight()
-              this.inAir_ = true
-            }
+
 
 
           }
           //fall down when wall ends
-          if (this.wallArray[0].x < -14 && this.position_.z == -3) {
-            this.inAir_ = true;
-            this.RunAnimation_()
+          if (this.wallArray[0].x < -15 && this.position_.z == -3 && !this.wallFail) {
+            this.wallFail = true;
+            this.FallAnimation_()
           }
 
 
 
-          //wall running left wall mechanics
-          if (this.wallArray[1].x < 14 && this.wallArray[1].x > -14) {
+          //wall running right wall mechanics
+          if (this.wallArray[1].x < 15 && this.wallArray[1].x > -15 && !this.wallFail) {
 
             //dont jump u die 
             if (this.position_.y == 0 && this.wallArray[1].x > -10) {
               this.wallFail = true;
               this.FallAnimation_()
-            }
 
-            //left wall
-            if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3) {
+            }
+            //right wall
+            if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3 && !this.wallFail) {
+
               this.SwipeFullRight()
+
+
               if (this.position_.z != 3 || this.position_.z != -3) {
                 if (!this.toggleJumpAnimation) {
                   this.toggleJumpAnimation = true;
@@ -1110,28 +1203,29 @@ export const player = (() => {
                 }
               }
               if (this.position_.z >= 2.6) {
-                this.onWall = true;
                 this.toggleJumpAnimation = false;
+                this.onWall = true;
                 this.RightWallRunAnimation_()
               }
 
             }
 
-
-
-            if (this.onWall && (this.keys_.left || swipeLeft) && this.position_.z == -3) {
-              this.SwipeLeft()
-              this.inAir_ = true
-            }
-
-
           }
           //fall down when wall ends
-          if (this.wallArray[1].x < -14) {
+          if (this.wallArray[1].x < -15) {
             this.inAir_ = true;
             this.onWall = false;
             this.wallArray.splice(0, 2);
+            this.BigJumpAnimation_()
+            this.wallEnd = true;
           }
+
+
+
+
+
+
+
 
 
         }
