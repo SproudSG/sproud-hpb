@@ -25,7 +25,7 @@ export const shoogaGlider = (() => {
     LoadModel_() {
 
       const loader = new GLTFLoader();
-      loader.load('./resources/ShoogaGlider/ShoogaGliderFlap.gltf', (gltf) => {
+      loader.load('./resources/ShoogaGlider/IceCreamMonster.gltf', (gltf) => {
         this.mesh = gltf.scene;
         this.gltf = gltf
         //add model to the scene
@@ -104,7 +104,7 @@ export const shoogaGlider = (() => {
           obj.position.x = spawnPosition[i] + Math.random()
           obj.position.z = 0;
           obj.position.y = 100;
-          obj.scale = 0.6;
+          obj.scale = 0.05;
 
           this.objects_.push(obj);
 
@@ -130,7 +130,7 @@ export const shoogaGlider = (() => {
       for (let obj of this.objects_) {
         
         obj.position.x -= timeElapsed * speed;
-        if (obj.position.y != 1 && obj.position.x <= 250) {
+        if (obj.position.y != 1 && obj.position.x <= 350) {
           if (obj.position.y < 1) {
             obj.position.y = 1
           } else {

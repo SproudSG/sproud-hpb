@@ -25,7 +25,7 @@ export const trolliumChloride = (() => {
     LoadModel_() {
 
       const loader = new GLTFLoader();
-      loader.load('./resources/TrolliumChloride/TrolliumChlorideSwipe.gltf', (gltf) => {
+      loader.load('./resources/TrolliumChloride/SoyMonster.gltf', (gltf) => {
         this.mesh = gltf.scene;
         this.gltf = gltf
         //add model to the scene

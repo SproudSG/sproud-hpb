@@ -81,6 +81,7 @@ class BasicWorldDemo {
     this._gameStarted = false;
     this._Initialize();
     this.checkStartGame = false;
+    this._showGender = false;
 
     //loading bars
     this.progressBarContainer = document.getElementById('loading-bar-container');
@@ -98,13 +99,27 @@ class BasicWorldDemo {
 
     })
 
+    //start game event listeners
+    document.addEventListener('keydown', () => {
+      if (!this._showGender) {
+        this._showGender = true;
+        document.getElementById('gender-selection').style.display = 'block';
+        document.getElementById('game-menu').style.display = 'none';
 
-    //handle gender selection
-    document.getElementById('start-button').addEventListener('click', () => {
-
-      document.getElementById('gender-selection').style.display = 'block';
-
+      }
     });
+
+    document.addEventListener('click', () => {
+      if (!this._showGender) {
+        this._showGender = true;
+        document.getElementById('gender-selection').style.display = 'block';
+        document.getElementById('game-menu').style.display = 'none';
+
+      }
+    });
+
+
+
 
     //handle gender selection
     document.getElementById('boy-unselected').addEventListener('click', () => {
@@ -187,8 +202,6 @@ class BasicWorldDemo {
         this.closeNextStageVideo1();
         document.getElementById('loading-1').style.display = 'block';
         this.stopTime = false
-        document.getElementById('game-menu').style.display = 'none';
-        // 
         this.RAF_()
         this.progressBarContainer.style.display = 'block';
         const progressBar = document.getElementById('loading-bar-stage-1');
@@ -273,7 +286,7 @@ class BasicWorldDemo {
       this.stopTime = true
       this.Pause()
       document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
-  
+
       document.getElementById('final-score-bad-ending').classList.toggle('active');
       document.getElementById('retry-stage-3').style.zIndex = "999"
 
@@ -425,6 +438,21 @@ class BasicWorldDemo {
     this.threejs_.setSize(window.innerWidth, window.innerHeight);
 
     document.getElementById('container').appendChild(this.threejs_.domElement);
+    window.addEventListener('orientationchange', () => {
+      if (window.orientation === 0 || window.orientation === 180) {
+        console.log('Portrait orientation');
+        this.OnWindowResize_();
+
+      } else if (window.orientation === 90 || window.orientation === -90) {
+        console.log('Landscape orientation');
+        this.OnWindowResize_();
+
+      } else {
+        console.log('Unknown orientation');
+        this.OnWindowResize_();
+
+      }
+    });
 
     window.addEventListener('resize', () => {
       this.OnWindowResize_();
@@ -891,10 +919,6 @@ class BasicWorldDemo {
     this.progression_ = new progression.ProgressionManager();
 
 
-    //for shield 
-    if (this.stage == 1) {
-      document.querySelector('.wrapper').style.display = 'none';
-    }
 
     //final variables 
     this.gameOver_ = false;

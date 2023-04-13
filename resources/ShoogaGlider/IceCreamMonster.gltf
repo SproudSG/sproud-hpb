@@ -1,0 +1,2175 @@
+{
+    "asset": {
+        "copyright": "(C)2023 sprou",
+        "generator": "maya2glTF v1.4.0 3d7ba8eaf03e",
+        "version": "2.0"
+    },
+    "scenes": [
+        {
+            "nodes": [
+                4,
+                0
+            ]
+        }
+    ],
+    "scene": 0,
+    "nodes": [
+        {
+            "name": "Group",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "Geometry",
+            "children": [
+                2
+            ]
+        },
+        {
+            "name": "icecreammonster_GEO",
+            "children": [
+                3
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                4.330268859863281
+            ]
+        },
+        {
+            "name": "icecreammonster_GEO:PIV",
+            "mesh": 0,
+            "translation": [
+                0.0,
+                0.0,
+                -4.330268859863281
+            ],
+            "skin": 0
+        },
+        {
+            "name": "GameSkeletonRoot_M",
+            "children": [
+                67,
+                43,
+                24,
+                5
+            ],
+            "translation": [
+                0.0,
+                47.96205139160156,
+                -13.809017181396485
+            ]
+        },
+        {
+            "name": "GameSkeletonHip_L:SSC",
+            "children": [
+                6
+            ],
+            "translation": [
+                13.11064338684082,
+                -22.109249114990236,
+                10.777847290039065
+            ]
+        },
+        {
+            "name": "GameSkeletonHip_L",
+            "children": [
+                7
+            ],
+            "rotation": [
+                -0.08664216846227646,
+                -0.007908633910119534,
+                0.030195491388440133,
+                0.995750367641449
+            ]
+        },
+        {
+            "name": "GameSkeletonKnee_L:SSC",
+            "children": [
+                8
+            ],
+            "translation": [
+                0.6697450280189514,
+                -3.8305773735046384,
+                0.9184617400169372
+            ]
+        },
+        {
+            "name": "GameSkeletonKnee_L",
+            "children": [
+                9
+            ],
+            "rotation": [
+                0.7614661455154419,
+                0.2900153994560242,
+                0.558258056640625,
+                0.15623165667057038
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonAnkle_L:SSC",
+            "children": [
+                10
+            ],
+            "translation": [
+                -4.348532199859619,
+                -0.7456759810447693,
+                -4.90000005015645e-8
+            ],
+            "scale": [
+                1.015612006187439,
+                1.015612006187439,
+                1.015612006187439
+            ]
+        },
+        {
+            "name": "GameSkeletonAnkle_L",
+            "children": [
+                11
+            ],
+            "rotation": [
+                -2.600000037489281e-8,
+                -3.099999901223782e-8,
+                0.00032517799991182983,
+                0.9999999403953552
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonToes_L",
+            "children": [
+                20,
+                16,
+                12
+            ],
+            "translation": [
+                -5.443411350250244,
+                2.194923877716065,
+                -0.4959360361099243
+            ],
+            "rotation": [
+                0.5261119604110718,
+                0.6222103834152222,
+                0.41299232840538027,
+                -0.4068141281604767
+            ],
+            "scale": [
+                1.015612006187439,
+                1.015612006187439,
+                1.015612006187439
+            ]
+        },
+        {
+            "name": "GameSkeletonIndexToe1_L:SSC",
+            "children": [
+                13
+            ],
+            "translation": [
+                -3.023760795593262,
+                -1.0643913745880128,
+                6.328655242919922
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonIndexToe1_L",
+            "children": [
+                14
+            ]
+        },
+        {
+            "name": "GameSkeletonIndexToe2_L:SSC",
+            "children": [
+                15
+            ],
+            "translation": [
+                -0.6945182681083679,
+                -2.789259672164917,
+                1.6901203393936158
+            ]
+        },
+        {
+            "name": "GameSkeletonIndexToe2_L"
+        },
+        {
+            "name": "GameSkeletonMiddleToe1_L:SSC",
+            "children": [
+                17
+            ],
+            "translation": [
+                6.997343063354492,
+                -1.3385968208312989,
+                4.166161060333252
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonMiddleToe1_L",
+            "children": [
+                18
+            ]
+        },
+        {
+            "name": "GameSkeletonMiddleToe2_L:SSC",
+            "children": [
+                19
+            ],
+            "translation": [
+                0.9340484738349916,
+                -2.145925760269165,
+                0.7722966074943543
+            ]
+        },
+        {
+            "name": "GameSkeletonMiddleToe2_L"
+        },
+        {
+            "name": "GameSkeletonThumbToe1_L:SSC",
+            "children": [
+                21
+            ],
+            "translation": [
+                -1.8587249517440797,
+                -1.5168966054916382,
+                -8.034780502319336
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonThumbToe1_L",
+            "children": [
+                22
+            ]
+        },
+        {
+            "name": "GameSkeletonThumbToe2_L:SSC",
+            "children": [
+                23
+            ],
+            "translation": [
+                -0.24782773852348329,
+                -2.0478355884552,
+                -0.6527597904205322
+            ]
+        },
+        {
+            "name": "GameSkeletonThumbToe2_L"
+        },
+        {
+            "name": "GameSkeletonHip_R:SSC",
+            "children": [
+                25
+            ],
+            "translation": [
+                -13.11064338684082,
+                -22.109249114990236,
+                10.77784824371338
+            ]
+        },
+        {
+            "name": "GameSkeletonHip_R",
+            "children": [
+                26
+            ],
+            "rotation": [
+                -0.08664216846227646,
+                0.0079087158665061,
+                -0.030195491388440133,
+                0.995750367641449
+            ]
+        },
+        {
+            "name": "GameSkeletonKnee_R:SSC",
+            "children": [
+                27
+            ],
+            "translation": [
+                -0.669745147228241,
+                -3.8305773735046384,
+                0.9184616208076476
+            ]
+        },
+        {
+            "name": "GameSkeletonKnee_R",
+            "children": [
+                28
+            ],
+            "rotation": [
+                -0.1562316417694092,
+                0.558258056640625,
+                -0.29001542925834658,
+                0.7614661455154419
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonAnkle_R:SSC",
+            "children": [
+                29
+            ],
+            "translation": [
+                4.348532199859619,
+                0.7456761598587036,
+                7.199999885187937e-8
+            ],
+            "scale": [
+                1.015612006187439,
+                1.015612006187439,
+                1.015612006187439
+            ]
+        },
+        {
+            "name": "GameSkeletonAnkle_R",
+            "children": [
+                30
+            ],
+            "rotation": [
+                2.600000037489281e-8,
+                0.0,
+                0.00032521499088034034,
+                0.9999999403953552
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonToes_R",
+            "children": [
+                39,
+                35,
+                31
+            ],
+            "translation": [
+                5.443411350250244,
+                -2.1949241161346437,
+                0.49593666195869448
+            ],
+            "rotation": [
+                0.4068140983581543,
+                -0.41299232840538027,
+                0.6222103834152222,
+                0.5261120200157166
+            ],
+            "scale": [
+                1.015612006187439,
+                1.015612006187439,
+                1.015612006187439
+            ]
+        },
+        {
+            "name": "GameSkeletonThumbToe1_R:SSC",
+            "children": [
+                32
+            ],
+            "translation": [
+                1.8587247133255005,
+                -1.5168966054916382,
+                -8.034780502319336
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonThumbToe1_R",
+            "children": [
+                33
+            ]
+        },
+        {
+            "name": "GameSkeletonThumbToe2_R:SSC",
+            "children": [
+                34
+            ],
+            "translation": [
+                0.24782781302928925,
+                -2.0478355884552,
+                -0.6527597904205322
+            ]
+        },
+        {
+            "name": "GameSkeletonThumbToe2_R"
+        },
+        {
+            "name": "GameSkeletonIndexToe1_R:SSC",
+            "children": [
+                36
+            ],
+            "translation": [
+                3.023761034011841,
+                -1.0643911361694337,
+                6.328654766082764
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonIndexToe1_R",
+            "children": [
+                37
+            ]
+        },
+        {
+            "name": "GameSkeletonIndexToe2_R:SSC",
+            "children": [
+                38
+            ],
+            "translation": [
+                0.694518506526947,
+                -2.789259672164917,
+                1.6901203393936158
+            ]
+        },
+        {
+            "name": "GameSkeletonIndexToe2_R"
+        },
+        {
+            "name": "GameSkeletonMiddleToe1_R:SSC",
+            "children": [
+                40
+            ],
+            "translation": [
+                -6.997342586517334,
+                -1.338597059249878,
+                4.166161060333252
+            ],
+            "scale": [
+                0.9846279621124268,
+                0.9846279621124268,
+                0.9846279621124268
+            ]
+        },
+        {
+            "name": "GameSkeletonMiddleToe1_R",
+            "children": [
+                41
+            ]
+        },
+        {
+            "name": "GameSkeletonMiddleToe2_R:SSC",
+            "children": [
+                42
+            ],
+            "translation": [
+                -0.934048354625702,
+                -2.145925760269165,
+                0.772296667098999
+            ]
+        },
+        {
+            "name": "GameSkeletonMiddleToe2_R"
+        },
+        {
+            "name": "GameSkeletonChest_M:SSC",
+            "children": [
+                44
+            ],
+            "translation": [
+                2.1399999639015736e-7,
+                0.0,
+                19.210304260253908
+            ]
+        },
+        {
+            "name": "GameSkeletonChest_M",
+            "children": [
+                57,
+                51,
+                45
+            ],
+            "rotation": [
+                0.0,
+                1.1000000021965663e-8,
+                0.0,
+                1.0
+            ]
+        },
+        {
+            "name": "GameSkeletonShoulder_L:SSC",
+            "children": [
+                46
+            ],
+            "translation": [
+                40.86426162719727,
+                7.936084747314453,
+                -9.321456909179688
+            ]
+        },
+        {
+            "name": "GameSkeletonShoulder_L",
+            "children": [
+                47
+            ],
+            "rotation": [
+                0.001122751971706748,
+                -0.004587789066135883,
+                0.2002244144678116,
+                0.9797386527061462
+            ]
+        },
+        {
+            "name": "GameSkeletonElbow_L:SSC",
+            "children": [
+                48
+            ],
+            "translation": [
+                41.50395965576172,
+                7.754227161407471,
+                -0.055058542639017108
+            ]
+        },
+        {
+            "name": "GameSkeletonElbow_L",
+            "children": [
+                49
+            ],
+            "rotation": [
+                0.000362441991455853,
+                -0.00026109200553037226,
+                0.23644307255744938,
+                0.9716452360153198
+            ]
+        },
+        {
+            "name": "GameSkeletonWrist_L:SSC",
+            "children": [
+                50
+            ],
+            "translation": [
+                47.32073211669922,
+                7.867591857910156,
+                -0.06384984403848648
+            ]
+        },
+        {
+            "name": "GameSkeletonWrist_L"
+        },
+        {
+            "name": "GameSkeletonShoulder_R:SSC",
+            "children": [
+                52
+            ],
+            "translation": [
+                -40.86426162719727,
+                7.936084747314453,
+                -9.32145404815674
+            ]
+        },
+        {
+            "name": "GameSkeletonShoulder_R",
+            "children": [
+                53
+            ],
+            "rotation": [
+                0.0011227340437471869,
+                0.00458776718005538,
+                -0.2002244144678116,
+                0.9797386527061462
+            ]
+        },
+        {
+            "name": "GameSkeletonElbow_R:SSC",
+            "children": [
+                54
+            ],
+            "translation": [
+                -41.50395965576172,
+                7.754227161407471,
+                -0.05505401641130448
+            ]
+        },
+        {
+            "name": "GameSkeletonElbow_R",
+            "children": [
+                55
+            ],
+            "rotation": [
+                0.0003624160017352551,
+                0.00026109200553037226,
+                -0.23644307255744938,
+                0.9716452360153198
+            ]
+        },
+        {
+            "name": "GameSkeletonWrist_R:SSC",
+            "children": [
+                56
+            ],
+            "translation": [
+                -47.32073211669922,
+                7.867591857910156,
+                -0.06384468823671341
+            ]
+        },
+        {
+            "name": "GameSkeletonWrist_R"
+        },
+        {
+            "name": "GameSkeletonNeck_M:SSC",
+            "children": [
+                58
+            ],
+            "translation": [
+                1.890000049797891e-7,
+                0.0,
+                6.319765567779541
+            ]
+        },
+        {
+            "name": "GameSkeletonNeck_M",
+            "children": [
+                65,
+                59
+            ],
+            "rotation": [
+                0.0,
+                1.7999999712969843e-8,
+                0.0,
+                1.0
+            ]
+        },
+        {
+            "name": "GameSkeletonHat1_M:SSC",
+            "children": [
+                60
+            ],
+            "translation": [
+                5.8000001246227849e-8,
+                16.729686737060548,
+                -11.721052169799805
+            ]
+        },
+        {
+            "name": "GameSkeletonHat1_M",
+            "children": [
+                61
+            ],
+            "rotation": [
+                0.02892216853797436,
+                -0.049691490828990939,
+                -0.06769219785928726,
+                0.9960482120513916
+            ]
+        },
+        {
+            "name": "GameSkeletonHat2_M:SSC",
+            "children": [
+                62
+            ],
+            "translation": [
+                1.867655873298645,
+                16.8056697845459,
+                0.02340555563569069
+            ]
+        },
+        {
+            "name": "GameSkeletonHat2_M",
+            "children": [
+                63
+            ],
+            "rotation": [
+                0.03125189617276192,
+                -0.0502837672829628,
+                -0.04145456850528717,
+                0.997384786605835
+            ]
+        },
+        {
+            "name": "GameSkeletonHat3_M:SSC",
+            "children": [
+                64
+            ],
+            "translation": [
+                5.396385192871094,
+                10.465444564819336,
+                0.09117050468921662
+            ]
+        },
+        {
+            "name": "GameSkeletonHat3_M",
+            "rotation": [
+                0.03784062713384628,
+                -0.046352118253707889,
+                -0.1514466553926468,
+                0.986652672290802
+            ]
+        },
+        {
+            "name": "GameSkeletonBeak_M:SSC",
+            "children": [
+                66
+            ],
+            "translation": [
+                -1.800000006824121e-7,
+                0.0,
+                25.470481872558599
+            ]
+        },
+        {
+            "name": "GameSkeletonBeak_M",
+            "rotation": [
+                0.0498955138027668,
+                2.9000000623113924e-8,
+                -9.999999717180686e-10,
+                0.9987544417381288
+            ]
+        },
+        {
+            "name": "GameSkeletonTail1_M:SSC",
+            "children": [
+                68
+            ],
+            "translation": [
+                -4.160000059982849e-7,
+                4.762331962585449,
+                -18.0658016204834
+            ]
+        },
+        {
+            "name": "GameSkeletonTail1_M",
+            "rotation": [
+                0.0,
+                1.1000000021965663e-8,
+                0.0,
+                1.0
+            ]
+        }
+    ],
+    "meshes": [
+        {
+            "name": "icecreammonster_GEOShapeDeformed",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "JOINTS_0": 1,
+                        "JOINTS_1": 2,
+                        "NORMAL": 3,
+                        "POSITION": 4,
+                        "TANGENT": 5,
+                        "TEXCOORD_0": 6,
+                        "WEIGHTS_0": 7,
+                        "WEIGHTS_1": 8
+                    },
+                    "indices": 0,
+                    "mode": 4,
+                    "material": 0
+                },
+                {
+                    "attributes": {
+                        "JOINTS_0": 10,
+                        "JOINTS_1": 11,
+                        "NORMAL": 12,
+                        "POSITION": 13,
+                        "TANGENT": 14,
+                        "TEXCOORD_0": 15,
+                        "WEIGHTS_0": 16,
+                        "WEIGHTS_1": 17
+                    },
+                    "indices": 9,
+                    "mode": 4,
+                    "material": 1
+                }
+            ]
+        }
+    ],
+    "skins": [
+        {
+            "name": "icecreammonster_GEOShapeDeformed",
+            "inverseBindMatrices": 18,
+            "joints": [
+                68,
+                58,
+                52,
+                56,
+                44,
+                4,
+                66,
+                54,
+                50,
+                46,
+                25,
+                29,
+                48,
+                60,
+                62,
+                64,
+                27,
+                30,
+                40,
+                42,
+                36,
+                34,
+                32,
+                38,
+                8,
+                6,
+                11,
+                21,
+                10,
+                23,
+                19,
+                13,
+                15,
+                17
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "name": "icecreammonster_MAT",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        },
+        {
+            "name": "lambert1",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.4000000059604645,
+                    0.4000000059604645,
+                    0.4000000059604645,
+                    1.0
+                ],
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        }
+    ],
+    "textures": [
+        {
+            "sampler": 0,
+            "source": 0
+        }
+    ],
+    "images": [
+        {
+            "uri": "icecreammonster_colour.png"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    ],
+    "animations": [
+        {
+            "name": "Flap",
+            "channels": [
+                {
+                    "sampler": 0,
+                    "target": {
+                        "node": 4,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 1,
+                    "target": {
+                        "node": 65,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 2,
+                    "target": {
+                        "node": 66,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 3,
+                    "target": {
+                        "node": 59,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 4,
+                    "target": {
+                        "node": 60,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 5,
+                    "target": {
+                        "node": 61,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 6,
+                    "target": {
+                        "node": 62,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 7,
+                    "target": {
+                        "node": 63,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 8,
+                    "target": {
+                        "node": 64,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 9,
+                    "target": {
+                        "node": 46,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 10,
+                    "target": {
+                        "node": 48,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 11,
+                    "target": {
+                        "node": 49,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 12,
+                    "target": {
+                        "node": 50,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 13,
+                    "target": {
+                        "node": 52,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 14,
+                    "target": {
+                        "node": 54,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 15,
+                    "target": {
+                        "node": 56,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 16,
+                    "target": {
+                        "node": 8,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 17,
+                    "target": {
+                        "node": 9,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 18,
+                    "target": {
+                        "node": 11,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 19,
+                    "target": {
+                        "node": 27,
+                        "path": "rotation"
+                    }
+                },
+                {
+                    "sampler": 20,
+                    "target": {
+                        "node": 28,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 21,
+                    "target": {
+                        "node": 30,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 22,
+                    "target": {
+                        "node": 37,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 23,
+                    "target": {
+                        "node": 31,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 24,
+                    "target": {
+                        "node": 33,
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": 25,
+                    "target": {
+                        "node": 68,
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "samplers": [
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 20
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 21
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 22
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 23
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 24
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 25
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 26
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 27
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 28
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 29
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 30
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 31
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 32
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 33
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 34
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 35
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 36
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 37
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 38
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 39
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 40
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 41
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 42
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 43
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 44
+                },
+                {
+                    "input": 19,
+                    "interpolation": "LINEAR",
+                    "output": 45
+                }
+            ]
+        }
+    ],
+    "accessors": [
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/indices",
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 7641,
+            "max": [
+                1599
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/vertices/JOINTS_0",
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 1600,
+            "max": [
+                33,
+                24,
+                24,
+                24
+            ],
+            "min": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/vertices/JOINTS_1",
+            "bufferView": 1,
+            "byteOffset": 12800,
+            "componentType": 5123,
+            "count": 1600,
+            "max": [
+                24,
+                24,
+                0,
+                0
+            ],
+            "min": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/vertices/NORMAL",
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1600,
+            "max": [
+                0.999527096748352,
+                0.9992324709892272,
+                0.9960656762123108
+            ],
+            "min": [
+                -0.9995269775390624,
+                -0.9999737739562988,
+                -0.9997037053108216
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/vertices/POSITION",
+            "bufferView": 2,
+            "byteOffset": 19200,
+            "componentType": 5126,
+            "count": 1600,
+            "max": [
+                116.93663787841796,
+                161.3481903076172,
+                57.989498138427737
+            ],
+            "min": [
+                -116.93663787841796,
+                4.081435680389404,
+                -49.130558013916019
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/vertices/TANGENT",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1600,
+            "max": [
+                0.9999035000801086,
+                0.9990419149398804,
+                0.9997470378875732,
+                1.0
+            ],
+            "min": [
+                -0.999986469745636,
+                -0.9988439083099364,
+                -0.9998064041137696,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/vertices/TEXCOORD_0",
+            "bufferView": 1,
+            "byteOffset": 25600,
+            "componentType": 5126,
+            "count": 1600,
+            "max": [
+                0.9911147952079772,
+                0.9981006383895874
+            ],
+            "min": [
+                0.012383759021759034,
+                0.005793869029730558
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/vertices/WEIGHTS_0",
+            "bufferView": 3,
+            "byteOffset": 25600,
+            "componentType": 5126,
+            "count": 1600,
+            "max": [
+                1.0,
+                0.4901337027549744,
+                0.32172515988349917,
+                0.11177242547273636
+            ],
+            "min": [
+                0.3449418246746063,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#0/vertices/WEIGHTS_1",
+            "bufferView": 3,
+            "byteOffset": 51200,
+            "componentType": 5126,
+            "count": 1600,
+            "max": [
+                0.047273553907871249,
+                0.005449123680591583,
+                0.0,
+                0.0
+            ],
+            "min": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/indices",
+            "bufferView": 0,
+            "byteOffset": 15282,
+            "componentType": 5123,
+            "count": 864,
+            "max": [
+                203
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/vertices/JOINTS_0",
+            "bufferView": 1,
+            "byteOffset": 38400,
+            "componentType": 5123,
+            "count": 204,
+            "max": [
+                15,
+                0,
+                0,
+                0
+            ],
+            "min": [
+                15,
+                0,
+                0,
+                0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/vertices/JOINTS_1",
+            "bufferView": 1,
+            "byteOffset": 40032,
+            "componentType": 5123,
+            "count": 204,
+            "max": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "min": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/vertices/NORMAL",
+            "bufferView": 2,
+            "byteOffset": 38400,
+            "componentType": 5126,
+            "count": 204,
+            "max": [
+                0.983778953552246,
+                0.990742325782776,
+                0.9784998297691344
+            ],
+            "min": [
+                -0.983778715133667,
+                -0.9907422065734864,
+                -0.9785003066062928
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/vertices/POSITION",
+            "bufferView": 2,
+            "byteOffset": 40848,
+            "componentType": 5126,
+            "count": 204,
+            "max": [
+                27.996625900268556,
+                95.99352264404296,
+                23.80788803100586
+            ],
+            "min": [
+                -10.682130813598633,
+                76.22257232666016,
+                -3.090123176574707
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/vertices/TANGENT",
+            "bufferView": 3,
+            "byteOffset": 76800,
+            "componentType": 5126,
+            "count": 204,
+            "max": [
+                0.9919607639312744,
+                0.9896916151046752,
+                0.9867857694625856,
+                1.0
+            ],
+            "min": [
+                -0.8254762887954712,
+                -0.9988476634025574,
+                -0.9987754225730896,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/vertices/TEXCOORD_0",
+            "bufferView": 1,
+            "byteOffset": 41664,
+            "componentType": 5126,
+            "count": 204,
+            "max": [
+                0.9871479272842408,
+                0.3840036988258362
+            ],
+            "min": [
+                0.910233736038208,
+                0.02452546358108521
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/vertices/WEIGHTS_0",
+            "bufferView": 3,
+            "byteOffset": 80064,
+            "componentType": 5126,
+            "count": 204,
+            "max": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "min": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed#1/vertices/WEIGHTS_1",
+            "bufferView": 3,
+            "byteOffset": 83328,
+            "componentType": 5126,
+            "count": 204,
+            "max": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "min": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "icecreammonster_GEOShapeDeformed/skin/IBM",
+            "bufferView": 4,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 34,
+            "max": [
+                1.0,
+                0.7710996270179749,
+                0.955496311187744,
+                0.0,
+                0.7710915207862854,
+                1.0,
+                0.17207033932209016,
+                0.0,
+                0.654166579246521,
+                0.7023127675056458,
+                1.0,
+                0.0,
+                156.82989501953126,
+                12.366860389709473,
+                31.874818801879884,
+                1.0
+            ],
+            "min": [
+                0.15836341679096226,
+                -0.7710996270179749,
+                -0.3205058574676514,
+                0.0,
+                -0.7710915207862854,
+                -0.6674346923828125,
+                -0.7118372917175293,
+                0.0,
+                -0.6541666388511658,
+                -0.7023128271102905,
+                -0.3329980969429016,
+                0.0,
+                -156.82989501953126,
+                -82.4166259765625,
+                -32.22613143920899,
+                1.0
+            ],
+            "type": "MAT4"
+        },
+        {
+            "name": "Flap/anim/frames",
+            "bufferView": 5,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.4583333432674408
+            ],
+            "min": [
+                0.0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "RIG0:GameSkeletonRoot_M/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.0,
+                74.06388092041016,
+                -13.809017181396485
+            ],
+            "min": [
+                0.0,
+                47.96205139160156,
+                -13.809017181396485
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonBeak_M/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 144,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                -1.7700000398690467e-7,
+                0.7398274540901184,
+                25.470481872558599
+            ],
+            "min": [
+                -1.800000006824121e-7,
+                0.0,
+                25.31455421447754
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonBeak_M/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.0498955138027668,
+                2.9000000623113924e-8,
+                1.999999943436137e-9,
+                0.9999993443489076
+            ],
+            "min": [
+                -0.06975647062063217,
+                2.9000000623113924e-8,
+                -9.999999717180686e-10,
+                0.9975640773773192
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonHat1_M/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 288,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                5.900000132896822e-8,
+                16.729686737060548,
+                -11.721052169799805
+            ],
+            "min": [
+                5.8000001246227849e-8,
+                16.729686737060548,
+                -11.721052169799805
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonHat1_M/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 192,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.02892216853797436,
+                -0.029316706582903867,
+                0.07074372470378876,
+                0.9990749955177308
+            ],
+            "min": [
+                -0.02104059420526028,
+                -0.049691490828990939,
+                -0.06769219785928726,
+                0.9960482120513916
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonHat2_M/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 432,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                1.867655873298645,
+                16.8056697845459,
+                0.02340555563569069
+            ],
+            "min": [
+                -1.94895339012146,
+                16.30054092407227,
+                -0.3612718880176544
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonHat2_M/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 384,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.05155657976865769,
+                -0.0419125035405159,
+                0.02255526371300221,
+                0.9989286065101624
+            ],
+            "min": [
+                -0.008130979724228382,
+                -0.0502837672829628,
+                -0.04145456850528717,
+                0.997384786605835
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonHat3_M/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 576,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                5.396385192871094,
+                16.627830505371099,
+                0.09117050468921662
+            ],
+            "min": [
+                -1.902974247932434,
+                10.465444564819336,
+                -0.4369707405567169
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonHat3_M/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 576,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.03784062713384628,
+                -0.046352118253707889,
+                0.01831694319844246,
+                0.9983537793159484
+            ],
+            "min": [
+                -0.00728244986385107,
+                -0.057558659464120868,
+                -0.1514466553926468,
+                0.986652672290802
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonShoulder_L/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 768,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.001122751971706748,
+                0.009343115612864496,
+                0.2002244144678116,
+                0.9999955892562866
+            ],
+            "min": [
+                -0.0022865119390189649,
+                -0.004587789066135883,
+                -0.4077620804309845,
+                0.9130375385284424
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonElbow_L/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 960,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.000362441991455853,
+                0.00010293399827787653,
+                0.23644307255744938,
+                0.9997578859329224
+            ],
+            "min": [
+                -0.00014289100363384932,
+                -0.00026109200553037226,
+                -0.09321632236242296,
+                0.9716452360153198
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonWrist_L/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 720,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                47.32073211669922,
+                7.867591857910156,
+                -0.06384984403848648
+            ],
+            "min": [
+                47.32072830200195,
+                7.867591857910156,
+                -0.06384984403848648
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonWrist_L/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 1152,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.0008963780128397048,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "min": [
+                0.0,
+                -0.007438616827130318,
+                -0.5376842021942139,
+                0.8431130647659302
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonShoulder_R/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 1344,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.0011227340437471869,
+                0.00458776718005538,
+                0.4077620804309845,
+                0.9999955892562866
+            ],
+            "min": [
+                -0.0022864770144224169,
+                -0.009343136101961136,
+                -0.2002244144678116,
+                0.9130375385284424
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonElbow_R/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 1536,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.0003624160017352551,
+                0.00026109200553037226,
+                0.09321632236242296,
+                0.9997578859329224
+            ],
+            "min": [
+                -0.00014288000238593668,
+                -0.00010293399827787653,
+                -0.23644307255744938,
+                0.9716452360153198
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonWrist_R/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 1728,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.0008964359876699746,
+                0.007438616827130318,
+                0.5376842021942139,
+                1.0
+            ],
+            "min": [
+                0.0,
+                0.0,
+                0.0,
+                0.8431130647659302
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonKnee_L/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 1920,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.7614661455154419,
+                0.5661169290542603,
+                0.558258056640625,
+                0.3631955683231354
+            ],
+            "min": [
+                0.5860470533370972,
+                0.2900153994560242,
+                0.4518289566040039,
+                0.15623165667057038
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonAnkle_L/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 864,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                -4.348532199859619,
+                -0.7456759810447693,
+                -4.999999969612645e-9
+            ],
+            "min": [
+                -4.348532199859619,
+                -0.7456759810447693,
+                -4.90000005015645e-8
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonToes_L/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 1008,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                -5.443411350250244,
+                2.194923877716065,
+                -0.49593597650527956
+            ],
+            "min": [
+                -5.443411350250244,
+                2.194923877716065,
+                -0.4959360361099243
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonKnee_R/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 2112,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                -0.1562316417694092,
+                0.558258056640625,
+                -0.29001542925834658,
+                0.7614661455154419
+            ],
+            "min": [
+                -0.3631955087184906,
+                0.4518289268016815,
+                -0.566116988658905,
+                0.5860471129417419
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "RIG0:GameSkeletonAnkle_R/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 1152,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                4.348532199859619,
+                0.7456761598587036,
+                7.199999885187937e-8
+            ],
+            "min": [
+                4.348532199859619,
+                0.7456761598587036,
+                4.19999999223819e-8
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonToes_R/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 1296,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                5.443411350250244,
+                -2.1949241161346437,
+                0.49593666195869448
+            ],
+            "min": [
+                5.443411350250244,
+                -2.1949241161346437,
+                0.4959365725517273
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonIndexToe2_R/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 1440,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.694518506526947,
+                -2.789259672164917,
+                1.6901204586029053
+            ],
+            "min": [
+                0.694518506526947,
+                -2.789259672164917,
+                1.6901203393936158
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonThumbToe1_R/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 1584,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                1.85872483253479,
+                -1.5168966054916382,
+                -8.034780502319336
+            ],
+            "min": [
+                1.8587247133255005,
+                -1.5168966054916382,
+                -8.034780502319336
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonThumbToe2_R/anim/Flap/T",
+            "bufferView": 6,
+            "byteOffset": 1728,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.24782782793045045,
+                -2.0478355884552,
+                -0.6527597904205322
+            ],
+            "min": [
+                0.24782781302928925,
+                -2.0478355884552,
+                -0.6527597904205322
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "RIG0:GameSkeletonTail1_M/anim/Flap/R",
+            "bufferView": 7,
+            "byteOffset": 2304,
+            "componentType": 5126,
+            "count": 12,
+            "max": [
+                0.10452846437692642,
+                1.1000000021965663e-8,
+                1.999999943436137e-9,
+                1.0
+            ],
+            "min": [
+                -0.21467165648937226,
+                1.1000000021965663e-8,
+                -9.999999717180686e-10,
+                0.9766862988471984
+            ],
+            "type": "VEC4"
+        }
+    ],
+    "bufferViews": [
+        {
+            "name": "IceCreamMonster/data/indices-2",
+            "buffer": 0,
+            "byteOffset": 179776,
+            "byteLength": 17010,
+            "target": 34963
+        },
+        {
+            "name": "IceCreamMonster/data/vertices-8",
+            "buffer": 0,
+            "byteOffset": 136432,
+            "byteLength": 43296,
+            "byteStride": 8,
+            "target": 34962
+        },
+        {
+            "name": "IceCreamMonster/data/vertices-12",
+            "buffer": 0,
+            "byteOffset": 93136,
+            "byteLength": 43296,
+            "byteStride": 12,
+            "target": 34962
+        },
+        {
+            "name": "IceCreamMonster/data/vertices-16",
+            "buffer": 0,
+            "byteOffset": 4672,
+            "byteLength": 86592,
+            "byteStride": 16,
+            "target": 34962
+        },
+        {
+            "name": "IceCreamMonster/data/generic-64",
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 2176
+        },
+        {
+            "name": "IceCreamMonster/data/generic-4",
+            "buffer": 0,
+            "byteOffset": 179728,
+            "byteLength": 48
+        },
+        {
+            "name": "IceCreamMonster/data/generic-12",
+            "buffer": 0,
+            "byteOffset": 91264,
+            "byteLength": 1872
+        },
+        {
+            "name": "IceCreamMonster/data/generic-16",
+            "buffer": 0,
+            "byteOffset": 2176,
+            "byteLength": 2496
+        }
+    ],
+    "buffers": [
+        {
+            "name": "IceCreamMonster/data",
+            "byteLength": 196786,
+            "uri": "IceCreamMonster0.bin"
+        }
+    ]
+}
