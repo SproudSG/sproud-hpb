@@ -244,15 +244,23 @@ img {
   width: 90vw;
   left: 50%;
   transform: translateX(-50%);
+  animation: slideupLogo 3s ease-in-out;
+
 }
 
-.bg-logo {
+.bg-image {
   position: absolute;
-  width: 100vw;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110vh;
+  object-fit: cover!important; /* set the object-fit property to cover */
+
 }
 
 #start-button {
   animation: throbbing 2s ease-in-out infinite;
+
   width: 25vw;
 }
 
@@ -271,53 +279,70 @@ img {
   }
 }
 
-#characters,#characterShadow,#foreground {
+#characters,
+#characterShadow,
+#foreground {
   animation: slideupforeground 3s ease-in-out forwards;
 
 }
 
-#midground-front, #cave-back,#cavelight{
+#midground-front,
+#cavelight {
   animation: slideupmidground 3s ease-in-out forwards;
 
 }
+
+
 
 #skybackground {
   animation: slidedown 3s ease-in-out forwards;
 
 }
 
-#cloudsbackground{
+#cloudsbackground {
   animation: slideupcloud 3s ease-in-out forwards;
 
 }
-@keyframes slideupforeground {
+
+@keyframes slideupLogo {
   0% {
-    top: 20%;
+    opacity: 40%;
   }
 
   100% {
-    top: 0%;
+    opacity: 100%;
   }
 }
 
-@keyframes slideupcloud {
+@keyframes slideupforeground {
   0% {
     top: 30%;
   }
 
   100% {
-    top: 0%;
+    top: -10%;
+  }
+}
+
+
+@keyframes slideupcloud {
+  0% {
+    top: -5%;
+  }
+
+  100% {
+    top: -15%;
   }
 }
 
 
 @keyframes slideupmidground {
   0% {
-    top: 10%;
+    top: 5%;
   }
 
   100% {
-    top: 0%;
+    top: -10%;
   }
 }
 
@@ -345,29 +370,6 @@ img {
   z-index: 2;
 }
 
-#powerup {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  animation: moveDown 1s ease;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-
-}
-
-#powerdown {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  animation: moveDown 1s ease;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-
-}
-
 #nextStage1,
 #nextStage2,
 #nextStage3,
@@ -379,9 +381,7 @@ img {
   animation: moveDown 1s;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-
+  width: 100%;
   z-index: 9;
 }
 

@@ -103,18 +103,20 @@ class BasicWorldDemo {
     document.addEventListener('keydown', () => {
       if (!this._showGender) {
         this._showGender = true;
-        document.getElementById('gender-selection').style.display = 'block';
+        // document.getElementById('gender-selection').style.display = 'block';
         document.getElementById('game-menu').style.display = 'none';
-
+        this.playNextStageVideo1()
+        document.getElementById('video-container').style.display = 'block';
       }
     });
 
     document.addEventListener('click', () => {
       if (!this._showGender) {
         this._showGender = true;
-        document.getElementById('gender-selection').style.display = 'block';
+        // document.getElementById('gender-selection').style.display = 'block';
         document.getElementById('game-menu').style.display = 'none';
-
+        this.playNextStageVideo1()
+        document.getElementById('video-container').style.display = 'block';
       }
     });
 
@@ -152,12 +154,49 @@ class BasicWorldDemo {
       if (this.gender_ === 'male' || this.gender_ === 'female') {
         this.menuMusic.pause();
         this.menuMusicToggle = true;
-        this.playNextStageVideo1()
         document.getElementById('video-container').style.display = 'block';
+
         document.getElementById('gender-selection').style.display = 'none';
         this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-      }
+        if (this.firstLoad) {
+          this.firstLoad = false;
+          this.closeNextStageVideo1();
+          document.getElementById('loading-1').style.display = 'block';
+          this.stopTime = false
+          this.RAF_()
+          this.progressBarContainer.style.display = 'block';
+          const progressBar = document.getElementById('loading-bar-stage-1');
+          var loadingProgress = 0
 
+          var loadingInterval = setInterval(() => {
+            if (loadingProgress < 56) {
+              // Calculate the loading progress as a percentage of the maximum value
+              const progressPercentage = (loadingProgress / 56) * 100;
+              progressBar.style.width = `${progressPercentage}%`;
+              loadingProgress = this.scene_.children.length;
+            } else {
+              clearInterval(loadingInterval)
+              progressBar.style.width = `100%`;
+              this.startGame = true;
+              document.getElementById('loading-1').style.display = 'none';
+              document.getElementById('click-start').style.display = 'block';
+
+
+              document.dispatchEvent(new CustomEvent('score-over'));
+            }
+
+          }, 50);
+
+        } else {
+          this.closeNextStageVideo1();
+
+          document.getElementById('loading-1').style.display = 'block';
+
+          while (this.scene_.children.length > 0) {
+            this.scene_.remove(this.scene_.children[0]);
+          }
+        }
+      }
     });
 
 
@@ -197,45 +236,9 @@ class BasicWorldDemo {
 
     // if next stage video ends, then unpause everything
     this.nextStageVideo1_.addEventListener("ended", () => {
-      if (this.firstLoad) {
-        this.firstLoad = false;
-        this.closeNextStageVideo1();
-        document.getElementById('loading-1').style.display = 'block';
-        this.stopTime = false
-        this.RAF_()
-        this.progressBarContainer.style.display = 'block';
-        const progressBar = document.getElementById('loading-bar-stage-1');
-        var loadingProgress = 0
-
-        var loadingInterval = setInterval(() => {
-          if (loadingProgress < 56) {
-            // Calculate the loading progress as a percentage of the maximum value
-            const progressPercentage = (loadingProgress / 56) * 100;
-            progressBar.style.width = `${progressPercentage}%`;
-            loadingProgress = this.scene_.children.length;
-          } else {
-            clearInterval(loadingInterval)
-            progressBar.style.width = `100%`;
-            this.startGame = true;
-            document.getElementById('loading-1').style.display = 'none';
-            document.getElementById('click-start').style.display = 'block';
-
-
-            document.dispatchEvent(new CustomEvent('score-over'));
-          }
-
-        }, 50);
-
-      } else {
-        this.closeNextStageVideo1();
-
-        document.getElementById('loading-1').style.display = 'block';
-
-        while (this.scene_.children.length > 0) {
-          this.scene_.remove(this.scene_.children[0]);
-        }
-
-      }
+      this.closeNextStageVideo1();
+      document.getElementById('video-container').style.display = 'none';
+      document.getElementById('gender-selection').style.display = 'block';
     });
 
     // if next stage video ends, then unpause everything
