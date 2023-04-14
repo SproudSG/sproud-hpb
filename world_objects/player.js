@@ -114,9 +114,9 @@ export const player = (() => {
     LoadModel_() {
       let model;
       if (this.params_.gender === "male") {
-        model = 'BoyAll_v001.gltf';
+        model = 'BoyAll.gltf';
       } else {
-        model = 'GirlAll_v001.gltf';
+        model = 'GirlAll.gltf';
       }
       // Instantiate a loader
       const loader = new GLTFLoader();
@@ -126,7 +126,22 @@ export const player = (() => {
       loader.load(
         model,
         (gltf) => {
+          console.log(gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children)
           this.gltf = gltf
+
+          if (this.params_.stage == 1) {
+            this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+              child.visible = false;
+            });
+          } else {
+
+            this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+              if (child.name !== "shield_GEO") {
+                child.visible = false;
+              }
+            });
+          }
+
           this.mesh_ = gltf.scene
           this.params_.scene.add(this.mesh_);
           this.mesh_.scale.set(0.013, 0.013, 0.013);
@@ -334,6 +349,15 @@ export const player = (() => {
         if (!this.processedshoogaGliderIDs.includes(this.shoogaGliderID) && cur.intersectsBox(this.playerBox_) && !this.sliding_) {
           this.processedshoogaGliderIDs.push(this.shoogaGliderID);
           if (this.immunitiy) {
+            this.meatProp = 0;
+            this.vegeProp = 0;
+            this.carbProp = 0;
+            this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+              if (child.name !== "shield_GEO") {
+                child.visible = false;
+              }
+            });
+            this.params_.scene.add(this.mesh_);
             this.immunitiy = false
             this.propArray = []
             document.getElementById("fullShield").style.zIndex = "0";
@@ -367,6 +391,15 @@ export const player = (() => {
 
 
           if (this.immunitiy) {
+            this.meatProp = 0;
+            this.vegeProp = 0;
+            this.carbProp = 0;
+            this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+              if (child.name !== "shield_GEO") {
+                child.visible = false;
+              }
+            });
+            this.params_.scene.add(this.mesh_);
             this.immunitiy = false
             this.propArray = []
             document.getElementById("fullShield").style.zIndex = "0";
@@ -400,6 +433,15 @@ export const player = (() => {
             this.processedPitfallIDs.push(this.pitfallID);
 
             if (this.immunitiy) {
+              this.meatProp = 0;
+              this.vegeProp = 0;
+              this.carbProp = 0;
+              this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+                if (child.name !== "shield_GEO") {
+                  child.visible = false;
+                }
+              });
+              this.params_.scene.add(this.mesh_);
               this.immunitiy = false
               this.propArray = []
               document.getElementById("fullShield").style.zIndex = "0";
@@ -617,6 +659,26 @@ export const player = (() => {
               this.processedMeatIDs.push(this.meatID);
               this.food = "ate"
               this.meatProp = this.meatProp + 1
+
+              if (this.meatProp >= 1) {
+                this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+                  if (child.name === "quarter_meat_GEO") {
+                    child.visible = true;
+                  }
+                });
+                this.params_.scene.add(this.mesh_);
+
+              } else {
+                this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+                  if (child.name === "quarter_meat_GEO") {
+                    child.visible = false;
+                  }
+                });
+                this.params_.scene.add(this.mesh_);
+
+              }
+
+
               this.AddFood('meat')
               this.GetFood()
               this.params_.meat.ToggleVisible()
@@ -632,7 +694,7 @@ export const player = (() => {
           return;
         }
 
-        //if player collides with meat
+        //if player collides with vege
         for (let c of vege) {
 
           const cur = c.collider;
@@ -646,6 +708,25 @@ export const player = (() => {
                 this.processedVegeIDs.push(this.vegeID);
                 this.food = "ate"
                 this.vegeProp = this.vegeProp + 1
+
+
+                if (this.vegeProp == 2) {
+                  this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+                    if (child.name === "half_vegetable_GEO") {
+                      child.visible = true;
+                    }
+                  });
+                  this.params_.scene.add(this.mesh_);
+                } else {
+                  this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+                    if (child.name === "half_vegetable_GEO") {
+                      child.visible = false;
+                    }
+                  });
+                  this.params_.scene.add(this.mesh_);
+                }
+
+
                 this.AddFood('vege')
                 this.GetFood()
                 this.params_.vege.ToggleVisible()
@@ -671,9 +752,30 @@ export const player = (() => {
               if (this.food === "ate") {
                 this.processedCarbsIDs.push(this.carbsID);
               } else {
+
                 this.processedCarbsIDs.push(this.carbsID);
                 this.food = "ate"
                 this.carbProp = this.carbProp + 1
+
+                if (this.carbProp >= 1) {
+                  this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+                    if (child.name === "quarter_rice_GEO") {
+                      child.visible = true;
+                    }
+                  });
+                  this.params_.scene.add(this.mesh_);
+
+                } else {
+                  this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+                    if (child.name === "quarter_rice_GEO") {
+                      child.visible = false;
+                    }
+                  });
+                  this.params_.scene.add(this.mesh_);
+
+                }
+
+
                 this.AddFood('carbs')
                 this.GetFood()
                 this.params_.carbs.ToggleVisible()
@@ -981,6 +1083,18 @@ export const player = (() => {
           document.querySelector('#quarterFour').style.backgroundColor = '#333'
           this.propArray = []
           this.immunitiy = false;
+
+          this.meatProp = 0;
+          this.vegeProp = 0;
+          this.carbProp = 0;
+
+          this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
+            if (child.name !== "shield_GEO") {
+              child.visible = false;
+            }
+          });
+          this.params_.scene.add(this.mesh_);
+
         }
       }
 

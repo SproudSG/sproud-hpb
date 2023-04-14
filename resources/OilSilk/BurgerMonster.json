@@ -1,11 +1,11 @@
 {
-	"OilSilkChase": {
+	"BurgerMonster": {
 		"version": 1,
-		"id": "OilSilkChase",
+		"id": "BurgerMonster",
 		"name": "1",
 		"kind": "Puppeteer",
 		"mood": null,
 		"postPlaybackMood": null,
-		"duration": 0.9583333333
+		"duration": 11.33333333
 	}
 }

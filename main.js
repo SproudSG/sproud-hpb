@@ -99,25 +99,39 @@ class BasicWorldDemo {
 
     })
 
+
+
     //start game event listeners
     document.addEventListener('keydown', () => {
-      if (!this._showGender) {
-        this._showGender = true;
-        // document.getElementById('gender-selection').style.display = 'block';
-        document.getElementById('game-menu').style.display = 'none';
-        this.playNextStageVideo1()
-        document.getElementById('video-container').style.display = 'block';
+
+
+      var progressBarContainer = document.getElementById('progress-bar-container');
+      if (window.getComputedStyle(progressBarContainer).display === 'none') {
+        if (!this._showGender) {
+          this._showGender = true;
+          // document.getElementById('gender-selection').style.display = 'block';
+          document.getElementById('game-menu').style.display = 'none';
+          this.playNextStageVideo1()
+          document.getElementById('video-container').style.display = 'block';
+        }
       }
+
+
+
     });
 
     document.addEventListener('click', () => {
-      if (!this._showGender) {
-        this._showGender = true;
-        // document.getElementById('gender-selection').style.display = 'block';
-        document.getElementById('game-menu').style.display = 'none';
-        this.playNextStageVideo1()
-        document.getElementById('video-container').style.display = 'block';
+      var progressBarContainer = document.getElementById('progress-bar-container');
+      if (window.getComputedStyle(progressBarContainer).display === 'none') {
+        if (!this._showGender) {
+          this._showGender = true;
+          // document.getElementById('gender-selection').style.display = 'block';
+          document.getElementById('game-menu').style.display = 'none';
+          this.playNextStageVideo1()
+          document.getElementById('video-container').style.display = 'block';
+        }
       }
+
     });
 
 
@@ -158,7 +172,7 @@ class BasicWorldDemo {
         document.getElementById('player-ui').style.display = 'block';
 
         document.getElementById('gender-selection').style.display = 'none';
-        this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+        this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
         if (this.firstLoad) {
           this.firstLoad = false;
           this.closeNextStageVideo1();
@@ -1091,7 +1105,7 @@ class BasicWorldDemo {
               this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
               this.background_ = new background.Background({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
@@ -1336,7 +1350,7 @@ class BasicWorldDemo {
               this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
               this.background_ = new background.Background({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
@@ -1588,7 +1602,7 @@ class BasicWorldDemo {
               this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });

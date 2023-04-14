@@ -22,7 +22,7 @@ export const oilSlik = (() => {
         LoadModel_() {
             const loader = new GLTFLoader();
             loader.setPath('./resources/OilSilk/');
-            loader.load('OilSilkChase.gltf', (gltf) => {
+            loader.load('BurgerMonster.gltf', (gltf) => {
                 this.mesh_ = gltf.scene;
 
                 this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
