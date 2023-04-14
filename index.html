@@ -20,7 +20,7 @@
     <!-- stamina -->
     <div class="ui">
 
-      <div class="stamina-layout">
+      <div class="stamina-layout" id="player-ui" style="display: none;">
         <div class="progress-layout">
 
           <i class="fa-regular fa-flag progress-icon"></i>
@@ -99,19 +99,21 @@
     </div>
     <!-- main page -->
     <div class="ui">
-   
+
       <audio id="menu-music" autoplay src="./resources/Audio/Game Menu.mp3"></audio>
       <audio id="game-music" src="./resources/Audio/Pirates - 2 min.mp3"></audio>
 
       <div class="game-menu-layout" id="game-menu">
 
-        <img class="bg-image" ig="skybackground" src="./resources/SplashScreen/Layers/Background/Sky.png" >
-        <img class="bg-image" id="cloudsbackground" src="./resources/SplashScreen/Layers/Background/clouds.png" >
-        <img class="bg-image" id="cavelight" src="./resources/SplashScreen/Layers/Background/Light_behindcave.png" >
-        <img class="bg-image" id="midground-front" src="./resources/SplashScreen/Layers/Midground/Midground_together.png" >       
+        <img class="bg-image" ig="skybackground" src="./resources/SplashScreen/Layers/Background/Sky.png">
+        <img class="bg-image" id="cloudsbackground" src="./resources/SplashScreen/Layers/Background/clouds.png">
+        <img class="bg-image" id="cavelight" src="./resources/SplashScreen/Layers/Background/Light_behindcave.png">
+        <img class="bg-image" id="midground-front"
+          src="./resources/SplashScreen/Layers/Midground/Midground_together.png">
         <img class="bg-image" id="foreground" src="./resources/SplashScreen/Layers/Foreground/Foreground_platform.png">
-        <img class="bg-image" id="characterShadow" src="./resources/SplashScreen/Layers/Foreground/Characters_shadow.png">
-        <img class="bg-image" id="characters" src="./resources/SplashScreen/Layers/Foreground/Characters.png" >
+        <img class="bg-image" id="characterShadow"
+          src="./resources/SplashScreen/Layers/Foreground/Characters_shadow.png">
+        <img class="bg-image" id="characters" src="./resources/SplashScreen/Layers/Foreground/Characters.png">
 
         <img src="./resources/SplashScreen/GlykosDash_Logo.png" id="main-logo"></img>
 
@@ -136,8 +138,8 @@
 
   <!-- choose gender -->
   <div id="gender-selection" style="display: none;">
-    <div class="select-player-button">
-      <img src="./resources/Buttons/Select_Player.png" id="select-gender"></img>
+    <div class="select-player-title">
+      <img src="./resources/Buttons/Select_Player.png"></img>
     </div>
     <div class="gender-column">
       <img src="./resources/Boy/Character_selection_boy_unselected.png" id="boy-unselected"></img>
@@ -148,16 +150,24 @@
       <img src="./resources/Girl/Character_selection_girl_unselected.png" id="girl-unselected"></img>
       <img src="./resources/Girl/Character_selection_girl_selected.png" id="girl-selected" style="display: none;"></img>
     </div>
+    <div class="select-player-button">
+      <img src="./resources/Buttons/Confirm_Button.png" class="unselected" id="select-gender"></img>
+
+    </div>
   </div>
 
 
   <!-- play power up video -->
   <div id="video-container" style="display: none;">
 
-    <video playsinline preload="auto" id="nextStage1" src="./resources/videos/HPB_Vid_001.mp4" style="display: none;"></video>
-    <video playsinline preload="auto" id="nextStage2" src="./resources/videos/HPB_Vid_002.mp4" style="display: none;"></video>
-    <video playsinline preload="auto" id="nextStage3" src="./resources/videos/HPB_Vid_003.mp4" style="display: none;"></video>
-    <video playsinline preload="auto" id="nextStage4" src="./resources/videos/HPB_Vid_004.mp4" style="display: none;"></video>
+    <video playsinline preload="auto" id="nextStage1" src="./resources/videos/HPB_Vid_001.mp4"
+      style="display: none;"></video>
+    <video playsinline preload="auto" id="nextStage2" src="./resources/videos/HPB_Vid_002.mp4"
+      style="display: none;"></video>
+    <video playsinline preload="auto" id="nextStage3" src="./resources/videos/HPB_Vid_003.mp4"
+      style="display: none;"></video>
+    <video playsinline preload="auto" id="nextStage4" src="./resources/videos/HPB_Vid_004.mp4"
+      style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage5" src="./resources/nextStage.mp4" style="display: none;"></video>
 
     <div class="ui" id="pauseDiv" style="display: none;">

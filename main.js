@@ -126,7 +126,7 @@ class BasicWorldDemo {
     //handle gender selection
     document.getElementById('boy-unselected').addEventListener('click', () => {
       this.gender_ = "male"
-
+      document.getElementById("select-gender").classList.remove("unselected");
       document.getElementById('boy-unselected').style.display = 'none';
       document.getElementById('boy-selected').style.display = 'inline-block';
 
@@ -139,7 +139,7 @@ class BasicWorldDemo {
 
     document.getElementById('girl-unselected').addEventListener('click', () => {
       this.gender_ = "female"
-
+      document.getElementById("select-gender").classList.remove("unselected");
       document.getElementById('girl-unselected').style.display = 'none';
       document.getElementById('girl-selected').style.display = 'inline-block';
       if (document.getElementById('boy-selected').style.display == 'inline-block') {
@@ -155,6 +155,7 @@ class BasicWorldDemo {
         this.menuMusic.pause();
         this.menuMusicToggle = true;
         document.getElementById('video-container').style.display = 'block';
+        document.getElementById('player-ui').style.display = 'block';
 
         document.getElementById('gender-selection').style.display = 'none';
         this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });

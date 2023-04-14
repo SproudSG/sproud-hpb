@@ -500,6 +500,8 @@ div.quarter.right-bottom {
   left: 0;
   font-family: 'Press Start 2P', cursive;
   background-image: url(./resources/CharacterSelect_BG/Character_select_BG.png);
+  background-position: center;
+  background-size: cover;
   padding: 20px;
 }
 
@@ -515,7 +517,7 @@ div.quarter.right-bottom {
 }
 
 .gender-column img {
-  max-height: 80vh;
+  max-height: 75vh;
 }
 
 .gender-column img:hover {
@@ -536,16 +538,29 @@ div.quarter.right-bottom {
   }
 }
 
-.select-player-button img {
+.select-player-title img {
   width: 30%;
 }
 
+.select-player-button {
+  position: absolute; /* position the button absolute to its container */
+  bottom: 10%; /* set the distance from the bottom */
+  left: 50%; /* center the button horizontally */
+  transform: translateX(-50%); /* adjust the position to center the button */
+  text-align: center;
+}
+
+.select-player-button img{
+  width: 200px;
+}
 .select-player-button img:hover {
   cursor: pointer;
 }
 
+.unselected {
+  filter: grayscale(100%);
 
-
+}
 
 /* pause  play button*/
 
