@@ -1781,6 +1781,7 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.background_.Update(timeElapsed);
 
         this.loaded = true;
 
@@ -1795,6 +1796,7 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.background_.Update(timeElapsed);
 
       } else if (this.stage == 2) {
         this.water_.Update(timeElapsed, this.objSpeed)
@@ -1829,7 +1831,6 @@ class BasicWorldDemo {
 
       this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight, this.showChase);
       this.oilSlik_.Update(timeElapsed, pause, this.showChase);
-      this.background_.Update(timeElapsed);
       this.progression_.Update(timeElapsed, pause, this.stage, this.gameOver_);
 
 
