@@ -508,65 +508,65 @@ class BasicWorldDemo {
     //load map
     const loader = new GLTFLoader();
     loader.setPath('./resources/Map/Stage1/');
-    loader.load('stage1a.gltf', (gltf) => {
+    loader.load('stg1_A.gltf', (gltf) => {
       this.mesh = gltf.scene;
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh.position.set(-5, 0, -0.5);
+      this.mesh.position.set(-5, 0, 0);
       this.mesh.rotation.set(0, -Math.PI / 2, 0);
-      this.mesh.scale.setScalar(0.0095);
+      this.mesh.scale.setScalar(0.01);
       this.scene_.add(this.mesh);
 
     });
-    loader.setPath('./resources/Map/Stage1/');
-    loader.load('stage1b.gltf', (gltf) => {
+
+    loader.load('stg1_B.gltf', (gltf) => {
       this.mesh1 = gltf.scene;
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh1.position.set(192, 0, -0.5);
+      this.mesh1.position.set(192, 0, 0);
       this.mesh1.rotation.set(0, -Math.PI / 2, 0);
-      this.mesh1.scale.setScalar(0.0095);
+      this.mesh1.scale.setScalar(0.01);
 
 
       this.scene_.add(this.mesh1);
 
     });
-    loader.load('stage1b.gltf', (gltf) => {
+    loader.load('stg1_B.gltf', (gltf) => {
       this.mesh2 = gltf.scene;
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh2.position.set(389, 0, -0.5);
+      this.mesh2.position.set(389, 0, 0);
       this.mesh2.rotation.set(0, -Math.PI / 2, 0);
-      this.mesh2.scale.setScalar(0.0095);
+      this.mesh2.scale.setScalar(0.01);
 
 
       this.scene_.add(this.mesh2);
 
     });
-    loader.load('stage1a.gltf', (gltf) => {
+    loader.load('stg1_A.gltf', (gltf) => {
       this.mesh3 = gltf.scene;
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh3.position.set(581, 0, -0.5);
+      this.mesh3.position.set(581, 0, 0);
       this.mesh3.rotation.set(0, -Math.PI / 2, 0);
-      this.mesh3.scale.setScalar(0.0095);
+      this.mesh3.scale.setScalar(0.01);
 
 
       this.scene_.add(this.mesh3);
 
     });
-    loader.load('stage1b.gltf', (gltf) => {
+    loader.load('stg1_B.gltf', (gltf) => {
       this.mesh4 = gltf.scene;
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh4.position.set(773, 0, -0.5);
+      this.mesh4.position.set(773, 0, 0);
       this.mesh4.rotation.set(0, -Math.PI / 2, 0);
-      this.mesh4.scale.setScalar(0.0095);
+      this.mesh4.scale.setScalar(0.01);
 
 
       this.scene_.add(this.mesh4);
@@ -1003,8 +1003,14 @@ class BasicWorldDemo {
         this.cameraZ = this.cameraZ + 0.04
 
       }
+      
+      if(this.cameraZ > -3 ){
+        this.oilSlik_.mesh_.scale.set(0.2, 0.2, 0.2)
+
+      }
 
       if (this.cameraX <= -10 && this.cameraY <= 5 && this.cameraZ >= 0) {
+
         this.showChase = false;
       }
       this.camera_.lookAt(0, 2, 0)
@@ -1129,59 +1135,58 @@ class BasicWorldDemo {
               //load map
               const loader = new GLTFLoader();
               loader.setPath('./resources/Map/Stage1/');
-              loader.load('stage1a.gltf', (gltf) => {
+              loader.load('stg1_A.gltf', (gltf) => {
                 this.mesh = gltf.scene;
-
+          
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh.position.set(-5, 0, -0.5);
+                this.mesh.position.set(-5, 0, 0);
                 this.mesh.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh.scale.setScalar(0.0095);
-
-
+                this.mesh.scale.setScalar(0.01);
                 this.scene_.add(this.mesh);
-
+          
               });
-              loader.setPath('./resources/Map/Stage1/');
-              loader.load('stage1b.gltf', (gltf) => {
+          
+              loader.load('stg1_B.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
-
+          
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh1.position.set(192, 0, -0.5);
+                this.mesh1.position.set(192, 0, 0);
                 this.mesh1.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh1.scale.setScalar(0.0095);
-
-
+                this.mesh1.scale.setScalar(0.01);
+          
+          
                 this.scene_.add(this.mesh1);
-
+          
               });
-              loader.load('stage1b.gltf', (gltf) => {
+              loader.load('stg1_B.gltf', (gltf) => {
                 this.mesh2 = gltf.scene;
-
+          
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh2.position.set(389, 0, -0.5);
+                this.mesh2.position.set(389, 0, 0);
                 this.mesh2.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh2.scale.setScalar(0.0095);
-
-
+                this.mesh2.scale.setScalar(0.01);
+          
+          
                 this.scene_.add(this.mesh2);
-
+          
               });
-              loader.load('stage1a.gltf', (gltf) => {
+              loader.load('stg1_A.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
-
+          
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh3.position.set(581, 0, -0.5);
+                this.mesh3.position.set(581, 0, 0);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh3.scale.setScalar(0.0095);
-
-
+                this.mesh3.scale.setScalar(0.01);
+          
+          
                 this.scene_.add(this.mesh3);
-
+          
               });
+       
 
 
               const uniforms = {
@@ -1375,53 +1380,53 @@ class BasicWorldDemo {
 
               const loader = new GLTFLoader();
               loader.setPath('./resources/Map/Stage2/');
-              loader.load('stage2a.gltf', (gltf) => {
+              loader.load('stg2_A.gltf', (gltf) => {
                 this.mesh = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
                 this.mesh.position.set(-5, 0, 0);
-                this.mesh.rotation.set(0, -Math.PI / 2, 0.03);
-                this.mesh.scale.setScalar(0.0095);
+                this.mesh.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh);
 
               });
-              loader.load('stage2a.gltf', (gltf) => {
+              loader.load('stg2_A.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh1.position.set(192, 0, 0);
-                this.mesh1.rotation.set(0, -Math.PI / 2, 0.03);
-                this.mesh1.scale.setScalar(0.0095);
+                this.mesh1.position.set(205.2, 0, 0);
+                this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh1.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh1);
 
               });
-              loader.load('stage2b.gltf', (gltf) => {
+              loader.load('stg2_B.gltf', (gltf) => {
                 this.mesh2 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh2.position.set(389, 0, 0);
-                this.mesh2.rotation.set(0, -Math.PI / 2, 0.03);
-                this.mesh2.scale.setScalar(0.0095);
+                this.mesh2.position.set(415, 0, 0);
+                this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh2.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh2);
 
               });
-              loader.load('stage2c.gltf', (gltf) => {
+              loader.load('stg2_C.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh3.position.set(581, 0, 0);
-                this.mesh3.rotation.set(0, -Math.PI / 2, 0.03);
-                this.mesh3.scale.setScalar(0.0095);
+                this.mesh3.position.set(615, 0, 0);
+                this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh3.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh3);
@@ -1630,7 +1635,7 @@ class BasicWorldDemo {
                 gltf.receiveShadow = true;
                 this.mesh.position.set(-5, 0, -0.5);
                 this.mesh.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh.scale.setScalar(0.0095);
+                this.mesh.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh);
@@ -1643,7 +1648,7 @@ class BasicWorldDemo {
                 gltf.receiveShadow = true;
                 this.mesh1.position.set(192, 0, -0.5);
                 this.mesh1.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh1.scale.setScalar(0.0095);
+                this.mesh1.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh1);
@@ -1656,7 +1661,7 @@ class BasicWorldDemo {
                 gltf.receiveShadow = true;
                 this.mesh2.position.set(389, 0, -0.5);
                 this.mesh2.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh2.scale.setScalar(0.0095);
+                this.mesh2.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh2);
@@ -1669,7 +1674,7 @@ class BasicWorldDemo {
                 gltf.receiveShadow = true;
                 this.mesh3.position.set(581, 0, -0.5);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh3.scale.setScalar(0.0095);
+                this.mesh3.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh3);

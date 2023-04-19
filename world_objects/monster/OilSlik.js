@@ -27,7 +27,7 @@ export const oilSlik = (() => {
 
                 this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
                 this.mesh_.position.copy(this.position_);
-                this.mesh_.scale.set(0.2, 0.2, 0.2);
+                this.mesh_.scale.set(0.3, 0.3, 0.3);
 
                 this.params_.scene.add(this.mesh_);
 
@@ -49,12 +49,12 @@ export const oilSlik = (() => {
                     this.mesh_.position.x += timeElapsed * this.speed_;
                 }
 
-                if (!chase && this.mesh_.position.x > -12 && !pause) {
+                if (!chase && this.mesh_.position.x > -15 && !pause) {
                     this.mesh_.position.x -= timeElapsed * this.speed_;
                 }
 
                 if (!slow && !this.slowCheck && !pause) {
-                    if (this.mesh_.position.x > -12) {
+                    if (this.mesh_.position.x > -15) {
                         this.mesh_.position.x -= timeElapsed * this.speed_;
                     } else {
                         this.slowCheck = true
