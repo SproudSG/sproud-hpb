@@ -921,7 +921,7 @@ class BasicWorldDemo {
     //initiate all the game objects
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
     this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-    this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase });
+    this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase, stage: this.stage });
     this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
     this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
     this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
@@ -1101,7 +1101,7 @@ class BasicWorldDemo {
               //initiate all the game objects
               this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
               this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ , stage: this.stage });
               this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
@@ -1345,7 +1345,7 @@ class BasicWorldDemo {
               //initiate all the game objects
               this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
               this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ , stage: this.stage});
               this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
@@ -1597,7 +1597,7 @@ class BasicWorldDemo {
               //initiate all the game objects
               this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
               this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, stage: this.stage });
               this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })

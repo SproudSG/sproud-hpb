@@ -25,13 +25,13 @@ export const pitfall = (() => {
 
         // load the monster
         LoadModel_() {
-
+            
 
             const loader = new GLTFLoader();
             loader.setPath('./resources/Pitfall/');
 
             loader.load('pit.gltf', (gltf) => {
-                this.mesh = gltf.scene
+                this.mesh = gltf.scene.children[this.params_.stage - 1]
                 this.params_.scene.add(this.mesh);
             });
 

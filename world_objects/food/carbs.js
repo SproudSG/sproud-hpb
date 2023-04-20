@@ -7,7 +7,7 @@
 
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
-import { FBXLoader } from "../../node_modules/three/examples/jsm/loaders/FBXLoader.js";
+import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 
 
@@ -28,19 +28,15 @@ export const carbs = (() => {
     //load the drinks
     LoadModel_() {
 
-      const loader = new FBXLoader();
+      const loader = new GLTFLoader();
       loader.setPath('./resources/Food/');
 
-      loader.load('food.fbx', (fbx) => {
-        this.mesh = fbx.children[3];
+      loader.load('foods.gltf', (gltf) => {
+        console.log(gltf.scene)
+        this.mesh = gltf.scene.children[0].children[2];
         this.params_.scene.add(this.mesh);
 
-        fbx.traverse((child) => {
-          if (child.isMesh) {
-              child.material.map = new THREE.TextureLoader().load('./resources/Food/textures/food_albedo.jpg');
-            
-          }
-        });
+
       });
 
     }
@@ -92,7 +88,7 @@ export const carbs = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.015;
+          obj.scale = 0.035;
           this.objects_.push(obj);
           this.counter_++
         }

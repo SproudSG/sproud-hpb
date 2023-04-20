@@ -28,7 +28,6 @@ export const background = (() => {
       loader.setPath('./resources/Clouds/GLTF/');
       loader.load('stg1_cottoncloud.gltf', (gltf) => {
         this.mesh_ = gltf.scene.children[0].children[0].children[math.rand_int(0,2)];
-        console.log(gltf)
         this.params_.scene.add(this.mesh_);
 
         this.position_.x = math.rand_range(0, 2000);

@@ -7,8 +7,6 @@
     "scenes": [
         {
             "nodes": [
-                4,
-                2,
                 0
             ]
         }
@@ -16,69 +14,83 @@
     "scene": 0,
     "nodes": [
         {
-            "name": "stg3_pit_GEO_low",
+            "name": "group1",
             "children": [
+                5,
+                3,
                 1
-            ],
-            "translation": [
-                0.0,
-                1.3469494581222537,
-                0.0
             ]
         },
         {
-            "name": "stg3_pit_GEO_low:PIV",
+            "name": "rice_GEO",
+            "children": [
+                2
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                -0.00000381500012736069
+            ]
+        },
+        {
+            "name": "rice_GEO:PIV",
             "mesh": 0,
             "translation": [
                 0.0,
-                -1.3469494581222537,
-                0.0
+                0.0,
+                0.00000381500012736069
             ]
         },
         {
-            "name": "stg2_pit_GEO_low",
+            "name": "drumbstick_GEO",
             "children": [
-                3
+                4
             ],
             "translation": [
                 0.0,
-                1.3469494581222537,
-                0.0
+                0.0,
+                0.009331703186035157
             ]
         },
         {
-            "name": "stg2_pit_GEO_low:PIV",
+            "name": "drumbstick_GEO:PIV",
             "mesh": 1,
             "translation": [
                 0.0,
-                -1.3469494581222537,
-                0.0
+                0.0,
+                -0.009331703186035157
             ]
         },
         {
-            "name": "stg1_pit_GEO_low",
+            "name": "broccoli_GEO",
             "children": [
-                5
+                6
             ],
             "translation": [
                 0.0,
-                1.3469494581222537,
-                0.0
+                0.0,
+                0.5096607208251953
+            ],
+            "rotation": [
+                0.0,
+                -0.5141317248344421,
+                0.0,
+                0.8577111959457398
             ]
         },
         {
-            "name": "stg1_pit_GEO_low:PIV",
+            "name": "broccoli_GEO:PIV",
             "mesh": 2,
             "translation": [
                 0.0,
-                -1.3469494581222537,
-                0.0
+                0.0,
+                -0.5096607208251953
             ]
         }
     ],
     "meshes": [
         {
-            "name": "stg3_pit_GEO_lowShape",
+            "name": "rice_GEOShape",
             "extras": {
                 "targetNames": []
             },
@@ -97,7 +109,7 @@
             ]
         },
         {
-            "name": "stg2_pit_GEO_lowShape",
+            "name": "drumbstick_GEOShape",
             "extras": {
                 "targetNames": []
             },
@@ -116,7 +128,7 @@
             ]
         },
         {
-            "name": "stg1_pit_GEO_lowShape",
+            "name": "broccoli_GEOShape",
             "extras": {
                 "targetNames": []
             },
@@ -137,7 +149,7 @@
     ],
     "materials": [
         {
-            "name": "pit",
+            "name": "foods_MAT",
             "pbrMetallicRoughness": {
                 "baseColorFactor": [
                     0.800000011920929,
@@ -161,7 +173,7 @@
     ],
     "images": [
         {
-            "uri": "pit_colour.png"
+            "uri": "foods_colour.png"
         }
     ],
     "samplers": [
@@ -174,13 +186,13 @@
     ],
     "accessors": [
         {
-            "name": "stg3_pit_GEO_lowShape#0/indices",
+            "name": "rice_GEOShape#0/indices",
             "bufferView": 0,
             "byteOffset": 0,
             "componentType": 5123,
-            "count": 2172,
+            "count": 1680,
             "max": [
-                544
+                372
             ],
             "min": [
                 0
@@ -188,85 +200,85 @@
             "type": "SCALAR"
         },
         {
-            "name": "stg3_pit_GEO_lowShape#0/vertices/NORMAL",
+            "name": "rice_GEOShape#0/vertices/NORMAL",
             "bufferView": 1,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 545,
+            "count": 373,
             "max": [
-                0.9980312585830689,
-                1.0,
-                0.999431014060974
+                0.9983983039855956,
+                0.9983657598495485,
+                0.9983982443809508
             ],
             "min": [
-                -0.9999812841415404,
-                -0.9754382371902466,
-                -0.9928873777389526
+                -0.9983983039855956,
+                -1.0,
+                -0.9983982443809508
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg3_pit_GEO_lowShape#0/vertices/POSITION",
+            "name": "rice_GEOShape#0/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 6540,
+            "byteOffset": 4476,
             "componentType": 5126,
-            "count": 545,
+            "count": 373,
             "max": [
-                321.3428649902344,
-                109.78597259521485,
-                242.6552734375
+                23.160964965820314,
+                34.403804779052737,
+                23.16096305847168
             ],
             "min": [
-                -321.3428649902344,
-                -30.416887283325197,
-                -242.65478515625
+                -23.16096878051758,
+                -0.00001716599945211783,
+                -23.16097068786621
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg3_pit_GEO_lowShape#0/vertices/TANGENT",
+            "name": "rice_GEOShape#0/vertices/TANGENT",
             "bufferView": 2,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 545,
+            "count": 373,
             "max": [
-                0.9998497366905212,
-                0.9772810339927672,
-                0.9966096878051758,
+                0.9999988675117492,
+                0.973596453666687,
+                0.999996304512024,
                 1.0
             ],
             "min": [
-                -0.997055172920227,
-                -0.8998521566390991,
-                -0.9997111558914184,
+                -1.0,
+                -0.9639654755592346,
+                -0.9999999403953552,
                 1.0
             ],
             "type": "VEC4"
         },
         {
-            "name": "stg3_pit_GEO_lowShape#0/vertices/TEXCOORD_0",
+            "name": "rice_GEOShape#0/vertices/TEXCOORD_0",
             "bufferView": 3,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 545,
+            "count": 373,
             "max": [
-                0.9932857751846314,
-                0.998170018196106
+                0.9969142079353333,
+                0.9963436722755432
             ],
             "min": [
-                0.003185034031048417,
-                0.09963124990463256
+                0.211750864982605,
+                0.009133577346801758
             ],
             "type": "VEC2"
         },
         {
-            "name": "stg2_pit_GEO_lowShape#0/indices",
+            "name": "drumbstick_GEOShape#0/indices",
             "bufferView": 0,
-            "byteOffset": 4344,
+            "byteOffset": 3360,
             "componentType": 5123,
-            "count": 2172,
+            "count": 1092,
             "max": [
-                544
+                229
             ],
             "min": [
                 0
@@ -274,85 +286,85 @@
             "type": "SCALAR"
         },
         {
-            "name": "stg2_pit_GEO_lowShape#0/vertices/NORMAL",
+            "name": "drumbstick_GEOShape#0/vertices/NORMAL",
             "bufferView": 1,
-            "byteOffset": 13080,
+            "byteOffset": 8952,
             "componentType": 5126,
-            "count": 545,
+            "count": 230,
             "max": [
-                0.9980312585830689,
-                1.0,
-                0.999431014060974
+                0.9978789687156676,
+                0.9950823783874512,
+                0.999579906463623
             ],
             "min": [
-                -0.9999812841415404,
-                -0.9754382371902466,
-                -0.9928873777389526
+                -0.9998512268066406,
+                -0.9920073747634888,
+                -0.9998619556427002
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg2_pit_GEO_lowShape#0/vertices/POSITION",
+            "name": "drumbstick_GEOShape#0/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 19620,
+            "byteOffset": 11712,
             "componentType": 5126,
-            "count": 545,
+            "count": 230,
             "max": [
-                321.3428649902344,
-                109.78597259521485,
-                242.6552734375
+                14.563557624816897,
+                56.94171142578125,
+                14.369499206542969
             ],
             "min": [
-                -321.3428649902344,
-                -30.416887283325197,
-                -242.65478515625
+                -14.563557624816897,
+                0.0,
+                -14.3508358001709
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg2_pit_GEO_lowShape#0/vertices/TANGENT",
+            "name": "drumbstick_GEOShape#0/vertices/TANGENT",
             "bufferView": 2,
-            "byteOffset": 8720,
+            "byteOffset": 5968,
             "componentType": 5126,
-            "count": 545,
+            "count": 230,
             "max": [
-                0.9997085332870485,
-                0.992977499961853,
-                0.9965090751647948,
+                0.99774569272995,
+                0.7815160751342773,
+                0.1054152175784111,
                 1.0
             ],
             "min": [
-                -0.995570719242096,
-                -0.9983620047569276,
-                -0.9999527335166932,
+                -0.99920654296875,
+                -0.6337846517562866,
+                -0.9999598264694214,
                 1.0
             ],
             "type": "VEC4"
         },
         {
-            "name": "stg2_pit_GEO_lowShape#0/vertices/TEXCOORD_0",
+            "name": "drumbstick_GEOShape#0/vertices/TEXCOORD_0",
             "bufferView": 3,
-            "byteOffset": 4360,
+            "byteOffset": 2984,
             "componentType": 5126,
-            "count": 545,
+            "count": 230,
             "max": [
-                0.9968711137771606,
-                0.7768102884292603
+                0.2800905108451843,
+                0.9861325025558472
             ],
             "min": [
-                0.003870971966534853,
-                0.0031852719839662319
+                0.012299597263336182,
+                0.21411633491516114
             ],
             "type": "VEC2"
         },
         {
-            "name": "stg1_pit_GEO_lowShape#0/indices",
+            "name": "broccoli_GEOShape#0/indices",
             "bufferView": 0,
-            "byteOffset": 8688,
+            "byteOffset": 5544,
             "componentType": 5123,
-            "count": 2172,
+            "count": 2820,
             "max": [
-                544
+                1915
             ],
             "min": [
                 0
@@ -360,116 +372,116 @@
             "type": "SCALAR"
         },
         {
-            "name": "stg1_pit_GEO_lowShape#0/vertices/NORMAL",
+            "name": "broccoli_GEOShape#0/vertices/NORMAL",
             "bufferView": 1,
-            "byteOffset": 26160,
+            "byteOffset": 14472,
             "componentType": 5126,
-            "count": 545,
+            "count": 1916,
             "max": [
-                0.9980312585830689,
-                1.0,
-                0.999431014060974
+                0.9983105659484864,
+                0.997340977191925,
+                0.9930952787399292
             ],
             "min": [
-                -0.9999812841415404,
-                -0.9754382371902466,
-                -0.9928873777389526
+                -0.9852961897850036,
+                -0.99999737739563,
+                -0.9796621203422546
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg1_pit_GEO_lowShape#0/vertices/POSITION",
+            "name": "broccoli_GEOShape#0/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 32700,
+            "byteOffset": 37464,
             "componentType": 5126,
-            "count": 545,
+            "count": 1916,
             "max": [
-                321.3428649902344,
-                109.78597259521485,
-                242.6552734375
+                27.312599182128908,
+                56.03984451293945,
+                28.91522789001465
             ],
             "min": [
-                -321.3428649902344,
-                -30.416887283325197,
-                -242.65478515625
+                -27.312599182128908,
+                0.0,
+                -27.89590644836426
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg1_pit_GEO_lowShape#0/vertices/TANGENT",
+            "name": "broccoli_GEOShape#0/vertices/TANGENT",
             "bufferView": 2,
-            "byteOffset": 17440,
+            "byteOffset": 9648,
             "componentType": 5126,
-            "count": 545,
+            "count": 1916,
             "max": [
-                0.9985318183898926,
-                0.9972760677337648,
-                0.994305431842804,
+                0.990780770778656,
+                0.992785632610321,
+                0.996517539024353,
                 1.0
             ],
             "min": [
-                -0.9998152256011964,
-                -0.9978466033935548,
-                -0.9997110366821288,
+                -0.99958598613739,
+                -0.9986214637756348,
+                -0.991236448287964,
                 1.0
             ],
             "type": "VEC4"
         },
         {
-            "name": "stg1_pit_GEO_lowShape#0/vertices/TEXCOORD_0",
+            "name": "broccoli_GEOShape#0/vertices/TEXCOORD_0",
             "bufferView": 3,
-            "byteOffset": 8720,
+            "byteOffset": 4824,
             "componentType": 5126,
-            "count": 545,
+            "count": 1916,
             "max": [
-                0.9973963499069214,
-                0.9939042329788208
+                0.9988099932670592,
+                0.7498730421066284
             ],
             "min": [
-                0.3508321046829224,
-                0.001772582996636629
+                0.015630999580025674,
+                0.006456971168518066
             ],
             "type": "VEC2"
         }
     ],
     "bufferViews": [
         {
-            "name": "pit/data/indices-2",
+            "name": "foods/data/indices-2",
             "buffer": 0,
-            "byteOffset": 78480,
-            "byteLength": 13032,
+            "byteOffset": 120912,
+            "byteLength": 11184,
             "target": 34963
         },
         {
-            "name": "pit/data/vertices-12",
+            "name": "foods/data/vertices-12",
             "buffer": 0,
-            "byteOffset": 26160,
-            "byteLength": 39240,
+            "byteOffset": 40304,
+            "byteLength": 60456,
             "byteStride": 12,
             "target": 34962
         },
         {
-            "name": "pit/data/vertices-16",
+            "name": "foods/data/vertices-16",
             "buffer": 0,
             "byteOffset": 0,
-            "byteLength": 26160,
+            "byteLength": 40304,
             "byteStride": 16,
             "target": 34962
         },
         {
-            "name": "pit/data/vertices-8",
+            "name": "foods/data/vertices-8",
             "buffer": 0,
-            "byteOffset": 65400,
-            "byteLength": 13080,
+            "byteOffset": 100760,
+            "byteLength": 20152,
             "byteStride": 8,
             "target": 34962
         }
     ],
     "buffers": [
         {
-            "name": "pit/data",
-            "byteLength": 91512,
-            "uri": "pit0.bin"
+            "name": "foods/data",
+            "byteLength": 132096,
+            "uri": "foods0.bin"
         }
     ]
 }
