@@ -74,11 +74,11 @@ export const carbs = (() => {
       this.objects_[0].mesh.visible = false;
     }
 
-   
+
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [120, 170, 280, 330, 360, 420]
+      const spawnPosition = [120, 170, 280, 360, 420, 470]
 
       let obj = null;
 
@@ -97,13 +97,13 @@ export const carbs = (() => {
     }
 
 
-    Update(timeElapsed,speed) {
+    Update(timeElapsed, speed) {
       this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed);
+      this.UpdateColliders_(timeElapsed, speed);
 
     }
 
-    UpdateColliders_(timeElapsed,speed) {
+    UpdateColliders_(timeElapsed, speed) {
       const invisible = [];
       const visible = [];
 

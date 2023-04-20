@@ -95,7 +95,7 @@ export const trolliumChloride = (() => {
     SpawnObj_(timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [110, 350, 450]
+      const spawnPosition = [110, 220, 450]
 
       let obj = null;
 

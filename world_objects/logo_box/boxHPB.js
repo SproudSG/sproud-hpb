@@ -76,7 +76,7 @@ export const hpbLogo = (() => {
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [90, 150, 280, 330, 480]
+      const spawnPosition = [90, 150, 280, 400, 480]
 
       let obj = null;
 

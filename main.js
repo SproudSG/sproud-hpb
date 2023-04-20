@@ -513,7 +513,7 @@ class BasicWorldDemo {
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh.position.set(-5, 0, 0);
+      this.mesh.position.set(-10, 0, 0);
       this.mesh.rotation.set(0, -Math.PI / 2, 0);
       this.mesh.scale.setScalar(0.01);
       this.scene_.add(this.mesh);
@@ -932,7 +932,7 @@ class BasicWorldDemo {
     this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
     this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
     this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
-    this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
+    this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ , stage: this.stage  });
     this.background_ = new background.Background({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
 
@@ -1112,7 +1112,7 @@ class BasicWorldDemo {
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage });
               this.background_ = new background.Background({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
@@ -1356,7 +1356,7 @@ class BasicWorldDemo {
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage });
               this.background_ = new background.Background({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
@@ -1608,7 +1608,7 @@ class BasicWorldDemo {
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage});
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
@@ -1628,12 +1628,12 @@ class BasicWorldDemo {
 
               const loader = new GLTFLoader();
               loader.setPath('./resources/Map/Stage3/');
-              loader.load('stage3start.gltf', (gltf) => {
+              loader.load('stg3_Start.gltf', (gltf) => {
                 this.mesh = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh.position.set(-5, 0, -0.5);
+                this.mesh.position.set(110, 0, -0.5);
                 this.mesh.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh.scale.setScalar(0.01);
 
@@ -1641,12 +1641,12 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh);
 
               });
-              loader.load('stage3wallrun2.gltf', (gltf) => {
+              loader.load('stg3_D.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh1.position.set(192, 0, -0.5);
+                this.mesh1.position.set(318, 0, -0.5);
                 this.mesh1.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh1.scale.setScalar(0.01);
 
@@ -1654,12 +1654,12 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh1);
 
               });
-              loader.load('stage3b.gltf', (gltf) => {
+              loader.load('stg3_B.gltf', (gltf) => {
                 this.mesh2 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh2.position.set(389, 0, -0.5);
+                this.mesh2.position.set(526, 0, -0.5);
                 this.mesh2.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh2.scale.setScalar(0.01);
 
@@ -1667,12 +1667,12 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh2);
 
               });
-              loader.load('stage3a.gltf', (gltf) => {
+              loader.load('stg3_A.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh3.position.set(581, 0, -0.5);
+                this.mesh3.position.set(731, 0, -0.5);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.01);
 
