@@ -46,7 +46,6 @@ export const oilSlik = (() => {
 
 
         Update(timeElapsed, pause, chase, slow) {
-            console.log()
             if (this.mesh_) {
                 this.mixer_.update(timeElapsed);
                 if (chase && this.mesh_.position.x < -8.5 && !pause) {

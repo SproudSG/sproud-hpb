@@ -14,21 +14,14 @@
     "scene": 0,
     "nodes": [
         {
-            "name": "sky_GRP",
-            "children": [
-                3,
-                1
-            ]
-        },
-        {
             "name": "wall_GEO",
             "children": [
-                2
+                1
             ],
             "translation": [
                 -0.00390625,
-                536.9453125,
-                -51404.99609375
+                704.4714965820313,
+                -57432.40625
             ]
         },
         {
@@ -36,28 +29,8 @@
             "mesh": 0,
             "translation": [
                 0.00390625,
-                -536.9453125,
-                51404.99609375
-            ]
-        },
-        {
-            "name": "crackwall_GEO",
-            "children": [
-                4
-            ],
-            "translation": [
-                177.609375,
-                4034.8486328125,
-                -49146.10546875
-            ]
-        },
-        {
-            "name": "crackwall_GEO:PIV",
-            "mesh": 1,
-            "translation": [
-                -177.609375,
-                -4034.8486328125,
-                49146.10546875
+                -704.4714965820313,
+                57432.40625
             ]
         }
     ],
@@ -80,53 +53,43 @@
                     "material": 0
                 }
             ]
-        },
-        {
-            "name": "crackwall_GEOShape",
-            "extras": {
-                "targetNames": []
-            },
-            "primitives": [
-                {
-                    "attributes": {
-                        "NORMAL": 6,
-                        "POSITION": 7,
-                        "TANGENT": 8,
-                        "TEXCOORD_0": 9
-                    },
-                    "indices": 5,
-                    "mode": 4,
-                    "material": 1
-                }
-            ]
         }
     ],
     "materials": [
         {
-            "name": "sky_MAT",
+            "name": "lambert33",
             "pbrMetallicRoughness": {
                 "baseColorFactor": [
-                    0.23063042759895328,
-                    0.7487999796867371,
-                    0.7487999796867371,
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
                     1.0
                 ],
+                "baseColorTexture": {
+                    "index": 0
+                },
                 "metallicFactor": 0.0,
                 "roughnessFactor": 1.0
             }
-        },
+        }
+    ],
+    "textures": [
         {
-            "name": "crackwall_MAT",
-            "pbrMetallicRoughness": {
-                "baseColorFactor": [
-                    0.44381046295166018,
-                    0.13117441534996034,
-                    0.5375999808311462,
-                    1.0
-                ],
-                "metallicFactor": 0.0,
-                "roughnessFactor": 1.0
-            }
+            "sampler": 0,
+            "source": 0
+        }
+    ],
+    "images": [
+        {
+            "uri": "stg3_land_initialShadingGroup_BaseColor.png"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
         }
     ],
     "accessors": [
@@ -135,9 +98,9 @@
             "bufferView": 0,
             "byteOffset": 0,
             "componentType": 5123,
-            "count": 6,
+            "count": 315,
             "max": [
-                3
+                224
             ],
             "min": [
                 0
@@ -149,34 +112,34 @@
             "bufferView": 1,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 4,
+            "count": 225,
             "max": [
-                0.0,
-                -0.0409170538187027,
-                0.9991625547409058
+                0.01941956952214241,
+                -0.0013343279715627432,
+                0.9999989867210388
             ],
             "min": [
-                0.0,
-                -0.0409170538187027,
-                0.9991625547409058
+                -0.020429594442248346,
+                -0.05929109454154968,
+                0.9982250332832336
             ],
             "type": "VEC3"
         },
         {
             "name": "wall_GEOShape#0/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 48,
+            "byteOffset": 2700,
             "componentType": 5126,
-            "count": 4,
+            "count": 225,
             "max": [
                 62821.29296875,
-                24913.525390625,
-                -50406.7421875
+                25208.755859375,
+                -55447.7109375
             ],
             "min": [
                 -62821.30078125,
-                -23839.634765625,
-                -52403.25
+                -23799.8125,
+                -59417.1015625
             ],
             "type": "VEC3"
         },
@@ -185,17 +148,17 @@
             "bufferView": 2,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 4,
+            "count": 225,
             "max": [
                 1.0,
-                0.0,
-                0.0,
+                0.9991625547409058,
+                0.0409170538187027,
                 1.0
             ],
             "min": [
-                1.0,
-                0.0,
-                0.0,
+                -1.0,
+                -0.9989320039749146,
+                -0.04091307148337364,
                 1.0
             ],
             "type": "VEC4"
@@ -205,100 +168,14 @@
             "bufferView": 3,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 4,
+            "count": 225,
             "max": [
-                0.9633907079696656,
-                0.9000329971313477
+                0.9974994659423828,
+                0.9685320258140564
             ],
             "min": [
-                0.05154907330870629,
-                0.05868935585021973
-            ],
-            "type": "VEC2"
-        },
-        {
-            "name": "crackwall_GEOShape#0/indices",
-            "bufferView": 0,
-            "byteOffset": 12,
-            "componentType": 5123,
-            "count": 309,
-            "max": [
-                220
-            ],
-            "min": [
-                0
-            ],
-            "type": "SCALAR"
-        },
-        {
-            "name": "crackwall_GEOShape#0/vertices/NORMAL",
-            "bufferView": 1,
-            "byteOffset": 96,
-            "componentType": 5126,
-            "count": 221,
-            "max": [
-                0.019422059878706933,
-                -0.0013343279715627432,
-                0.9999989867210388
-            ],
-            "min": [
-                -0.020429689437150956,
-                -0.05929109454154968,
-                0.9982250332832336
-            ],
-            "type": "VEC3"
-        },
-        {
-            "name": "crackwall_GEOShape#0/vertices/POSITION",
-            "bufferView": 1,
-            "byteOffset": 2748,
-            "componentType": 5126,
-            "count": 221,
-            "max": [
-                59430.8203125,
-                25208.755859375,
-                -48433.859375
-            ],
-            "min": [
-                -59075.6015625,
-                -17139.05859375,
-                -49858.3515625
-            ],
-            "type": "VEC3"
-        },
-        {
-            "name": "crackwall_GEOShape#0/vertices/TANGENT",
-            "bufferView": 2,
-            "byteOffset": 64,
-            "componentType": 5126,
-            "count": 221,
-            "max": [
-                1.0,
-                0.989978015422821,
-                0.020423641428351404,
-                1.0
-            ],
-            "min": [
-                -0.15581901371479038,
-                -0.658865213394165,
-                -0.012337946332991124,
-                1.0
-            ],
-            "type": "VEC4"
-        },
-        {
-            "name": "crackwall_GEOShape#0/vertices/TEXCOORD_0",
-            "bufferView": 3,
-            "byteOffset": 32,
-            "componentType": 5126,
-            "count": 221,
-            "max": [
-                1.0,
-                1.0
-            ],
-            "min": [
-                0.0,
-                0.0
+                0.0041981041431427,
+                0.016885578632354738
             ],
             "type": "VEC2"
         }

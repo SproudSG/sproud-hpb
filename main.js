@@ -12,7 +12,9 @@ import { trolliumChloride } from './world_objects/monster/trolliumChloride.js';
 import { pitfall } from './world_objects/obstacle/pitfall.js';
 import { wallrun } from './world_objects/obstacle/wallrun.js';
 
-import { background } from './world_objects/background.js';
+import { cloud } from './world_objects/cloud.js';
+import { sky } from './world_objects/sky.js';
+
 import { progression } from './world_objects/progression.js';
 import { water } from './world_objects/drinks/water.js';
 import { soda } from './world_objects/drinks/soda.js';
@@ -458,15 +460,10 @@ class BasicWorldDemo {
     document.getElementById('container').appendChild(this.threejs_.domElement);
     window.addEventListener('orientationchange', () => {
       if (window.orientation === 0 || window.orientation === 180) {
-        console.log('Portrait orientation');
         this.OnWindowResize_();
-
       } else if (window.orientation === 90 || window.orientation === -90) {
-        console.log('Landscape orientation');
         this.OnWindowResize_();
-
       } else {
-        console.log('Unknown orientation');
         this.OnWindowResize_();
 
       }
@@ -481,7 +478,7 @@ class BasicWorldDemo {
     const fov = 60;
     const aspect = 1920 / 1080;
     const near = 1.0;
-    const far = 1300;
+    const far = 2000;
 
     this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
@@ -491,7 +488,7 @@ class BasicWorldDemo {
     //scene
     this.scene_ = new THREE.Scene();
 
-    let light = new THREE.DirectionalLight(0xffffff, 1);
+    let light = new THREE.DirectionalLight(0xb6bfcc, 1);
 
     this.scene_.add(light);
 
@@ -933,7 +930,7 @@ class BasicWorldDemo {
     this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
     this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
     this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ , stage: this.stage  });
-    this.background_ = new background.Background({ scene: this.scene_ });
+    this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
 
 
@@ -1113,7 +1110,7 @@ class BasicWorldDemo {
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage });
-              this.background_ = new background.Background({ scene: this.scene_ });
+              this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
@@ -1357,7 +1354,7 @@ class BasicWorldDemo {
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage });
-              this.background_ = new background.Background({ scene: this.scene_ });
+              this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
@@ -1609,6 +1606,8 @@ class BasicWorldDemo {
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage});
+              this.sky_ = new sky.Sky({ scene: this.scene_ });
+
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
 
@@ -1623,8 +1622,8 @@ class BasicWorldDemo {
               light.position.set(-7, 20, 0);
               this.scene_.add(light);
 
-              this.scene_.background = new THREE.Color(0x808080);
-              this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
+              this.scene_.background = new THREE.Color(0x3C6090);
+              // this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
 
               const loader = new GLTFLoader();
               loader.setPath('./resources/Map/Stage3/');
@@ -1680,27 +1679,6 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh3);
 
               });
-
-
-
-              const uniforms = {
-                topColor: { value: new THREE.Color(0x0c1445) },
-                bottomColor: { value: new THREE.Color(0x38285c) },
-                offset: { value: 33 },
-                exponent: { value: 0.6 }
-              };
-
-              const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
-              const skyMat = new THREE.ShaderMaterial({
-                uniforms: uniforms,
-                vertexShader: _VS,
-                fragmentShader: _FS,
-                side: THREE.BackSide,
-              });
-
-
-              this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
-
 
               this.gameOver_ = false;
               this.stopTime = false;
@@ -1781,8 +1759,7 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
-        this.background_.Update(timeElapsed);
-
+        this.cloud_.Update(timeElapsed);
         this.loaded = true;
 
       }
@@ -1796,8 +1773,7 @@ class BasicWorldDemo {
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
-        this.background_.Update(timeElapsed);
-
+        this.cloud_.Update(timeElapsed);
       } else if (this.stage == 2) {
         this.water_.Update(timeElapsed, this.objSpeed)
         this.soda_.Update(timeElapsed, this.objSpeed)
@@ -1821,6 +1797,7 @@ class BasicWorldDemo {
         this.vege_.Update(timeElapsed, this.objSpeed)
         this.meat_.Update(timeElapsed, this.objSpeed)
         this.carbs_.Update(timeElapsed, this.objSpeed)
+        this.sky_.Update();
         this.trolliumChloride_.Update(timeElapsed, this.objSpeed)
       }
 
@@ -1948,7 +1925,6 @@ class BasicWorldDemo {
       this.restartStage = false;
       this.gameOver_ = true;
       pauseButton.style.display = 'none'
-      console.log(this.stage)
       document.getElementById("fullShield").style.zIndex = "0";
       document.querySelector('#video-container').style.backgroundColor = 'transparent'
       document.querySelector('#pauseDiv').style.display = 'none'

@@ -32,7 +32,6 @@ export const carbs = (() => {
       loader.setPath('./resources/Food/');
 
       loader.load('foods.gltf', (gltf) => {
-        console.log(gltf.scene)
         this.mesh = gltf.scene.children[0].children[2];
         this.params_.scene.add(this.mesh);
 

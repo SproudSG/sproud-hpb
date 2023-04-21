@@ -10,7 +10,7 @@ import { GLTFLoader } from "./../node_modules/three/examples/jsm/loaders/GLTFLoa
 
 import { math } from './math.js';
 
-export const background = (() => {
+export const cloud = (() => {
 
   class BackgroundCloud {
     constructor(params) {
@@ -30,7 +30,7 @@ export const background = (() => {
         this.mesh_ = gltf.scene.children[0].children[0].children[math.rand_int(0,2)];
         this.params_.scene.add(this.mesh_);
 
-        this.position_.x = math.rand_range(0, 2000);
+        this.position_.x = math.rand_range(0, 1500);
         this.position_.y = math.rand_range(100, 200);
         this.position_.z = math.rand_range(500, -1000);
         this.scale_ = math.rand_range(0.01, 0.05);
@@ -61,7 +61,7 @@ export const background = (() => {
     }
   };
 
-  class Background {
+  class Cloud {
     constructor(params) {
       this.params_ = params;
       this.clouds_ = [];
@@ -88,6 +88,6 @@ export const background = (() => {
   }
 
   return {
-    Background: Background,
+    Cloud: Cloud,
   };
 })();
