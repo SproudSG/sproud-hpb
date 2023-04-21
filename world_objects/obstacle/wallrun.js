@@ -12,7 +12,7 @@ export const wallrun = (() => {
     class WallObject {
         constructor(params) {
             this.position = new THREE.Vector3(0, 0, 0);
-            this.quaternion = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+            this.quaternion = new THREE.Quaternion();
             this.scale = 1.0;
             this.collider = new THREE.Box3();
             this.params_ = params;
@@ -25,8 +25,9 @@ export const wallrun = (() => {
 
             const loader = new GLTFLoader();
             loader.setPath('./resources/Wall/');
-            loader.load('walltorun.gltf', (gltf) => {
-                this.mesh = gltf.scene;
+            loader.load('stg3_wallrun.gltf', (gltf) => {
+                console.log(gltf.scene.children[0])
+                this.mesh = gltf.scene.children[0].children[0];
 
                 this.params_.scene.add(this.mesh);
 
@@ -74,22 +75,41 @@ export const wallrun = (() => {
         SpawnObj_(timeElapsed) {
             this.progress_ += timeElapsed * 10.0;
 
-            const spawnPosition = [322, 338]
+            const spawnPosition = [324, 343]
             let obj = null;
-            let zPosition = -7.7; // initialize the zPosition to positive 5
+            let zPosition = 6.3; // initialize the zPosition to positive 5
 
             for (var i = 0; i < spawnPosition.length; i++) {
                 if (this.counter_ == i) {
-                    obj = new WallObject(this.params_);
+                obj = new WallObject(this.params_);
 
-                    obj.position.x = spawnPosition[i]
-                    obj.position.y = -12
-                    obj.position.z = zPosition; // set the zPosition for the object
+                obj.position.x = spawnPosition[i]
+                obj.position.y = 0
+                obj.position.z = zPosition; // set the zPosition for the object
 
-                    obj.scale = 0.015;
-                    this.objects_.push(obj);
-                    this.counter_++
-                    zPosition *= -1; // toggle the zPosition between positive and negative
+
+                if (zPosition > 0 && i % 2 === 1) {
+                    obj.quaternion.setFromAxisAngle(
+                        new THREE.Vector3(0, 1, 0), Math.PI / 2);
+                }else if(zPosition < 0 && i % 2 === 0) {
+                    obj.quaternion.setFromAxisAngle(
+                        new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+                }else if(zPosition > 0 && i % 2 === 0) {
+                    obj.quaternion.setFromAxisAngle(
+                        new THREE.Vector3(0, 1, 0), Math.PI / 2);
+                }else if(zPosition < 0 && i % 2 === 1) {
+                    obj.quaternion.setFromAxisAngle(
+                        new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+                }
+
+
+
+
+
+                obj.scale = 0.011;
+                this.objects_.push(obj);
+                this.counter_++
+                zPosition *= -1; // toggle the zPosition between positive and negative
                 }
             }
         }
