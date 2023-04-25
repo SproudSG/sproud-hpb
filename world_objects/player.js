@@ -22,6 +22,7 @@ export const player = (() => {
       this.slideAnimation_ = false;
       this.slideTimer_ = 0;
       this.playerBox_ = new THREE.Box3();
+      this.playerHit = false;
 
 
       //monster variables
@@ -113,15 +114,23 @@ export const player = (() => {
 
     LoadModel_() {
       let model;
+      let texturePath;
+
       if (this.params_.gender === "male") {
         model = 'BoyAll.gltf';
+        texturePath = './resources/Player/Player_YBot/Boy_Gold_Colour.png'
       } else {
         model = 'GirlAll.gltf';
       }
+
+      // Load the texture image
+      const textureLoader = new THREE.TextureLoader();
+
+      const texture = textureLoader.load(texturePath);
+
+
       // Instantiate a loader
       const loader = new GLTFLoader();
-
-      // Load a glTF resource
       loader.setPath('./resources/Player/Player_YBot/');
       loader.load(
         model,
@@ -142,6 +151,24 @@ export const player = (() => {
           }
 
           this.mesh_ = gltf.scene
+
+          // this.mesh_.traverse((child) => {
+          //   if (child.isMesh) {
+          //     child.material.map.dispose(); // Dispose the old texture
+          //     child.material.map = texture; // Assign the new texture
+          //     child.material.map.needsUpdate = true; // Mark the texture as updated
+          //   }
+          // });
+
+          // Loop through all the materials in the model and set their textures
+          // this.mesh_.traverse(function (node) {
+          //   if (node.material) {
+          //     node.material.map.dispose(); // Dispose the old texture
+          //     node.material.map = texture; // Assign the new texture
+          //     node.material.map.needsUpdate = true; // Mark the texture as updated
+          //   }
+          // });
+
           this.params_.scene.add(this.mesh_);
           this.mesh_.scale.set(0.013, 0.013, 0.013);
           this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
@@ -368,12 +395,13 @@ export const player = (() => {
           } else {
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
+            this.playerHit = true;
 
-            document.querySelector('#video-container').style.backgroundColor = '#754c4c7d'
-            setTimeout(() => {
-              // Reset the background color to the original color
-              document.querySelector('#video-container').style.backgroundColor = 'transparent'
-            }, 2000)
+            // document.querySelector('#video-container').style.backgroundColor = '#754c4c7d'
+            // setTimeout(() => {
+            //   // Reset the background color to the original color
+            //   document.querySelector('#video-container').style.backgroundColor = 'transparent'
+            // }, 2000)
           }
         }
       }
@@ -411,13 +439,9 @@ export const player = (() => {
           } else {
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
+            this.playerHit = true;
 
 
-            document.querySelector('#video-container').style.backgroundColor = '#754c4c7d'
-            setTimeout(() => {
-              // Reset the background color to the original color
-              document.querySelector('#video-container').style.backgroundColor = 'transparent'
-            }, 2000)
           }
         }
       }
@@ -481,6 +505,7 @@ export const player = (() => {
               newStamina = Math.min(newStamina, 100)
               this.stamina_ = newStamina;
               this.params_.water.ToggleVisible();
+              this.params_.waterGrade.ToggleVisible();
 
               setTimeout(() => {
                 this.drink = ""
@@ -510,6 +535,8 @@ export const player = (() => {
               newStamina = Math.min(newStamina, 100)
               this.stamina_ = newStamina;
               this.params_.soda.ToggleVisible();
+              this.params_.sodaGrade.ToggleVisible();
+
               this.sugarDrinks++
               setTimeout(() => {
                 this.drink = ""
@@ -546,6 +573,8 @@ export const player = (() => {
               newStamina = Math.min(newStamina, 100)
               this.stamina_ = newStamina;
               this.params_.fruitDrink.ToggleVisible();
+              this.params_.fruitDrinkGrade.ToggleVisible();
+
               this.sugarDrinks++
               setTimeout(() => {
                 this.drink = ""
@@ -929,8 +958,8 @@ export const player = (() => {
         } else if (this.position_.z == 3) {
           return;
         }
-        var baileyWoo = document.getElementById("bailey-woo");
-        baileyWoo.play();
+        // var baileyWoo = document.getElementById("bailey-woo");
+        // baileyWoo.play();
       } else {
         if (this.position_.z <= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
@@ -947,8 +976,8 @@ export const player = (() => {
         } else if (this.position_.z == -3) {
           return;
         }
-        var baileyWoo = document.getElementById("bailey-woo");
-        baileyWoo.play();
+        // var baileyWoo = document.getElementById("bailey-woo");
+        // baileyWoo.play();
       }
 
 
@@ -965,8 +994,8 @@ export const player = (() => {
       } else if (this.position_.z == -3) {
         return;
       }
-      var baileyWoo = document.getElementById("bailey-woo");
-      baileyWoo.play();
+      // var baileyWoo = document.getElementById("bailey-woo");
+      // baileyWoo.play();
     }
 
     SwipeFullRight() {
@@ -980,8 +1009,8 @@ export const player = (() => {
       } else if (this.position_.z == 3) {
         return;
       }
-      var baileyWoo = document.getElementById("bailey-woo");
-      baileyWoo.play();
+      // var baileyWoo = document.getElementById("bailey-woo");
+      // baileyWoo.play();
     }
 
     SwipeRight() {
@@ -1002,8 +1031,8 @@ export const player = (() => {
         } else if (this.position_.z == -3) {
           return;
         }
-        var baileyWoo = document.getElementById("bailey-woo");
-        baileyWoo.play();
+        // var baileyWoo = document.getElementById("bailey-woo");
+        // baileyWoo.play();
       } else {
         if (this.position_.z >= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
@@ -1020,8 +1049,8 @@ export const player = (() => {
         } else if (this.position_.z == 3) {
           return;
         }
-        var baileyWoo = document.getElementById("bailey-woo");
-        baileyWoo.play();
+        // var baileyWoo = document.getElementById("bailey-woo");
+        // baileyWoo.play();
       }
 
     }
@@ -1289,7 +1318,7 @@ export const player = (() => {
           //wall running right wall mechanics
           if (this.wallArray[1].x < 18 && this.wallArray[1].x > -14 && !this.wallFail) {
 
-      
+
             //right wall
             if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3 && !this.wallFail) {
 

@@ -1,13 +1,6 @@
-// import * as THREE from 'https://storage.googleapis.com/sproud-hpb/node_modules/three/build/three.module.js';
-
-// import { FBXLoader } from "https://storage.googleapis.com/sproud-hpb/node_modules/three/examples/jsm/loaders/FBXLoader.js";
-
-
-
-
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
-import { FBXLoader } from "../../node_modules/three/examples/jsm/loaders/FBXLoader.js";
+import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 export const water = (() => {
 
@@ -26,20 +19,12 @@ export const water = (() => {
     //load the drinks
     LoadModel_() {
 
-
-
-      const loader = new FBXLoader();
+      const loader = new GLTFLoader();
       loader.setPath('./resources/Drinks/');
 
-      loader.load('drinks2.fbx', (fbx) => {
-        this.mesh = fbx.children[0];
-        fbx.traverse((child) => {
-          if (child.isMesh) {
+      loader.load('drinks.gltf', (gltf) => {
+        this.mesh = gltf.scene.children[0].children[3];
 
-            child.material.map = new THREE.TextureLoader().load('./resources/Drinks/textures/drinks_albedo.jpg');
-
-          }
-        });
         this.params_.scene.add(this.mesh);
 
 
@@ -88,7 +73,7 @@ export const water = (() => {
       this.progress_ += timeElapsed * 10.0;
 
       const spawnPosition = [50, 130, 200, 270, 430, 500]
-      
+
       if (this.params_.firstChase) {
         for (let i = 0; i < spawnPosition.length; i++) {
           spawnPosition[i] += 100;
@@ -102,7 +87,11 @@ export const water = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.04;
+          obj.scale = 0.025;
+
+          obj.quaternion.setFromAxisAngle(
+            new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+
           this.objects_.push(obj);
           this.counter_++
         }
@@ -113,11 +102,11 @@ export const water = (() => {
 
     Update(timeElapsed, speed) {
       this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed);
+      this.UpdateColliders_(timeElapsed, speed);
 
     }
 
-    UpdateColliders_(timeElapsed,speed) {
+    UpdateColliders_(timeElapsed, speed) {
       const invisible = [];
       const visible = [];
 

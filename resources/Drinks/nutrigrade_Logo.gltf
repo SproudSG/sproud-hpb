@@ -1,0 +1,601 @@
+{
+    "asset": {
+        "copyright": "(C)2023 post",
+        "generator": "maya2glTF v1.4.0 3d7ba8eaf03e",
+        "version": "2.0"
+    },
+    "scenes": [
+        {
+            "nodes": [
+                6,
+                4,
+                2,
+                0
+            ]
+        }
+    ],
+    "scene": 0,
+    "nodes": [
+        {
+            "name": "D",
+            "children": [
+                1
+            ],
+            "translation": [
+                -0.0000076289998105494309,
+                0.0,
+                -0.05443215370178223
+            ]
+        },
+        {
+            "name": "D:PIV",
+            "mesh": 0,
+            "translation": [
+                0.0000076289998105494309,
+                0.0,
+                0.05443215370178223
+            ]
+        },
+        {
+            "name": "C",
+            "children": [
+                3
+            ],
+            "translation": [
+                -0.00000381500012736069,
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "name": "C:PIV",
+            "mesh": 1,
+            "translation": [
+                0.00000381500012736069,
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "name": "B",
+            "children": [
+                5
+            ],
+            "translation": [
+                -0.0000028609999844775304,
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "name": "B:PIV",
+            "mesh": 2,
+            "translation": [
+                0.0000028609999844775304,
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "name": "A",
+            "children": [
+                7
+            ],
+            "translation": [
+                -0.00000381500012736069,
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "name": "A:PIV",
+            "mesh": 3,
+            "translation": [
+                0.00000381500012736069,
+                0.0,
+                0.0
+            ]
+        }
+    ],
+    "meshes": [
+        {
+            "name": "DShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 1,
+                        "POSITION": 2,
+                        "TANGENT": 3,
+                        "TEXCOORD_0": 4
+                    },
+                    "indices": 0,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "CShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 6,
+                        "POSITION": 7,
+                        "TANGENT": 8,
+                        "TEXCOORD_0": 9
+                    },
+                    "indices": 5,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "BShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 11,
+                        "POSITION": 12,
+                        "TANGENT": 13,
+                        "TEXCOORD_0": 14
+                    },
+                    "indices": 10,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "AShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 16,
+                        "POSITION": 17,
+                        "TANGENT": 18,
+                        "TEXCOORD_0": 19
+                    },
+                    "indices": 15,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "name": "nutrigradelogo_MAT",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        }
+    ],
+    "textures": [
+        {
+            "sampler": 0,
+            "source": 0
+        }
+    ],
+    "images": [
+        {
+            "uri": "nutrigrade_LOGO_colour.png"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    ],
+    "accessors": [
+        {
+            "name": "DShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 3792,
+            "max": [
+                1015
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "DShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1016,
+            "max": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -1.0,
+                -1.0
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "DShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 12192,
+            "componentType": 5126,
+            "count": 1016,
+            "max": [
+                29.16651153564453,
+                57.73927307128906,
+                4.205873966217041
+            ],
+            "min": [
+                -29.166526794433599,
+                0.0,
+                -4.3147382736206059
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "DShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1016,
+            "max": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -0.9993728399276732,
+                -1.0,
+                -1.0,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "DShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1016,
+            "max": [
+                0.9856989979743958,
+                0.9868348836898804
+            ],
+            "min": [
+                0.012936115264892578,
+                0.00830167531967163
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "CShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 7584,
+            "componentType": 5123,
+            "count": 5688,
+            "max": [
+                1463
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "CShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 24384,
+            "componentType": 5126,
+            "count": 1464,
+            "max": [
+                1.0,
+                0.9999730587005616,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -0.9999948143959044,
+                -1.0
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "CShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 41952,
+            "componentType": 5126,
+            "count": 1464,
+            "max": [
+                29.1665153503418,
+                57.73927307128906,
+                4.205873966217041
+            ],
+            "min": [
+                -29.166522979736329,
+                0.0,
+                -4.205873966217041
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "CShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 16256,
+            "componentType": 5126,
+            "count": 1464,
+            "max": [
+                1.0,
+                0.9999902248382568,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -0.996046245098114,
+                -0.9999971389770508,
+                -1.0,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "CShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 8128,
+            "componentType": 5126,
+            "count": 1464,
+            "max": [
+                0.9856989979743958,
+                0.9868348836898804
+            ],
+            "min": [
+                0.012936115264892578,
+                0.00830167531967163
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "BShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 18960,
+            "componentType": 5123,
+            "count": 7116,
+            "max": [
+                1815
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "BShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 59520,
+            "componentType": 5126,
+            "count": 1816,
+            "max": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -1.0,
+                -1.0
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "BShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 81312,
+            "componentType": 5126,
+            "count": 1816,
+            "max": [
+                29.16651725769043,
+                57.73927307128906,
+                4.205873966217041
+            ],
+            "min": [
+                -29.166522979736329,
+                0.0,
+                -4.294632434844971
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "BShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 39680,
+            "componentType": 5126,
+            "count": 1816,
+            "max": [
+                1.0,
+                1.0,
+                0.9999996423721314,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -1.0,
+                -0.9999996423721314,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "BShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 19840,
+            "componentType": 5126,
+            "count": 1816,
+            "max": [
+                0.9856989979743958,
+                0.9868348836898804
+            ],
+            "min": [
+                0.012936165556311608,
+                0.00830167531967163
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "AShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 33192,
+            "componentType": 5123,
+            "count": 1122,
+            "max": [
+                407
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "AShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 103104,
+            "componentType": 5126,
+            "count": 408,
+            "max": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -1.0,
+                -1.0
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "AShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 108000,
+            "componentType": 5126,
+            "count": 408,
+            "max": [
+                29.166519165039064,
+                57.73927307128906,
+                4.205873966217041
+            ],
+            "min": [
+                -29.166526794433599,
+                0.0,
+                -4.314615726470947
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "AShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 68736,
+            "componentType": 5126,
+            "count": 408,
+            "max": [
+                1.0,
+                0.9999902248382568,
+                0.8422664999961853,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -0.9999971389770508,
+                -0.8422664999961853,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "AShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 34368,
+            "componentType": 5126,
+            "count": 408,
+            "max": [
+                0.9856989979743958,
+                0.9868348836898804
+            ],
+            "min": [
+                0.01161469891667366,
+                0.00830167531967163
+            ],
+            "type": "VEC2"
+        }
+    ],
+    "bufferViews": [
+        {
+            "name": "nutrigrade_Logo/data/indices-2",
+            "buffer": 0,
+            "byteOffset": 225792,
+            "byteLength": 35436,
+            "target": 34963
+        },
+        {
+            "name": "nutrigrade_Logo/data/vertices-12",
+            "buffer": 0,
+            "byteOffset": 75264,
+            "byteLength": 112896,
+            "byteStride": 12,
+            "target": 34962
+        },
+        {
+            "name": "nutrigrade_Logo/data/vertices-16",
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 75264,
+            "byteStride": 16,
+            "target": 34962
+        },
+        {
+            "name": "nutrigrade_Logo/data/vertices-8",
+            "buffer": 0,
+            "byteOffset": 188160,
+            "byteLength": 37632,
+            "byteStride": 8,
+            "target": 34962
+        }
+    ],
+    "buffers": [
+        {
+            "name": "nutrigrade_Logo/data",
+            "byteLength": 261228,
+            "uri": "nutrigrade_Logo0.bin"
+        }
+    ]
+}

@@ -2,7 +2,7 @@ import * as THREE from '../../node_modules/three/build/three.module.js';
 
 import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
-export const soda = (() => {
+export const milk = (() => {
 
   class DrinksObject {
     constructor(params) {
@@ -23,7 +23,7 @@ export const soda = (() => {
       loader.setPath('./resources/Drinks/');
 
       loader.load('drinks.gltf', (gltf) => {
-        this.mesh = gltf.scene.children[0].children[2];
+        this.mesh = gltf.scene.children[0].children[1];
 
         this.params_.scene.add(this.mesh);
 
@@ -31,7 +31,6 @@ export const soda = (() => {
       });
 
     }
-
 
     UpdateCollider_() {
       this.collider.setFromObject(this.mesh);
@@ -55,7 +54,9 @@ export const soda = (() => {
       this.speed_ = 12;
       this.params_ = params;
       this.counter_ = 0;
+      this.visibilityCounter_ = 0
       this.spawn_ = 0;
+      this.progress_ = 0;
     }
 
     GetColliders() {
@@ -63,14 +64,15 @@ export const soda = (() => {
     }
 
     ToggleVisible() {
-      this.objects_[0].mesh.visible = false;
-    }
 
+      this.objects_[0].mesh.visible = false;
+
+    }
 
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [50, 130, 200, 270, 430, 500]
+      const spawnPosition =  [50, 130, 200, 430, 500]
 
       if (this.params_.firstChase) {
         for (let i = 0; i < spawnPosition.length; i++) {
@@ -85,10 +87,9 @@ export const soda = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.03;
-          
-          obj.quaternion.setFromAxisAngle(
-            new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+          obj.scale = 0.025;
+
+          obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
 
           this.objects_.push(obj);
           this.counter_++
@@ -96,7 +97,6 @@ export const soda = (() => {
       }
 
     }
-
 
 
     Update(timeElapsed, speed) {
@@ -125,6 +125,7 @@ export const soda = (() => {
       this.objects_ = visible;
       this.unused_.push(...invisible);
     }
+
 
   };
 

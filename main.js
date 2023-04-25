@@ -17,6 +17,10 @@ import { sky } from './world_objects/sky.js';
 
 import { progression } from './world_objects/progression.js';
 import { water } from './world_objects/drinks/water.js';
+import { waterGrade } from './world_objects/drinks/water_grade.js';
+import { fruitDrinkGrade } from './world_objects/drinks/fruitDrink_grade.js';
+import { sodaGrade } from './world_objects/drinks/soda_grade.js';
+
 import { soda } from './world_objects/drinks/soda.js';
 import { fruitDrink } from './world_objects/drinks/fruitDrink.js';
 import { hpbLogo } from './world_objects/logo_box/boxHPB.js';
@@ -90,13 +94,16 @@ class BasicWorldDemo {
 
 
     //on load music 
-    this.menuMusic = document.getElementById("menu-music");
-    this.gameMusic = document.getElementById("game-music")
-    this.menuMusicToggle = false;
+    this.splashScreenMusic = document.getElementById("splash-screen-music");
+    this.stage1Music = document.getElementById("stage1-music")
+    this.stage2Music = document.getElementById("stage2-music")
+    this.stage3Music = document.getElementById("stage3-music")
+
+    this.splashScreenMusicToggle = false;
     window.addEventListener('touchstart', () => {
-      if ((/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) && !this.menuMusicToggle) {
+      if ((/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) && !this.splashScreenMusicToggle) {
         // code to execute if the platform is iOS
-        this._playMenuMusic();
+        this._playSplashScreenMusic();
       }
 
     })
@@ -105,8 +112,7 @@ class BasicWorldDemo {
 
     //start game event listeners
     document.addEventListener('keydown', () => {
-
-
+      this.splashScreenMusic.pause()
       var progressBarContainer = document.getElementById('progress-bar-container');
       if (window.getComputedStyle(progressBarContainer).display === 'none') {
         if (!this._showGender) {
@@ -123,6 +129,7 @@ class BasicWorldDemo {
     });
 
     document.addEventListener('click', () => {
+      this.splashScreenMusic.pause()
       var progressBarContainer = document.getElementById('progress-bar-container');
       if (window.getComputedStyle(progressBarContainer).display === 'none') {
         if (!this._showGender) {
@@ -168,13 +175,13 @@ class BasicWorldDemo {
     //handle start game (male)
     document.getElementById('select-gender').addEventListener('click', () => {
       if (this.gender_ === 'male' || this.gender_ === 'female') {
-        this.menuMusic.pause();
-        this.menuMusicToggle = true;
+        this.splashScreenMusic.pause();
+        this.splashScreenMusicToggle = true;
         document.getElementById('video-container').style.display = 'block';
         document.getElementById('player-ui').style.display = 'block';
 
         document.getElementById('gender-selection').style.display = 'none';
-        this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+        this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
         if (this.firstLoad) {
           this.firstLoad = false;
           this.closeNextStageVideo1();
@@ -369,24 +376,24 @@ class BasicWorldDemo {
   }
 
   playDefeatVid() {
-    this.nextStageVideo5_.style.display = "block";
-    this.nextStageVideo5_.play();
+    this.nextStageVideo4_.style.display = "block";
+    this.nextStageVideo4_.play();
   }
 
   closeNextStageVideo5() {
-    this.nextStageVideo5_.style.display = "none";
-    this.nextStageVideo5_.currentTime = 0;
-    this.nextStageVideo5_.pause();
+    this.nextStageVideo4_.style.display = "none";
+    this.nextStageVideo4_.currentTime = 0;
+    this.nextStageVideo4_.pause();
   }
   //music player
-  _playMenuMusic() {
-    this.menuMusic.play();
+  _playSplashScreenMusic() {
+    this.splashScreenMusic.play();
   }
 
   //start the game
   _OnStart() {
     this._gameStarted = true;
-    this.gameMusic.play();
+    this.stage1Music.play();
   }
 
 
@@ -480,10 +487,21 @@ class BasicWorldDemo {
     const near = 1.0;
     const far = 2000;
 
+
+    // Define the shake parameters
+    this.shakeIntensity = 0.2; // The maximum displacement amount
+    this.shakeDuration = 0.5; // The duration of the shake in seconds
+    this.shakeTime = 0; // The current time of the shake effect
+    this.shakeInterval = 0; // The interval timer for the shake effect
+
+
     this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
     this.camera_.position.set(this.cameraX, this.cameraY, this.cameraZ);
     this.camera_.lookAt(0, this.cameraY, 0);
+
+
+
 
     //scene
     this.scene_ = new THREE.Scene();
@@ -623,13 +641,13 @@ class BasicWorldDemo {
     // Add event listeners to the buttons
     volumeButton.addEventListener("click", () => {
 
-      if (!this.gameMusic.paused && this.menuMusicToggle) {
-        this.gameMusic.pause()
+      if (!this.stage1Music.paused && this.splashScreenMusicToggle) {
+        this.stage1Music.pause()
         volumeButton.style.display = 'none'
         muteButton.style.display = 'block'
       }
-      if (!this.menuMusicToggle) {
-        this.menuMusic.pause()
+      if (!this.splashScreenMusicToggle) {
+        this.splashScreenMusic.pause()
         volumeButton.style.display = 'none'
         muteButton.style.display = 'block'
       }
@@ -639,13 +657,13 @@ class BasicWorldDemo {
     // Add event listeners to the buttons
     muteButton.addEventListener("click", () => {
 
-      if (this.gameMusic.paused && this.menuMusicToggle) {
-        this.gameMusic.play()
+      if (this.stage1Music.paused && this.splashScreenMusicToggle) {
+        this.stage1Music.play()
         volumeButton.style.display = 'block'
         muteButton.style.display = 'none'
       }
-      if (!this.menuMusicToggle) {
-        this.menuMusic.play()
+      if (!this.splashScreenMusicToggle) {
+        this.splashScreenMusic.play()
         volumeButton.style.display = 'block'
         muteButton.style.display = 'none'
       }
@@ -753,6 +771,16 @@ class BasicWorldDemo {
     //handle "click to continue" after video has ended and stage has loaded
     document.getElementById('click-start').addEventListener('click', () => {
       if (this.startstage) {
+
+        if (this.stage == 1) {
+          this.stage1Music.play()
+        } else if (this.stage == 2) {
+          this.stage2Music.play()
+
+        } else if (this.stage == 3) {
+          this.stage3Music.play()
+
+        }
         this.animationId = requestAnimationFrame(animate);
 
         this.objSpeed = 12
@@ -921,15 +949,20 @@ class BasicWorldDemo {
     this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase, stage: this.stage });
     this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
     this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
+    this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
+
     this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
+    this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
     this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+    this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
     this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
     this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
     this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
     this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
-    this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ , stage: this.stage  });
+    this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
     this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
 
@@ -952,6 +985,24 @@ class BasicWorldDemo {
     this.speedz = 0
     cancelAnimationFrame(this.animationId);
     this.isPaused = true;
+  }
+
+  shakeCamera() {
+    clearInterval(this.shakeInterval); // Clear any existing shake interval
+    this.shakeTime = 0; // Reset the shake time
+    this.shakeInterval = setInterval(() => {
+      this.shakeTime += 0.01; // Increase the shake time by a small amount
+      var shakeX = (Math.sin(this.shakeTime * 50) * this.shakeIntensity) - 10; // Calculate the X displacement
+      var shakeY = (Math.sin(this.shakeTime * 80) * this.shakeIntensity) + 5; // Calculate the Y displacement
+      this.camera_.position.set(shakeX, shakeY, 0); // Apply the displacement to the camera position
+      if (this.shakeTime >= this.shakeDuration) { // Stop the shake effect after the duration has elapsed
+        clearInterval(this.shakeInterval);
+        this.camera_.position.set(-10, 5, 0); // Reset the camera position
+        this.player_.playerHit = false;
+        this.checkHit = false;
+
+      }
+    }, 20);
   }
 
   //handle window resize to maintain aspect ratio
@@ -1000,10 +1051,8 @@ class BasicWorldDemo {
         this.cameraZ = this.cameraZ + 0.04
 
       }
-      
-      if(this.cameraZ > -3 ){
+      if (this.cameraZ > -3) {
         this.oilSlik_.mesh_.scale.set(0.2, 0.2, 0.2)
-
       }
 
       if (this.cameraX <= -10 && this.cameraY <= 5 && this.cameraZ >= 0) {
@@ -1098,7 +1147,7 @@ class BasicWorldDemo {
               //initiate all the game objects
               this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
               this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ , stage: this.stage });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, stage: this.stage });
               this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
@@ -1108,8 +1157,11 @@ class BasicWorldDemo {
               this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage });
+              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
+              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+              this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
               this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
@@ -1134,56 +1186,56 @@ class BasicWorldDemo {
               loader.setPath('./resources/Map/Stage1/');
               loader.load('stg1_A.gltf', (gltf) => {
                 this.mesh = gltf.scene;
-          
+
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
                 this.mesh.position.set(-5, 0, 0);
                 this.mesh.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh.scale.setScalar(0.01);
                 this.scene_.add(this.mesh);
-          
+
               });
-          
+
               loader.load('stg1_B.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
-          
+
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
                 this.mesh1.position.set(192, 0, 0);
                 this.mesh1.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh1.scale.setScalar(0.01);
-          
-          
+
+
                 this.scene_.add(this.mesh1);
-          
+
               });
               loader.load('stg1_B.gltf', (gltf) => {
                 this.mesh2 = gltf.scene;
-          
+
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
                 this.mesh2.position.set(389, 0, 0);
                 this.mesh2.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh2.scale.setScalar(0.01);
-          
-          
+
+
                 this.scene_.add(this.mesh2);
-          
+
               });
               loader.load('stg1_A.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
-          
+
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
                 this.mesh3.position.set(581, 0, 0);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.01);
-          
-          
+
+
                 this.scene_.add(this.mesh3);
-          
+
               });
-       
+
 
 
               const uniforms = {
@@ -1245,6 +1297,7 @@ class BasicWorldDemo {
     //stage 1 won
     if (!this.eventAdded && this.stage == 1) {
       document.addEventListener('score-over1', () => {
+        this.stage1Music.pause()
         this.showChase = false;
         this.gameOver_ = true;
         this.allowPause = false;
@@ -1342,18 +1395,21 @@ class BasicWorldDemo {
               //initiate all the game objects
               this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
               this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_ , stage: this.stage});
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, stage: this.stage });
               this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
               this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
+              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
+              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+              this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
               this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
               this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
               this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage });
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
               this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
@@ -1497,6 +1553,7 @@ class BasicWorldDemo {
     if (!this.eventAdded1 && this.stage == 2) {
 
       document.addEventListener('score-over2', () => {
+        this.stage2Music.pause()
         this.gameOver_ = true;
         this.stopTime = true
         this.allowPause = false;
@@ -1599,13 +1656,16 @@ class BasicWorldDemo {
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
               this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
+              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
+              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+              this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
               this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
               this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
               this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, soda: this.soda_, fruitDrink: this.fruitDrink_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_ ,  stage: this.stage});
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
               this.sky_ = new sky.Sky({ scene: this.scene_ });
 
               this.progression_ = new progression.ProgressionManager();
@@ -1725,6 +1785,7 @@ class BasicWorldDemo {
     //if player wins stage 3
     if (!this.eventAdded2 && this.stage == 3) {
       document.addEventListener('score-over3', () => {
+        this.stage3Music.pause()
         this.allowPause = false;
         this.gameOver_ = true;
         this.stopTime = true;
@@ -1754,10 +1815,12 @@ class BasicWorldDemo {
     if (this.gameOver_ || !this._gameStarted) {
 
       if (!this.loaded) {
-
         this.water_.Update(timeElapsed, this.objSpeed)
+        this.waterGrade_.Update(timeElapsed, this.objSpeed)
         this.soda_.Update(timeElapsed, this.objSpeed)
+        this.sodaGrade_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
+        this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
         this.cloud_.Update(timeElapsed);
         this.loaded = true;
@@ -1770,12 +1833,18 @@ class BasicWorldDemo {
       //load the game assets and animations
       if (this.stage == 1) {
         this.water_.Update(timeElapsed, this.objSpeed)
+        this.waterGrade_.Update(timeElapsed, this.objSpeed)
+        this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
+        this.sodaGrade_.Update(timeElapsed, this.objSpeed)
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
         this.cloud_.Update(timeElapsed);
       } else if (this.stage == 2) {
         this.water_.Update(timeElapsed, this.objSpeed)
+        this.waterGrade_.Update(timeElapsed, this.objSpeed)
+        this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
+        this.sodaGrade_.Update(timeElapsed, this.objSpeed)
         this.soda_.Update(timeElapsed, this.objSpeed)
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
@@ -1786,6 +1855,9 @@ class BasicWorldDemo {
         this.trolliumChloride_.Update(timeElapsed, this.objSpeed)
       } else if (this.stage == 3) {
         this.wallrun_.Update(timeElapsed, this.objSpeed)
+        this.waterGrade_.Update(timeElapsed, this.objSpeed)
+        this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
+        this.sodaGrade_.Update(timeElapsed, this.objSpeed)
         this.hpbLogo_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
@@ -1810,7 +1882,11 @@ class BasicWorldDemo {
       this.oilSlik_.Update(timeElapsed, pause, this.showChase);
       this.progression_.Update(timeElapsed, pause, this.stage, this.gameOver_);
 
-
+      //if player gets hit bruh 
+      if (this.player_.playerHit == true && !this.checkHit) {
+        this.checkHit = true;
+        this.shakeCamera()
+      }
 
       //check if player collides with the pit
       this.player_.getPitCollide(result => {

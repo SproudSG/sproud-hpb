@@ -1,14 +1,6 @@
-// import * as THREE from 'https://storage.googleapis.com/sproud-hpb/node_modules/three/build/three.module.js';
-
-// import { FBXLoader } from "https://storage.googleapis.com/sproud-hpb/node_modules/three/examples/jsm/loaders/FBXLoader.js";
-
-
-
-
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
-import { FBXLoader } from "../../node_modules/three/examples/jsm/loaders/FBXLoader.js";
-
+import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 
 export const fruitDrink = (() => {
@@ -26,22 +18,19 @@ export const fruitDrink = (() => {
     }
 
     //load the drinks
+
+    //load the drinks
     LoadModel_() {
 
-      const loader = new FBXLoader();
+      const loader = new GLTFLoader();
       loader.setPath('./resources/Drinks/');
 
-      loader.load('drinks2.fbx', (fbx) => {
+      loader.load('drinks.gltf', (gltf) => {
+        this.mesh = gltf.scene.children[0].children[0];
 
-        this.mesh = fbx.children[9];
         this.params_.scene.add(this.mesh);
 
-        fbx.traverse((child) => {
-          if (child.isMesh) {
-              child.material.map = new THREE.TextureLoader().load('./resources/Drinks/textures/drinks_albedo.jpg');
-            
-          }
-        });
+
       });
 
     }
@@ -97,7 +86,10 @@ export const fruitDrink = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.05;
+          obj.scale = 0.03;
+          
+          obj.quaternion.setFromAxisAngle(
+            new THREE.Vector3(0, 1, 0), -Math.PI / 2);
           this.objects_.push(obj);
           this.counter_++
         }
