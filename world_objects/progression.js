@@ -20,9 +20,9 @@ export const progression = (() => {
                 document.getElementById('runner').style.left = scoreText * 4.1 + 'px';
                 document.getElementById('monster').style.left = scoreText1 * 4.1 + 'px';
 
-                if (this.progress_ >= 50) {
+                if (this.progress_ >= 510) {
                     if (stage == 1) {
-                       document.dispatchEvent(new CustomEvent('score-over1'));
+                        document.dispatchEvent(new CustomEvent('score-over1'));
                     } else if (stage == 2) {
                         document.dispatchEvent(new CustomEvent('score-over2'));
                     } else if (stage == 3) {
@@ -31,7 +31,7 @@ export const progression = (() => {
                     }
                 }
 
-       
+
 
 
             }

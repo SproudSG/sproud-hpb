@@ -397,11 +397,11 @@ export const player = (() => {
             this.stamina_ = newStamina;
             this.playerHit = true;
 
-            // document.querySelector('#video-container').style.backgroundColor = '#754c4c7d'
-            // setTimeout(() => {
-            //   // Reset the background color to the original color
-            //   document.querySelector('#video-container').style.backgroundColor = 'transparent'
-            // }, 2000)
+            document.querySelector('#video-container').style.background = "radial-gradient(circle at center, transparent 0%, rgba(255, 0, 0, 0) 60%, rgba(255, 0, 0, 0.8) 100%)"
+            setTimeout(() => {
+              // Reset the background color to the original color
+              document.querySelector('#video-container').style.background = ""
+            }, 2000)
           }
         }
       }
@@ -441,6 +441,11 @@ export const player = (() => {
             this.stamina_ = newStamina;
             this.playerHit = true;
 
+            document.querySelector('#video-container').style.background = "radial-gradient(circle at center, transparent 0%, rgba(255, 0, 0, 0) 60%, rgba(255, 0, 0, 0.8) 100%)"
+            setTimeout(() => {
+              // Reset the background color to the original color
+              document.querySelector('#video-container').style.background = ""
+            }, 2000)
 
           }
         }

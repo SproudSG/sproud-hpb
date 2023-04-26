@@ -90,7 +90,7 @@ export const fruitDrinkGrade = (() => {
 
                     obj.position.x = spawnPosition[i]
                     obj.position.z = position[i]
-                    obj.position.y = 3
+                    obj.position.y = 3.5
 
                     obj.scale = 0.02;
 

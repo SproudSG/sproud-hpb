@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@font-face {
+  font-family: 'LemonMilk';
+  src: url('./resources/Fonts/Lemon Milk/LEMONMILK-Bold.otf');
+
+}
 
 /* global page css */
 html,
@@ -37,7 +41,7 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'LemonMilk', cursive;
 }
 
 
@@ -98,7 +102,7 @@ img {
 .game-over-text {
   font-size: 5em;
   color: white;
-  text-shadow: 8px 8px black;
+  text-shadow: 4px 4px black;
   margin-bottom: 100px;
 }
 
@@ -138,7 +142,7 @@ img {
 .you-win-text {
   font-size: 5em;
   color: white;
-  text-shadow: 8px 8px black;
+  text-shadow: 4px 4px black;
   margin-bottom: 50px;
 }
 
@@ -146,7 +150,7 @@ img {
 .ten-seconds-text {
   font-size: 1em;
   color: white;
-  text-shadow: 8px 8px black;
+  text-shadow: 4px 4px black;
 }
 
 /* count down */
@@ -181,12 +185,6 @@ img {
   width: 500px;
 }
 
-.stamina-text {
-  font-size: 1em;
-  color: white;
-  text-align: center;
-  text-shadow: 2px 2px black;
-}
 
 .progress-layout {
   padding-bottom: 10px;
@@ -227,15 +225,12 @@ img {
 
 .game-menu-layout {
   position: relative;
-
   width: 100%;
   height: 100%;
   background: white;
-  /* background-image: url(./resources/SplashScreen/Splashscreen_v2.png); */
   background-size: cover;
   background-position: center;
   justify-content: center;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
 #main-logo {
@@ -254,7 +249,8 @@ img {
   left: 0;
   width: 100%;
   height: 110vh;
-  object-fit: cover!important; /* set the object-fit property to cover */
+  object-fit: cover !important;
+  /* set the object-fit property to cover */
 
 }
 
@@ -411,6 +407,23 @@ img {
   }
 }
 
+
+#skip-button-container {
+  z-index: 11;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+#skip-button-container img {
+  width: 200px;
+}
+
+#skip-button-container img:hover {
+  cursor: pointer;
+}
+
+
 /* sheild css */
 
 div.wrapper {
@@ -498,7 +511,6 @@ div.quarter.right-bottom {
   position: absolute;
   top: 0;
   left: 0;
-  font-family: 'Press Start 2P', cursive;
   background-image: url(./resources/CharacterSelect_BG/Character_select_BG.png);
   background-position: center;
   background-size: cover;
@@ -543,16 +555,21 @@ div.quarter.right-bottom {
 }
 
 .select-player-button {
-  position: absolute; /* position the button absolute to its container */
-  bottom: 10%; /* set the distance from the bottom */
-  left: 50%; /* center the button horizontally */
-  transform: translateX(-50%); /* adjust the position to center the button */
+  position: absolute;
+  /* position the button absolute to its container */
+  bottom: 10%;
+  /* set the distance from the bottom */
+  left: 50%;
+  /* center the button horizontally */
+  transform: translateX(-50%);
+  /* adjust the position to center the button */
   text-align: center;
 }
 
-.select-player-button img{
+.select-player-button img {
   width: 200px;
 }
+
 .select-player-button img:hover {
   cursor: pointer;
 }

@@ -58,6 +58,9 @@ export const fruitDrink = (() => {
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
+      this.floatSpeed = 0.01;
+      this.rotateY = 0
+      this.rotateIncrement = 0.01
     }
 
     GetColliders() {
@@ -68,11 +71,11 @@ export const fruitDrink = (() => {
       this.objects_[0].mesh.visible = false;
     }
 
-   
+
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
       const spawnPosition = [50, 130, 200, 270, 430, 500]
-      
+
       if (this.params_.firstChase) {
         for (let i = 0; i < spawnPosition.length; i++) {
           spawnPosition[i] += 100;
@@ -87,7 +90,7 @@ export const fruitDrink = (() => {
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
           obj.scale = 0.03;
-          
+
           obj.quaternion.setFromAxisAngle(
             new THREE.Vector3(0, 1, 0), -Math.PI / 2);
           this.objects_.push(obj);
@@ -98,15 +101,16 @@ export const fruitDrink = (() => {
     }
 
 
-    Update(timeElapsed,speed) {
+    Update(timeElapsed, speed) {
       this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed);
+      this.UpdateColliders_(timeElapsed, speed);
 
     }
 
-    UpdateColliders_(timeElapsed,speed) {
+    UpdateColliders_(timeElapsed, speed) {
       const invisible = [];
       const visible = [];
+      this.rotateY += this.rotateIncrement
 
       for (let obj of this.objects_) {
         obj.position.x -= timeElapsed * speed;
@@ -118,6 +122,25 @@ export const fruitDrink = (() => {
           visible.push(obj);
         }
 
+        // Update the floating position based on the elapsed time
+        if (obj.position.y < 0 && !this.toggleFloat) {
+          this.toggleFloat = true;
+          this.toggleFloat1 = false;
+
+          this.floatSpeed *= -1
+        }
+
+        if (obj.position.y > 0.25 && !this.toggleFloat1) {
+          this.toggleFloat = false;
+          this.toggleFloat1 = true;
+
+          this.floatSpeed *= -1
+        }
+
+        obj.position.y += this.floatSpeed;
+
+        obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
+  
         obj.Update(timeElapsed);
       }
 

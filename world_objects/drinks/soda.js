@@ -56,6 +56,9 @@ export const soda = (() => {
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
+      this.floatSpeed = 0.01;
+      this.rotateY = 0
+      this.rotateIncrement = 0.01
     }
 
     GetColliders() {
@@ -108,6 +111,7 @@ export const soda = (() => {
     UpdateColliders_(timeElapsed, speed) {
       const invisible = [];
       const visible = [];
+      this.rotateY += this.rotateIncrement
 
       for (let obj of this.objects_) {
         obj.position.x -= timeElapsed * speed;
@@ -119,6 +123,24 @@ export const soda = (() => {
           visible.push(obj);
         }
 
+        if (obj.position.y < 0 && !this.toggleFloat) {
+          this.toggleFloat = true;
+          this.toggleFloat1 = false;
+
+          this.floatSpeed *= -1
+        }
+
+        if (obj.position.y > 0.25 && !this.toggleFloat1) {
+          this.toggleFloat = false;
+          this.toggleFloat1 = true;
+
+          this.floatSpeed *= -1
+        }
+
+        obj.position.y += this.floatSpeed;
+
+        obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
+  
         obj.Update(timeElapsed);
       }
 

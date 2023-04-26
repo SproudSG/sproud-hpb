@@ -14,6 +14,7 @@ import { wallrun } from './world_objects/obstacle/wallrun.js';
 
 import { cloud } from './world_objects/cloud.js';
 import { sky } from './world_objects/sky.js';
+import { stg1sky } from './world_objects/stage1_sky.js';
 
 import { progression } from './world_objects/progression.js';
 import { water } from './world_objects/drinks/water.js';
@@ -263,6 +264,8 @@ class BasicWorldDemo {
       this.closeNextStageVideo1();
       document.getElementById('video-container').style.display = 'none';
       document.getElementById('gender-selection').style.display = 'block';
+      document.getElementById("skip-button-container").style.display = "none";
+
     });
 
     // if next stage video ends, then unpause everything
@@ -270,6 +273,7 @@ class BasicWorldDemo {
       this.closeNextStageVideo2();
 
       document.getElementById('loading-2').style.display = 'block';
+      document.getElementById("skip-button-container").style.display = "none";
 
       while (this.scene_.children.length > 0) {
         this.scene_.remove(this.scene_.children[0]);
@@ -282,6 +286,7 @@ class BasicWorldDemo {
       this.closeNextStageVideo3();
 
       document.getElementById('loading-3').style.display = 'block';
+      document.getElementById("skip-button-container").style.display = "none";
 
 
       while (this.scene_.children.length > 0) {
@@ -485,7 +490,7 @@ class BasicWorldDemo {
     const fov = 60;
     const aspect = 1920 / 1080;
     const near = 1.0;
-    const far = 2000;
+    const far = 10000;
 
 
     // Define the shake parameters
@@ -506,7 +511,7 @@ class BasicWorldDemo {
     //scene
     this.scene_ = new THREE.Scene();
 
-    let light = new THREE.DirectionalLight(0xb6bfcc, 1);
+    let light = new THREE.DirectionalLight(0xffffff, 1);
 
     this.scene_.add(light);
 
@@ -518,7 +523,7 @@ class BasicWorldDemo {
     this.scene_.add(light);
 
     this.scene_.background = new THREE.Color(0x808080);
-    this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
+    // this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
 
     //load map
     const loader = new GLTFLoader();
@@ -540,7 +545,7 @@ class BasicWorldDemo {
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh1.position.set(192, 0, 0);
+      this.mesh1.position.set(200, 0, 0);
       this.mesh1.rotation.set(0, -Math.PI / 2, 0);
       this.mesh1.scale.setScalar(0.01);
 
@@ -553,7 +558,7 @@ class BasicWorldDemo {
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh2.position.set(389, 0, 0);
+      this.mesh2.position.set(410, 0, 0);
       this.mesh2.rotation.set(0, -Math.PI / 2, 0);
       this.mesh2.scale.setScalar(0.01);
 
@@ -566,7 +571,7 @@ class BasicWorldDemo {
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh3.position.set(581, 0, 0);
+      this.mesh3.position.set(620, 0, 0);
       this.mesh3.rotation.set(0, -Math.PI / 2, 0);
       this.mesh3.scale.setScalar(0.01);
 
@@ -579,7 +584,7 @@ class BasicWorldDemo {
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh4.position.set(773, 0, 0);
+      this.mesh4.position.set(830, 0, 0);
       this.mesh4.rotation.set(0, -Math.PI / 2, 0);
       this.mesh4.scale.setScalar(0.01);
 
@@ -596,6 +601,7 @@ class BasicWorldDemo {
     var restartButton = document.getElementById("restartBtn");
     var continueButton = document.getElementById("continueBtn");
     var retryStage3 = document.getElementById("retry-stage-3");
+    var skipButton = document.getElementById("skip-button-container");
 
     // Add event listeners to the buttons
     retryStage3.addEventListener("click", () => {
@@ -668,6 +674,18 @@ class BasicWorldDemo {
         muteButton.style.display = 'none'
       }
 
+
+    });
+
+    skipButton.addEventListener('click', () => {
+      console.log(this.stage)
+      if (this.stage == 1) {
+        this.nextStageVideo1_.currentTime = this.nextStageVideo1_.duration;
+      }else if( this.stage == 2){
+        this.nextStageVideo2_.currentTime = this.nextStageVideo2_.duration;
+      }else if( this.stage == 3){
+        this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
+      }
 
     });
 
@@ -955,6 +973,7 @@ class BasicWorldDemo {
     this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
     this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
     this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+    this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
 
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
@@ -1477,7 +1496,7 @@ class BasicWorldDemo {
 
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh3.position.set(615, 0, 0);
+                this.mesh3.position.set(625, 0, 0);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.01);
 
@@ -1485,7 +1504,19 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh3);
 
               });
+              loader.load('stg2_exit.gltf', (gltf) => {
+                this.mesh4 = gltf.scene;
 
+                gltf.castShadow = true;
+                gltf.receiveShadow = true;
+                this.mesh4.position.set(727, 0, 0);
+                this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh4.scale.setScalar(0.01);
+
+
+                this.scene_.add(this.mesh4);
+
+              });
 
 
               const uniforms = {
@@ -1823,6 +1854,7 @@ class BasicWorldDemo {
         this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
         this.cloud_.Update(timeElapsed);
+        this.stage1sky_.Update()
         this.loaded = true;
 
       }
@@ -1840,6 +1872,8 @@ class BasicWorldDemo {
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
         this.cloud_.Update(timeElapsed);
+        this.stage1sky_.Update()
+
       } else if (this.stage == 2) {
         this.water_.Update(timeElapsed, this.objSpeed)
         this.waterGrade_.Update(timeElapsed, this.objSpeed)
@@ -2004,6 +2038,8 @@ class BasicWorldDemo {
       document.getElementById("fullShield").style.zIndex = "0";
       document.querySelector('#video-container').style.backgroundColor = 'transparent'
       document.querySelector('#pauseDiv').style.display = 'none'
+      document.getElementById("skip-button-container").style.display = "block";
+
 
       if (this.stage == 2) {
         this.playNextStageVideo2()
@@ -2042,6 +2078,7 @@ class BasicWorldDemo {
       document.getElementById('try-again-button').addEventListener('click', () => {
 
         document.getElementById('game-over').classList.remove('active');
+        document.getElementById("skip-button-container").style.display = "block";
 
         if (this.stage == 2) {
           this.playNextStageVideo2()

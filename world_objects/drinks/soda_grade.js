@@ -71,7 +71,6 @@ export const sodaGrade = (() => {
     ToggleVisible() {
 
       this.objects_[0].mesh.visible = false;
-      console.log(this.objects_)
 
     }
 
@@ -93,7 +92,7 @@ export const sodaGrade = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.position.y = 3
+          obj.position.y = 3.5
 
           obj.scale = 0.02;
 

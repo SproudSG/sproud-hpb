@@ -54,10 +54,9 @@
       </div>
     </div>
 
-    <!-- pause -->
+    <!-- pause and mute button -->
     <div class="ui">
       <div class="button-container">
-        <img src="./resources/play_button.png" style="display: none;" id="playButton"></img>
         <img src="./resources/Buttons/Pause_Button.png" style="display: none;" id="pauseButton"></img>
       </div>
     </div>
@@ -159,7 +158,7 @@
   </div>
 
 
-  <!-- play power up video -->
+  <!-- video container w video and pause screen -->
   <div id="video-container" style="display: none;">
 
     <video playsinline preload="auto" id="nextStage1" src="./resources/videos/HPB_Vid_001.mp4"
@@ -170,7 +169,11 @@
       style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage4" src="./resources/videos/HPB_Vid_004.mp4"
       style="display: none;"></video>
-    <video playsinline preload="auto" id="nextStage5" src="./resources/nextStage.mp4" style="display: none;"></video>
+    <video playsinline preload="auto" id="nextStage5" src="./resources/videos/HPB_Vid_004.mp4" style="display: none;"></video>
+
+    <div id="skip-button-container" style="display: none;">
+      <img id="skip-button" src="./resources/Buttons/Skip_Button.png">
+    </div>
 
     <div class="ui" id="pauseDiv" style="display: none;">
 
@@ -191,6 +194,8 @@
 
     </div>
   </div>
+
+  <!-- click start and loading stuff -->
   <div id="click-start" style="display: none;">
     <div class="ui">
       <div class="you-win-layout">
@@ -240,7 +245,7 @@
 
   </div>
 
-  <audio id="bailey-woo" src="./resources/SFX/bailey/Cartoon Girl Woo.mp3"></audio>
+  <!-- <audio id="bailey-woo" src="./resources/SFX/bailey/Cartoon Girl Woo.mp3"></audio> -->
 </body>
 
 </html>

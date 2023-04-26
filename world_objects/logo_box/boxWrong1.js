@@ -62,6 +62,9 @@ export const hpbWrongLogo1 = (() => {
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
+      this.floatSpeed = 0.01;
+      this.rotateY = 0
+      this.rotateIncrement = 0.01
     }
 
     GetColliders() {
@@ -116,7 +119,22 @@ export const hpbWrongLogo1 = (() => {
         } else {
           visible.push(obj);
         }
+        if (obj.position.y < 0 && !this.toggleFloat) {
+          this.toggleFloat = true;
+          this.toggleFloat1 = false;
 
+          this.floatSpeed *= -1
+        }
+
+        if (obj.position.y > 0.25 && !this.toggleFloat1) {
+          this.toggleFloat = false;
+          this.toggleFloat1 = true;
+
+          this.floatSpeed *= -1
+        }
+
+        obj.position.y += this.floatSpeed;
+  
         obj.Update(timeElapsed);
       }
 

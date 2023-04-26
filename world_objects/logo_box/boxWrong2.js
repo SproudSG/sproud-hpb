@@ -13,7 +13,7 @@ export const hpbWrongLogo2 = (() => {
 
   class BoxObject {
     constructor(params) {
-      this.position = new THREE.Vector3(0, 0, 0);
+      this.position = new THREE.Vector3(0, 1, 0);
       this.quaternion = new THREE.Quaternion();
       this.scale = 1.0;
       this.drinks_ = []
@@ -61,6 +61,10 @@ export const hpbWrongLogo2 = (() => {
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
+      this.floatSpeed = 0.002
+      this.rotateY = 0
+      this.rotateIncrement = 0.01
+      this.positionY = 0;
     }
 
     GetColliders() {
@@ -85,7 +89,7 @@ export const hpbWrongLogo2 = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.position.y = 1
+          // obj.position.y = 1
 
           obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2);
 
@@ -117,7 +121,24 @@ export const hpbWrongLogo2 = (() => {
         } else {
           visible.push(obj);
         }
+        if (this.positionY < 0 && !this.toggleFloat) {
+          this.toggleFloat = true;
+          this.toggleFloat1 = false;
 
+          this.floatSpeed *= -1
+        }
+
+        if (this.positionY  > 0.25 && !this.toggleFloat1) {
+          this.toggleFloat = false;
+          this.toggleFloat1 = true;
+
+          this.floatSpeed *= -1
+        }
+
+        this.positionY += this.floatSpeed ;
+
+        obj.position.y = this.positionY + 1
+  
         obj.Update(timeElapsed);
       }
 
