@@ -30,8 +30,8 @@ export const cloud = (() => {
         this.mesh_ = gltf.scene.children[0].children[0].children[math.rand_int(0,2)];
         this.params_.scene.add(this.mesh_);
 
-        this.position_.x = math.rand_range(0, 1500);
-        this.position_.y = math.rand_range(100, 200);
+        this.position_.x = math.rand_range(0, 800);
+        this.position_.y = math.rand_range(100, 180);
         this.position_.z = math.rand_range(500, -1000);
         this.scale_ = math.rand_range(0.01, 0.05);
 
@@ -52,7 +52,7 @@ export const cloud = (() => {
 
 
       if (this.position_.x < -100) {
-        this.position_.x = math.rand_range(2000, 3000);
+        this.position_.x = 800;
       }
 
       this.mesh_.position.copy(this.position_);

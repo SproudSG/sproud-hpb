@@ -135,39 +135,42 @@ export const player = (() => {
       loader.load(
         model,
         (gltf) => {
+          console.log(gltf.scene.children[0].children[1])
           this.gltf = gltf
 
-          if (this.params_.stage == 1) {
-            this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-              child.visible = false;
-            });
-          } else {
 
-            this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-              if (child.name !== "shield_GEO") {
-                child.visible = false;
+          this.mesh_ = gltf.scene.children[0]
+
+          this.mesh_.traverse((object) => {
+
+            if (object.name === 'quarter_meat_GEO') {
+              object.visible = false;
+
+            }
+            if (object.name === 'half_vegetable_GEO') {
+              object.visible = false;
+
+            }
+            if (object.name === 'quarter_rice_GEO') {
+              object.visible = false;
+
+            }
+
+            if (this.params_.stage == 1) {
+              if (object.name === 'shield_GEO') {
+                object.visible = false;
+
               }
-            });
-          }
+            } else {
+              if (object.name === 'shield_GEO') {
+                object.visible = true;
 
-          this.mesh_ = gltf.scene
+              }
+            }
+          });
 
-          // this.mesh_.traverse((child) => {
-          //   if (child.isMesh) {
-          //     child.material.map.dispose(); // Dispose the old texture
-          //     child.material.map = texture; // Assign the new texture
-          //     child.material.map.needsUpdate = true; // Mark the texture as updated
-          //   }
-          // });
+          // add the model to the scene
 
-          // Loop through all the materials in the model and set their textures
-          // this.mesh_.traverse(function (node) {
-          //   if (node.material) {
-          //     node.material.map.dispose(); // Dispose the old texture
-          //     node.material.map = texture; // Assign the new texture
-          //     node.material.map.needsUpdate = true; // Mark the texture as updated
-          //   }
-          // });
 
           this.params_.scene.add(this.mesh_);
           this.mesh_.scale.set(0.013, 0.013, 0.013);
@@ -378,11 +381,26 @@ export const player = (() => {
             this.meatProp = 0;
             this.vegeProp = 0;
             this.carbProp = 0;
-            this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-              if (child.name !== "shield_GEO") {
-                child.visible = false;
+
+            this.mesh_.traverse((object) => {
+              if (object.name === 'quarter_meat_GEO') {
+                object.visible = false;
+
+              }
+              if (object.name === 'half_vegetable_GEO') {
+                object.visible = false;
+
+              }
+              if (object.name === 'quarter_rice_GEO') {
+                object.visible = false;
+
+              }
+      
+              if (object.name === 'Boy_GEO_low') {
+                object.visible = true;
               }
             });
+
             this.params_.scene.add(this.mesh_);
             this.immunitiy = false
             this.propArray = []
@@ -401,7 +419,7 @@ export const player = (() => {
             setTimeout(() => {
               // Reset the background color to the original color
               document.querySelector('#video-container').style.background = ""
-            }, 2000)
+            }, 1400)
           }
         }
       }
@@ -421,11 +439,24 @@ export const player = (() => {
             this.meatProp = 0;
             this.vegeProp = 0;
             this.carbProp = 0;
-            this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-              if (child.name !== "shield_GEO") {
-                child.visible = false;
+            this.mesh_.traverse((object) => {
+              if (object.name === 'quarter_meat_GEO') {
+                object.visible = false;
+
+              }
+              if (object.name === 'half_vegetable_GEO') {
+                object.visible = false;
+
+              }
+              if (object.name === 'quarter_rice_GEO') {
+                object.visible = false;
+
+              }
+              if (object.name === 'Boy_GEO_low') {
+                object.visible = true;
               }
             });
+
             this.params_.scene.add(this.mesh_);
             this.immunitiy = false
             this.propArray = []
@@ -445,7 +476,7 @@ export const player = (() => {
             setTimeout(() => {
               // Reset the background color to the original color
               document.querySelector('#video-container').style.background = ""
-            }, 2000)
+            }, 1400)
 
           }
         }
@@ -464,11 +495,24 @@ export const player = (() => {
               this.meatProp = 0;
               this.vegeProp = 0;
               this.carbProp = 0;
-              this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-                if (child.name !== "shield_GEO") {
-                  child.visible = false;
+              this.mesh_.traverse((object) => {
+                if (object.name === 'quarter_meat_GEO') {
+                  object.visible = false;
+
+                }
+                if (object.name === 'half_vegetable_GEO') {
+                  object.visible = false;
+
+                }
+                if (object.name === 'quarter_rice_GEO') {
+                  object.visible = false;
+
+                }
+                if (object.name === 'Boy_GEO_low') {
+                  object.visible = true;
                 }
               });
+
               this.params_.scene.add(this.mesh_);
               this.immunitiy = false
               this.propArray = []
@@ -693,17 +737,22 @@ export const player = (() => {
               this.meatProp = this.meatProp + 1
 
               if (this.meatProp >= 1) {
-                this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-                  if (child.name === "quarter_meat_GEO") {
-                    child.visible = true;
+                this.mesh_.traverse((object) => {
+
+                  if (object.name === 'quarter_meat_GEO') {
+                    object.visible = true;
+
                   }
                 });
+
                 this.params_.scene.add(this.mesh_);
 
               } else {
-                this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-                  if (child.name === "quarter_meat_GEO") {
-                    child.visible = false;
+                this.mesh_.traverse((object) => {
+
+                  if (object.name === 'quarter_meat_GEO') {
+                    object.visible = false;
+
                   }
                 });
                 this.params_.scene.add(this.mesh_);
@@ -743,18 +792,25 @@ export const player = (() => {
 
 
                 if (this.vegeProp == 2) {
-                  this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-                    if (child.name === "half_vegetable_GEO") {
-                      child.visible = true;
+                  this.mesh_.traverse((object) => {
+
+                    if (object.name === 'half_vegetable_GEO') {
+                      object.visible = true;
+
                     }
                   });
+
+
                   this.params_.scene.add(this.mesh_);
                 } else {
-                  this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-                    if (child.name === "half_vegetable_GEO") {
-                      child.visible = false;
+                  this.mesh_.traverse((object) => {
+
+                    if (object.name === 'half_vegetable_GEO') {
+                      object.visible = false;
+
                     }
                   });
+
                   this.params_.scene.add(this.mesh_);
                 }
 
@@ -790,17 +846,22 @@ export const player = (() => {
                 this.carbProp = this.carbProp + 1
 
                 if (this.carbProp >= 1) {
-                  this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-                    if (child.name === "quarter_rice_GEO") {
-                      child.visible = true;
+                  this.mesh_.traverse((object) => {
+
+                    if (object.name === 'quarter_rice_GEO') {
+                      object.visible = true;
+
                     }
                   });
+
                   this.params_.scene.add(this.mesh_);
 
                 } else {
-                  this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-                    if (child.name === "quarter_rice_GEO") {
-                      child.visible = false;
+                  this.mesh_.traverse((object) => {
+
+                    if (object.name === 'quarter_rice_GEO') {
+                      object.visible = false;
+
                     }
                   });
                   this.params_.scene.add(this.mesh_);
@@ -917,7 +978,13 @@ export const player = (() => {
       if (this.propArray.length == 4) {
         if (vegePortion == 2 && meatPortion == 1 && carbsPortion == 1) {
           this.immunitiy = true;
+          this.mesh_.traverse((object) => {
 
+            if (object.name === 'Boy_GEO_low') {
+              object.visible = false;
+            }
+          })
+          this.params_.scene.add(this.mesh_)
           document.getElementById("fullShield").style.zIndex = "1";
         }
       }
@@ -1120,11 +1187,24 @@ export const player = (() => {
           this.vegeProp = 0;
           this.carbProp = 0;
 
-          this.gltf.scene.children[0].children[1].children[1].children[0].children[0].children[0].children.forEach(child => {
-            if (child.name !== "shield_GEO") {
-              child.visible = false;
+          this.mesh_.traverse((object) => {
+            if (object.name === 'quarter_meat_GEO') {
+              object.visible = false;
+
+            }
+            if (object.name === 'half_vegetable_GEO') {
+              object.visible = false;
+
+            }
+            if (object.name === 'quarter_rice_GEO') {
+              object.visible = false;
+
+            }
+            if (object.name === 'Boy_GEO_low') {
+              object.visible = true;
             }
           });
+
           this.params_.scene.add(this.mesh_);
 
         }

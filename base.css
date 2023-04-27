@@ -374,14 +374,14 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  animation: moveDown 1s;
+  /* animation: moveDown 1s; */
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   width: 100%;
   z-index: 9;
 }
 
-@-webkit-keyframes moveDown {
+/* @-webkit-keyframes moveDown {
   0% {
     -webkit-transform: translate(-50%, -200%);
     -webkit-animation-timing-function: ease;
@@ -405,7 +405,7 @@ img {
     transform: translate(-50%, -50%);
     animation-timing-function: ease;
   }
-}
+} */
 
 
 #skip-button-container {
