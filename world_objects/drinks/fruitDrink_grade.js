@@ -77,11 +77,12 @@ export const fruitDrinkGrade = (() => {
 
             const spawnPosition = [50, 130, 200, 270, 430, 500]
 
+    
             if (this.params_.firstChase) {
                 for (let i = 0; i < spawnPosition.length; i++) {
-                    spawnPosition[i] += 100;
+                  spawnPosition[i] += 70;
                 }
-            }
+              }
             let obj = null;
 
             for (var i = 0; i < spawnPosition.length; i++) {

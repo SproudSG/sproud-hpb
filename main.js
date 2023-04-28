@@ -212,15 +212,7 @@ class BasicWorldDemo {
 
           }, 50);
 
-        } else {
-          this.closeNextStageVideo1();
-
-          document.getElementById('loading-1').style.display = 'block';
-
-          while (this.scene_.children.length > 0) {
-            this.scene_.remove(this.scene_.children[0]);
-          }
-        }
+        } 
       }
     });
 
@@ -249,7 +241,6 @@ class BasicWorldDemo {
 
 
 
-    this.videoContainer = document.getElementById("video-container");
     //next stage cut scenes
     this.nextStageVideo1_ = document.getElementById("nextStage1");
     this.nextStageVideo2_ = document.getElementById("nextStage2");
@@ -261,9 +252,22 @@ class BasicWorldDemo {
 
     // if next stage video ends, then unpause everything
     this.nextStageVideo1_.addEventListener("ended", () => {
+      if(!this._gameStarted){
+        document.getElementById('gender-selection').style.display = 'block';
+        document.getElementById('video-container').style.display = 'none';
+
+      }else{
+
+        this.closeNextStageVideo1();
+
+        document.getElementById('loading-1').style.display = 'block';
+
+        while (this.scene_.children.length > 0) {
+          this.scene_.remove(this.scene_.children[0]);
+        }
+
+      }
       this.closeNextStageVideo1();
-      document.getElementById('video-container').style.display = 'none';
-      document.getElementById('gender-selection').style.display = 'block';
       document.getElementById("skip-button-container").style.display = "none";
 
     });
@@ -678,7 +682,6 @@ class BasicWorldDemo {
     });
 
     skipButton.addEventListener('click', () => {
-      console.log(this.stage)
       if (this.stage == 1) {
         this.nextStageVideo1_.currentTime = this.nextStageVideo1_.duration;
       }else if( this.stage == 2){
@@ -713,7 +716,6 @@ class BasicWorldDemo {
       this.stopTime = true;
       cancelAnimationFrame(this.animationId);
       this.isPaused = true;
-      document.querySelector('#video-container').style.backgroundColor = 'rgba(128, 128, 128, 0.5) '
       document.querySelector('#pauseDiv').style.display = 'block'
       pauseButton.style.display = 'none'
       volumeButton.style.display = 'none'
@@ -723,7 +725,6 @@ class BasicWorldDemo {
     //count down after unpause
     const startPauseCountdown = () => {
       this.pauseCountdownActive = true
-      document.querySelector('#video-container').style.backgroundColor = 'transparent'
       document.querySelector('#pauseDiv').style.display = 'none'
       document.getElementById('countdown').classList.toggle('active');
       this.intervalId_ = setInterval(() => {
@@ -870,24 +871,7 @@ class BasicWorldDemo {
     animate();
 
 
-    //for the sky
-    const uniforms = {
-      topColor: { value: new THREE.Color(0x0077FF) },
-      bottomColor: { value: new THREE.Color(0x89b2eb) },
-      offset: { value: 33 },
-      exponent: { value: 0.6 }
-    };
 
-    const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
-    const skyMat = new THREE.ShaderMaterial({
-      uniforms: uniforms,
-      vertexShader: _VS,
-      fragmentShader: _FS,
-      side: THREE.BackSide,
-    });
-
-
-    this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
 
 
     // set random positoin for drinks
@@ -981,7 +965,7 @@ class BasicWorldDemo {
     this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
     this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
     this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
-    this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
+    this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage, firstChase: this.showChase});
     this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
 
@@ -1034,6 +1018,7 @@ class BasicWorldDemo {
   //start the animation 
   RAF_() {
     requestAnimationFrame((t) => {
+
       if (!this.stopTime) {
 
         if (this.previousRAF_ === null) {
@@ -1166,24 +1151,28 @@ class BasicWorldDemo {
               //initiate all the game objects
               this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
               this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, stage: this.stage });
-              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
-              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
-              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
-              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
-              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
-              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
-              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
-              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
-              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
-              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase, stage: this.stage });
+              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
+              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
               this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
+          
+              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
+              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
+              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+              this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
+          
+              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
+              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
+              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
+              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
+              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
+              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
+              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage, firstChase: this.showChase });
               this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
-              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
+              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+   
 
 
               let light = new THREE.DirectionalLight(0xffffff, 1);
@@ -1197,8 +1186,8 @@ class BasicWorldDemo {
               light.position.set(-7, 20, 0);
               this.scene_.add(light);
 
-              this.scene_.background = new THREE.Color(0x808080);
-              this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
+              // this.scene_.background = new THREE.Color(0x808080);
+              // this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
 
               //load map
               const loader = new GLTFLoader();
@@ -1257,23 +1246,23 @@ class BasicWorldDemo {
 
 
 
-              const uniforms = {
-                topColor: { value: new THREE.Color(0x0c1445) },
-                bottomColor: { value: new THREE.Color(0x89b2eb) },
-                offset: { value: 33 },
-                exponent: { value: 0.6 }
-              };
+              // const uniforms = {
+              //   topColor: { value: new THREE.Color(0x0c1445) },
+              //   bottomColor: { value: new THREE.Color(0x89b2eb) },
+              //   offset: { value: 33 },
+              //   exponent: { value: 0.6 }
+              // };
 
-              const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
-              const skyMat = new THREE.ShaderMaterial({
-                uniforms: uniforms,
-                vertexShader: _VS,
-                fragmentShader: _FS,
-                side: THREE.BackSide,
-              });
+              // const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
+              // const skyMat = new THREE.ShaderMaterial({
+              //   uniforms: uniforms,
+              //   vertexShader: _VS,
+              //   fragmentShader: _FS,
+              //   side: THREE.BackSide,
+              // });
 
 
-              this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
+              // this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
 
 
               this.gameOver_ = false;
@@ -1322,8 +1311,7 @@ class BasicWorldDemo {
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
-        pauseButton.style.display = 'none'
-        this.stage = 2;
+          this.stage = 2;
 
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
           document.getElementById('click-end').style.display = 'block';
@@ -2031,12 +2019,12 @@ class BasicWorldDemo {
     //restart stage
     if (this.restartStage && !this.checkRestart) {
       this.checkRestart = true;
+      this.camera_.position.set(-10,5,0)
       this.allowPause = false;
       this.restartStage = false;
       this.gameOver_ = true;
       pauseButton.style.display = 'none'
       document.getElementById("fullShield").style.zIndex = "0";
-      document.querySelector('#video-container').style.backgroundColor = 'transparent'
       document.querySelector('#pauseDiv').style.display = 'none'
       document.getElementById("skip-button-container").style.display = "block";
 
@@ -2054,6 +2042,7 @@ class BasicWorldDemo {
         this.checkRestart = false;
 
       } else if (this.stage == 1) {
+
         this.playNextStageVideo1()
         this.eventAdded3 = false;
         this.countdown_ = 6
@@ -2073,7 +2062,6 @@ class BasicWorldDemo {
       pauseButton.style.display = 'none'
 
       document.getElementById("fullShield").style.zIndex = "0";
-      document.querySelector('#video-container').style.backgroundColor = 'transparent'
       document.getElementById('game-over').classList.toggle('active');
       document.getElementById('try-again-button').addEventListener('click', () => {
 
@@ -2090,6 +2078,7 @@ class BasicWorldDemo {
           this.countdown2_ = 6
 
         } else if (this.stage == 1) {
+
           this.playNextStageVideo1()
           this.eventAdded3 = false;
           this.countdown_ = 6
@@ -2108,6 +2097,8 @@ class BasicWorldDemo {
 var stats = new Stats();
 stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild(stats.dom)
+const frameRate = 60;
+const interval = 1000 / frameRate;
 
 function animate() {
 
@@ -2117,7 +2108,8 @@ function animate() {
 
   stats.end();
 
-  requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
+
 
 }
 

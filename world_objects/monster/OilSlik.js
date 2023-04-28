@@ -27,14 +27,17 @@ export const oilSlik = (() => {
 
                 this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
                 this.mesh_.position.copy(this.position_);
+                console.log(this.params_.firstChase)
                 if (this.params_.stage == 1) {
+                    if (this.params_.firstChase == false) {
+                        this.mesh_.scale.set(0.23, 0.23, 0.23);
+                    }
                     this.mesh_.scale.set(0.3, 0.3, 0.3);
-                }else{
+                } else {
                     this.mesh_.scale.set(0.25, 0.25, 0.25);
                 }
 
                 this.params_.scene.add(this.mesh_);
-
                 const m = new THREE.AnimationMixer(this.mesh_);
                 this.mixer_ = m;
                 this.action;
@@ -62,16 +65,10 @@ export const oilSlik = (() => {
                     } else {
                         this.slowCheck = true
                     }
-
                 }
-
             }
-
         }
-
-
     };
-
     return {
         OilSlik: OilSlik,
     };
