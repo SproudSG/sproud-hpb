@@ -100,16 +100,6 @@ export const player = (() => {
       this.LoadModel_();
       this.InitInput_();
 
-      //reset sheild  
-      let quaterOne = document.querySelector('#quarterOne')
-      let quarterTwo = document.querySelector('#quarterTwo')
-      let quarterThree = document.querySelector('#quarterThree')
-      let quarterFour = document.querySelector('#quarterFour')
-
-      quaterOne.style.backgroundColor = '#333'
-      quarterTwo.style.backgroundColor = '#333'
-      quarterThree.style.backgroundColor = '#333'
-      quarterFour.style.backgroundColor = '#333'
     }
 
     LoadModel_() {
@@ -402,12 +392,16 @@ export const player = (() => {
             this.params_.scene.add(this.mesh_);
             this.immunitiy = false
             this.propArray = []
-            document.getElementById("fullShield").style.zIndex = "0";
+            document.getElementById("shieldTimer").style.zIndex = "-1";
             this.shieldTime = 100
-            document.querySelector('#quarterOne').style.backgroundColor = '#333'
-            document.querySelector('#quarterTwo').style.backgroundColor = '#333'
-            document.querySelector('#quarterThree').style.backgroundColor = '#333'
-            document.querySelector('#quarterFour').style.backgroundColor = '#333'
+            document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            document.getElementById("food1").style.bottom = "7.5vw"
+            document.getElementById("food2").style.bottom = "7.5vw"
+            document.getElementById("food3").style.bottom = "7.5vw"
+            document.getElementById("food4").style.bottom = "7.5vw"
           } else {
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
@@ -458,12 +452,17 @@ export const player = (() => {
             this.params_.scene.add(this.mesh_);
             this.immunitiy = false
             this.propArray = []
-            document.getElementById("fullShield").style.zIndex = "0";
+            document.getElementById("shieldTimer").style.zIndex = "-1";
             this.shieldTime = 100
-            document.querySelector('#quarterOne').style.backgroundColor = '#333'
-            document.querySelector('#quarterTwo').style.backgroundColor = '#333'
-            document.querySelector('#quarterThree').style.backgroundColor = '#333'
-            document.querySelector('#quarterFour').style.backgroundColor = '#333'
+            document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+            document.getElementById("food1").style.bottom = "7.5vw"
+            document.getElementById("food2").style.bottom = "7.5vw"
+            document.getElementById("food3").style.bottom = "7.5vw"
+            document.getElementById("food4").style.bottom = "7.5vw"
+
 
           } else {
             newStamina = this.stamina_ - 10
@@ -514,13 +513,16 @@ export const player = (() => {
               this.params_.scene.add(this.mesh_);
               this.immunitiy = false
               this.propArray = []
-              document.getElementById("fullShield").style.zIndex = "0";
+              document.getElementById("shieldTimer").style.zIndex = "-1";
               this.shieldTime = 100
-              document.querySelector('#quarterOne').style.backgroundColor = '#333'
-              document.querySelector('#quarterTwo').style.backgroundColor = '#333'
-              document.querySelector('#quarterThree').style.backgroundColor = '#333'
-              document.querySelector('#quarterFour').style.backgroundColor = '#333'
-
+              document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+              document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+              document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+              document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+              document.getElementById("food1").style.bottom = "7.5vw"
+              document.getElementById("food2").style.bottom = "7.5vw"
+              document.getElementById("food3").style.bottom = "7.5vw"
+              document.getElementById("food4").style.bottom = "7.5vw"
             } else {
               this.FallAnimation_()
               this.inAir_ = false;
@@ -902,75 +904,113 @@ export const player = (() => {
 
       if (!this.immunitiy) {
 
-        let quaterOne = document.querySelector('#quarterOne')
-        let quarterTwo = document.querySelector('#quarterTwo')
-        let quarterThree = document.querySelector('#quarterThree')
-        let quarterFour = document.querySelector('#quarterFour')
-
-        let colorOne;
-        let colorTwo;
-        let colorThree;
-        let colorFour;
-
         for (let i = 0; i < this.propArray.length; i++) {
           if (this.propArray[i] === "vege") {
             vegePortion = vegePortion + 1
 
-            if (i == 0) {
-              colorOne = "#228B22"
-            } else if (i == 1) {
-              colorTwo = "#228B22"
-
-            } else if (i == 2) {
-              colorThree = "#228B22"
-
-            } else if (i == 3) {
-              colorFour = "#228B22"
-
-            }
-
-
           } else if (this.propArray[i] === "meat") {
             meatPortion = meatPortion + 1
-
-            if (i == 0) {
-              colorOne = "#8B4513"
-            } else if (i == 1) {
-              colorTwo = "#8B4513"
-
-            } else if (i == 2) {
-              colorThree = "#8B4513"
-
-            } else if (i == 3) {
-              colorFour = "#8B4513"
-
-            }
 
           } else if (this.propArray[i] === "carbs") {
             carbsPortion = carbsPortion + 1
 
-            if (i == 0) {
-              colorOne = "#FFF8DC"
-            } else if (i == 1) {
-              colorTwo = "#FFF8DC"
+          }
+        }
 
-            } else if (i == 2) {
-              colorThree = "#FFF8DC"
-
-            } else if (i == 3) {
-              colorFour = "#FFF8DC"
-
-            }
+        if (this.propArray.length == 1) {
+          if (this.propArray[0] == 'vege') {
+            document.getElementById("food1").src = "./resources/Shield/Vegtable_shield_UI.png"
+            document.getElementById("food1").style.bottom = "8.5vw"
 
           }
+          else if (this.propArray[0] == 'meat') {
+            document.getElementById("food1").src = "./resources/Shield/Meat_shield_UI.png"
+          }
+          else if (this.propArray[0] == 'carbs') {
+            document.getElementById("food1").src = "./resources/Shield/Rice_shield_UI.png"
+            document.getElementById("food1").style.bottom = "9vw"
 
+          }
+        } else if (this.propArray.length == 2) {
+          if (this.propArray[1] == 'vege') {
+            document.getElementById("food2").src = "./resources/Shield/Vegtable_shield_UI.png"
+            document.getElementById("food2").style.bottom = "8.5vw"
+
+          }
+          else if (this.propArray[1] == 'meat') {
+            document.getElementById("food2").src = "./resources/Shield/Meat_shield_UI.png"
+          }
+          else if (this.propArray[1] == 'carbs') {
+            document.getElementById("food2").src = "./resources/Shield/Rice_shield_UI.png"
+            document.getElementById("food2").style.bottom = "9vw"
+
+
+          }
+        } else if (this.propArray.length == 3) {
+          if (this.propArray[2] == 'vege') {
+            document.getElementById("food3").src = "./resources/Shield/Vegtable_shield_UI.png"
+            document.getElementById("food3").style.bottom = "8.5vw"
+
+          }
+          else if (this.propArray[2] == 'meat') {
+            document.getElementById("food3").src = "./resources/Shield/Meat_shield_UI.png"
+          }
+          else if (this.propArray[2] == 'carbs') {
+            document.getElementById("food3").src = "./resources/Shield/Rice_shield_UI.png"
+            document.getElementById("food3").style.bottom = "9vw"
+
+
+          }
+        } else if (this.propArray.length == 4 && !this.firstFour) {
+          if (!this.firstFour) {
+            this.firstFour = true;
+            if (this.propArray[3] == 'vege') {
+              document.getElementById("food4").src = "./resources/Shield/Vegtable_shield_UI.png"
+              document.getElementById("food4").style.bottom = "8.5vw"
+
+            }
+            else if (this.propArray[3] == 'meat') {
+              document.getElementById("food4").src = "./resources/Shield/Meat_shield_UI.png"
+            }
+            else if (this.propArray[3] == 'carbs') {
+              document.getElementById("food4").src = "./resources/Shield/Rice_shield_UI.png"
+              document.getElementById("food4").style.bottom = "9vw"
+
+
+            }
+          }
+
+        } else if (this.propArray.length == 4 && this.firstFour) {
+          var id = "";
+          for (var i = 0; i < this.propArray.length; i++) {
+            if (i == 0) {
+              id = "food1"
+            } else if (i == 1) {
+              id = "food2"
+            } else if (i == 2) {
+              id = "food3"
+            } else if (i == 3) {
+              id = "food4"
+            }
+            if (this.propArray[i] == 'vege') {
+              document.getElementById(id).src = "./resources/Shield/Vegtable_shield_UI.png"
+              document.getElementById(id).style.bottom = "8.5vw"
+
+            }
+            else if (this.propArray[i] == 'meat') {
+              document.getElementById(id).src = "./resources/Shield/Meat_shield_UI.png"
+              document.getElementById(id).style.bottom = "7.5vw"
+
+            }
+            else if (this.propArray[i] == 'carbs') {
+              document.getElementById(id).src = "./resources/Shield/Rice_shield_UI.png"
+              document.getElementById(id).style.bottom = "9vw"
+
+            }
+          }
 
         }
 
-        quaterOne.style.backgroundColor = colorOne
-        quarterTwo.style.backgroundColor = colorTwo
-        quarterThree.style.backgroundColor = colorThree
-        quarterFour.style.backgroundColor = colorFour
       }
 
       if (this.propArray.length == 4) {
@@ -983,7 +1023,7 @@ export const player = (() => {
             }
           })
           this.params_.scene.add(this.mesh_)
-          document.getElementById("fullShield").style.zIndex = "1";
+          document.getElementById("shieldTimer").style.zIndex = "1";
         }
       }
     }
@@ -1173,11 +1213,15 @@ export const player = (() => {
         this.shieldTime -= timeElapsed * 10.0;
         document.getElementById("fullShield").style.height = this.shieldTime + "%"
         if (this.shieldTime <= 0) {
-          document.getElementById("fullShield").style.zIndex = "0";
-          document.querySelector('#quarterOne').style.backgroundColor = '#333'
-          document.querySelector('#quarterTwo').style.backgroundColor = '#333'
-          document.querySelector('#quarterThree').style.backgroundColor = '#333'
-          document.querySelector('#quarterFour').style.backgroundColor = '#333'
+          document.getElementById("shieldTimer").style.zIndex = "-1";
+          document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+          document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+          document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+          document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+          document.getElementById("food1").style.bottom = "7.5vw"
+          document.getElementById("food2").style.bottom = "7.5vw"
+          document.getElementById("food3").style.bottom = "7.5vw"
+          document.getElementById("food4").style.bottom = "7.5vw"
           this.propArray = []
           this.immunitiy = false;
 

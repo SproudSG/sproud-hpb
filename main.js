@@ -1550,6 +1550,7 @@ class BasicWorldDemo {
               this.previousRAF_ = null;
               this.startstage = true;
               document.querySelector('.wrapper').style.display = 'block';
+              document.getElementById('shieldContainer').style.display = 'block';
               document.getElementById('loading-2').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
               this.player_.propArray = []
@@ -2021,10 +2022,18 @@ class BasicWorldDemo {
       this.restartStage = false;
       this.gameOver_ = true;
       pauseButton.style.display = 'none'
-      document.getElementById("fullShield").style.zIndex = "0";
+      document.getElementById("shieldTimer").style.zIndex = "-1";
       document.querySelector('#pauseDiv').style.display = 'none'
       document.getElementById("skip-button-container").style.display = "block";
-
+      document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food1").style.bottom = "7.5vw"
+      document.getElementById("food2").style.bottom = "7.5vw"
+      document.getElementById("food3").style.bottom = "7.5vw"
+      document.getElementById("food4").style.bottom = "7.5vw"
+      document.getElementById('video-container').style.backgroundColor = 'transparent';
 
       if (this.stage == 2) {
         this.playNextStageVideo2();
@@ -2055,8 +2064,18 @@ class BasicWorldDemo {
       this.resumeCountdown_ = 3;
       pauseButton.style.display = 'none'
 
-      document.getElementById("fullShield").style.zIndex = "0";
+      document.getElementById("shieldTimer").style.zIndex = "-1";
       document.getElementById('game-over').classList.toggle('active');
+      document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food1").style.bottom = "7.5vw"
+      document.getElementById("food2").style.bottom = "7.5vw"
+      document.getElementById("food3").style.bottom = "7.5vw"
+      document.getElementById("food4").style.bottom = "7.5vw"
+      document.getElementById('video-container').style.backgroundColor = 'transparent';
+
       document.getElementById('try-again-button').addEventListener('click', () => {
 
         document.getElementById('game-over').classList.remove('active');

@@ -426,22 +426,56 @@ img {
 
 /* sheild css */
 
+.shieldUI{
+  position: absolute;
+  width: 40vw;
+  right: -2vw;
+  bottom: 0;
+}
+
+#food1, #food2, #food3, #food4 {
+  width: 5vw;
+  position: absolute;
+  right: -2vw;
+  bottom: 7.5vw;
+}
+
+#food1 {
+  right: 17vw;
+}
+
+#food2 {
+  right: 12vw;
+
+}
+
+#food3 {
+  right: 7vw;
+
+}
+
+#food4 {
+  right: 2vw;
+
+}
+
+
 div.wrapper {
-  position: relative;
-  width: 100px;
-  height: 100px;
+  position: absolute;
+  width: 5.5vw;
+  height: 5.4vw;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   border-radius: 50px;
-  top: 12%;
-  left: 20px;
-  z-index: 1;
+  right: 25.3vw;
+  bottom: 8vw;
+  z-index: 0;
   overflow: hidden;
 }
 
 div.full {
   width: 100%;
-  background-color: #ffff0059;
+  background-color: #ffff00dc;
   height: 100%;
   position: absolute;
   bottom: 0;
@@ -457,45 +491,6 @@ div.full {
   overflow: hidden;
 }
 
-div.quarter {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-color: #333;
-  transition: transform .5s, opacity .5s;
-}
-
-div.quarter.left-top {
-  left: 0;
-  top: 0;
-  border-top-left-radius: 50px;
-  border: solid #333;
-  border-width: 4px;
-}
-
-div.quarter.right-top {
-  left: 50px;
-  top: 0;
-  border-top-right-radius: 50px;
-  border: solid #333;
-  border-width: 4px;
-}
-
-div.quarter.left-bottom {
-  left: 0;
-  top: 50px;
-  border-bottom-left-radius: 50px;
-  border: solid #333;
-  border-width: 4px;
-}
-
-div.quarter.right-bottom {
-  left: 50px;
-  top: 50px;
-  border-bottom-right-radius: 50px;
-  border: solid #333;
-  border-width: 4px;
-}
 
 
 /* Gender selection */
