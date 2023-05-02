@@ -1,11 +1,34 @@
 {
-	"SoyMonster": {
-		"version": 1,
-		"id": "SoyMonster",
-		"name": "1",
-		"kind": "Puppeteer",
-		"mood": null,
-		"postPlaybackMood": null,
-		"duration": 8.291666667
+	"version": 1,
+	"id":"SoyMonster",
+	"name":"multiCh",
+	"animations": {
+		"clip1": {
+			"version": 1,
+			"id": "clip1",
+			"name": "clip1",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0
+		},
+		"SwipeFromRight": {
+			"version": 1,
+			"id": "SwipeFromRight",
+			"name": "swipefromright",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.625
+		},
+		"SwipeFromLeft": {
+			"version": 1,
+			"id": "SwipeFromLeft",
+			"name": "swipefromleft",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 2.625
+		}
 	}
 }

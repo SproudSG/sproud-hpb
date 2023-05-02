@@ -26,6 +26,7 @@ export const trolliumChloride = (() => {
 
       const loader = new GLTFLoader();
       loader.load('./resources/TrolliumChloride/SoyMonster.gltf', (gltf) => {
+        console.log(gltf)
         this.mesh = gltf.scene;
         this.gltf = gltf
         //add model to the scene
@@ -35,7 +36,7 @@ export const trolliumChloride = (() => {
 
         const animations = gltf.animations;
         this.mixer = new THREE.AnimationMixer(this.mesh);
-        const animation = animations[0];
+        const animation = animations[1];
         this.action = this.mixer.clipAction(animation);
       });
 

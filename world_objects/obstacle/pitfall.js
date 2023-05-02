@@ -92,20 +92,16 @@ export const pitfall = (() => {
             for (var i = 0; i < spawnPosition.length; i++) {
                 if (this.counter_ == i) {
                     obj = new PitfallObject(this.params_);
-
                     obj.position.x = spawnPosition[i]
                     obj.position.y = 0.2
                     obj.position.z = arr[i]
-
-                   
-
-                    obj.scale = 0.01;
+                    obj.scale = 0.005;
                     this.objects_.push(obj);
                     this.counter_++
                 }
             }
 
-        }
+        } 
 
 
         Update(timeElapsed, speed) {
@@ -120,8 +116,6 @@ export const pitfall = (() => {
 
             for (let obj of this.objects_) {
                 obj.position.x -= timeElapsed * speed;
-
-
                 if (obj.position.x < -20) {
                     invisible.push(obj);
                     obj.mesh.visible = false;

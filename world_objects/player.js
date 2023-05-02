@@ -176,9 +176,7 @@ export const player = (() => {
           this.mesh_.scale.set(0.013, 0.013, 0.013);
           this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
 
-          const m = new THREE.AnimationMixer(this.mesh_);
-          this.mixer_ = m;
-          this.action;
+          this.mixer_ = new THREE.AnimationMixer(this.mesh_);
           const clip = THREE.AnimationClip.findByName(gltf.animations, 'Run');
           this.action = this.mixer_.clipAction(clip);
           this.action.play();
@@ -395,7 +393,7 @@ export const player = (() => {
                 object.visible = false;
 
               }
-      
+
               if (object.name === 'Boy_GEO_low') {
                 object.visible = true;
               }

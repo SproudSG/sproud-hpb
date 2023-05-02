@@ -25,7 +25,7 @@ export const shoogaGlider = (() => {
     LoadModel_() {
 
       const loader = new GLTFLoader();
-      loader.load('./resources/ShoogaGlider/IceCreamMonster.gltf', (gltf) => {
+      loader.load('./resources/ShoogaGlider/IceCreamMonsterAll.gltf', (gltf) => {
         this.mesh = gltf.scene;
         this.gltf = gltf
         //add model to the scene
@@ -36,11 +36,22 @@ export const shoogaGlider = (() => {
 
         const animations = gltf.animations;
         this.mixer = new THREE.AnimationMixer(this.mesh);
-        const animation = animations[0];
+        const animation = THREE.AnimationClip.findByName(animations, 'Flap');
         this.action = this.mixer.clipAction(animation);
         this.action.play()
       });
 
+    }
+
+    AttackAnimation() {
+      if (!this.mixer) {
+        return;
+      }
+      this.action.stop();
+      const clip = THREE.AnimationClip.findByName(this.gltf.animations, 'Attack');
+      this.action = this.mixer.clipAction(clip);
+      this.action.setLoop(THREE.LoopOnce);
+      this.action.play();
     }
 
     UpdateCollider_() {
@@ -128,19 +139,25 @@ export const shoogaGlider = (() => {
       const visible = [];
 
       for (let obj of this.objects_) {
-        
+
         obj.position.x -= timeElapsed * speed;
-        if (obj.position.y != 1 && obj.position.x <= 350) {
-          if (obj.position.y < 1) {
-            obj.position.y = 1
+        if (obj.position.y != 0.5 && obj.position.x <= 350) {
+          if (obj.position.y < 0.5) {
+            obj.position.y = 0.5
           } else {
-            obj.position.y -= timeElapsed * (speedy*2 );
+            obj.position.y -= timeElapsed * (speedy * 2);
 
           }
         }
 
-
+        if (obj.position.x < 80 && !this.attacked) {
+          this.attacked = true;
+          obj.position.z = -0.5
+          obj.AttackAnimation()
+        }
         if (obj.position.x < -20) {
+          this.attacked = false;
+
           invisible.push(obj);
           obj.mesh.visible = false;
         } else {

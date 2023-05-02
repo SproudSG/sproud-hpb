@@ -212,7 +212,7 @@ class BasicWorldDemo {
 
           }, 50);
 
-        } 
+        }
       }
     });
 
@@ -252,11 +252,11 @@ class BasicWorldDemo {
 
     // if next stage video ends, then unpause everything
     this.nextStageVideo1_.addEventListener("ended", () => {
-      if(!this._gameStarted){
+      if (!this._gameStarted) {
         document.getElementById('gender-selection').style.display = 'block';
         document.getElementById('video-container').style.display = 'none';
 
-      }else{
+      } else {
 
         this.closeNextStageVideo1();
 
@@ -684,9 +684,9 @@ class BasicWorldDemo {
     skipButton.addEventListener('click', () => {
       if (this.stage == 1) {
         this.nextStageVideo1_.currentTime = this.nextStageVideo1_.duration;
-      }else if( this.stage == 2){
+      } else if (this.stage == 2) {
         this.nextStageVideo2_.currentTime = this.nextStageVideo2_.duration;
-      }else if( this.stage == 3){
+      } else if (this.stage == 3) {
         this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
       }
 
@@ -965,7 +965,7 @@ class BasicWorldDemo {
     this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
     this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
     this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
-    this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage, firstChase: this.showChase});
+    this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage, firstChase: this.showChase });
     this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
 
@@ -1155,13 +1155,11 @@ class BasicWorldDemo {
               this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
               this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
               this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-          
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
               this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
               this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
               this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
-          
               this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
               this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
               this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
@@ -1172,7 +1170,6 @@ class BasicWorldDemo {
               this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-   
 
 
               let light = new THREE.DirectionalLight(0xffffff, 1);
@@ -1311,7 +1308,7 @@ class BasicWorldDemo {
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
-          this.stage = 2;
+        this.stage = 2;
 
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
           document.getElementById('click-end').style.display = 'block';
@@ -2019,7 +2016,7 @@ class BasicWorldDemo {
     //restart stage
     if (this.restartStage && !this.checkRestart) {
       this.checkRestart = true;
-      this.camera_.position.set(-10,5,0)
+      this.camera_.position.set(-10, 5, 0)
       this.allowPause = false;
       this.restartStage = false;
       this.gameOver_ = true;
@@ -2030,22 +2027,19 @@ class BasicWorldDemo {
 
 
       if (this.stage == 2) {
-        this.playNextStageVideo2()
+        this.playNextStageVideo2();
         this.eventAdded = false;
-        this.countdown1_ = 6
+        this.countdown1_ = 6;
         this.checkRestart = false;
-
       } else if (this.stage == 3 || this.stage == 4) {
-        this.playNextStageVideo3()
+        this.playNextStageVideo3();
         this.eventAdded1 = false;
-        this.countdown2_ = 6
+        this.countdown2_ = 6;
         this.checkRestart = false;
-
       } else if (this.stage == 1) {
-
-        this.playNextStageVideo1()
+        this.playNextStageVideo1();
         this.eventAdded3 = false;
-        this.countdown_ = 6
+        this.countdown_ = 6;
         this.checkRestart = false;
       }
 
@@ -2069,20 +2063,17 @@ class BasicWorldDemo {
         document.getElementById("skip-button-container").style.display = "block";
 
         if (this.stage == 2) {
-          this.playNextStageVideo2()
+          this.playNextStageVideo2();
           this.eventAdded = false;
-          this.countdown1_ = 6
+          this.countdown1_ = 6;
         } else if (this.stage == 3) {
-          this.playNextStageVideo3()
+          this.playNextStageVideo3();
           this.eventAdded1 = false;
-          this.countdown2_ = 6
-
+          this.countdown2_ = 6;
         } else if (this.stage == 1) {
-
-          this.playNextStageVideo1()
+          this.playNextStageVideo1();
           this.eventAdded3 = false;
-          this.countdown_ = 6
-
+          this.countdown_ = 6;
         }
 
         this.stopTime = true
@@ -2097,8 +2088,6 @@ class BasicWorldDemo {
 var stats = new Stats();
 stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild(stats.dom)
-const frameRate = 60;
-const interval = 1000 / frameRate;
 
 function animate() {
 
@@ -2108,7 +2097,7 @@ function animate() {
 
   stats.end();
 
-    requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 
 
 }

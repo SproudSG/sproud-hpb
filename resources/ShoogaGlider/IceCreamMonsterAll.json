@@ -1,0 +1,34 @@
+{
+	"version": 1,
+	"id":"IceCreamMonsterAll",
+	"name":"multiCh",
+	"animations": {
+		"clip1": {
+			"version": 1,
+			"id": "clip1",
+			"name": "clip1",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0
+		},
+		"Flap": {
+			"version": 1,
+			"id": "Flap",
+			"name": "flap",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0.4583333333
+		},
+		"Attack": {
+			"version": 1,
+			"id": "Attack",
+			"name": "attack",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.958333333
+		}
+	}
+}
