@@ -202,9 +202,9 @@ class BasicWorldDemo {
               document.getElementById('loading-1').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
               document.dispatchEvent(new CustomEvent('score-over'));
-              if(this.gender_ == "male"){
+              if (this.gender_ == "male") {
                 document.getElementById('boyHUD').style.display = 'block'
-              }else if(this.gender_ == "female"){
+              } else if (this.gender_ == "female") {
                 document.getElementById('girlHUD').style.display = 'block'
               }
             }
@@ -301,13 +301,16 @@ class BasicWorldDemo {
     // if next stage video ends, then unpause everything
     this.nextStageVideo4_.addEventListener("ended", () => {
       this.closeNextStageVideo4();
-
-      document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
-      this.stopTime = false
-
-      this.RAF_();
+      this.stopTime = true
+      this.Pause()
+      //  document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
+      document.getElementById("volume-container").style.display = 'none';
       document.getElementById('final-score-good-ending').classList.toggle('active');
-
+      if (this.gender_ == "male") {
+        document.getElementById('boyHUDstg3').style.display = 'none'
+      } else if (this.gender_ == "female") {
+        document.getElementById('girlHUDstg3').style.display = 'none'
+      }
       while (this.scene_.children.length > 0) {
         this.scene_.remove(this.scene_.children[0]);
       }
@@ -320,11 +323,14 @@ class BasicWorldDemo {
       this.closeNextStageVideo5();
       this.stopTime = true
       this.Pause()
-      document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
-
+      // document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
+      document.getElementById("volume-container").style.display = 'none';
       document.getElementById('final-score-bad-ending').classList.toggle('active');
-      document.getElementById('retry-stage-3').style.zIndex = "999"
-
+      if (this.gender_ == "male") {
+        document.getElementById('boyHUDstg3').style.display = 'none'
+      } else if (this.gender_ == "female") {
+        document.getElementById('girlHUDstg3').style.display = 'none'
+      }
       while (this.scene_.children.length > 0) {
         this.scene_.remove(this.scene_.children[0]);
       }
@@ -384,14 +390,14 @@ class BasicWorldDemo {
   }
 
   playDefeatVid() {
-    this.nextStageVideo4_.style.display = "block";
-    this.nextStageVideo4_.play();
+    this.nextStageVideo5_.style.display = "block";
+    this.nextStageVideo5_.play();
   }
 
   closeNextStageVideo5() {
-    this.nextStageVideo4_.style.display = "none";
-    this.nextStageVideo4_.currentTime = 0;
-    this.nextStageVideo4_.pause();
+    this.nextStageVideo5_.style.display = "none";
+    this.nextStageVideo5_.currentTime = 0;
+    this.nextStageVideo5_.pause();
   }
   //music player
   _playSplashScreenMusic() {
@@ -610,6 +616,12 @@ class BasicWorldDemo {
     retryStage3.addEventListener("click", () => {
       this.playNextStageVideo3()
       this.eventAdded1 = false;
+      skipButton.style.display = 'block';
+      if (this.gender_ == "male") {
+        document.getElementById('boyHUDstg3').style.display = 'block'
+      } else if (this.gender_ == "female") {
+        document.getElementById('girlHUDstg3').style.display = 'block'
+      }
       document.getElementById('final-score-bad-ending').classList.toggle('active');
       this.checkRestart = false;
     });
@@ -1782,10 +1794,10 @@ class BasicWorldDemo {
               document.getElementById('click-start').style.display = 'block';
               this.player_.propArray = []
               clearInterval(this.intervalId_);
-              if(this.gender_ == "male"){
+              if (this.gender_ == "male") {
                 document.getElementById('boyHUD').style.display = 'none'
                 document.getElementById('boyHUDstg3').style.display = 'block'
-              }else if(this.gender_ == "female"){
+              } else if (this.gender_ == "female") {
                 document.getElementById('girlHUD').style.display = 'none'
                 document.getElementById('girlHUDstg3').style.display = 'block'
               }
@@ -1936,7 +1948,7 @@ class BasicWorldDemo {
 
           const scoreText1 = (Math.round((this.progression_.progress_ * 10) / 10)).toLocaleString('en-US', { minimumIntegerDigits: 5, useGrouping: false }) / 60;
 
-          document.getElementById('monster').style.left = scoreText1  + 'vw';
+          document.getElementById('monster').style.left = scoreText1 + 'vw';
           this.objSpeed = 0
           this.monSpeed = 0
           this.speedy = 0
