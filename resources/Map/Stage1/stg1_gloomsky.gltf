@@ -1,0 +1,214 @@
+{
+    "asset": {
+        "copyright": "(C)2023 post",
+        "generator": "maya2glTF v1.4.0 3d7ba8eaf03e",
+        "version": "2.0"
+    },
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "scene": 0,
+    "nodes": [
+        {
+            "name": "export_GRP",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "gloomsky_GEO",
+            "mesh": 0
+        }
+    ],
+    "meshes": [
+        {
+            "name": "gloomsky_GEOShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 1,
+                        "POSITION": 2,
+                        "TANGENT": 3,
+                        "TEXCOORD_0": 4
+                    },
+                    "indices": 0,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "name": "gloomsky_MAT1",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            },
+            "alphaMode": "BLEND"
+        }
+    ],
+    "textures": [
+        {
+            "sampler": 0,
+            "source": 0
+        }
+    ],
+    "images": [
+        {
+            "uri": "stg1_gloomsky_colour.png"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    ],
+    "accessors": [
+        {
+            "name": "gloomsky_GEOShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 720,
+            "max": [
+                136
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "gloomsky_GEOShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 137,
+            "max": [
+                0.9238791465759276,
+                0.994779646396637,
+                -0.08243518322706223
+            ],
+            "min": [
+                -0.923879623413086,
+                -0.994779646396637,
+                -1.0
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "gloomsky_GEOShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 1644,
+            "componentType": 5126,
+            "count": 137,
+            "max": [
+                6955.078125,
+                6955.078125,
+                0.0
+            ],
+            "min": [
+                -6955.08203125,
+                -6955.078125,
+                -6445.8046875
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "gloomsky_GEOShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 137,
+            "max": [
+                -0.3826008439064026,
+                0.313828319311142,
+                0.9236801862716676,
+                1.0
+            ],
+            "min": [
+                -0.9999640583992004,
+                -0.2877694964408875,
+                -0.9236798286437988,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "gloomsky_GEOShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 137,
+            "max": [
+                0.9936636686325072,
+                1.0
+            ],
+            "min": [
+                0.008289054036140442,
+                0.0
+            ],
+            "type": "VEC2"
+        }
+    ],
+    "bufferViews": [
+        {
+            "name": "stg1_gloomsky/data/indices-2",
+            "buffer": 0,
+            "byteOffset": 6576,
+            "byteLength": 1440,
+            "target": 34963
+        },
+        {
+            "name": "stg1_gloomsky/data/vertices-12",
+            "buffer": 0,
+            "byteOffset": 2192,
+            "byteLength": 3288,
+            "byteStride": 12,
+            "target": 34962
+        },
+        {
+            "name": "stg1_gloomsky/data/vertices-16",
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 2192,
+            "byteStride": 16,
+            "target": 34962
+        },
+        {
+            "name": "stg1_gloomsky/data/vertices-8",
+            "buffer": 0,
+            "byteOffset": 5480,
+            "byteLength": 1096,
+            "byteStride": 8,
+            "target": 34962
+        }
+    ],
+    "buffers": [
+        {
+            "name": "stg1_gloomsky/data",
+            "byteLength": 8016,
+            "uri": "stg1_gloomsky0.bin"
+        }
+    ]
+}

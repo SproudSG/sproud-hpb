@@ -1529,7 +1529,7 @@ export const player = (() => {
       //jump and slide calculation.
       if (this.inAir_) {
 
-        const acceleration = -105 * (timeElapsed / 1.6);
+        const acceleration = -115 * (timeElapsed / 1.6);
         this.position_.y += (timeElapsed / 1.6) * (this.velocity_ + acceleration * 0.5);
 
 

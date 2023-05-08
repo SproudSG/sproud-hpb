@@ -80,7 +80,8 @@ img {
   transition: opacity 0.5s ease-in-out;
 }
 
-#final-score-bad-ending, #final-score-good-ending {
+#final-score-bad-ending,
+#final-score-good-ending {
   opacity: 0.0;
   visibility: hidden;
   height: 100%;
@@ -92,7 +93,17 @@ img {
   z-index: 1;
 }
 
-#final-score-bad-ending.active , #final-score-good-ending.active {
+#final-score{
+  opacity: 0.0;
+  visibility: hidden;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+
+#final-score-bad-ending.active,
+#final-score-good-ending.active,
+#final-score.active {
   opacity: 1.0;
   visibility: visible;
   transition: opacity 0.5s ease-in-out;
@@ -825,6 +836,7 @@ div.full {
   background-image: url(./resources/Endings/Non-Perfect/Nonperfect_ending.png);
   z-index: 10;
 }
+
 #final-score-good-ending {
   background-image: url(./resources/Endings/Perfect/PerfectEnding.png);
   z-index: 10;
@@ -858,5 +870,80 @@ div.full {
 }
 
 #continue-ending:hover {
+  cursor: pointer;
+}
+
+/* final score */
+#final-score {
+  background-color: #004AA6;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+}
+
+.final-score-advisor {
+  position: absolute;
+  right: 5vw;
+  bottom: -5vw;
+  width: 30vw;
+}
+
+.final-score-text {
+  position: absolute;
+  top: 30%;
+  transform: translate(65%, -30%);
+  width: 30vw;
+  z-index: 10;
+
+}
+
+.final-score-file {
+  position: absolute;
+  top: 50%;
+  transform: translate(20%, -50%);
+  width: 50vw;
+  z-index: 0;
+}
+
+#final-score-badges {
+  position: absolute;
+  top: 50%;
+  transform: translate(65%, -50%);
+  width:30vw;
+  z-index: 10;
+
+}
+
+#final-score-next {
+  position: absolute;
+  top: 60%;
+  transform: translate(470%, 100%);
+  width:10vw;
+  z-index: 10;
+}
+
+#final-score-next:hover {
+  cursor: pointer;
+}
+
+#final-score-recap-1, #final-score-recap-2 {
+  position: absolute;
+  top: 50%;
+  transform: translate(25%, -50%);
+  width: 45vw;
+  z-index: 10;
+}
+
+
+#final-score-restart {
+  position: absolute;
+  top: 60%;
+  transform: translate(280%, 120%);
+  width:15vw;
+  z-index: 10;
+  display: none;
+}
+
+#final-score-restart:hover {
   cursor: pointer;
 }

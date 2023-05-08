@@ -520,6 +520,8 @@ class BasicWorldDemo {
     //scene
     this.scene_ = new THREE.Scene();
 
+    this.beamTexture = new THREE.TextureLoader()
+
     let light = new THREE.DirectionalLight(0xffffff, 1);
 
     this.scene_.add(light);
@@ -575,27 +577,41 @@ class BasicWorldDemo {
       this.scene_.add(this.mesh2);
 
     });
-    loader.load('stg1_A.gltf', (gltf) => {
+    loader.load('stg1_exit.gltf', (gltf) => {
       this.mesh3 = gltf.scene;
 
-      gltf.castShadow = true;
-      gltf.receiveShadow = true;
+      console.log(gltf.scene)
       this.mesh3.position.set(620, 0, 0);
       this.mesh3.rotation.set(0, -Math.PI / 2, 0);
       this.mesh3.scale.setScalar(0.01);
+      this.mesh3.traverse((object) => {
 
+        if (object.name === "stg1_exit_GEOShape_13") {
+          object.material.opacity = 1;
+
+          object.material.map = this.beamTexture.load('./resources/Map/Stage1/stg1_beam_reverse_color.jpg');
+        }
+
+      });
 
       this.scene_.add(this.mesh3);
 
     });
-    loader.load('stg1_B.gltf', (gltf) => {
+    loader.load('stg1_gloomsky.gltf', (gltf) => {
       this.mesh4 = gltf.scene;
+      this.mesh4.position.set(1100, 0, 0);
+      this.mesh4.rotation.set(0, Math.PI / 2, 0);
+      this.mesh4.scale.setScalar(0.04);
 
-      gltf.castShadow = true;
-      gltf.receiveShadow = true;
-      this.mesh4.position.set(830, 0, 0);
-      this.mesh4.rotation.set(0, -Math.PI / 2, 0);
-      this.mesh4.scale.setScalar(0.01);
+
+      this.mesh4.traverse(n => {
+        if (n.isMesh) {
+          n.material.opacity = 0.8;
+          n.material.transparent = true;
+        }
+      });
+
+
 
 
       this.scene_.add(this.mesh4);
@@ -611,6 +627,11 @@ class BasicWorldDemo {
     var continueButton = document.getElementById("continueBtn");
     var retryStage3 = document.getElementById("retry-stage-3");
     var skipButton = document.getElementById("skip-button-container");
+    var continueEnding = document.getElementById("continue-ending");
+    var nextEnding = document.getElementById("final-score-next");
+    var nextRestart = document.getElementById("final-score-restart");
+
+    var nextButtonCounter = 0;
 
     // Add event listeners to the buttons
     retryStage3.addEventListener("click", () => {
@@ -625,6 +646,46 @@ class BasicWorldDemo {
       document.getElementById('final-score-bad-ending').classList.toggle('active');
       this.checkRestart = false;
     });
+
+    continueEnding.addEventListener("click", () => {
+      retryStage3.style.display = "none"
+      continueEnding.style.display = "none"
+
+      if (this.player_.friendsSaved == 9) {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_3 of 3 complete.png"
+      } else if (this.player_.friendsSaved >= 6) {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_2 of 3 complete.png"
+      } else if (this.player_.friendsSaved >= 3) {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_1 of 3 complete.png"
+      } else {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_0 of 3 complete.png"
+      }
+      document.getElementById('final-score').classList.toggle('active');
+
+    });
+
+    nextEnding.addEventListener("click", () => {
+      document.getElementById("well-done-text").style.display = "none"
+      document.getElementById("final-score-badges").style.display = "none"
+
+      if (nextButtonCounter == 0) {
+        nextButtonCounter = 1
+        document.getElementById("final-score-recap-1").style.display = "block"
+      } else {
+        document.getElementById("final-score-recap-1").style.display = "none"
+
+        document.getElementById("final-score-recap-2").style.display = "block"
+        nextEnding.style.display = "none"
+        nextRestart.style.display = "block"
+
+      }
+
+    });
+
+    nextRestart.addEventListener("click", () => {
+      location.reload();
+    });
+
 
     // Add event listeners to the buttons
     restartButton.addEventListener("click", () => {
@@ -1714,8 +1775,6 @@ class BasicWorldDemo {
               loader.load('stg3_Start.gltf', (gltf) => {
                 this.mesh = gltf.scene;
 
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
                 this.mesh.position.set(110, 0, -0.5);
                 this.mesh.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh.scale.setScalar(0.01);
@@ -1727,8 +1786,6 @@ class BasicWorldDemo {
               loader.load('stg3_D.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
 
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
                 this.mesh1.position.set(318, 0, -0.5);
                 this.mesh1.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh1.scale.setScalar(0.01);
@@ -1740,8 +1797,6 @@ class BasicWorldDemo {
               loader.load('stg3_B.gltf', (gltf) => {
                 this.mesh2 = gltf.scene;
 
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
                 this.mesh2.position.set(526, 0, -0.5);
                 this.mesh2.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh2.scale.setScalar(0.01);
@@ -1750,17 +1805,26 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh2);
 
               });
-              loader.load('stg3_A.gltf', (gltf) => {
+              loader.load('stg3_B.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
 
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
                 this.mesh3.position.set(731, 0, -0.5);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh3);
+
+              });
+              loader.load('st3_exit.gltf', (gltf) => {
+                this.mesh4 = gltf.scene.children[0];
+
+                this.mesh4.position.set(833, 12, 5.5);
+                this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh4.scale.setScalar(0.01);
+
+
+                this.scene_.add(this.mesh4);
 
               });
 

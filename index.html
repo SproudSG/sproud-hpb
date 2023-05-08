@@ -106,7 +106,7 @@
         <button id="try-again-button">Try Again</button>
       </div>
     </div>
-    <!-- countdown for hpb boxes -->
+    <!-- countdown for pause -->
     <div class="ui">
       <div class="countdown-layout" id="countdown">
         <div class="game-over-text" id="power-countdown-text">3</div>
@@ -125,10 +125,27 @@
     <div class="ui">
       <div id="final-score-good-ending">
         <img src="./resources/Endings/Perfect/Text.png" class="ending-text">
-        <img src="./resources/Buttons/Retry_Button.png" id="retry-stage-3">
         <img src="./resources/Buttons/Continue_Button.png" id="continue-ending">
       </div>
     </div>
+
+    <!-- final score -->
+
+    <div class="ui">
+      <div id="final-score">
+        <img src="./resources/Recap_Text/Recap_text_001.png" id="final-score-recap-1" style="display: none;">
+        <img src="./resources/Recap_Text/Recap_text_002.png" id="final-score-recap-2" style="display: none;">
+
+        <img src="./resources/Well_Done/Well_Done_Text.png" class="final-score-text" id="well-done-text">
+        <img src="./resources/Well_Done/Well_Done_Shield badges_0 of 3 complete.png" id="final-score-badges">
+        <img src="./resources/Advisor/Advisor_mouth_closed.png" class="final-score-advisor">
+        <img src="./resources/Well_Done/Well_Done_File.png" class="final-score-file">
+        <img src="./resources/Buttons/Next_button.png" id="final-score-next">
+        <img src="./resources/Buttons/Restart_Button.png" id="final-score-restart">
+
+      </div>
+    </div>
+
     <!-- main page -->
     <div class="ui">
 
@@ -176,13 +193,15 @@
       <img src="./resources/Buttons/Select_Player.png"></img>
     </div>
     <div class="gender-column">
-      <img src="./resources/Boy/Character_selection_boy_unselected.png" id="boy-unselected"></img>
-      <img src="./resources/Boy/Character_selection_boy_selected.png" id="boy-selected" style="display: none;"></img>
+      <img src="./resources/CharacterSelect_BG/Boy/Character_selection_boy_unselected.png" id="boy-unselected"></img>
+      <img src="./resources/CharacterSelect_BG/Boy/Character_selection_boy_selected.png" id="boy-selected"
+        style="display: none;"></img>
 
     </div>
     <div class="gender-column">
-      <img src="./resources/Girl/Character_selection_girl_unselected.png" id="girl-unselected"></img>
-      <img src="./resources/Girl/Character_selection_girl_selected.png" id="girl-selected" style="display: none;"></img>
+      <img src="./resources/CharacterSelect_BG/Girl/Character_selection_girl_unselected.png" id="girl-unselected"></img>
+      <img src="./resources/CharacterSelect_BG/Girl/Character_selection_girl_selected.png" id="girl-selected"
+        style="display: none;"></img>
     </div>
     <div class="select-player-button">
       <img src="./resources/Buttons/Confirm_Button.png" class="unselected" id="select-gender"></img>
@@ -237,6 +256,7 @@
       </div>
     </div>
   </div>
+
   <div id="click-end" style="display: none;">
     <div class="ui">
       <div class="you-win-layout">
@@ -244,6 +264,7 @@
       </div>
     </div>
   </div>
+
   <div id="loading-1" style="display: none;">
     <div class="ui">
       <div class="you-win-layout">
@@ -266,6 +287,7 @@
       </div>
     </div>
   </div>
+
   <div id="loading-3" style="display: none;">
     <div class="ui">
       <div class="you-win-layout">

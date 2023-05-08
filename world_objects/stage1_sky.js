@@ -38,7 +38,7 @@ export const stg1sky = (() => {
                 });
 
                 this.params_.scene.add(this.mesh_);
-                this.mesh_.scale.set(0.1, 0.1, 0.1);
+                this.mesh_.scale.set(0.2, 0.2, 0.2);
 
             });
         }

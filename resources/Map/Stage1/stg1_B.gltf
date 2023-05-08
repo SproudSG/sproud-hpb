@@ -17,15 +17,20 @@
             "name": "stg1_B_GEO",
             "children": [
                 1
+            ],
+            "translation": [
+                0.03125,
+                1640.986572265625,
+                40.8828125
             ]
         },
         {
             "name": "stg1_B_GEO:PIV",
             "mesh": 0,
             "translation": [
-                0.0,
-                0.0,
-                11.70166015625
+                -0.03125,
+                -1640.986572265625,
+                -40.8828125
             ]
         }
     ],
@@ -78,6 +83,18 @@
                         "TEXCOORD_0": 20
                     },
                     "indices": 16,
+                    "mode": 4,
+                    "material": 2
+                },
+                {
+                    "attributes": {
+                        "NORMAL": 22,
+                        "POSITION": 23,
+                        "TANGENT": 24,
+                        "TEXCOORD_0": 25,
+                        "TEXCOORD_1": 26
+                    },
+                    "indices": 21,
                     "mode": 4,
                     "material": 2
                 }
@@ -173,9 +190,9 @@
             "bufferView": 0,
             "byteOffset": 0,
             "componentType": 5123,
-            "count": 17559,
+            "count": 14175,
             "max": [
-                4117
+                3265
             ],
             "min": [
                 0
@@ -187,34 +204,34 @@
             "bufferView": 1,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 4118,
+            "count": 3266,
             "max": [
-                0.9999639391899108,
-                0.9998230934143066,
-                0.9988802075386049
+                0.9999069571495056,
+                0.999823033809662,
+                0.9991926550865172
             ],
             "min": [
-                -0.9993442296981812,
-                -0.998652756214142,
-                -0.9994493126869202
+                -0.9986259341239928,
+                -0.9986526966094972,
+                -0.9994494318962096
             ],
             "type": "VEC3"
         },
         {
             "name": "stg1_B_GEOShape#0/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 49416,
+            "byteOffset": 39192,
             "componentType": 5126,
-            "count": 4118,
+            "count": 3266,
             "max": [
-                6727.9052734375,
-                2943.9375,
-                9450.7646484375
+                3894.1611328125,
+                3446.12939453125,
+                9214.083984375
             ],
             "min": [
-                -7120.2587890625,
-                -174.741943359375,
-                -8621.2236328125
+                -8356.0419921875,
+                -164.15618896484376,
+                -9775.2734375
             ],
             "type": "VEC3"
         },
@@ -223,18 +240,18 @@
             "bufferView": 2,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 4118,
+            "count": 3266,
             "max": [
-                0.9999961256980896,
-                0.9981690645217896,
-                0.998588502407074,
+                0.9989429712295532,
+                0.9998582005500794,
+                0.9997693300247192,
                 1.0
             ],
             "min": [
-                -0.9997209906578064,
-                -0.9995432496070862,
-                -0.9996740818023682,
-                -1.0
+                -0.999804139137268,
+                -0.999944508075714,
+                -0.9998921751976012,
+                1.0
             ],
             "type": "VEC4"
         },
@@ -243,9 +260,9 @@
             "bufferView": 3,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 4118,
+            "count": 3266,
             "max": [
-                0.9983921051025392,
+                0.9979629516601564,
                 0.9979968667030336
             ],
             "min": [
@@ -257,11 +274,11 @@
         {
             "name": "stg1_B_GEOShape#1/indices",
             "bufferView": 0,
-            "byteOffset": 35118,
+            "byteOffset": 28350,
             "componentType": 5123,
-            "count": 10593,
+            "count": 14934,
             "max": [
-                2642
+                3543
             ],
             "min": [
                 0
@@ -271,68 +288,68 @@
         {
             "name": "stg1_B_GEOShape#1/vertices/NORMAL",
             "bufferView": 1,
-            "byteOffset": 98832,
+            "byteOffset": 78384,
             "componentType": 5126,
-            "count": 2643,
+            "count": 3544,
             "max": [
-                0.9994511604309082,
+                0.9984045028686525,
                 0.9999700784683228,
-                0.9995197653770448
+                0.9993440508842468
             ],
             "min": [
-                -0.998269259929657,
-                -0.9999727010726928,
-                -0.9944937825202942
+                -0.9994487762451172,
+                -0.9994450807571412,
+                -0.9987489581108092
             ],
             "type": "VEC3"
         },
         {
             "name": "stg1_B_GEOShape#1/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 130548,
+            "byteOffset": 120912,
             "componentType": 5126,
-            "count": 2643,
+            "count": 3544,
             "max": [
-                7842.9072265625,
+                7130.90380859375,
                 2268.559326171875,
-                8635.990234375
+                10645.96875
             ],
             "min": [
-                -7058.2255859375,
-                -126.75608825683594,
-                -10367.3671875
+                -8437.501953125,
+                -80.51448059082031,
+                -10411.6572265625
             ],
             "type": "VEC3"
         },
         {
             "name": "stg1_B_GEOShape#1/vertices/TANGENT",
             "bufferView": 2,
-            "byteOffset": 65888,
+            "byteOffset": 52256,
             "componentType": 5126,
-            "count": 2643,
+            "count": 3544,
             "max": [
-                0.999942421913147,
-                0.9999182224273682,
-                0.9995970726013184,
+                0.9998776912689208,
+                0.9994269013404846,
+                0.9999997615814208,
                 1.0
             ],
             "min": [
                 -0.9999030232429504,
-                -0.998427391052246,
-                -0.997389018535614,
-                1.0
+                -0.9999890327453612,
+                -0.9998440146446228,
+                -1.0
             ],
             "type": "VEC4"
         },
         {
             "name": "stg1_B_GEOShape#1/vertices/TEXCOORD_0",
             "bufferView": 3,
-            "byteOffset": 32944,
+            "byteOffset": 26128,
             "componentType": 5126,
-            "count": 2643,
+            "count": 3544,
             "max": [
                 0.9969768524169922,
-                0.9875661730766296
+                0.9972270727157592
             ],
             "min": [
                 0.004136752802878618,
@@ -343,7 +360,7 @@
         {
             "name": "stg1_B_GEOShape#2/indices",
             "bufferView": 0,
-            "byteOffset": 56304,
+            "byteOffset": 58218,
             "componentType": 5123,
             "count": 3,
             "max": [
@@ -357,17 +374,17 @@
         {
             "name": "stg1_B_GEOShape#2/vertices/NORMAL",
             "bufferView": 1,
-            "byteOffset": 162264,
+            "byteOffset": 163440,
             "componentType": 5126,
             "count": 3,
             "max": [
-                -0.028785016387701036,
-                0.40001624822616579,
+                -0.028785185888409616,
+                0.40001627802848818,
                 0.9562957286834716
             ],
             "min": [
-                -0.3076779544353485,
-                0.17841139435768128,
+                -0.30767959356307986,
+                0.1784113496541977,
                 0.8736993074417114
             ],
             "type": "VEC3"
@@ -375,37 +392,37 @@
         {
             "name": "stg1_B_GEOShape#2/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 162300,
+            "byteOffset": 163476,
             "componentType": 5126,
             "count": 3,
             "max": [
                 6044.30615234375,
                 400.4296569824219,
-                6119.2216796875
+                6940.52197265625
             ],
             "min": [
                 5796.3017578125,
                 154.51718139648438,
-                6028.029296875
+                6849.32958984375
             ],
             "type": "VEC3"
         },
         {
             "name": "stg1_B_GEOShape#2/vertices/TANGENT",
             "bufferView": 2,
-            "byteOffset": 108176,
+            "byteOffset": 108960,
             "componentType": 5126,
             "count": 3,
             "max": [
-                -0.9488630890846252,
-                0.10553579777479172,
-                -0.061986587941646579,
+                -0.9488624930381776,
+                0.10553574562072754,
+                -0.06198674440383911,
                 1.0
             ],
             "min": [
                 -0.9924817085266112,
-                0.003784084925428033,
-                -0.3153114020824433,
+                0.003784104948863387,
+                -0.31531304121017458,
                 1.0
             ],
             "type": "VEC4"
@@ -413,7 +430,7 @@
         {
             "name": "stg1_B_GEOShape#2/vertices/TEXCOORD_0",
             "bufferView": 3,
-            "byteOffset": 54088,
+            "byteOffset": 54480,
             "componentType": 5126,
             "count": 3,
             "max": [
@@ -429,7 +446,7 @@
         {
             "name": "stg1_B_GEOShape#2/vertices/TEXCOORD_1",
             "bufferView": 3,
-            "byteOffset": 54112,
+            "byteOffset": 54504,
             "componentType": 5126,
             "count": 3,
             "max": [
@@ -445,7 +462,7 @@
         {
             "name": "stg1_B_GEOShape#3/indices",
             "bufferView": 0,
-            "byteOffset": 56310,
+            "byteOffset": 58224,
             "componentType": 5123,
             "count": 42624,
             "max": [
@@ -459,7 +476,7 @@
         {
             "name": "stg1_B_GEOShape#3/vertices/NORMAL",
             "bufferView": 1,
-            "byteOffset": 162336,
+            "byteOffset": 163512,
             "componentType": 5126,
             "count": 10578,
             "max": [
@@ -477,7 +494,7 @@
         {
             "name": "stg1_B_GEOShape#3/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 289272,
+            "byteOffset": 290448,
             "componentType": 5126,
             "count": 10578,
             "max": [
@@ -495,7 +512,7 @@
         {
             "name": "stg1_B_GEOShape#3/vertices/TANGENT",
             "bufferView": 2,
-            "byteOffset": 108224,
+            "byteOffset": 109008,
             "componentType": 5126,
             "count": 10578,
             "max": [
@@ -515,7 +532,7 @@
         {
             "name": "stg1_B_GEOShape#3/vertices/TEXCOORD_0",
             "bufferView": 3,
-            "byteOffset": 54136,
+            "byteOffset": 54528,
             "componentType": 5126,
             "count": 10578,
             "max": [
@@ -527,21 +544,123 @@
                 0.008029818534851075
             ],
             "type": "VEC2"
+        },
+        {
+            "name": "stg1_B_GEOShape#4/indices",
+            "bufferView": 0,
+            "byteOffset": 143472,
+            "componentType": 5123,
+            "count": 144,
+            "max": [
+                95
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "stg1_B_GEOShape#4/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 417384,
+            "componentType": 5126,
+            "count": 96,
+            "max": [
+                0.34335029125213625,
+                0.9998510479927064,
+                0.23471234738826753
+            ],
+            "min": [
+                -0.3967599868774414,
+                0.9177135825157166,
+                -0.3485881686210633
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "stg1_B_GEOShape#4/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 418536,
+            "componentType": 5126,
+            "count": 96,
+            "max": [
+                9378.0986328125,
+                811.7401123046875,
+                10540.798828125
+            ],
+            "min": [
+                -9378.0361328125,
+                -88.62771606445313,
+                -10553.83203125
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "stg1_B_GEOShape#4/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 278256,
+            "componentType": 5126,
+            "count": 96,
+            "max": [
+                0.1044124960899353,
+                0.34839075803756716,
+                0.9999694228172302,
+                1.0
+            ],
+            "min": [
+                -0.11094915121793749,
+                -0.1488475799560547,
+                -0.999992311000824,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "stg1_B_GEOShape#4/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 139152,
+            "componentType": 5126,
+            "count": 96,
+            "max": [
+                0.8096970319747925,
+                0.6875239014625549
+            ],
+            "min": [
+                0.022480564191937448,
+                0.008071422576904297
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "stg1_B_GEOShape#4/vertices/TEXCOORD_1",
+            "bufferView": 3,
+            "byteOffset": 139920,
+            "componentType": 5126,
+            "count": 96,
+            "max": [
+                1.0,
+                1.0
+            ],
+            "min": [
+                0.0,
+                0.0
+            ],
+            "type": "VEC2"
         }
     ],
     "bufferViews": [
         {
             "name": "stg1_B/data/indices-2",
             "buffer": 0,
-            "byteOffset": 832440,
-            "byteLength": 141558,
+            "byteOffset": 840168,
+            "byteLength": 143760,
             "target": 34963
         },
         {
             "name": "stg1_B/data/vertices-12",
             "buffer": 0,
-            "byteOffset": 277472,
-            "byteLength": 416208,
+            "byteOffset": 279792,
+            "byteLength": 419688,
             "byteStride": 12,
             "target": 34962
         },
@@ -549,15 +668,15 @@
             "name": "stg1_B/data/vertices-16",
             "buffer": 0,
             "byteOffset": 0,
-            "byteLength": 277472,
+            "byteLength": 279792,
             "byteStride": 16,
             "target": 34962
         },
         {
             "name": "stg1_B/data/vertices-8",
             "buffer": 0,
-            "byteOffset": 693680,
-            "byteLength": 138760,
+            "byteOffset": 699480,
+            "byteLength": 140688,
             "byteStride": 8,
             "target": 34962
         }
@@ -565,7 +684,7 @@
     "buffers": [
         {
             "name": "stg1_B/data",
-            "byteLength": 973998,
+            "byteLength": 983928,
             "uri": "stg1_B0.bin"
         }
     ]
