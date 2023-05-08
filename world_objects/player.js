@@ -658,6 +658,7 @@ export const player = (() => {
               this.processedbox1IDs.push(this.box1ID);
               this.box = "powerup"
               this.friendsSaved++
+              this.RescueUI()
               this.params_.box1.ToggleVisible();
               setTimeout(() => {
                 this.box = ""
@@ -1025,6 +1026,19 @@ export const player = (() => {
           this.params_.scene.add(this.mesh_)
           document.getElementById("shieldTimer").style.zIndex = "1";
         }
+      }
+    }
+
+    //RESCUED UI
+
+    RescueUI() {
+      var textID = "";
+      for (var i = 0; i < this.friendsSaved; i++) {
+
+        textID = 'rescue' + (i + 1)
+        console.log(textID)
+        document.getElementById(textID).src = "./resources/Rescued_Friend_UI/Saved.png";
+
       }
     }
 

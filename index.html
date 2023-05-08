@@ -17,24 +17,32 @@
   <script src="./main.js" type="module">
   </script>
   <div class="container" id="container">
-    <!-- stamina -->
+    <!-- HUD -->
     <div class="ui">
 
       <div class="stamina-layout" id="player-ui" style="display: none;">
+        <div id="boyHUD" style="display: none;">
+          <img src="./resources/HUD/Boy/Base/Base_back.png" class="baseBack">
+          <img src="./resources/HUD/Boy/Base/Base_Front.png" class="baseFront">
+        </div>
+        <div id="girlHUD" style="display: none;">
+          <img src="./resources/HUD/Girl/Base/Base_Back.png" class="baseBack">
+          <img src="./resources/HUD/Girl/Base/Base_Front.png" class="baseFront">
+        </div>
+        <div id="boyHUDstg3" style="display: none;">
+          <img src="./resources/HUD/Boy/Base_wkey/Base_wkey_Back.png" class="baseBack">
+          <img src="./resources/HUD/Boy/Base_wkey/Base_wkey_Front.png" class="baseFront">
+        </div>
+        <div id="girlHUDstg3" style="display: none;">
+          <img src="./resources/HUD/Girl/Base_wkey/Base_wkey_Back.png" class="baseBack">
+          <img src="./resources/HUD/Girl/Base_wkey/Base_wkey_Front.png" class="baseFront">
+        </div>
+
         <div class="progress-layout">
-
-          <i class="fa-regular fa-flag progress-icon"></i>
-          <img src="./resources/OilSilk/monster.png" style="max-width: 30px; padding-bottom: 10px; margin-left: -30px;"
-            id="monster"></img>
-
-          <i class="fa-sharp fa-solid fa-person-running progress-runner" style="left:-30px" id="runner"></i>
-
-          <i class="fa-solid fa-flag-checkered progress-icon end"></i>
+          <img src="./resources/HUD/Monster.png" id="monster"></img>
+          <img src="./resources/HUD/Human.png" id="runner"></img>
         </div>
 
-        <div class="stamina-text">
-          STAMINA LVL
-        </div>
         <div class="w3-border">
 
           <div class="w3-blue" style="height:24px;width:100%" id="stamina"></div>
@@ -45,16 +53,36 @@
         <div class="full" id="fullShield"></div>
       </div>
 
-      <div id="keyContainer" style="display: none;">
-        <div class="key">KEY</div>
+      <div id="shieldContainer" style="display: none;">
+        <img src="./resources/Shield/Shield_UI.png" class="shieldUI">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+          id="food1">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+          id="food2">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+          id="food3">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+          id="food4">
+
       </div>
 
-      <div id="shieldContainer" style="display: none;" >
-        <img src="./resources/Shield/Shield_UI.png" class="shieldUI" >
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" id="food1" >
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" id="food2" >
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" id="food3" >
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" id="food4" >
+      <div id="rescuedContainer" >
+        <img src="./resources/Rescued_Friend_UI/Rescued_Friend_back.png" class="rescueUI">
+        <img src="./resources/Rescued_Friend_UI/text.png" class="rescueText">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue1">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue2">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue3">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue4">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue5">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue6">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue7">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue8">
+        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue9">
+
 
       </div>
     </div>

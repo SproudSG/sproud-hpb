@@ -5,11 +5,16 @@
 }
 
 /* global page css */
+
+canvas {
+  z-index: -3;
+}
+
 html,
 body {
   width: 100%;
   height: 100%;
-  background: #000000;
+  background: #000000; 
   margin: 0;
   padding: 0;
   max-width: 100%;
@@ -178,6 +183,23 @@ img {
 
 /* USER UI LAYOUT (stamina/progress) */
 
+.baseBack {
+  position: absolute;
+  width: 38vw;
+  left: -5vw;
+  top: -3vw;
+
+}
+
+.baseFront {
+  position: absolute;
+  width: 38vw;
+  left: -5vw;
+  top: -3vw;
+  z-index: 1;
+}
+
+
 .stamina-layout {
   position: relative;
   top: 10%;
@@ -187,24 +209,26 @@ img {
 
 
 .progress-layout {
+  transform: rotate(-15deg);
+  left: 10vw;
+  top: -1.5vw;
+  position: absolute;
   padding-bottom: 10px;
+  width: 15vw;
 
 }
 
-.progress-icon {
-  font-size: 30px;
-  color: white;
-}
-
-.progress-runner {
-  font-size: 30px;
-  color: white;
-  position: relative;
-}
 
 #monster {
   position: relative;
-  left: -30px
+  left: -1vw;
+  width: 4vw
+}
+
+#runner {
+  position: relative;
+  left: -3vw;
+  width: 4vw
 }
 
 .end {
@@ -426,14 +450,17 @@ img {
 
 /* sheild css */
 
-.shieldUI{
+.shieldUI {
   position: absolute;
   width: 40vw;
   right: -2vw;
   bottom: 0;
 }
 
-#food1, #food2, #food3, #food4 {
+#food1,
+#food2,
+#food3,
+#food4 {
   width: 5vw;
   position: absolute;
   right: -2vw;
@@ -482,17 +509,64 @@ div.full {
 }
 
 
-.key {
+
+/* rescued UI */
+
+
+.rescueUI{
   position: absolute;
-  width: 100px;
-  height: 100px;
-  top: 40%;
-  left: 20px;
-  overflow: hidden;
+  width: 39vw;
+  height: 15vw;
+  left: -3vw;
+  bottom: 4.5vw;
+}
+.rescueText{
+  position: absolute;
+  width: 16vw;
+  left: 9vw;
+  bottom: 10vw;
+}
+#rescue1,#rescue2,#rescue3,#rescue4,#rescue5,#rescue6,#rescue7,#rescue8,#rescue9 {
+  position: absolute;
+  width: 3vw;
+  bottom: 9vw;
 }
 
+#rescue1 {
+  left: 3vw
+}
 
+#rescue2 {
+  left: 6vw
+}
 
+#rescue3 {
+  left: 9vw
+}
+
+#rescue4 {
+  left: 12vw
+}
+
+#rescue5 {
+  left: 15vw
+}
+
+#rescue6 {
+  left: 18vw
+}
+
+#rescue7 {
+  left: 21vw
+}
+
+#rescue8 {
+  left: 24vw
+}
+
+#rescue9 {
+  left: 27vw
+}
 /* Gender selection */
 
 #gender-selection {

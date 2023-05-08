@@ -1,10 +1,6 @@
 import * as THREE from './node_modules/three/build/three.module.js';
 import Stats from './node_modules/stats.js/src/Stats.js'
-import { GLTFLoader } from "./node_modules/three/examples/jsm/loaders/GLTFLoader.js";
-
-// import * as THREE from 'https://storage.googleapis.com/sproud-hpb/node_modules/three/build/three.module.js';
-// import { GLTFLoader } from "https://storage.googleapis.com/sproud-hpb/node_modules/three/examples/jsm/loaders/GLTFLoader.js";
-
+import { GLTFLoader } from "./node_modules/three/examples/jsm/loaders/GLTFLoader.js"
 
 import { player } from './world_objects/player.js';
 import { shoogaGlider } from './world_objects/monster/shoogaGlider.js';
@@ -205,9 +201,12 @@ class BasicWorldDemo {
               this.startGame = true;
               document.getElementById('loading-1').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
-
-
               document.dispatchEvent(new CustomEvent('score-over'));
+              if(this.gender_ == "male"){
+                document.getElementById('boyHUD').style.display = 'block'
+              }else if(this.gender_ == "female"){
+                document.getElementById('girlHUD').style.display = 'block'
+              }
             }
 
           }, 50);
@@ -969,15 +968,11 @@ class BasicWorldDemo {
     this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
     this.progression_ = new progression.ProgressionManager();
 
-
-
     //final variables 
     this.gameOver_ = false;
     this.previousRAF_ = null;
     this.RAF_();
     this.OnWindowResize_();
-
-
   }
 
   //pause all moving objects
@@ -1782,11 +1777,18 @@ class BasicWorldDemo {
               progressBar.style.width = `100%`;
               this.previousRAF_ = null;
               this.startstage = true;
-              document.getElementById("keyContainer").style.display = 'block';
+              document.getElementById("rescuedContainer").style.display = 'block';
               document.getElementById('loading-3').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
               this.player_.propArray = []
               clearInterval(this.intervalId_);
+              if(this.gender_ == "male"){
+                document.getElementById('boyHUD').style.display = 'none'
+                document.getElementById('boyHUDstg3').style.display = 'block'
+              }else if(this.gender_ == "female"){
+                document.getElementById('girlHUD').style.display = 'none'
+                document.getElementById('girlHUDstg3').style.display = 'block'
+              }
             }
 
           }, 50);
@@ -1932,22 +1934,19 @@ class BasicWorldDemo {
           }
           this.progression_.progress_ += timeElapsed * 20.0;
 
-          const scoreText1 = (Math.round((this.progression_.progress_ * 10) / 10)).toLocaleString('en-US', { minimumIntegerDigits: 5, useGrouping: false }) / 5;
+          const scoreText1 = (Math.round((this.progression_.progress_ * 10) / 10)).toLocaleString('en-US', { minimumIntegerDigits: 5, useGrouping: false }) / 60;
 
-          document.getElementById('monster').style.left = scoreText1 * 4.1 + 'px';
+          document.getElementById('monster').style.left = scoreText1  + 'vw';
           this.objSpeed = 0
           this.monSpeed = 0
           this.speedy = 0
           this.speedz = 0
           this.isPaused = true
           setTimeout(() => {
-
-
             if (this.oilSlik_.mesh_.position.x < 0) {
               this.oilSlik_.mesh_.position.x += timeElapsed * 6
               this.oilSlik_.mesh_.scale.set(0.3, 0.3, 0.3)
             }
-
           }, 400);
 
         }
