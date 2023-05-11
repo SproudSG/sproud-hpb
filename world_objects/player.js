@@ -85,7 +85,6 @@ export const player = (() => {
       //map speed
       this.speed = 0.2
       this.debuff = false;
-      this.buff = false;
 
       //sugarcrash variables
       this.stamina_ = 100;
@@ -108,7 +107,6 @@ export const player = (() => {
 
       if (this.params_.gender === "male") {
         model = 'BoyAll.gltf';
-        texturePath = './resources/Player/Player_YBot/Boy_Gold_Colour.png'
       } else {
         model = 'GirlAll.gltf';
       }
@@ -145,6 +143,18 @@ export const player = (() => {
               object.visible = false;
 
             }
+
+            if (this.params_.gender === "male") {
+              if (object.name === 'Boy_GEO_low_G') {
+                object.visible = false;
+              }
+            } else {
+              if (object.name === 'girl_GEO_G') {
+                object.visible = false;
+              }
+            }
+
+
 
             if (this.params_.stage == 1) {
               if (object.name === 'shield_GEO') {
@@ -384,9 +394,26 @@ export const player = (() => {
 
               }
 
-              if (object.name === 'Boy_GEO_low') {
-                object.visible = true;
+
+
+              if (this.params_.gender === "male") {
+
+                if (object.name === 'Boy_GEO_low') {
+                  object.visible = true;
+                }
+                if (object.name === 'Boy_GEO_low_G') {
+                  object.visible = false;
+                }
+              } else {
+                if (object.name === 'girl_GEO') {
+                  object.visible = true;
+                }
+                if (object.name === 'girl_GEO_G') {
+                  object.visible = false;
+                }
               }
+
+
             });
 
             this.params_.scene.add(this.mesh_);
@@ -406,6 +433,8 @@ export const player = (() => {
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
             this.playerHit = true;
+            this.speed = 0.1;
+            this.debuff = true;
 
             document.querySelector('#video-container').style.background = "radial-gradient(circle at center, transparent 0%, rgba(255, 0, 0, 0) 60%, rgba(255, 0, 0, 0.8) 100%)"
             setTimeout(() => {
@@ -434,19 +463,32 @@ export const player = (() => {
             this.mesh_.traverse((object) => {
               if (object.name === 'quarter_meat_GEO') {
                 object.visible = false;
-
               }
               if (object.name === 'half_vegetable_GEO') {
                 object.visible = false;
-
               }
               if (object.name === 'quarter_rice_GEO') {
                 object.visible = false;
+              }
 
+
+              if (this.params_.gender === "male") {
+
+                if (object.name === 'Boy_GEO_low') {
+                  object.visible = true;
+                }
+                if (object.name === 'Boy_GEO_low_G') {
+                  object.visible = false;
+                }
+              } else {
+                if (object.name === 'girl_GEO') {
+                  object.visible = true;
+                }
+                if (object.name === 'girl_GEO_G') {
+                  object.visible = false;
+                }
               }
-              if (object.name === 'Boy_GEO_low') {
-                object.visible = true;
-              }
+
             });
 
             this.params_.scene.add(this.mesh_);
@@ -468,6 +510,8 @@ export const player = (() => {
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
             this.playerHit = true;
+            this.speed = 0.1
+            this.debuff = true;
 
             document.querySelector('#video-container').style.background = "radial-gradient(circle at center, transparent 0%, rgba(255, 0, 0, 0) 60%, rgba(255, 0, 0, 0.8) 100%)"
             setTimeout(() => {
@@ -505,9 +549,24 @@ export const player = (() => {
                   object.visible = false;
 
                 }
-                if (object.name === 'Boy_GEO_low') {
-                  object.visible = true;
+
+                if (this.params_.gender === "male") {
+
+                  if (object.name === 'Boy_GEO_low') {
+                    object.visible = true;
+                  }
+                  if (object.name === 'Boy_GEO_low_G') {
+                    object.visible = false;
+                  }
+                } else {
+                  if (object.name === 'girl_GEO') {
+                    object.visible = true;
+                  }
+                  if (object.name === 'girl_GEO_G') {
+                    object.visible = false;
+                  }
                 }
+
               });
 
               this.params_.scene.add(this.mesh_);
@@ -888,6 +947,10 @@ export const player = (() => {
         }
       }
     }
+    getSpeed(callback) {
+      const result = this.speed;
+      callback(result);
+    }
 
     AddFood(food) {
       if (this.propArray.length >= 4) {
@@ -1019,9 +1082,24 @@ export const player = (() => {
           this.immunitiy = true;
           this.mesh_.traverse((object) => {
 
-            if (object.name === 'Boy_GEO_low') {
-              object.visible = false;
+            if (this.params_.gender === "male") {
+
+              if (object.name === 'Boy_GEO_low') {
+                object.visible = false;
+              }
+              if (object.name === 'Boy_GEO_low_G') {
+                object.visible = true;
+              }
+            } else {
+              if (object.name === 'girl_GEO') {
+                object.visible = false;
+              }
+              if (object.name === 'girl_GEO_G') {
+                object.visible = true;
+              }
             }
+
+
           })
           this.params_.scene.add(this.mesh_)
           document.getElementById("shieldTimer").style.zIndex = "1";
@@ -1256,8 +1334,21 @@ export const player = (() => {
               object.visible = false;
 
             }
-            if (object.name === 'Boy_GEO_low') {
-              object.visible = true;
+            if (this.params_.gender === "male") {
+
+              if (object.name === 'Boy_GEO_low') {
+                object.visible = true;
+              }
+              if (object.name === 'Boy_GEO_low_G') {
+                object.visible = false;
+              }
+            } else {
+              if (object.name === 'girl_GEO') {
+                object.visible = true;
+              }
+              if (object.name === 'girl_GEO_G') {
+                object.visible = false;
+              }
             }
           });
 
@@ -1589,25 +1680,16 @@ export const player = (() => {
       this.UpdateStamina_(timeElapsed, pause);
 
 
-      if (!pause) {
-        //check speed decay
-        if (this.buff) {
-          if (this.speed > 0.2) {
-            this.speed -= (timeElapsed / 10)
-          }
-          if (this.speed < 0.2) {
-            this.speed = 0.2
-            this.buff = false
-          }
-        }
+      //check speed decay
 
+      if (!pause) {
         if (this.debuff) {
           if (this.speed > 0.2) {
             this.speed = 0.2
             this.debuff = false
           }
           if (this.speed < 0.2) {
-            this.speed += (timeElapsed / 10)
+            this.speed += (timeElapsed / 30)
 
           }
         }

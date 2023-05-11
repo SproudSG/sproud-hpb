@@ -200,6 +200,24 @@
 			"mood": null,
 			"postPlaybackMood": null,
 			"duration": 1.166666667
+		},
+		"DodgeRight": {
+			"version": 1,
+			"id": "DodgeRight",
+			"name": "dodgeright",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.166666667
+		},
+		"DodgeLeft": {
+			"version": 1,
+			"id": "DodgeLeft",
+			"name": "dodgeleft",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.166666667
 		}
 	}
 }

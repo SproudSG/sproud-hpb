@@ -106,7 +106,7 @@ export const trolliumChloride = (() => {
           obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
           obj.position.x = spawnPosition[i]
           obj.position.z = 8
-          obj.position.y = -6
+          obj.position.y = -5
 
           obj.scale = 0.02;
           this.objects_.push(obj);

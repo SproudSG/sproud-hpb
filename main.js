@@ -85,7 +85,7 @@ class BasicWorldDemo {
     this._Initialize();
     this.checkStartGame = false;
     this._showGender = false;
-
+    this.failedStage = false;
     //loading bars
     this.progressBarContainer = document.getElementById('loading-bar-container');
 
@@ -109,20 +109,18 @@ class BasicWorldDemo {
 
     //start game event listeners
     document.addEventListener('keydown', () => {
-      this.splashScreenMusic.pause()
-      var progressBarContainer = document.getElementById('progress-bar-container');
-      if (window.getComputedStyle(progressBarContainer).display === 'none') {
-        if (!this._showGender) {
-          this._showGender = true;
-          // document.getElementById('gender-selection').style.display = 'block';
-          document.getElementById('game-menu').style.display = 'none';
-          this.playNextStageVideo1()
-          document.getElementById('video-container').style.display = 'block';
+      if (!this._gameStarted) {
+        this.splashScreenMusic.pause()
+        var progressBarContainer = document.getElementById('progress-bar-container');
+        if (window.getComputedStyle(progressBarContainer).display === 'none') {
+          if (!this._showGender) {
+            this._showGender = true;
+            document.getElementById('game-menu').style.display = 'none';
+            this.playNextStageVideo1()
+            document.getElementById('video-container').style.display = 'block';
+          }
         }
       }
-
-
-
     });
 
     document.addEventListener('click', () => {
@@ -131,7 +129,6 @@ class BasicWorldDemo {
       if (window.getComputedStyle(progressBarContainer).display === 'none') {
         if (!this._showGender) {
           this._showGender = true;
-          // document.getElementById('gender-selection').style.display = 'block';
           document.getElementById('game-menu').style.display = 'none';
           this.playNextStageVideo1()
           document.getElementById('video-container').style.display = 'block';
@@ -183,6 +180,46 @@ class BasicWorldDemo {
           this.firstLoad = false;
           this.closeNextStageVideo1();
           document.getElementById('loading-1').style.display = 'block';
+
+          // text type writer 
+          var textElement = document.getElementById('stage1-intro1-text1');
+          var textElement1 = document.getElementById('stage1-intro1-text2');
+          var textElement2 = document.getElementById('stage1-intro1-text3');
+
+          textElement.textContent = '';
+          var textToType = "HEY THERE, I'M AGENT SOFIA.";
+          var typingSpeed = 10;
+          var i = 0;
+          var intervalId = setInterval(function () {
+            textElement.textContent += textToType.charAt(i);
+            i++;
+            if (i >= textToType.length) {
+              i = 0
+              clearInterval(intervalId);
+              textToType = "LOOKS LIKE YOU AND YOUR FRIENDS ACCIDENTALLY WENT THROUGH A MULTIVERSE PORTAL TO GLYKOS!";
+              intervalId = setInterval(function () {
+                textElement1.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  i = 0
+
+                  clearInterval(intervalId);
+                  textToType = "EVERYTHING MIGHT LOOK SWEET AND APPETISING BUT IT'S MORE DANGEROUS THAN IT SEEMS.";
+                  intervalId = setInterval(function () {
+                    textElement2.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      clearInterval(intervalId);
+                      document.getElementById('loading1-next').style.display = 'block';
+                    }
+                  }, typingSpeed);
+                }
+              }, typingSpeed);
+            }
+          }, typingSpeed);
+
+
+          // start loading variables
           this.stopTime = false
           this.RAF_()
           this.progressBarContainer.style.display = 'block';
@@ -190,17 +227,17 @@ class BasicWorldDemo {
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 56) {
+            if (loadingProgress < 74) {
               // Calculate the loading progress as a percentage of the maximum value
-              const progressPercentage = (loadingProgress / 56) * 100;
+              const progressPercentage = (loadingProgress / 74) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
               clearInterval(loadingInterval)
               progressBar.style.width = `100%`;
               this.startGame = true;
-              document.getElementById('loading-1').style.display = 'none';
-              document.getElementById('click-start').style.display = 'block';
+              this.stopTime = true;
+
               document.dispatchEvent(new CustomEvent('score-over'));
               if (this.gender_ == "male") {
                 document.getElementById('boyHUD').style.display = 'block'
@@ -260,6 +297,48 @@ class BasicWorldDemo {
         this.closeNextStageVideo1();
 
         document.getElementById('loading-1').style.display = 'block';
+        document.getElementById('stage1-intro1').style.display = 'block';
+        document.getElementById('loading-bar-container').style.display = 'block';
+        document.getElementById('loading-text-stage-1').style.display = 'block';
+        // text type writer 
+        var textElement = document.getElementById('stage1-intro1-text1');
+        var textElement1 = document.getElementById('stage1-intro1-text2');
+        var textElement2 = document.getElementById('stage1-intro1-text3');
+
+        textElement.textContent = '';
+        textElement1.textContent = '';
+        textElement2.textContent = '';
+
+        var textToType = "HEY THERE, I'M AGENT SOFIA.";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            i = 0
+            clearInterval(intervalId);
+            textToType = "LOOKS LIKE YOU AND YOUR FRIENDS ACCIDENTALLY WENT THROUGH A MULTIVERSE PORTAL TO GLYKOS!";
+            intervalId = setInterval(function () {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+              if (i >= textToType.length) {
+                i = 0
+
+                clearInterval(intervalId);
+                textToType = "EVERYTHING MIGHT LOOK SWEET AND APPETISING BUT IT'S MORE DANGEROUS THAN IT SEEMS.";
+                intervalId = setInterval(function () {
+                  textElement2.textContent += textToType.charAt(i);
+                  i++;
+                  if (i >= textToType.length) {
+                    clearInterval(intervalId);
+                    document.getElementById('loading1-next').style.display = 'block';
+                  }
+                }, typingSpeed);
+              }
+            }, typingSpeed);
+          }
+        }, typingSpeed);
 
         while (this.scene_.children.length > 0) {
           this.scene_.remove(this.scene_.children[0]);
@@ -274,8 +353,111 @@ class BasicWorldDemo {
     // if next stage video ends, then unpause everything
     this.nextStageVideo2_.addEventListener("ended", () => {
       this.closeNextStageVideo2();
-
+      document.getElementById('loading1-next').style.display = 'none';
       document.getElementById('loading-2').style.display = 'block';
+      document.getElementById('stage2-intro1').style.display = 'block';
+      document.getElementById('loading2-next').style.display = 'none';
+      document.getElementById('loading-button-container').style.display = 'block';
+
+      document.getElementById('loading-bar-container-2').style.display = 'block';
+      document.getElementById('loading-text-stage-2').style.display = 'block';
+      // text type writer 
+      var textElement = document.getElementById('stage2-intro1-text1');
+      var textElement1 = document.getElementById('stage2-intro1-text2');
+      var textElement2 = document.getElementById('stage2-intro1-text3');
+      var textElement3 = document.getElementById('stage2-intro1-text4');
+      var textElement4 = document.getElementById('stage2-intro1-text5');
+      var textElement5 = document.getElementById('stage2-intro1-text6');
+      var textElement6 = document.getElementById('stage2-intro1-text7');
+      var textElement7 = document.getElementById('stage2-intro1-text8');
+
+      textElement.textContent = '';
+      textElement1.textContent = '';
+      textElement2.textContent = '';
+      textElement3.textContent = '';
+      textElement4.textContent = '';
+      textElement5.textContent = '';
+      textElement6.textContent = '';
+      textElement7.textContent = '';
+
+      var textToType = "NICE WORK! NOW THAT YOU HAVE THE NUTRI-SHIELD, YOU CAN PROTECT YOURSELF AGAINST ATTACKS AND OBSTACLES. ";
+      var typingSpeed = 10;
+      var i = 0;
+      var intervalId = setInterval(() => {
+        textElement.textContent += textToType.charAt(i);
+        i++;
+        if (i >= textToType.length) {
+          i = 0
+          clearInterval(intervalId);
+          textToType = "TO CHARGE IT, FOLLOW THE 'MY HEALTHY PLATE' FORMULA:"
+          intervalId = setInterval(() => {
+            textElement1.textContent += textToType.charAt(i);
+            i++;
+            if (i >= textToType.length) {
+              i = 0
+
+              clearInterval(intervalId);
+              textToType = "¼ GRAINS";
+              intervalId = setInterval(() => {
+                textElement2.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  clearInterval(intervalId);
+                  i = 0
+                  textToType = ",";
+                  intervalId = setInterval(() => {
+                    textElement3.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      clearInterval(intervalId);
+                      i = 0
+
+                      textToType = "¼ PROTEIN";
+                      intervalId = setInterval(() => {
+                        textElement4.textContent += textToType.charAt(i);
+                        i++;
+                        if (i >= textToType.length) {
+                          clearInterval(intervalId);
+                          i = 0
+                          textToType = ",";
+                          intervalId = setInterval(() => {
+                            textElement5.textContent += textToType.charAt(i);
+                            i++;
+                            if (i >= textToType.length) {
+                              clearInterval(intervalId);
+                              i = 0
+                              textToType = "½ FRUIT AND VEG";
+                              intervalId = setInterval(() => {
+                                textElement6.textContent += textToType.charAt(i);
+                                i++;
+                                if (i >= textToType.length) {
+                                  i = 0
+                                  clearInterval(intervalId);
+                                  textToType = "!";
+                                  intervalId = setInterval(() => {
+                                    textElement7.textContent += textToType.charAt(i);
+                                    i++;
+                                    if (i >= textToType.length) {
+                                      clearInterval(intervalId);
+                                      document.getElementById('loading2-next').style.display = 'block';
+                                    }
+                                  }, typingSpeed);
+                                }
+                              }, typingSpeed);
+                            }
+                          }, typingSpeed);
+                        }
+                      }, typingSpeed);
+                    }
+                  }, typingSpeed);
+                }
+              }, typingSpeed);
+            }
+          }, typingSpeed);
+        }
+      }, typingSpeed);
+
+
       document.getElementById("skip-button-container").style.display = "none";
 
       while (this.scene_.children.length > 0) {
@@ -287,9 +469,54 @@ class BasicWorldDemo {
     // if next stage video ends, then unpause everything
     this.nextStageVideo3_.addEventListener("ended", () => {
       this.closeNextStageVideo3();
-
+      document.getElementById('loading2-next').style.display = 'none';
       document.getElementById('loading-3').style.display = 'block';
       document.getElementById("skip-button-container").style.display = "none";
+      document.getElementById('stage3-intro1').style.display = 'block';
+      document.getElementById('loading3-next').style.display = 'none';
+      document.getElementById('loading-button-container').style.display = 'block';
+      document.getElementById('loading-bar-container-3').style.display = 'block';
+      document.getElementById('loading-text-stage-3').style.display = 'block';
+      // text type writer 
+      var textElement = document.getElementById('stage3-intro1-text1');
+      var textElement1 = document.getElementById('stage3-intro1-text2');
+      var textElement2 = document.getElementById('stage3-intro1-text3');
+
+      textElement.textContent = '';
+      textElement1.textContent = '';
+      textElement2.textContent = '';
+
+      var textToType = "UH OH! SEEMS LIKE TAKING THE PORTAL KEY ACTIVATED SOME SORT OF SELF-DESTRUCT SEQUENCE.";
+      var typingSpeed = 10;
+      var i = 0;
+      var intervalId = setInterval(function () {
+        textElement.textContent += textToType.charAt(i);
+        i++;
+        if (i >= textToType.length) {
+          i = 0
+          clearInterval(intervalId);
+          textToType = "YOU'LL NEED TO HURRY!";
+          intervalId = setInterval(function () {
+            textElement1.textContent += textToType.charAt(i);
+            i++;
+            if (i >= textToType.length) {
+              i = 0
+
+              clearInterval(intervalId);
+              textToType = "JUMP AND MOVE LEFT OR RIGHT TO WALL RUN TO AVOID FALLING DOWN THE CRUMBLING PATHS!";
+              intervalId = setInterval(function () {
+                textElement2.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  i = 0
+                  clearInterval(intervalId);
+                  document.getElementById('loading3-next').style.display = 'block';
+                }
+              }, typingSpeed);
+            }
+          }, typingSpeed);
+        }
+      }, typingSpeed);
 
 
       while (this.scene_.children.length > 0) {
@@ -303,6 +530,8 @@ class BasicWorldDemo {
       this.closeNextStageVideo4();
       this.stopTime = true
       this.Pause()
+      document.getElementById('loading3-next').style.display = 'none';
+
       //  document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
       document.getElementById("volume-container").style.display = 'none';
       document.getElementById('final-score-good-ending').classList.toggle('active');
@@ -323,6 +552,8 @@ class BasicWorldDemo {
       this.closeNextStageVideo5();
       this.stopTime = true
       this.Pause()
+      document.getElementById('loading3-next').style.display = 'none';
+
       // document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
       document.getElementById("volume-container").style.display = 'none';
       document.getElementById('final-score-bad-ending').classList.toggle('active');
@@ -342,6 +573,9 @@ class BasicWorldDemo {
   playNextStageVideo1() {
     this.nextStageVideo1_.style.display = "block";
     this.nextStageVideo1_.play();
+    if (this.checkRestart || this.failedStage) {
+      this.nextStageVideo1_.currentTime = this.nextStageVideo1_.duration;
+    }
   }
 
   closeNextStageVideo1() {
@@ -355,7 +589,9 @@ class BasicWorldDemo {
   playNextStageVideo2() {
     this.nextStageVideo2_.style.display = "block";
     this.nextStageVideo2_.play()
-
+    if (this.checkRestart || this.failedStage) {
+      this.nextStageVideo2_.currentTime = this.nextStageVideo2_.duration;
+    }
   }
 
   closeNextStageVideo2() {
@@ -368,6 +604,9 @@ class BasicWorldDemo {
   playNextStageVideo3() {
     this.nextStageVideo3_.style.display = "block";
     this.nextStageVideo3_.play();
+    if (this.checkRestart || this.failedStage) {
+      this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
+    }
   }
 
   closeNextStageVideo3() {
@@ -462,6 +701,7 @@ class BasicWorldDemo {
     this.monSpeed = 52;
     this.speedz = 3;
     this.speedy = 12;
+    this.buffspeed = false;
     this.animationId;
     this.startstage = false;
 
@@ -584,25 +824,22 @@ class BasicWorldDemo {
       this.mesh3.position.set(620, 0, 0);
       this.mesh3.rotation.set(0, -Math.PI / 2, 0);
       this.mesh3.scale.setScalar(0.01);
-      this.mesh3.traverse((object) => {
 
-        if (object.name === "stg1_exit_GEOShape_13") {
-          object.material.opacity = 1;
-
-          object.material.map = this.beamTexture.load('./resources/Map/Stage1/stg1_beam_reverse_color.jpg');
-        }
-
-      });
+      // this.mesh3.traverse((object) => {
+      //   if (object.name === "stg1_exit_GEOShape_13") {
+      //     object.material.opacity = 1;
+      //     object.material.map = this.beamTexture.load('./resources/Map/Stage1/stg1_beam_reverse_color.jpg');
+      //   }
+      // });
 
       this.scene_.add(this.mesh3);
-
     });
+
     loader.load('stg1_gloomsky.gltf', (gltf) => {
       this.mesh4 = gltf.scene;
       this.mesh4.position.set(1100, 0, 0);
       this.mesh4.rotation.set(0, Math.PI / 2, 0);
       this.mesh4.scale.setScalar(0.04);
-
 
       this.mesh4.traverse(n => {
         if (n.isMesh) {
@@ -610,9 +847,6 @@ class BasicWorldDemo {
           n.material.transparent = true;
         }
       });
-
-
-
 
       this.scene_.add(this.mesh4);
 
@@ -630,10 +864,405 @@ class BasicWorldDemo {
     var continueEnding = document.getElementById("continue-ending");
     var nextEnding = document.getElementById("final-score-next");
     var nextRestart = document.getElementById("final-score-restart");
+    var loading1Next = document.getElementById('loading1-next')
+    var loading2Next = document.getElementById('loading2-next')
+    var loading3Next = document.getElementById('loading3-next')
 
     var nextButtonCounter = 0;
+    var loading1nextButtonCounter = 0;
+    var loading2nextButtonCounter = 0;
+    var loading3nextButtonCounter = 0;
 
     // Add event listeners to the buttons
+    loading1Next.addEventListener("click", () => {
+      loading1Next.style.display = 'none'
+
+      if (loading1nextButtonCounter == 0) {
+        document.getElementById('stage1-intro1').style.display = 'none'
+        document.getElementById('stage1-intro2').style.display = 'block'
+        loading1nextButtonCounter++
+
+        var textElement = document.getElementById('stage1-intro2-text1')
+
+        textElement.textContent = '';
+        var textToType = "YOU'LL HAVE TO OUTRUN THOSE PESKY GLYKONOS WHO ARE GONNA TRY AND CATCH YOU!";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            clearInterval(intervalId);
+            document.getElementById('loading1-next').style.display = 'block';
+          }
+        }, typingSpeed);
+      } else if (loading1nextButtonCounter == 1) {
+        loading1nextButtonCounter++
+        document.getElementById('stage1-intro2').style.display = 'none'
+        document.getElementById('stage1-intro3').style.display = 'block'
+
+
+        var textElement = document.getElementById('stage1-intro3-text1')
+
+        textElement.textContent = '';
+        var textToType = "TO PROTECT YOURSELVES AND SAVE YOUR FRIENDS YOU MUST FIRST RETRIEVE THE NUTRI-SHEILD. IT'LL BE A DANGEROUS JOURNEY BUT I THINK YOU HAVE WHAT IT TAKES!";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            clearInterval(intervalId);
+            document.getElementById('loading1-next').style.display = 'block';
+          }
+        }, typingSpeed);
+
+      } else if (loading1nextButtonCounter == 2) {
+        loading1nextButtonCounter++
+        document.getElementById('stage1-intro3').style.display = 'none'
+        document.getElementById('stage1-intro4').style.display = 'block'
+
+
+        var textElement = document.getElementById('stage1-intro4-text1')
+        var textElement1 = document.getElementById('stage1-intro4-text2')
+
+        textElement.textContent = '';
+        textElement1.textContent = '';
+
+        var textToType = "• USE THE [ARROW KEYS] TO MOVE LEFT AND RIGHT AND AVOID OBSTACLES!";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            clearInterval(intervalId);
+            i = 0;
+            textToType = "• PRESS [SPACEBAR] TO JUMP!"
+            intervalId = setInterval(function () {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+              if (i >= textToType.length) {
+                clearInterval(intervalId);
+                document.getElementById('loading1-next').style.display = 'block';
+
+              }
+            }, typingSpeed);
+          }
+        }, typingSpeed);
+
+      } else if (loading1nextButtonCounter == 3) {
+        loading1nextButtonCounter++
+        document.getElementById('stage1-intro4').style.display = 'none'
+        document.getElementById('stage1-intro5').style.display = 'block'
+
+
+        var textElement = document.getElementById('stage1-intro5-text1')
+
+        textElement.textContent = '';
+
+        var textToType = "WATER IS ALWAYS THE BEST CHOICE SO AVOID SWEETENED BEVERAGES!";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            clearInterval(intervalId);
+            document.getElementById('loading1-next').style.display = 'block';
+          }
+        }, typingSpeed);
+
+      } else if (loading1nextButtonCounter == 4) {
+        loading1nextButtonCounter++
+        document.getElementById('stage1-intro5').style.display = 'none'
+        document.getElementById('stage1-recap').style.display = 'block'
+
+
+        var textElement = document.getElementById('stage1-recap-text1')
+        var textElement1 = document.getElementById('stage1-recap-text2')
+        var textElement2 = document.getElementById('stage1-recap-text3')
+        var textElement3 = document.getElementById('stage1-recap-text4')
+
+        textElement.textContent = '';
+        textElement1.textContent = '';
+        textElement2.textContent = '';
+        textElement3.textContent = '';
+
+        var textToType = "• REMEMBER WATER IS ALWAYS THE BEST CHOICE SO AVOID SWEETENED BEVERAGES!";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(() => {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            clearInterval(intervalId);
+            i = 0;
+            textToType = "• FILL YOUR WATER BOTTLES UP FROM SCHOOL WATER COOLERS."
+            intervalId = setInterval(() => {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+              if (i >= textToType.length) {
+                clearInterval(intervalId);
+                i = 0;
+                textToType = "• IF YOU ARE PURCHASING DRINKS, CHOOSE BEVERAGES WHICH HAVE BEEN GRADED A OR B ONLY."
+                intervalId = setInterval(() => {
+                  textElement2.textContent += textToType.charAt(i);
+                  i++;
+                  if (i >= textToType.length) {
+                    clearInterval(intervalId);
+                    i = 0;
+                    textToType = "•  HYDRATE YOURSELF WITH AT LEAST 8 GLASSES EVERYDAY!"
+                    intervalId = setInterval(() => {
+                      textElement3.textContent += textToType.charAt(i);
+                      i++;
+                      if (i >= textToType.length) {
+                        clearInterval(intervalId);
+                        document.getElementById('click-start').style.display = 'block';
+                        document.getElementById('loading-bar-container').style.display = 'none';
+                        document.getElementById('loading-text-stage-1').style.display = 'none';
+
+                        this.allowStart = true;
+                        loading1nextButtonCounter = 0
+                        i = 0;
+                      }
+                    }, typingSpeed);
+                  }
+                }, typingSpeed);
+              }
+            }, typingSpeed);
+          }
+        }, typingSpeed);
+      }
+
+    });
+
+    loading2Next.addEventListener("click", () => {
+      loading2Next.style.display = 'none'
+      if (loading2nextButtonCounter == 0) {
+        loading2nextButtonCounter++
+        document.getElementById('stage2-intro1').style.display = 'none'
+        document.getElementById('stage2-intro2').style.display = 'block'
+
+
+        var textElement = document.getElementById('stage2-intro2-text1')
+
+        textElement.textContent = '';
+        var textToType = "TO ACTIVATE THE PORTAL TO GO BACK TO EARTH, YOU NEED TO GET THE PORTAL KEY INSIDE THIS GLYKOS DUNGEON.";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            clearInterval(intervalId);
+            document.getElementById('loading2-next').style.display = 'block';
+          }
+        }, typingSpeed);
+      } else if (loading2nextButtonCounter == 1) {
+        loading2nextButtonCounter++
+        document.getElementById('stage2-intro2').style.display = 'none'
+        document.getElementById('stage2-intro3').style.display = 'block'
+
+        var textElement = document.getElementById('stage2-intro3-text1')
+        var textElement1 = document.getElementById('stage2-intro3-text2')
+        var textElement2 = document.getElementById('stage2-intro3-text3')
+
+        textElement.textContent = '';
+        textElement1.textContent = '';
+        textElement2.textContent = '';
+
+        var textToType = "BUT BE CAREFUL, THE FLYING GLYKONOS LIVE HERE.";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            i = 0;
+            textToType = "PRESS [DOWN ARROW] TO SLIDE AND AVOID THEIR ATTACKS."
+            clearInterval(intervalId);
+            intervalId = setInterval(function () {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+              if (i >= textToType.length) {
+                i = 0;
+                textToType = "GOOD LUCK!"
+                clearInterval(intervalId);
+                intervalId = setInterval(function () {
+                  textElement2.textContent += textToType.charAt(i);
+                  i++;
+                  if (i >= textToType.length) {
+                    clearInterval(intervalId);
+                    document.getElementById('loading2-next').style.display = 'block';
+                  }
+                }, typingSpeed);
+              }
+            }, typingSpeed);
+          }
+        }, typingSpeed);
+      } else if (loading2nextButtonCounter == 2) {
+        loading2nextButtonCounter++
+        document.getElementById('stage2-intro3').style.display = 'none'
+        document.getElementById('stage2-intro4').style.display = 'block'
+
+        var textElement = document.getElementById('stage2-intro4-text1')
+        var textElement1 = document.getElementById('stage2-intro4-text2')
+
+        textElement.textContent = '';
+        textElement1.textContent = '';
+
+        var textToType = "• FILL YOUR PLATE WITH QUARTER-QUARTER HALF; WHOLEGRAINS, MEAT & OTHERS, FRUIT AND VEGETABLES.";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            i = 0;
+            textToType = "• GO FOR 2 SERVINGS OF FRUIT AND 2 SERVINGS OF VEGETABLES EVERYDAY!"
+            clearInterval(intervalId);
+            intervalId = setInterval(function () {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+              if (i >= textToType.length) {
+                clearInterval(intervalId);
+                document.getElementById('loading2-next').style.display = 'block';
+              }
+            }, typingSpeed);
+          }
+        }, typingSpeed);
+      } else if (loading2nextButtonCounter == 3) {
+        loading2nextButtonCounter++
+        document.getElementById('stage2-intro4').style.display = 'none'
+        document.getElementById('stage2-intro5').style.display = 'block'
+
+        var textElement = document.getElementById('stage2-intro5-text1')
+        var textElement1 = document.getElementById('stage2-intro5-text2')
+
+        textElement.textContent = '';
+        textElement1.textContent = '';
+
+        var textToType = "• CHOOSE FRESH OVER PROCESSED OR PRESERVED FOOD AND AVOID FRIED FOOD.";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            i = 0;
+            textToType = "• TAKE TIME TO CHEW YOUR FOOD WHEN EATING AND AVOID ANY DISTRACTIONS LIKE SCREEN TIME. THIS ALLOWS FOR YOUR FOOD TO DIGEST BETTER."
+            clearInterval(intervalId);
+            intervalId = setInterval(function () {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+              if (i >= textToType.length) {
+                clearInterval(intervalId);
+                loading2nextButtonCounter = 0;
+                i = 0
+                document.getElementById('click-start').style.display = 'block';
+                document.getElementById('loading-bar-container-2').style.display = 'none';
+                document.getElementById('loading-text-stage-2').style.display = 'none';
+                document.querySelector('.wrapper').style.display = 'block';
+                document.getElementById('shieldContainer').style.display = 'block';
+              }
+            }, typingSpeed);
+          }
+        }, typingSpeed);
+      }
+    });
+
+
+    loading3Next.addEventListener("click", () => {
+      loading3Next.style.display = 'none'
+
+      if (loading3nextButtonCounter == 0) {
+        document.getElementById('stage3-intro1').style.display = 'none'
+        document.getElementById('stage3-intro2').style.display = 'block'
+        loading3nextButtonCounter++
+
+        var textElement = document.getElementById('stage3-intro2-text1')
+
+        textElement.textContent = '';
+        var textToType = "PICK THE CORRECT HEALTHIER CHOICE SYMBOL TO FREE YOUR TRAPPED FRIENDS WITH A HEALTHY MEAL BEFORE ACTIVATING THE PORTAL AND GOING BACK HOME!";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            clearInterval(intervalId);
+            document.getElementById('loading3-next').style.display = 'block';
+          }
+        }, typingSpeed);
+      } else if (loading3nextButtonCounter == 1) {
+        loading3nextButtonCounter++
+        document.getElementById('stage3-intro2').style.display = 'none'
+        document.getElementById('stage3-intro3').style.display = 'block'
+
+
+        var textElement = document.getElementById('stage3-intro3-text1')
+        var textElement1 = document.getElementById('stage3-intro3-text2')
+        var textElement2 = document.getElementById('stage3-intro3-text3')
+        var textElement3 = document.getElementById('stage3-intro3-text4')
+
+        textElement.textContent = '';
+        textElement1.textContent = '';
+        textElement2.textContent = '';
+        textElement3.textContent = '';
+
+        var textToType = "CHOOSE FOOD WITH HEALTHIER CHOICE SYMBOL (HCS)";
+        var typingSpeed = 10;
+        var i = 0;
+        var intervalId = setInterval(function () {
+          textElement.textContent += textToType.charAt(i);
+          i++;
+          if (i >= textToType.length) {
+            clearInterval(intervalId);
+            i = 0
+            textToType = '• FOOD WITH HCS ARE HEALTHIER THAN OTHER FOOD IN THE SAME CATEGORY E.G. BISCUITS WITH HCS CAN BE HEATHLIER THAN BISCUITS WITHOUT HCS.';
+            intervalId = setInterval(function () {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+
+              if (i >= textToType.length) {
+                i = 0
+                clearInterval(intervalId);
+                textToType = '• EXERCISE VARIETY, BALANCE AND MODERATION WHEN EATING HCS PRODUCTS AND DO NOT OVER-EAT.';
+
+                intervalId = setInterval(function () {
+                  textElement2.textContent += textToType.charAt(i);
+                  i++;
+
+                  if (i >= textToType.length) {
+                    i = 0
+                    clearInterval(intervalId);
+                    textToType = '• WHEN EATING OUT WITH YOUR FAMILIES, CHOOSE FOOD ITEMS WITH HCS';
+
+                    intervalId = setInterval(function () {
+                      textElement3.textContent += textToType.charAt(i);
+                      i++;
+
+                      if (i >= textToType.length) {
+                        clearInterval(intervalId);
+                        document.getElementById("rescuedContainer").style.display = 'block';
+                        document.getElementById('click-start').style.display = 'block';
+                        document.getElementById('loading-bar-container-3').style.display = 'none';
+                        document.getElementById('loading-text-stage-3').style.display = 'none';
+                        loading3nextButtonCounter = 0;
+                        i = 0;
+                      }
+                    }, typingSpeed);
+                  }
+                }, typingSpeed);
+              }
+            }, typingSpeed);
+          }
+        }, typingSpeed);
+
+      }
+    });
+
     retryStage3.addEventListener("click", () => {
       this.playNextStageVideo3()
       this.eventAdded1 = false;
@@ -862,34 +1491,49 @@ class BasicWorldDemo {
     //handle "click to continue" after video has ended and stage has loaded
     document.getElementById('click-start').addEventListener('click', () => {
       if (this.startstage) {
-
         if (this.stage == 1) {
           this.stage1Music.play()
+          document.getElementById('loading-button-container').style.display = 'none';
+          document.getElementById('loading-1').style.display = 'none';
         } else if (this.stage == 2) {
           this.stage2Music.play()
-
+          document.getElementById('loading-2').style.display = 'none';
+          document.getElementById('loading-button-container').style.display = 'none';
         } else if (this.stage == 3) {
           this.stage3Music.play()
-
+          document.getElementById('loading-3').style.display = 'none';
+          document.getElementById('loading-button-container').style.display = 'none';
         }
+        this.stopTime = false;
+        this.RAF_();
         this.animationId = requestAnimationFrame(animate);
-
         this.objSpeed = 12
         this.monSpeed = 52
         this.speedy = 12
         this.speedz = 3
         this.isPaused = false;
-        document.getElementById('click-start').style.display = 'none';
         this.startstage = false;
         this.allowPause = true;
         pauseButton.style.display = 'block'
         this.player_.position_.z = 0
+        document.getElementById('click-start').style.display = 'none';
+
       } else if (this.startGame && !this.checkStartGame) {
+        this.stopTime = false;
+        this.RAF_()
         this.checkStartGame = true;
         this._OnStart()
         this.allowPause = true;
         pauseButton.style.display = 'block'
+        document.getElementById('stage1-recap').style.display = 'none'
+        document.getElementById('stage1-intro1').style.display = 'none'
+        document.getElementById('stage1-intro2').style.display = 'none'
+        document.getElementById('stage1-intro3').style.display = 'none'
+        document.getElementById('stage1-intro4').style.display = 'none'
+        document.getElementById('stage1-intro5').style.display = 'none'
+        document.getElementById('loading-1').style.display = 'none';
         document.getElementById('click-start').style.display = 'none';
+
       }
 
     });
@@ -897,27 +1541,50 @@ class BasicWorldDemo {
 
     document.addEventListener('keydown', () => {
       if (this.startstage) {
+        if (this.stage == 1) {
+          this.stage1Music.play()
+          document.getElementById('loading-button-container').style.display = 'none';
+          document.getElementById('loading-1').style.display = 'none';
+        } else if (this.stage == 2) {
+          this.stage2Music.play()
+          document.getElementById('loading-2').style.display = 'none';
+          document.getElementById('loading-button-container').style.display = 'none';
+        } else if (this.stage == 3) {
+          this.stage3Music.play()
+          document.getElementById('loading-3').style.display = 'none';
+          document.getElementById('loading-button-container').style.display = 'none';
+        }
+        this.stopTime = false;
+        this.RAF_();
         this.animationId = requestAnimationFrame(animate);
         this.objSpeed = 12
         this.monSpeed = 52
         this.speedy = 12
         this.speedz = 3
         this.isPaused = false;
-        document.getElementById('click-start').style.display = 'none';
         this.startstage = false;
         this.allowPause = true;
         pauseButton.style.display = 'block'
         this.player_.position_.z = 0
-
-      } else if (this.startGame && !this.checkStartGame) {
-        this.checkStartGame = true;
-        pauseButton.style.display = 'block'
-        this._OnStart()
         document.getElementById('click-start').style.display = 'none';
-        this.allowPause = true;
-
+      } else if (this.startGame && !this.checkStartGame) {
+        if (this.allowStart) {
+          this.stopTime = false;
+          this.RAF_()
+          this.checkStartGame = true;
+          this._OnStart()
+          this.allowPause = true;
+          pauseButton.style.display = 'block'
+          document.getElementById('stage1-recap').style.display = 'none'
+          document.getElementById('stage1-intro1').style.display = 'none'
+          document.getElementById('stage1-intro2').style.display = 'none'
+          document.getElementById('stage1-intro3').style.display = 'none'
+          document.getElementById('stage1-intro4').style.display = 'none'
+          document.getElementById('stage1-intro5').style.display = 'none'
+          document.getElementById('loading-1').style.display = 'none';
+          document.getElementById('click-start').style.display = 'none';
+        }
       }
-
     });
 
 
@@ -1024,13 +1691,11 @@ class BasicWorldDemo {
     this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
     this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
     this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-
     this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
     this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
     this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
     this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
     this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
-
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
     this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
@@ -1217,10 +1882,7 @@ class BasicWorldDemo {
 
 
               //initiate all the game objects
-              this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
-              this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
               this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase, stage: this.stage });
-              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
               this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
               this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
@@ -1228,12 +1890,6 @@ class BasicWorldDemo {
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
               this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
               this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
-              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
-              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
-              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
-              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 });
-              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 });
-              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage, firstChase: this.showChase });
               this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
@@ -1295,20 +1951,39 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh2);
 
               });
-              loader.load('stg1_A.gltf', (gltf) => {
+              loader.load('stg1_exit.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
 
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
-                this.mesh3.position.set(581, 0, 0);
+                console.log(gltf.scene)
+                this.mesh3.position.set(620, 0, 0);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.01);
 
+                // this.mesh3.traverse((object) => {
+                //   if (object.name === "stg1_exit_GEOShape_13") {
+                //     object.material.opacity = 1;
+                //     object.material.map = this.beamTexture.load('./resources/Map/Stage1/stg1_beam_reverse_color.jpg');
+                //   }
+                // });
 
                 this.scene_.add(this.mesh3);
-
               });
 
+              loader.load('stg1_gloomsky.gltf', (gltf) => {
+                this.mesh4 = gltf.scene;
+                this.mesh4.position.set(1100, 0, 0);
+                this.mesh4.rotation.set(0, Math.PI / 2, 0);
+                this.mesh4.scale.setScalar(0.04);
+
+                this.mesh4.traverse(n => {
+                  if (n.isMesh) {
+                    n.material.opacity = 0.8;
+                    n.material.transparent = true;
+                  }
+                });
+
+                this.scene_.add(this.mesh4);
+              })
 
 
               // const uniforms = {
@@ -1344,9 +2019,10 @@ class BasicWorldDemo {
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 55) {
+            if (loadingProgress < 74) {
+              console.log(this.scene_.children.length)
               // Calculate the loading progress as a percentage of the maximum value
-              const progressPercentage = (loadingProgress / 55) * 100;
+              const progressPercentage = (loadingProgress / 74) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
@@ -1355,7 +2031,8 @@ class BasicWorldDemo {
               clearInterval(this.intervalId_);
               this.previousRAF_ = null;
               this.startstage = true;
-              document.getElementById('loading-1').style.display = 'none';
+              document.getElementById('loading-bar-container').style.display = 'none';
+              document.getElementById('loading-text-stage-1').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
             }
 
@@ -1373,6 +2050,8 @@ class BasicWorldDemo {
         this.stage1Music.pause()
         this.showChase = false;
         this.gameOver_ = true;
+        this.failedStage = false;
+        this.NotFirstTry = false;
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
@@ -1417,28 +2096,6 @@ class BasicWorldDemo {
               }
 
 
-              // set randonm positoin for box logos
-              let arrLogo1 = [];
-              let arrLogo2 = [];
-              let arrLogo3 = [];
-
-              for (let i = 0; i < 5; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
-
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                arrLogo1.push(value1 * 3);
-                arrLogo2.push(value2 * 3);
-                arrLogo3.push(value3 * 3);
-              }
 
               // set randonm position for food
               let food1 = [];
@@ -1471,21 +2128,15 @@ class BasicWorldDemo {
               this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
               this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
-              this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
               this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
               this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
               this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-              this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
-              this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
               this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
               this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
               this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
-              this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
-              this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
-
 
 
 
@@ -1571,26 +2222,6 @@ class BasicWorldDemo {
 
               });
 
-
-              const uniforms = {
-                topColor: { value: new THREE.Color(0x00008B) },
-                bottomColor: { value: new THREE.Color(0x89b2eb) },
-                offset: { value: 33 },
-                exponent: { value: 0.6 }
-              };
-
-              const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
-              const skyMat = new THREE.ShaderMaterial({
-                uniforms: uniforms,
-                vertexShader: _VS,
-                fragmentShader: _FS,
-                side: THREE.BackSide,
-              });
-
-
-              this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
-
-
               this.gameOver_ = false;
               this.stopTime = false;
               this.RAF_();
@@ -1601,31 +2232,34 @@ class BasicWorldDemo {
             }
           }, 1000);
 
-
-
           const progressBar = document.getElementById('loading-bar-stage-2');
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 79) {
+            if (loadingProgress < 72) {
+              console.log(this.scene_.children.length)
               // Calculate the loading progress as a percentage of the maximum value
-              const progressPercentage = (loadingProgress / 79) * 100;
+              const progressPercentage = (loadingProgress / 72) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
               clearInterval(loadingInterval)
               progressBar.style.width = `100%`;
+              this.stopTime = true
               this.previousRAF_ = null;
               this.startstage = true;
-              document.querySelector('.wrapper').style.display = 'block';
-              document.getElementById('shieldContainer').style.display = 'block';
-              document.getElementById('loading-2').style.display = 'none';
-              document.getElementById('click-start').style.display = 'block';
-              this.player_.propArray = []
+              this.Pause();
               clearInterval(this.intervalId_);
+
+              this.player_.propArray = []
+              if (this.NotFirstTry) {
+                document.getElementById('loading-bar-container-2').style.display = 'none';
+                document.getElementById('loading-text-stage-2').style.display = 'none';
+                document.getElementById('click-start').style.display = 'block';
+              }
             }
 
-          }, 50);
+          }, 100);
 
         })
 
@@ -1640,9 +2274,11 @@ class BasicWorldDemo {
       document.addEventListener('score-over2', () => {
         this.stage2Music.pause()
         this.gameOver_ = true;
+        this.failedStage = false;
         this.stopTime = true
         this.allowPause = false;
         this.Pause()
+        this.NotFirstTry = false;
         pauseButton.style.display = 'none'
 
         this.stage = 3;
@@ -1692,21 +2328,21 @@ class BasicWorldDemo {
               let arrLogo3 = [];
 
               for (let i = 0; i < 5; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
+                let value11 = Math.floor(Math.random() * 3) - 1;
+                let value22 = Math.floor(Math.random() * 3) - 1;
+                let value33 = Math.floor(Math.random() * 3) - 1;
 
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
+                while (value11 === value22) {
+                  value22 = Math.floor(Math.random() * 3) - 1;
                 }
 
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
+                while (value11 === value33 || value22 === value33) {
+                  value33 = Math.floor(Math.random() * 3) - 1;
                 }
 
-                arrLogo1.push(value1 * 3);
-                arrLogo2.push(value2 * 3);
-                arrLogo3.push(value3 * 3);
+                arrLogo1.push(value11 * 3);
+                arrLogo2.push(value22 * 3);
+                arrLogo3.push(value33 * 3);
               }
 
               // set randonm position for food
@@ -1715,21 +2351,21 @@ class BasicWorldDemo {
               let food3 = [];
 
               for (let i = 0; i < 6; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
+                let value111 = Math.floor(Math.random() * 3) - 1;
+                let value222 = Math.floor(Math.random() * 3) - 1;
+                let value333 = Math.floor(Math.random() * 3) - 1;
 
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
+                while (value111 === value222) {
+                  value222 = Math.floor(Math.random() * 3) - 1;
                 }
 
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
+                while (value111 === value333 || value222 === value333) {
+                  value333 = Math.floor(Math.random() * 3) - 1;
                 }
 
-                food1.push(value1 * 3);
-                food2.push(value2 * 3);
-                food3.push(value3 * 3);
+                food1.push(value111 * 3);
+                food2.push(value222 * 3);
+                food3.push(value333 * 3);
               }
 
 
@@ -1843,20 +2479,26 @@ class BasicWorldDemo {
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 65) {
+            if (loadingProgress < 89) {
+              console.log(this.scene_.children.length)
+
               // Calculate the loading progress as a percentage of the maximum value
-              const progressPercentage = (loadingProgress / 65) * 100;
+              const progressPercentage = (loadingProgress / 89) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
               clearInterval(loadingInterval)
               progressBar.style.width = `100%`;
+              this.stopTime = true;
               this.previousRAF_ = null;
               this.startstage = true;
-              document.getElementById("rescuedContainer").style.display = 'block';
-              document.getElementById('loading-3').style.display = 'none';
-              document.getElementById('click-start').style.display = 'block';
+              this.Pause();
               this.player_.propArray = []
+              if (this.NotFirstTry) {
+                document.getElementById('loading-bar-container-3').style.display = 'none';
+                document.getElementById('loading-text-stage-3').style.display = 'none';
+                document.getElementById('click-start').style.display = 'block';
+              }
               clearInterval(this.intervalId_);
               if (this.gender_ == "male") {
                 document.getElementById('boyHUD').style.display = 'none'
@@ -1892,7 +2534,6 @@ class BasicWorldDemo {
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
           document.getElementById('click-end').style.display = 'block';
         } else {
-          console.log(this.player_.friendsSaved)
           if (this.player_.friendsSaved >= 3) {
             this.playVictoryVid()
           } else {
@@ -1978,13 +2619,26 @@ class BasicWorldDemo {
 
       this.player_.Update(timeElapsed, pause, this.wallPosition, this.swipeLeft, this.swipeRight, this.showChase);
       this.oilSlik_.Update(timeElapsed, pause, this.showChase);
-      this.progression_.Update(timeElapsed, pause, this.stage, this.gameOver_);
+      this.progression_.Update(timeElapsed, pause, this.stage, this.gameOver_, this.buffspeed);
+
 
       //if player gets hit bruh 
       if (this.player_.playerHit == true && !this.checkHit) {
         this.checkHit = true;
         this.shakeCamera()
       }
+      this.player_.getSpeed(result => {
+        this.speed_ = result
+        //if speed is not default, meaning the player has a speed buff/debuff
+        if (this.speed_ != 0.2 && !pause) {
+          this.objSpeed = 12 * (this.speed_ / 0.2)
+          this.buffspeed = true;
+
+        } else {
+          this.buffspeed = false;
+
+        }
+      });
 
       //check if player collides with the pit
       this.player_.getPitCollide(result => {
@@ -2109,22 +2763,42 @@ class BasicWorldDemo {
       document.getElementById("food3").style.bottom = "7.5vw"
       document.getElementById("food4").style.bottom = "7.5vw"
       document.getElementById('video-container').style.backgroundColor = 'transparent';
+      document.getElementById('loading-button-container').style.display = 'block';
 
       if (this.stage == 2) {
         this.playNextStageVideo2();
         this.eventAdded = false;
         this.countdown1_ = 6;
         this.checkRestart = false;
+        this.NotFirstTry = true;
+        document.getElementById('loading2-next').style.display = 'none';
+        document.getElementById('stage2-intro1').style.display = 'none'
+        document.getElementById('stage2-intro2').style.display = 'none'
+        document.getElementById('stage2-intro3').style.display = 'none'
+        document.getElementById('stage2-intro4').style.display = 'none'
+        document.getElementById('stage2-intro5').style.display = 'none'
       } else if (this.stage == 3 || this.stage == 4) {
         this.playNextStageVideo3();
         this.eventAdded1 = false;
         this.countdown2_ = 6;
         this.checkRestart = false;
+        this.NotFirstTry = true;
+        document.getElementById('loading3-next').style.display = 'none';
+        document.getElementById('stage3-intro1').style.display = 'none'
+        document.getElementById('stage3-intro2').style.display = 'none'
+        document.getElementById('stage3-intro3').style.display = 'none'
       } else if (this.stage == 1) {
         this.playNextStageVideo1();
         this.eventAdded3 = false;
         this.countdown_ = 6;
         this.checkRestart = false;
+        document.getElementById('loading1-next').style.display = 'none';
+        document.getElementById('stage1-recap').style.display = 'none'
+        document.getElementById('stage1-intro1').style.display = 'none'
+        document.getElementById('stage1-intro2').style.display = 'none'
+        document.getElementById('stage1-intro3').style.display = 'none'
+        document.getElementById('stage1-intro4').style.display = 'none'
+        document.getElementById('stage1-intro5').style.display = 'none'
       }
 
       this.stopTime = true
@@ -2136,6 +2810,7 @@ class BasicWorldDemo {
       this.showChase = false;
       this.allowPause = false;
       this.gameOver_ = true;
+      this.failedStage = true;
       this.resumeCountdown_ = 3;
       pauseButton.style.display = 'none'
 
@@ -2155,19 +2830,40 @@ class BasicWorldDemo {
 
         document.getElementById('game-over').classList.remove('active');
         document.getElementById("skip-button-container").style.display = "block";
+        document.getElementById('loading-button-container').style.display = 'block';
 
         if (this.stage == 2) {
           this.playNextStageVideo2();
           this.eventAdded = false;
           this.countdown1_ = 6;
+          this.NotFirstTry = true;
+          document.getElementById('loading2-next').style.display = 'none';
+          document.getElementById('stage2-intro1').style.display = 'none'
+          document.getElementById('stage2-intro2').style.display = 'none'
+          document.getElementById('stage2-intro3').style.display = 'none'
+          document.getElementById('stage2-intro4').style.display = 'none'
+          document.getElementById('stage2-intro5').style.display = 'none'
         } else if (this.stage == 3) {
           this.playNextStageVideo3();
           this.eventAdded1 = false;
           this.countdown2_ = 6;
+          this.NotFirstTry = true;
+          document.getElementById('loading3-next').style.display = 'none';
+          document.getElementById('stage3-intro1').style.display = 'none'
+          document.getElementById('stage3-intro2').style.display = 'none'
+          document.getElementById('stage3-intro3').style.display = 'none'
         } else if (this.stage == 1) {
           this.playNextStageVideo1();
           this.eventAdded3 = false;
           this.countdown_ = 6;
+          this.NotFirstTry = true;
+          document.getElementById('loading1-next').style.display = 'none';
+          document.getElementById('stage1-recap').style.display = 'none'
+          document.getElementById('stage1-intro1').style.display = 'none'
+          document.getElementById('stage1-intro2').style.display = 'none'
+          document.getElementById('stage1-intro3').style.display = 'none'
+          document.getElementById('stage1-intro4').style.display = 'none'
+          document.getElementById('stage1-intro5').style.display = 'none'
         }
 
         this.stopTime = true
