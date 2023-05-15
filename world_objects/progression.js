@@ -35,15 +35,9 @@ export const progression = (() => {
 
                     }
                 }
-
-
-
-
             }
-
         }
     }
-
     return {
         ProgressionManager: ProgressionManager,
     };

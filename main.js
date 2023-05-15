@@ -346,8 +346,6 @@ class BasicWorldDemo {
 
       }
       this.closeNextStageVideo1();
-      document.getElementById("skip-button-container").style.display = "none";
-
     });
 
     // if next stage video ends, then unpause everything
@@ -457,9 +455,6 @@ class BasicWorldDemo {
         }
       }, typingSpeed);
 
-
-      document.getElementById("skip-button-container").style.display = "none";
-
       while (this.scene_.children.length > 0) {
         this.scene_.remove(this.scene_.children[0]);
       }
@@ -471,7 +466,6 @@ class BasicWorldDemo {
       this.closeNextStageVideo3();
       document.getElementById('loading2-next').style.display = 'none';
       document.getElementById('loading-3').style.display = 'block';
-      document.getElementById("skip-button-container").style.display = "none";
       document.getElementById('stage3-intro1').style.display = 'block';
       document.getElementById('loading3-next').style.display = 'none';
       document.getElementById('loading-button-container').style.display = 'block';
@@ -588,6 +582,7 @@ class BasicWorldDemo {
   //stage 2 cutscene
   playNextStageVideo2() {
     this.nextStageVideo2_.style.display = "block";
+    pauseButton.style.display = 'none'
     this.nextStageVideo2_.play()
     if (this.checkRestart || this.failedStage) {
       this.nextStageVideo2_.currentTime = this.nextStageVideo2_.duration;
@@ -603,6 +598,7 @@ class BasicWorldDemo {
   //stage 3 cutscene
   playNextStageVideo3() {
     this.nextStageVideo3_.style.display = "block";
+    pauseButton.style.display = 'none'
     this.nextStageVideo3_.play();
     if (this.checkRestart || this.failedStage) {
       this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
@@ -618,6 +614,7 @@ class BasicWorldDemo {
 
   //victory videos or defeat videos
   playVictoryVid() {
+    pauseButton.style.display = 'none'
     this.nextStageVideo4_.style.display = "block";
     this.nextStageVideo4_.play();
   }
@@ -629,6 +626,7 @@ class BasicWorldDemo {
   }
 
   playDefeatVid() {
+    pauseButton.style.display = 'none'
     this.nextStageVideo5_.style.display = "block";
     this.nextStageVideo5_.play();
   }
@@ -819,8 +817,6 @@ class BasicWorldDemo {
     });
     loader.load('stg1_exit.gltf', (gltf) => {
       this.mesh3 = gltf.scene;
-
-      console.log(gltf.scene)
       this.mesh3.position.set(620, 0, 0);
       this.mesh3.rotation.set(0, -Math.PI / 2, 0);
       this.mesh3.scale.setScalar(0.01);
@@ -860,7 +856,6 @@ class BasicWorldDemo {
     var restartButton = document.getElementById("restartBtn");
     var continueButton = document.getElementById("continueBtn");
     var retryStage3 = document.getElementById("retry-stage-3");
-    var skipButton = document.getElementById("skip-button-container");
     var continueEnding = document.getElementById("continue-ending");
     var nextEnding = document.getElementById("final-score-next");
     var nextRestart = document.getElementById("final-score-restart");
@@ -1265,8 +1260,22 @@ class BasicWorldDemo {
 
     retryStage3.addEventListener("click", () => {
       this.playNextStageVideo3()
+      this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
       this.eventAdded1 = false;
-      skipButton.style.display = 'block';
+      this.NotFirstTry = true;
+
+      document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+      document.getElementById('loading3-next').style.display = 'none';
+      document.getElementById('stage3-intro1').style.display = 'none'
+      document.getElementById('stage3-intro2').style.display = 'none'
+      document.getElementById('stage3-intro3').style.display = 'none'
+      document.getElementById("food1").style.bottom = "7.5vw"
+      document.getElementById("food2").style.bottom = "7.5vw"
+      document.getElementById("food3").style.bottom = "7.5vw"
+      document.getElementById("food4").style.bottom = "7.5vw"
       if (this.gender_ == "male") {
         document.getElementById('boyHUDstg3').style.display = 'block'
       } else if (this.gender_ == "female") {
@@ -1351,45 +1360,34 @@ class BasicWorldDemo {
 
     // Add event listeners to the buttons
     volumeButton.addEventListener("click", () => {
+      const mediaElements = document.querySelectorAll('video, audio');
 
-      if (!this.stage1Music.paused && this.splashScreenMusicToggle) {
-        this.stage1Music.pause()
+      // Loop through each element and set its volume to 0
+      mediaElements.forEach(element => {
+        element.volume = 0;
+      });
+        
+        
         volumeButton.style.display = 'none'
         muteButton.style.display = 'block'
-      }
-      if (!this.splashScreenMusicToggle) {
-        this.splashScreenMusic.pause()
-        volumeButton.style.display = 'none'
-        muteButton.style.display = 'block'
-      }
+
+
 
     });
 
     // Add event listeners to the buttons
     muteButton.addEventListener("click", () => {
+      const mediaElements = document.querySelectorAll('video, audio');
 
-      if (this.stage1Music.paused && this.splashScreenMusicToggle) {
-        this.stage1Music.play()
+      // Loop through each element and set its volume to 0
+      mediaElements.forEach(element => {
+        element.volume = 1;
+      });
+        
         volumeButton.style.display = 'block'
         muteButton.style.display = 'none'
-      }
-      if (!this.splashScreenMusicToggle) {
-        this.splashScreenMusic.play()
-        volumeButton.style.display = 'block'
-        muteButton.style.display = 'none'
-      }
-
-
-    });
-
-    skipButton.addEventListener('click', () => {
-      if (this.stage == 1) {
-        this.nextStageVideo1_.currentTime = this.nextStageVideo1_.duration;
-      } else if (this.stage == 2) {
-        this.nextStageVideo2_.currentTime = this.nextStageVideo2_.duration;
-      } else if (this.stage == 3) {
-        this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
-      }
+  
+     
 
     });
 
@@ -1497,15 +1495,16 @@ class BasicWorldDemo {
           document.getElementById('loading-1').style.display = 'none';
         } else if (this.stage == 2) {
           this.stage2Music.play()
+          this.RAF_();
           document.getElementById('loading-2').style.display = 'none';
           document.getElementById('loading-button-container').style.display = 'none';
         } else if (this.stage == 3) {
           this.stage3Music.play()
+          this.RAF_();
           document.getElementById('loading-3').style.display = 'none';
           document.getElementById('loading-button-container').style.display = 'none';
         }
         this.stopTime = false;
-        this.RAF_();
         this.animationId = requestAnimationFrame(animate);
         this.objSpeed = 12
         this.monSpeed = 52
@@ -1524,7 +1523,6 @@ class BasicWorldDemo {
         this.checkStartGame = true;
         this._OnStart()
         this.allowPause = true;
-        pauseButton.style.display = 'block'
         document.getElementById('stage1-recap').style.display = 'none'
         document.getElementById('stage1-intro1').style.display = 'none'
         document.getElementById('stage1-intro2').style.display = 'none'
@@ -1753,7 +1751,6 @@ class BasicWorldDemo {
     requestAnimationFrame((t) => {
 
       if (!this.stopTime) {
-
         if (this.previousRAF_ === null) {
           this.previousRAF_ = t;
         }
@@ -1793,7 +1790,7 @@ class BasicWorldDemo {
       }
 
       if (this.cameraX <= -10 && this.cameraY <= 5 && this.cameraZ >= 0) {
-
+        pauseButton.style.display = 'block'
         this.showChase = false;
       }
       this.camera_.lookAt(0, 2, 0)
@@ -1806,6 +1803,14 @@ class BasicWorldDemo {
     if (!this.eventAdded3 && this.stage == 1) {
       document.addEventListener('score-over', () => {
         this.nextStageVideo1_.addEventListener("ended", () => {
+          this.showChase = false;
+          this.gameOver_ = true;
+          this.failedStage = false;
+          this.NotFirstTry = false;
+          this.allowPause = false;
+          this.stopTime = true
+          this.Pause()
+
           this.intervalId_ = setInterval(() => {
             this.countdown_--;
             if (this.scene_.children.length === 0) {
@@ -1953,8 +1958,6 @@ class BasicWorldDemo {
               });
               loader.load('stg1_exit.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
-
-                console.log(gltf.scene)
                 this.mesh3.position.set(620, 0, 0);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.01);
@@ -2009,7 +2012,7 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown_ === 0) {
-              if (this.scene_.children.length < 55) {
+              if (this.scene_.children.length < 74) {
                 this.countdown_ = 3
               }
             }
@@ -2021,22 +2024,22 @@ class BasicWorldDemo {
           var loadingInterval = setInterval(() => {
             if (loadingProgress < 74) {
               console.log(this.scene_.children.length)
-              // Calculate the loading progress as a percentage of the maximum value
               const progressPercentage = (loadingProgress / 74) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
               clearInterval(loadingInterval)
               progressBar.style.width = `100%`;
-              clearInterval(this.intervalId_);
               this.previousRAF_ = null;
               this.startstage = true;
+              this.Pause();
+              clearInterval(this.intervalId_);
               document.getElementById('loading-bar-container').style.display = 'none';
               document.getElementById('loading-text-stage-1').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
             }
 
-          }, 50);
+          }, 100);
 
 
         })
@@ -2226,7 +2229,7 @@ class BasicWorldDemo {
               this.stopTime = false;
               this.RAF_();
             } else if (this.countdown1_ === 0) {
-              if (this.scene_.children.length < 79) {
+              if (this.scene_.children.length < 72) {
                 this.countdown1_ = 3
               }
             }
@@ -2238,7 +2241,6 @@ class BasicWorldDemo {
           var loadingInterval = setInterval(() => {
             if (loadingProgress < 72) {
               console.log(this.scene_.children.length)
-              // Calculate the loading progress as a percentage of the maximum value
               const progressPercentage = (loadingProgress / 72) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
@@ -2280,7 +2282,10 @@ class BasicWorldDemo {
         this.Pause()
         this.NotFirstTry = false;
         pauseButton.style.display = 'none'
-
+        document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+        document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+        document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
+        document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
         this.stage = 3;
 
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
@@ -2546,7 +2551,7 @@ class BasicWorldDemo {
       this.eventAdded2 = true;
     }
 
-
+    console.log(this.player_.propArray)
     //preload the game assets
     if (this.gameOver_ || !this._gameStarted) {
 
@@ -2753,7 +2758,6 @@ class BasicWorldDemo {
       pauseButton.style.display = 'none'
       document.getElementById("shieldTimer").style.zIndex = "-1";
       document.querySelector('#pauseDiv').style.display = 'none'
-      document.getElementById("skip-button-container").style.display = "block";
       document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
@@ -2829,7 +2833,6 @@ class BasicWorldDemo {
       document.getElementById('try-again-button').addEventListener('click', () => {
 
         document.getElementById('game-over').classList.remove('active');
-        document.getElementById("skip-button-container").style.display = "block";
         document.getElementById('loading-button-container').style.display = 'block';
 
         if (this.stage == 2) {
@@ -2880,15 +2883,10 @@ stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild(stats.dom)
 
 function animate() {
-
   stats.begin();
-
   // monitored code goes here
-
   stats.end();
-
   requestAnimationFrame(animate);
-
 
 }
 
