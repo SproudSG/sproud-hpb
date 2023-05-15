@@ -90,7 +90,7 @@ img {
   background-position: center;
   display: flex;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
 }
 
 #final-score {
@@ -213,6 +213,32 @@ img {
   float: right
 }
 
+
+#stamina-border {
+  clip-path: polygon(3% 68%, 100% 28%, 90% 100%, 5% 100%, 5% 89%, 4% 80%);
+  width: 16.8vw;
+  height: 14.3vh;
+  left: 10.5vw;
+  top: 0.2vw;
+  z-index: 1;
+  position: relative;
+
+}
+
+#stamina {
+  position: relative;
+  top: -2.35vw;
+  width: 28vw;
+  left: -9.65vw;
+}
+
+#staminaWater {
+  position: absolute;
+  width: 5vw;
+  left: 22vw;
+  top: 0vw;
+  z-index: 1;
+}
 
 /* splash screen */
 .game-menu-box {

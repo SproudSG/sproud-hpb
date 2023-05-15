@@ -43,9 +43,11 @@
           <img src="./resources/HUD/Human.png" id="runner"></img>
         </div>
 
-        <div class="w3-border">
-          <div class="w3-blue" style="height:24px;width:100%" id="stamina"></div>
+        <div id="stamina-border">
+          <img src="./resources/HUD/Water_Level.gif" id="stamina">
         </div>
+        <img src="./resources/HUD/Water_bottle.png" id="staminaWater">
+
       </div>
 
       <div class="wrapper" style="display: none;" id="shieldTimer">
@@ -112,7 +114,7 @@
       </div>
     </div>
     <!-- final score BAD ENDING -->
-    <div class="ui">
+    <div class="ui" id="badEndingUI">
       <div id="final-score-bad-ending">
         <img src="./resources/Endings/Non-Perfect/Text.png" class="ending-text">
         <img src="./resources/Buttons/Retry_Button.png" id="retry-stage-3">
@@ -121,7 +123,7 @@
     </div>
 
     <!-- final score GOOD ENDING -->
-    <div class="ui">
+    <div class="ui"  id="goodEndingUI">
       <div id="final-score-good-ending">
         <img src="./resources/Endings/Perfect/Text.png" class="ending-text">
         <img src="./resources/Buttons/Continue_Button.png" id="continue-ending">
@@ -130,7 +132,7 @@
 
     <!-- final score -->
 
-    <div class="ui">
+    <div class="ui" id="finalScoreUI">
       <div id="final-score">
         <img src="./resources/Recap_Text/Recap_text_001.png" id="final-score-recap-1" style="display: none;">
         <img src="./resources/Recap_Text/Recap_text_002.png" id="final-score-recap-2" style="display: none;">
@@ -254,7 +256,7 @@
   <!-- FOR IOS -->
   <div id="click-end" style="display: none;">
   </div>
-  <div id="loading-button-container" >
+  <div id="loading-button-container">
     <img src="./resources/Buttons/Next_button.png" id="loading1-next" style="display: none;">
     <img src="./resources/Buttons/Next_button.png" id="loading2-next" style="display: none;">
     <img src="./resources/Buttons/Next_button.png" id="loading3-next" style="display: none;">

@@ -529,6 +529,8 @@ class BasicWorldDemo {
       //  document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
       document.getElementById("volume-container").style.display = 'none';
       document.getElementById('final-score-good-ending').classList.toggle('active');
+      document.getElementById('goodEndingUI').style.zIndex = 3;
+
       if (this.gender_ == "male") {
         document.getElementById('boyHUDstg3').style.display = 'none'
       } else if (this.gender_ == "female") {
@@ -551,6 +553,8 @@ class BasicWorldDemo {
       // document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
       document.getElementById("volume-container").style.display = 'none';
       document.getElementById('final-score-bad-ending').classList.toggle('active');
+      document.getElementById('badEndingUI').style.zIndex = 3;
+
       if (this.gender_ == "male") {
         document.getElementById('boyHUDstg3').style.display = 'none'
       } else if (this.gender_ == "female") {
@@ -1282,6 +1286,8 @@ class BasicWorldDemo {
         document.getElementById('girlHUDstg3').style.display = 'block'
       }
       document.getElementById('final-score-bad-ending').classList.toggle('active');
+      document.getElementById('badEndingUI').style.zIndex = 0;
+
       this.checkRestart = false;
     });
 
@@ -1299,6 +1305,8 @@ class BasicWorldDemo {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_0 of 3 complete.png"
       }
       document.getElementById('final-score').classList.toggle('active');
+      document.getElementById('finalScoreUI').style.zIndex = 3;
+      document.getElementById('badEndingUI').style.zIndex = 0;
 
     });
 

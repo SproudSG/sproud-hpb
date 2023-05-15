@@ -1703,10 +1703,11 @@ export const player = (() => {
       if (!pause && timeElapsed < 0.1) {
 
         this.stamina_ -= timeElapsed * 3.5
-        const staminaText = (Math.round(this.stamina_ * 10) / 10).toLocaleString(
-          'en-US', { minimumIntegerDigits: 3, useGrouping: false });
+        const staminaText =(16.55 * Math.round((this.stamina_ * 10)) / 1000)
+        const staminaText2 = 26.2 - staminaText
+        console.log(staminaText2)
 
-        document.getElementById("stamina").style.width = staminaText + "%"
+        document.getElementById("stamina").style.left = "-" + staminaText2 + "vw"
         if (this.stamina_ <= 0 && !this.collapse && !this.onWall) {
           this.collapse = true;
           this.inAir_ = false;
