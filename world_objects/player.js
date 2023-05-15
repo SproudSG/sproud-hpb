@@ -435,10 +435,12 @@ export const player = (() => {
             this.playerHit = true;
             this.speed = 0.1;
             this.debuff = true;
-
+            
+            document.querySelector('#stamina').src = "./resources/HUD/Water_React_Level.gif"
             document.querySelector('#video-container').style.background = "radial-gradient(circle at center, transparent 0%, rgba(255, 0, 0, 0) 60%, rgba(255, 0, 0, 0.8) 100%)"
             setTimeout(() => {
               // Reset the background color to the original color
+              document.querySelector('#stamina').src = "./resources/HUD/Water_Level.gif"
               document.querySelector('#video-container').style.background = ""
             }, 1400)
           }
@@ -513,10 +515,13 @@ export const player = (() => {
             this.speed = 0.1
             this.debuff = true;
 
+            document.querySelector('#stamina').src = "./resources/HUD/Water_React_Level.gif"
             document.querySelector('#video-container').style.background = "radial-gradient(circle at center, transparent 0%, rgba(255, 0, 0, 0) 60%, rgba(255, 0, 0, 0.8) 100%)"
             setTimeout(() => {
               // Reset the background color to the original color
+              document.querySelector('#stamina').src = "./resources/HUD/Water_Level.gif"
               document.querySelector('#video-container').style.background = ""
+
             }, 1400)
 
           }
@@ -1703,7 +1708,7 @@ export const player = (() => {
       if (!pause && timeElapsed < 0.1) {
 
         this.stamina_ -= timeElapsed * 3.5
-        const staminaText =(16.55 * Math.round((this.stamina_ * 10)) / 1000)
+        const staminaText = (16.55 * Math.round((this.stamina_ * 10)) / 1000)
         const staminaText2 = 26.2 - staminaText
         console.log(staminaText2)
 
