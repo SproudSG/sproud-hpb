@@ -1294,7 +1294,9 @@ class BasicWorldDemo {
     continueEnding.addEventListener("click", () => {
       retryStage3.style.display = "none"
       continueEnding.style.display = "none"
-
+      document.getElementById('stamina').style.zIndex = 0;
+      document.getElementById('staminaWater').style.zIndex = 0;
+      
       if (this.player_.friendsSaved == 9) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_3 of 3 complete.png"
       } else if (this.player_.friendsSaved >= 6) {

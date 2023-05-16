@@ -25,14 +25,13 @@ export const progression = (() => {
                 document.getElementById('runner').style.left = scoreText + 'vw';
                 document.getElementById('monster').style.left = scoreText1 + 'vw';
 
-                if (this.progress_ >= 50) {
+                if (this.progress_ >= 510) {
                     if (stage == 1) {
                         document.dispatchEvent(new CustomEvent('score-over1'));
                     } else if (stage == 2) {
                         document.dispatchEvent(new CustomEvent('score-over2'));
                     } else if (stage == 3) {
                         document.dispatchEvent(new CustomEvent('score-over3'));
-
                     }
                 }
             }
