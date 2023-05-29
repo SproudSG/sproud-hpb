@@ -832,7 +832,7 @@ div.full {
 }
 
 .loading-screen-2 {
-  /* background-image: url('./resources/Loading_Screen_Assets/Tutorial_BG/Stage2_BG.png'); */
+  background-image: url('./resources/Loading_Screen_Assets/Tutorial_BG/Stage2_BG.png');
 }
 
 .loading-screen-3 {
@@ -1028,10 +1028,10 @@ div.full {
 
 .loading-shield-effect {
   position: absolute;
-  left: 29vw;
-  top: 55vh;
+  left: 26.5vw;
+  top: 49vh;
   z-index: -1;
-  height: 16vw;
+  height: 22vw;
 }
 
 .loading-food-container {

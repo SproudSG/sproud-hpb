@@ -619,6 +619,7 @@ class BasicWorldDemo {
     this.beamTexture = new THREE.TextureLoader()
 
     let light = new THREE.DirectionalLight(0xffffff, 1);
+    light.castShadow = false;
 
     this.scene_.add(light);
 

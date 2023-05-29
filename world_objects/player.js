@@ -120,6 +120,12 @@ export const player = (() => {
 
           this.mesh_ = gltf.scene.children[0]
 
+          this.mesh_.traverse((child) => {
+            if (child.isMesh) {
+              child.receiveShadow = false;
+            }
+          });
+
           this.mesh_.traverse((object) => {
 
             if (object.name === 'quarter_meat_GEO') {
@@ -144,7 +150,6 @@ export const player = (() => {
                 object.visible = false;
               }
             }
-
 
 
             if (this.params_.stage == 1) {
