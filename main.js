@@ -187,7 +187,7 @@ class BasicWorldDemo {
           var textElement2 = document.getElementById('stage1-intro1-text3');
 
           textElement.textContent = '';
-          var textToType = "HEY THERE, I'M AGENT SOFIA.";
+          var textToType = "• Hi, my name is SOFIA and I'm here to help. ";
           var typingSpeed = 10;
           var i = 0;
           var intervalId = setInterval(function () {
@@ -196,7 +196,7 @@ class BasicWorldDemo {
             if (i >= textToType.length) {
               i = 0
               clearInterval(intervalId);
-              textToType = "LOOKS LIKE YOU AND YOUR FRIENDS ACCIDENTALLY WENT THROUGH A MULTIVERSE PORTAL TO GLYKOS!";
+              textToType = "BEEFTEKI";
               intervalId = setInterval(function () {
                 textElement1.textContent += textToType.charAt(i);
                 i++;
@@ -204,7 +204,7 @@ class BasicWorldDemo {
                   i = 0
 
                   clearInterval(intervalId);
-                  textToType = "EVERYTHING MIGHT LOOK SWEET AND APPETISING BUT IT'S MORE DANGEROUS THAN IT SEEMS.";
+                  textToType = "is after you - avoid him!";
                   intervalId = setInterval(function () {
                     textElement2.textContent += textToType.charAt(i);
                     i++;
@@ -309,7 +309,7 @@ class BasicWorldDemo {
         textElement1.textContent = '';
         textElement2.textContent = '';
 
-        var textToType = "HEY THERE, I'M AGENT SOFIA.";
+        var textToType = "• Hi, my name is SOFIA and I'm here to help. ";
         var typingSpeed = 10;
         var i = 0;
         var intervalId = setInterval(function () {
@@ -318,7 +318,7 @@ class BasicWorldDemo {
           if (i >= textToType.length) {
             i = 0
             clearInterval(intervalId);
-            textToType = "LOOKS LIKE YOU AND YOUR FRIENDS ACCIDENTALLY WENT THROUGH A MULTIVERSE PORTAL TO GLYKOS!";
+            textToType = "BEEFTEKI";
             intervalId = setInterval(function () {
               textElement1.textContent += textToType.charAt(i);
               i++;
@@ -326,7 +326,7 @@ class BasicWorldDemo {
                 i = 0
 
                 clearInterval(intervalId);
-                textToType = "EVERYTHING MIGHT LOOK SWEET AND APPETISING BUT IT'S MORE DANGEROUS THAN IT SEEMS.";
+                textToType = "is after you - avoid him!";
                 intervalId = setInterval(function () {
                   textElement2.textContent += textToType.charAt(i);
                   i++;
@@ -364,21 +364,13 @@ class BasicWorldDemo {
       var textElement1 = document.getElementById('stage2-intro1-text2');
       var textElement2 = document.getElementById('stage2-intro1-text3');
       var textElement3 = document.getElementById('stage2-intro1-text4');
-      var textElement4 = document.getElementById('stage2-intro1-text5');
-      var textElement5 = document.getElementById('stage2-intro1-text6');
-      var textElement6 = document.getElementById('stage2-intro1-text7');
-      var textElement7 = document.getElementById('stage2-intro1-text8');
 
       textElement.textContent = '';
       textElement1.textContent = '';
       textElement2.textContent = '';
       textElement3.textContent = '';
-      textElement4.textContent = '';
-      textElement5.textContent = '';
-      textElement6.textContent = '';
-      textElement7.textContent = '';
 
-      var textToType = "NICE WORK! NOW THAT YOU HAVE THE NUTRI-SHIELD, YOU CAN PROTECT YOURSELF AGAINST ATTACKS AND OBSTACLES. ";
+      var textToType = "• Remember water is always the best choice so avoid sweetened beverages! ";
       var typingSpeed = 10;
       var i = 0;
       var intervalId = setInterval(() => {
@@ -387,7 +379,7 @@ class BasicWorldDemo {
         if (i >= textToType.length) {
           i = 0
           clearInterval(intervalId);
-          textToType = "TO CHARGE IT, FOLLOW THE 'MY HEALTHY PLATE' FORMULA:"
+          textToType = "• Fill your water bottles up from school water coolers "
           intervalId = setInterval(() => {
             textElement1.textContent += textToType.charAt(i);
             i++;
@@ -395,57 +387,20 @@ class BasicWorldDemo {
               i = 0
 
               clearInterval(intervalId);
-              textToType = "¼ GRAINS";
+              textToType = "• If you are purchasing drinks, choose beverages which have been graded A or B only. ";
               intervalId = setInterval(() => {
                 textElement2.textContent += textToType.charAt(i);
                 i++;
                 if (i >= textToType.length) {
                   clearInterval(intervalId);
                   i = 0
-                  textToType = ",";
+                  textToType = "• Hydrate yourself with at least 8 glasses every day!";
                   intervalId = setInterval(() => {
                     textElement3.textContent += textToType.charAt(i);
                     i++;
                     if (i >= textToType.length) {
                       clearInterval(intervalId);
-                      i = 0
-
-                      textToType = "¼ PROTEIN";
-                      intervalId = setInterval(() => {
-                        textElement4.textContent += textToType.charAt(i);
-                        i++;
-                        if (i >= textToType.length) {
-                          clearInterval(intervalId);
-                          i = 0
-                          textToType = ",";
-                          intervalId = setInterval(() => {
-                            textElement5.textContent += textToType.charAt(i);
-                            i++;
-                            if (i >= textToType.length) {
-                              clearInterval(intervalId);
-                              i = 0
-                              textToType = "½ FRUIT AND VEG";
-                              intervalId = setInterval(() => {
-                                textElement6.textContent += textToType.charAt(i);
-                                i++;
-                                if (i >= textToType.length) {
-                                  i = 0
-                                  clearInterval(intervalId);
-                                  textToType = "!";
-                                  intervalId = setInterval(() => {
-                                    textElement7.textContent += textToType.charAt(i);
-                                    i++;
-                                    if (i >= textToType.length) {
-                                      clearInterval(intervalId);
-                                      document.getElementById('loading2-next').style.display = 'block';
-                                    }
-                                  }, typingSpeed);
-                                }
-                              }, typingSpeed);
-                            }
-                          }, typingSpeed);
-                        }
-                      }, typingSpeed);
+                      document.getElementById('loading2-next').style.display = 'block';
                     }
                   }, typingSpeed);
                 }
@@ -455,9 +410,6 @@ class BasicWorldDemo {
         }
       }, typingSpeed);
 
-      while (this.scene_.children.length > 0) {
-        this.scene_.remove(this.scene_.children[0]);
-      }
 
     });
 
@@ -475,12 +427,14 @@ class BasicWorldDemo {
       var textElement = document.getElementById('stage3-intro1-text1');
       var textElement1 = document.getElementById('stage3-intro1-text2');
       var textElement2 = document.getElementById('stage3-intro1-text3');
+      var textElement3 = document.getElementById('stage3-intro1-text4');
 
       textElement.textContent = '';
       textElement1.textContent = '';
       textElement2.textContent = '';
+      textElement3.textContent = '';
 
-      var textToType = "UH OH! SEEMS LIKE TAKING THE PORTAL KEY ACTIVATED SOME SORT OF SELF-DESTRUCT SEQUENCE.";
+      var textToType = "• Fill your plate with Quarter-Quarter Half; wholegrains, meat & others, fruit and vegetables.";
       var typingSpeed = 10;
       var i = 0;
       var intervalId = setInterval(function () {
@@ -489,22 +443,30 @@ class BasicWorldDemo {
         if (i >= textToType.length) {
           i = 0
           clearInterval(intervalId);
-          textToType = "YOU'LL NEED TO HURRY!";
+          textToType = "• Go for 2 servings of fruit and 2 servings of vegetables every day!";
           intervalId = setInterval(function () {
             textElement1.textContent += textToType.charAt(i);
             i++;
             if (i >= textToType.length) {
               i = 0
-
               clearInterval(intervalId);
-              textToType = "JUMP AND MOVE LEFT OR RIGHT TO WALL RUN TO AVOID FALLING DOWN THE CRUMBLING PATHS!";
+              textToType = "• Choose fresh over processed or preserved food and avoid fried food.";
               intervalId = setInterval(function () {
                 textElement2.textContent += textToType.charAt(i);
                 i++;
                 if (i >= textToType.length) {
                   i = 0
                   clearInterval(intervalId);
-                  document.getElementById('loading3-next').style.display = 'block';
+                  textToType = "• Take time to chew your food when eating and avoid any distractions like screen time. This allows for your food to digest better.";
+                  intervalId = setInterval(function () {
+                    textElement3.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      i = 0
+                      clearInterval(intervalId);
+                      document.getElementById('loading3-next').style.display = 'block';
+                    }
+                  }, typingSpeed);
                 }
               }, typingSpeed);
             }
@@ -591,6 +553,10 @@ class BasicWorldDemo {
     if (this.checkRestart || this.failedStage) {
       this.nextStageVideo2_.currentTime = this.nextStageVideo2_.duration;
     }
+    while (this.scene_.children.length > 0) {
+      this.scene_.remove(this.scene_.children[0]);
+    }
+
   }
 
   closeNextStageVideo2() {
@@ -704,8 +670,8 @@ class BasicWorldDemo {
     this.speedz = 3;
     this.speedy = 12;
     this.buffspeed = false;
-    this.animationId;
     this.startstage = false;
+    this.allowStart = false;
 
     // renderer
     this.threejs_ = new THREE.WebGLRenderer({
@@ -718,6 +684,7 @@ class BasicWorldDemo {
     // this.threejs_.gammaFactor = 0.7;
     this.threejs_.shadowMap.enabled = false;
     this.threejs_.setPixelRatio(window.devicePixelRatio);
+    this.threejs_.setPixelRatio(1);
     this.threejs_.setSize(window.innerWidth, window.innerHeight);
 
     document.getElementById('container').appendChild(this.threejs_.domElement);
@@ -741,8 +708,7 @@ class BasicWorldDemo {
     const fov = 60;
     const aspect = 1920 / 1080;
     const near = 1.0;
-    const far = 10000;
-
+    const far = 2000;
 
     // Define the shake parameters
     this.shakeIntensity = 0.2; // The maximum displacement amount
@@ -750,14 +716,9 @@ class BasicWorldDemo {
     this.shakeTime = 0; // The current time of the shake effect
     this.shakeInterval = 0; // The interval timer for the shake effect
 
-
     this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
-
     this.camera_.position.set(this.cameraX, this.cameraY, this.cameraZ);
     this.camera_.lookAt(0, this.cameraY, 0);
-
-
-
 
     //scene
     this.scene_ = new THREE.Scene();
@@ -798,7 +759,7 @@ class BasicWorldDemo {
 
       gltf.castShadow = true;
       gltf.receiveShadow = true;
-      this.mesh1.position.set(200, 0, 0);
+      this.mesh1.position.set(200, 0, -0.1);
       this.mesh1.rotation.set(0, -Math.PI / 2, 0);
       this.mesh1.scale.setScalar(0.01);
 
@@ -835,22 +796,39 @@ class BasicWorldDemo {
       this.scene_.add(this.mesh3);
     });
 
-    loader.load('stg1_gloomsky.gltf', (gltf) => {
-      this.mesh4 = gltf.scene;
-      this.mesh4.position.set(1100, 0, 0);
-      this.mesh4.rotation.set(0, Math.PI / 2, 0);
-      this.mesh4.scale.setScalar(0.04);
+    const uniforms = {
+      topColor: { value: new THREE.Color(0xFCF7E2) },
+      bottomColor: { value: new THREE.Color(0xCFE9E0) },
+      offset: { value: 33 },
+      exponent: { value: 0.6 }
+    };
 
-      this.mesh4.traverse(n => {
-        if (n.isMesh) {
-          n.material.opacity = 0.8;
-          n.material.transparent = true;
-        }
-      });
-
-      this.scene_.add(this.mesh4);
-
+    const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
+    const skyMat = new THREE.ShaderMaterial({
+      uniforms: uniforms,
+      vertexShader: _VS,
+      fragmentShader: _FS,
+      side: THREE.BackSide,
     });
+    this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
+
+
+    // loader.load('stg1_gloomsky.gltf', (gltf) => {
+    //   this.mesh4 = gltf.scene;
+    //   this.mesh4.position.set(1100, 0, 0);
+    //   this.mesh4.rotation.set(0, Math.PI / 2, 0);
+    //   this.mesh4.scale.setScalar(0.04);
+
+    //   this.mesh4.traverse(n => {
+    //     if (n.isMesh) {
+    //       n.material.opacity = 0.8;
+    //       n.material.transparent = true;
+    //     }
+    //   });
+
+    //   this.scene_.add(this.mesh4);
+
+    // });
 
     //pause DOM elements
     var pauseButton = document.getElementById("pauseButton");
@@ -861,6 +839,7 @@ class BasicWorldDemo {
     var continueButton = document.getElementById("continueBtn");
     var retryStage3 = document.getElementById("retry-stage-3");
     var continueEnding = document.getElementById("continue-ending");
+    var finishEnding = document.getElementById("finish-ending");
     var nextEnding = document.getElementById("final-score-next");
     var nextRestart = document.getElementById("final-score-restart");
     var loading1Next = document.getElementById('loading1-next')
@@ -882,17 +861,107 @@ class BasicWorldDemo {
         loading1nextButtonCounter++
 
         var textElement = document.getElementById('stage1-intro2-text1')
+        var textElement1 = document.getElementById('stage1-intro2-text2')
+        var textElement2 = document.getElementById('stage1-intro2-text3')
+        var textElement3 = document.getElementById('stage1-intro2-text4')
+        var textElement4 = document.getElementById('stage1-intro2-text5')
+        var textElement5 = document.getElementById('stage1-intro2-text6')
+        var textElement6 = document.getElementById('stage1-intro2-text7')
+        var textElement7 = document.getElementById('stage1-intro2-text8')
+        var textElement8 = document.getElementById('stage1-intro2-text9')
 
         textElement.textContent = '';
-        var textToType = "YOU'LL HAVE TO OUTRUN THOSE PESKY GLYKONOS WHO ARE GONNA TRY AND CATCH YOU!";
+        textElement1.textContent = '';
+        textElement2.textContent = '';
+        textElement3.textContent = '';
+        textElement4.textContent = '';
+        textElement5.textContent = '';
+        textElement6.textContent = '';
+        textElement7.textContent = '';
+        textElement8.textContent = '';
+
+        var textToType = "• Use the [Left Arrow] and [Right";
         var typingSpeed = 10;
         var i = 0;
         var intervalId = setInterval(function () {
           textElement.textContent += textToType.charAt(i);
           i++;
           if (i >= textToType.length) {
+            i = 0
             clearInterval(intervalId);
-            document.getElementById('loading1-next').style.display = 'block';
+            textToType = " Arrow] to move";
+            intervalId = setInterval(function () {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+              if (i >= textToType.length) {
+                i = 0
+                clearInterval(intervalId);
+                textToType = "LEFT";
+                intervalId = setInterval(function () {
+                  textElement2.textContent += textToType.charAt(i);
+                  i++;
+                  if (i >= textToType.length) {
+                    i = 0
+                    clearInterval(intervalId);
+                    textToType = "and";
+                    intervalId = setInterval(function () {
+                      textElement3.textContent += textToType.charAt(i);
+                      i++;
+                      if (i >= textToType.length) {
+                        i = 0
+                        clearInterval(intervalId);
+                        textToType = "RIGHT";
+                        intervalId = setInterval(function () {
+                          textElement4.textContent += textToType.charAt(i);
+                          i++;
+                          if (i >= textToType.length) {
+                            clearInterval(intervalId);
+                            i = 0
+                            textToType = "and avoid obstacles! ";
+                            intervalId = setInterval(function () {
+                              textElement5.textContent += textToType.charAt(i);
+                              i++;
+                              if (i >= textToType.length) {
+                                clearInterval(intervalId);
+                                i = 0
+                                textToType = "• Press [Spacebar] or [Up Arrow] to";
+                                intervalId = setInterval(function () {
+                                  textElement6.textContent += textToType.charAt(i);
+                                  i++;
+                                  if (i >= textToType.length) {
+                                    i = 0
+                                    clearInterval(intervalId);
+                                    textToType = "JUMP";
+                                    intervalId = setInterval(function () {
+                                      textElement7.textContent += textToType.charAt(i);
+                                      i++;
+                                      if (i >= textToType.length) {
+                                        i = 0
+                                        clearInterval(intervalId);
+                                        textToType = "over obstacles!";
+                                        intervalId = setInterval(function () {
+                                          textElement8.textContent += textToType.charAt(i);
+                                          i++;
+                                          if (i >= textToType.length) {
+                                            clearInterval(intervalId);
+                                            document.getElementById('loading1-next').style.display = 'block';
+                                          }
+                                        }, typingSpeed);
+                                      }
+                                    }, typingSpeed);
+                                  }
+                                }, typingSpeed);
+                              }
+                            }, typingSpeed);
+                          }
+                        }, typingSpeed);
+                      }
+                    }, typingSpeed);
+                  }
+                }, typingSpeed);
+              }
+            }, typingSpeed);
+
           }
         }, typingSpeed);
       } else if (loading1nextButtonCounter == 1) {
@@ -902,93 +971,19 @@ class BasicWorldDemo {
 
 
         var textElement = document.getElementById('stage1-intro3-text1')
-
-        textElement.textContent = '';
-        var textToType = "TO PROTECT YOURSELVES AND SAVE YOUR FRIENDS YOU MUST FIRST RETRIEVE THE NUTRI-SHEILD. IT'LL BE A DANGEROUS JOURNEY BUT I THINK YOU HAVE WHAT IT TAKES!";
-        var typingSpeed = 10;
-        var i = 0;
-        var intervalId = setInterval(function () {
-          textElement.textContent += textToType.charAt(i);
-          i++;
-          if (i >= textToType.length) {
-            clearInterval(intervalId);
-            document.getElementById('loading1-next').style.display = 'block';
-          }
-        }, typingSpeed);
-
-      } else if (loading1nextButtonCounter == 2) {
-        loading1nextButtonCounter++
-        document.getElementById('stage1-intro3').style.display = 'none'
-        document.getElementById('stage1-intro4').style.display = 'block'
-
-
-        var textElement = document.getElementById('stage1-intro4-text1')
-        var textElement1 = document.getElementById('stage1-intro4-text2')
-
-        textElement.textContent = '';
-        textElement1.textContent = '';
-
-        var textToType = "• USE THE [ARROW KEYS] TO MOVE LEFT AND RIGHT AND AVOID OBSTACLES!";
-        var typingSpeed = 10;
-        var i = 0;
-        var intervalId = setInterval(function () {
-          textElement.textContent += textToType.charAt(i);
-          i++;
-          if (i >= textToType.length) {
-            clearInterval(intervalId);
-            i = 0;
-            textToType = "• PRESS [SPACEBAR] TO JUMP!"
-            intervalId = setInterval(function () {
-              textElement1.textContent += textToType.charAt(i);
-              i++;
-              if (i >= textToType.length) {
-                clearInterval(intervalId);
-                document.getElementById('loading1-next').style.display = 'block';
-
-              }
-            }, typingSpeed);
-          }
-        }, typingSpeed);
-
-      } else if (loading1nextButtonCounter == 3) {
-        loading1nextButtonCounter++
-        document.getElementById('stage1-intro4').style.display = 'none'
-        document.getElementById('stage1-intro5').style.display = 'block'
-
-
-        var textElement = document.getElementById('stage1-intro5-text1')
-
-        textElement.textContent = '';
-
-        var textToType = "WATER IS ALWAYS THE BEST CHOICE SO AVOID SWEETENED BEVERAGES!";
-        var typingSpeed = 10;
-        var i = 0;
-        var intervalId = setInterval(function () {
-          textElement.textContent += textToType.charAt(i);
-          i++;
-          if (i >= textToType.length) {
-            clearInterval(intervalId);
-            document.getElementById('loading1-next').style.display = 'block';
-          }
-        }, typingSpeed);
-
-      } else if (loading1nextButtonCounter == 4) {
-        loading1nextButtonCounter++
-        document.getElementById('stage1-intro5').style.display = 'none'
-        document.getElementById('stage1-recap').style.display = 'block'
-
-
-        var textElement = document.getElementById('stage1-recap-text1')
-        var textElement1 = document.getElementById('stage1-recap-text2')
-        var textElement2 = document.getElementById('stage1-recap-text3')
-        var textElement3 = document.getElementById('stage1-recap-text4')
+        var textElement1 = document.getElementById('stage1-intro3-text2')
+        var textElement2 = document.getElementById('stage1-intro3-text3')
+        var textElement3 = document.getElementById('stage1-intro3-text4')
+        var textElement4 = document.getElementById('stage1-intro3-text5')
 
         textElement.textContent = '';
         textElement1.textContent = '';
         textElement2.textContent = '';
         textElement3.textContent = '';
+        textElement4.textContent = '';
 
-        var textToType = "• REMEMBER WATER IS ALWAYS THE BEST CHOICE SO AVOID SWEETENED BEVERAGES!";
+
+        var textToType = "• Stay hydrated with";
         var typingSpeed = 10;
         var i = 0;
         var intervalId = setInterval(() => {
@@ -997,33 +992,43 @@ class BasicWorldDemo {
           if (i >= textToType.length) {
             clearInterval(intervalId);
             i = 0;
-            textToType = "• FILL YOUR WATER BOTTLES UP FROM SCHOOL WATER COOLERS."
+            textToType = "WATER"
             intervalId = setInterval(() => {
               textElement1.textContent += textToType.charAt(i);
               i++;
               if (i >= textToType.length) {
                 clearInterval(intervalId);
                 i = 0;
-                textToType = "• IF YOU ARE PURCHASING DRINKS, CHOOSE BEVERAGES WHICH HAVE BEEN GRADED A OR B ONLY."
+                textToType = "• Plain water is always the best"
                 intervalId = setInterval(() => {
                   textElement2.textContent += textToType.charAt(i);
                   i++;
                   if (i >= textToType.length) {
                     clearInterval(intervalId);
                     i = 0;
-                    textToType = "•  HYDRATE YOURSELF WITH AT LEAST 8 GLASSES EVERYDAY!"
+                    textToType = "choice so avoid sweetened"
                     intervalId = setInterval(() => {
                       textElement3.textContent += textToType.charAt(i);
                       i++;
                       if (i >= textToType.length) {
                         clearInterval(intervalId);
-                        document.getElementById('click-start').style.display = 'block';
-                        document.getElementById('loading-bar-container').style.display = 'none';
-                        document.getElementById('loading-text-stage-1').style.display = 'none';
-
-                        this.allowStart = true;
-                        loading1nextButtonCounter = 0
                         i = 0;
+                        textToType = "beverages!"
+
+                        intervalId = setInterval(() => {
+                          textElement4.textContent += textToType.charAt(i);
+                          i++;
+                          if (i >= textToType.length) {
+                            clearInterval(intervalId);
+                            document.getElementById('click-start').style.display = 'block';
+                            document.getElementById('loading-bar-container').style.display = 'none';
+                            document.getElementById('loading-text-stage-1').style.display = 'none';
+
+                            this.allowStart = true;
+                            loading1nextButtonCounter = 0
+                            i = 0;
+                          }
+                        }, typingSpeed);
                       }
                     }, typingSpeed);
                   }
@@ -1033,141 +1038,317 @@ class BasicWorldDemo {
           }
         }, typingSpeed);
       }
-
     });
 
     loading2Next.addEventListener("click", () => {
       loading2Next.style.display = 'none'
       if (loading2nextButtonCounter == 0) {
         loading2nextButtonCounter++
+
         document.getElementById('stage2-intro1').style.display = 'none'
         document.getElementById('stage2-intro2').style.display = 'block'
 
 
-        var textElement = document.getElementById('stage2-intro2-text1')
-
-        textElement.textContent = '';
-        var textToType = "TO ACTIVATE THE PORTAL TO GO BACK TO EARTH, YOU NEED TO GET THE PORTAL KEY INSIDE THIS GLYKOS DUNGEON.";
-        var typingSpeed = 10;
-        var i = 0;
-        var intervalId = setInterval(function () {
-          textElement.textContent += textToType.charAt(i);
-          i++;
-          if (i >= textToType.length) {
-            clearInterval(intervalId);
-            document.getElementById('loading2-next').style.display = 'block';
-          }
-        }, typingSpeed);
-      } else if (loading2nextButtonCounter == 1) {
-        loading2nextButtonCounter++
-        document.getElementById('stage2-intro2').style.display = 'none'
-        document.getElementById('stage2-intro3').style.display = 'block'
-
-        var textElement = document.getElementById('stage2-intro3-text1')
-        var textElement1 = document.getElementById('stage2-intro3-text2')
-        var textElement2 = document.getElementById('stage2-intro3-text3')
+        var textElement = document.getElementById('stage2-intro2-text1');
+        var textElement1 = document.getElementById('stage2-intro2-text2');
+        var textElement2 = document.getElementById('stage2-intro2-text3');
+        var textElement3 = document.getElementById('stage2-intro2-text4');
+        var textElement4 = document.getElementById('stage2-intro2-text5');
+        var textElement5 = document.getElementById('stage2-intro2-text6');
+        var textElement6 = document.getElementById('stage2-intro2-text7');
+        var textElement7 = document.getElementById('stage2-intro2-text8');
+        var textElement8 = document.getElementById('stage2-intro2-text9');
 
         textElement.textContent = '';
         textElement1.textContent = '';
         textElement2.textContent = '';
+        textElement3.textContent = '';
+        textElement4.textContent = '';
+        textElement5.textContent = '';
+        textElement6.textContent = '';
+        textElement7.textContent = '';
+        textElement8.textContent = '';
 
-        var textToType = "BUT BE CAREFUL, THE FLYING GLYKONOS LIVE HERE.";
+        var textToType = "• NICE WORK! NOW THAT YOU HAVE THE ";
         var typingSpeed = 10;
         var i = 0;
-        var intervalId = setInterval(function () {
+        var intervalId = setInterval(() => {
           textElement.textContent += textToType.charAt(i);
           i++;
           if (i >= textToType.length) {
-            i = 0;
-            textToType = "PRESS [DOWN ARROW] TO SLIDE AND AVOID THEIR ATTACKS."
+            i = 0
             clearInterval(intervalId);
-            intervalId = setInterval(function () {
+            textToType = "NUTRI-SHIELD"
+            intervalId = setInterval(() => {
               textElement1.textContent += textToType.charAt(i);
               i++;
               if (i >= textToType.length) {
-                i = 0;
-                textToType = "GOOD LUCK!"
+                i = 0
+
                 clearInterval(intervalId);
-                intervalId = setInterval(function () {
+                textToType = "you are protected against attacks for a few seconds."
+                intervalId = setInterval(() => {
                   textElement2.textContent += textToType.charAt(i);
                   i++;
                   if (i >= textToType.length) {
                     clearInterval(intervalId);
-                    document.getElementById('loading2-next').style.display = 'block';
+                    i = 0
+                    textToType = "• To charge it, follow the 'My Healthy Plate' formula: ";
+                    intervalId = setInterval(() => {
+                      textElement3.textContent += textToType.charAt(i);
+                      i++;
+                      if (i >= textToType.length) {
+                        clearInterval(intervalId);
+                        i = 0
+
+                        textToType = "¼ grains";
+                        intervalId = setInterval(() => {
+                          textElement4.textContent += textToType.charAt(i);
+                          i++;
+                          if (i >= textToType.length) {
+                            clearInterval(intervalId);
+                            i = 0
+                            textToType = ",";
+                            intervalId = setInterval(() => {
+                              textElement5.textContent += textToType.charAt(i);
+                              i++;
+                              if (i >= textToType.length) {
+                                clearInterval(intervalId);
+                                i = 0
+                                textToType = "¼ protein";
+                                intervalId = setInterval(() => {
+                                  textElement6.textContent += textToType.charAt(i);
+                                  i++;
+                                  if (i >= textToType.length) {
+                                    i = 0
+                                    clearInterval(intervalId);
+                                    textToType = ",";
+                                    intervalId = setInterval(() => {
+                                      textElement7.textContent += textToType.charAt(i);
+                                      i++;
+                                      if (i >= textToType.length) {
+                                        i = 0
+                                        clearInterval(intervalId);
+                                        textToType = "½ FRUIT AND VEG";
+                                        intervalId = setInterval(() => {
+                                          textElement8.textContent += textToType.charAt(i);
+                                          i++;
+                                          if (i >= textToType.length) {
+                                            clearInterval(intervalId);
+                                            document.getElementById('loading2-next').style.display = 'block';
+                                          }
+                                        }, typingSpeed);
+                                      }
+                                    }, typingSpeed);
+                                  }
+                                }, typingSpeed);
+                              }
+                            }, typingSpeed);
+                          }
+                        }, typingSpeed);
+                      }
+                    }, typingSpeed);
                   }
                 }, typingSpeed);
               }
             }, typingSpeed);
           }
-        }, typingSpeed);
-      } else if (loading2nextButtonCounter == 2) {
+        }, typingSpeed)
+      } else if (loading2nextButtonCounter == 1) {
         loading2nextButtonCounter++
-        document.getElementById('stage2-intro3').style.display = 'none'
-        document.getElementById('stage2-intro4').style.display = 'block'
+        document.getElementById('stage2-intro2').style.display = 'none'
+        document.getElementById('stage2-intro3').style.display = 'block'
 
-        var textElement = document.getElementById('stage2-intro4-text1')
-        var textElement1 = document.getElementById('stage2-intro4-text2')
+        var textElement = document.getElementById('stage2-intro3-text1');
+        var textElement1 = document.getElementById('stage2-intro3-text2');
+        var textElement2 = document.getElementById('stage2-intro3-text3');
+        var textElement3 = document.getElementById('stage2-intro3-text4');
+        var textElement4 = document.getElementById('stage2-intro3-text5');
+        var textElement5 = document.getElementById('stage2-intro3-text6');
+        var textElement6 = document.getElementById('stage2-intro3-text7');
+        var textElement7 = document.getElementById('stage2-intro3-text8');
+        var textElement8 = document.getElementById('stage2-intro3-text9');
+        var textElement9 = document.getElementById('stage2-intro3-text10');
+        var textElement10 = document.getElementById('stage2-intro3-text11');
+        var textElement11 = document.getElementById('stage2-intro3-text12');
+        var textElement12 = document.getElementById('stage2-intro3-text13');
+        var textElement13 = document.getElementById('stage2-intro3-text14');
+        var textElement14 = document.getElementById('stage2-intro3-text15');
+        var textElement15 = document.getElementById('stage2-intro3-text16');
 
         textElement.textContent = '';
         textElement1.textContent = '';
+        textElement2.textContent = '';
+        textElement3.textContent = '';
+        textElement4.textContent = '';
+        textElement5.textContent = '';
+        textElement6.textContent = '';
+        textElement7.textContent = '';
+        textElement8.textContent = '';
+        textElement9.textContent = '';
+        textElement10.textContent = '';
+        textElement11.textContent = '';
+        textElement12.textContent = '';
+        textElement13.textContent = '';
+        textElement14.textContent = '';
+        textElement15.textContent = '';
 
-        var textToType = "• FILL YOUR PLATE WITH QUARTER-QUARTER HALF; WHOLEGRAINS, MEAT & OTHERS, FRUIT AND VEGETABLES.";
+        var textToType = "• But be careful, ";
         var typingSpeed = 10;
         var i = 0;
-        var intervalId = setInterval(function () {
+        var intervalId = setInterval(() => {
           textElement.textContent += textToType.charAt(i);
           i++;
           if (i >= textToType.length) {
-            i = 0;
-            textToType = "• GO FOR 2 SERVINGS OF FRUIT AND 2 SERVINGS OF VEGETABLES EVERYDAY!"
+            i = 0
             clearInterval(intervalId);
-            intervalId = setInterval(function () {
+            textToType = "TERROLATO"
+            intervalId = setInterval(() => {
               textElement1.textContent += textToType.charAt(i);
               i++;
               if (i >= textToType.length) {
-                clearInterval(intervalId);
-                document.getElementById('loading2-next').style.display = 'block';
-              }
-            }, typingSpeed);
-          }
-        }, typingSpeed);
-      } else if (loading2nextButtonCounter == 3) {
-        loading2nextButtonCounter++
-        document.getElementById('stage2-intro4').style.display = 'none'
-        document.getElementById('stage2-intro5').style.display = 'block'
-
-        var textElement = document.getElementById('stage2-intro5-text1')
-        var textElement1 = document.getElementById('stage2-intro5-text2')
-
-        textElement.textContent = '';
-        textElement1.textContent = '';
-
-        var textToType = "• CHOOSE FRESH OVER PROCESSED OR PRESERVED FOOD AND AVOID FRIED FOOD.";
-        var typingSpeed = 10;
-        var i = 0;
-        var intervalId = setInterval(function () {
-          textElement.textContent += textToType.charAt(i);
-          i++;
-          if (i >= textToType.length) {
-            i = 0;
-            textToType = "• TAKE TIME TO CHEW YOUR FOOD WHEN EATING AND AVOID ANY DISTRACTIONS LIKE SCREEN TIME. THIS ALLOWS FOR YOUR FOOD TO DIGEST BETTER."
-            clearInterval(intervalId);
-            intervalId = setInterval(function () {
-              textElement1.textContent += textToType.charAt(i);
-              i++;
-              if (i >= textToType.length) {
-                clearInterval(intervalId);
-                loading2nextButtonCounter = 0;
                 i = 0
-                document.getElementById('click-start').style.display = 'block';
-                document.getElementById('loading-bar-container-2').style.display = 'none';
-                document.getElementById('loading-text-stage-2').style.display = 'none';
-                document.querySelector('.wrapper').style.display = 'block';
-                document.getElementById('shieldContainer').style.display = 'block';
+
+                clearInterval(intervalId);
+                textToType = "and"
+                intervalId = setInterval(() => {
+                  textElement2.textContent += textToType.charAt(i);
+                  i++;
+                  if (i >= textToType.length) {
+                    clearInterval(intervalId);
+                    i = 0
+                    textToType = "SOYAS";
+                    intervalId = setInterval(() => {
+                      textElement3.textContent += textToType.charAt(i);
+                      i++;
+                      if (i >= textToType.length) {
+                        clearInterval(intervalId);
+                        i = 0
+
+                        textToType = "live in this dungeon.";
+                        intervalId = setInterval(() => {
+                          textElement4.textContent += textToType.charAt(i);
+                          i++;
+                          if (i >= textToType.length) {
+                            clearInterval(intervalId);
+                            i = 0
+                            textToType = "• Press [Down Arrow] to";
+                            intervalId = setInterval(() => {
+                              textElement5.textContent += textToType.charAt(i);
+                              i++;
+                              if (i >= textToType.length) {
+                                clearInterval(intervalId);
+                                i = 0
+                                textToType = "SLIDE";
+                                intervalId = setInterval(() => {
+                                  textElement6.textContent += textToType.charAt(i);
+                                  i++;
+                                  if (i >= textToType.length) {
+                                    i = 0
+                                    clearInterval(intervalId);
+                                    textToType = "and";
+                                    intervalId = setInterval(() => {
+                                      textElement7.textContent += textToType.charAt(i);
+                                      i++;
+                                      if (i >= textToType.length) {
+                                        i = 0
+                                        clearInterval(intervalId);
+                                        textToType = "avoid";
+                                        intervalId = setInterval(() => {
+                                          textElement8.textContent += textToType.charAt(i);
+                                          i++;
+                                          if (i >= textToType.length) {
+                                            i = 0
+                                            clearInterval(intervalId);
+                                            textToType = "TERROLATO";
+                                            intervalId = setInterval(() => {
+                                              textElement9.textContent += textToType.charAt(i);
+                                              i++;
+                                              if (i >= textToType.length) {
+                                                i = 0
+                                                clearInterval(intervalId);
+                                                textToType = "attacks.";
+                                                intervalId = setInterval(() => {
+                                                  textElement10.textContent += textToType.charAt(i);
+                                                  i++;
+                                                  if (i >= textToType.length) {
+                                                    i = 0
+                                                    clearInterval(intervalId);
+                                                    textToType = "•";
+                                                    intervalId = setInterval(() => {
+                                                      textElement11.textContent += textToType.charAt(i);
+                                                      i++;
+                                                      if (i >= textToType.length) {
+                                                        i = 0
+                                                        clearInterval(intervalId);
+                                                        textToType = "JUMP";
+                                                        intervalId = setInterval(() => {
+                                                          textElement12.textContent += textToType.charAt(i);
+                                                          i++;
+                                                          if (i >= textToType.length) {
+                                                            i = 0
+                                                            clearInterval(intervalId);
+                                                            textToType = "just before his swipe to avoid";
+                                                            intervalId = setInterval(() => {
+                                                              textElement13.textContent += textToType.charAt(i);
+                                                              i++;
+                                                              if (i >= textToType.length) {
+                                                                i = 0
+                                                                clearInterval(intervalId);
+                                                                textToType = "SOYAS";
+                                                                intervalId = setInterval(() => {
+                                                                  textElement14.textContent += textToType.charAt(i);
+                                                                  i++;
+                                                                  if (i >= textToType.length) {
+                                                                    i = 0
+                                                                    clearInterval(intervalId);
+                                                                    textToType = "attacks.";
+                                                                    intervalId = setInterval(() => {
+                                                                      textElement15.textContent += textToType.charAt(i);
+                                                                      i++;
+                                                                      if (i >= textToType.length) {
+                                                                        clearInterval(intervalId);
+                                                                        clearInterval(intervalId);
+                                                                        document.getElementById('click-start').style.display = 'block';
+                                                                        document.getElementById('loading-bar-container-2').style.display = 'none';
+                                                                        document.getElementById('loading-text-stage-2').style.display = 'none';
+                                                                        document.querySelector('.wrapper').style.display = 'block';
+                                                                        document.getElementById('shieldContainer').style.display = 'block';
+                                                                        loading2nextButtonCounter = 0;
+                                                                        i = 0
+                                                                        this.allowStart = true;
+                                                                      }
+                                                                    }, typingSpeed);
+                                                                  }
+                                                                }, typingSpeed);
+                                                              }
+                                                            }, typingSpeed);
+                                                          }
+                                                        }, typingSpeed);
+                                                      }
+                                                    }, typingSpeed);
+                                                  }
+                                                }, typingSpeed);
+                                              }
+                                            }, typingSpeed);
+                                          }
+                                        }, typingSpeed);
+                                      }
+                                    }, typingSpeed);
+                                  }
+                                }, typingSpeed);
+                              }
+                            }, typingSpeed);
+                          }
+                        }, typingSpeed);
+                      }
+                    }, typingSpeed);
+                  }
+                }, typingSpeed);
               }
             }, typingSpeed);
           }
-        }, typingSpeed);
+        }, typingSpeed)
       }
     });
 
@@ -1181,9 +1362,20 @@ class BasicWorldDemo {
         loading3nextButtonCounter++
 
         var textElement = document.getElementById('stage3-intro2-text1')
+        var textElement1 = document.getElementById('stage3-intro2-text2')
+        var textElement2 = document.getElementById('stage3-intro2-text3')
+        var textElement3 = document.getElementById('stage3-intro2-text4')
+        var textElement4 = document.getElementById('stage3-intro2-text5')
+        var textElement5 = document.getElementById('stage3-intro2-text6')
 
         textElement.textContent = '';
-        var textToType = "PICK THE CORRECT HEALTHIER CHOICE SYMBOL TO FREE YOUR TRAPPED FRIENDS WITH A HEALTHY MEAL BEFORE ACTIVATING THE PORTAL AND GOING BACK HOME!";
+        textElement1.textContent = '';
+        textElement2.textContent = '';
+        textElement3.textContent = '';
+        textElement4.textContent = '';
+        textElement5.textContent = '';
+
+        var textToType = "• Uh oh! Seems like taking the ";
         var typingSpeed = 10;
         var i = 0;
         var intervalId = setInterval(function () {
@@ -1191,7 +1383,52 @@ class BasicWorldDemo {
           i++;
           if (i >= textToType.length) {
             clearInterval(intervalId);
-            document.getElementById('loading3-next').style.display = 'block';
+            i = 0
+            textToType = 'PORTAL KEY';
+            intervalId = setInterval(function () {
+              textElement1.textContent += textToType.charAt(i);
+              i++;
+              if (i >= textToType.length) {
+                clearInterval(intervalId);
+                i = 0
+                textToType = "activated some sort of self-destruct sequence. You'll need to hurry!";
+                intervalId = setInterval(function () {
+                  textElement2.textContent += textToType.charAt(i);
+                  i++;
+                  if (i >= textToType.length) {
+                    clearInterval(intervalId);
+                    i = 0
+                    textToType = '• Jump and move left or right to';
+                    intervalId = setInterval(function () {
+                      textElement3.textContent += textToType.charAt(i);
+                      i++;
+                      if (i >= textToType.length) {
+                        clearInterval(intervalId);
+                        i = 0
+                        textToType = 'WALL RUN';
+                        intervalId = setInterval(function () {
+                          textElement4.textContent += textToType.charAt(i);
+                          i++;
+                          if (i >= textToType.length) {
+                            clearInterval(intervalId);
+                            i = 0
+                            textToType = 'to avoid falling down the crumbling paths!';
+                            intervalId = setInterval(function () {
+                              textElement5.textContent += textToType.charAt(i);
+                              i++;
+                              if (i >= textToType.length) {
+                                clearInterval(intervalId);
+                                document.getElementById('loading3-next').style.display = 'block';
+                              }
+                            }, typingSpeed)
+                          }
+                        }, typingSpeed)
+                      }
+                    }, typingSpeed)
+                  }
+                }, typingSpeed)
+              }
+            }, typingSpeed)
           }
         }, typingSpeed);
       } else if (loading3nextButtonCounter == 1) {
@@ -1203,55 +1440,43 @@ class BasicWorldDemo {
         var textElement = document.getElementById('stage3-intro3-text1')
         var textElement1 = document.getElementById('stage3-intro3-text2')
         var textElement2 = document.getElementById('stage3-intro3-text3')
-        var textElement3 = document.getElementById('stage3-intro3-text4')
 
         textElement.textContent = '';
         textElement1.textContent = '';
         textElement2.textContent = '';
-        textElement3.textContent = '';
 
-        var textToType = "CHOOSE FOOD WITH HEALTHIER CHOICE SYMBOL (HCS)";
+        var textToType = "• Pick the correct";
         var typingSpeed = 10;
         var i = 0;
-        var intervalId = setInterval(function () {
+        var intervalId = setInterval(() => {
           textElement.textContent += textToType.charAt(i);
           i++;
           if (i >= textToType.length) {
             clearInterval(intervalId);
             i = 0
-            textToType = '• FOOD WITH HCS ARE HEALTHIER THAN OTHER FOOD IN THE SAME CATEGORY E.G. BISCUITS WITH HCS CAN BE HEATHLIER THAN BISCUITS WITHOUT HCS.';
-            intervalId = setInterval(function () {
+            textToType = 'HEALTHIER CHOICE SYMBOL';
+            intervalId = setInterval(() => {
               textElement1.textContent += textToType.charAt(i);
               i++;
 
               if (i >= textToType.length) {
                 i = 0
                 clearInterval(intervalId);
-                textToType = '• EXERCISE VARIETY, BALANCE AND MODERATION WHEN EATING HCS PRODUCTS AND DO NOT OVER-EAT.';
+                textToType = 'to free your trapped friends with a healthy meal before activating the portal and going back home!';
 
-                intervalId = setInterval(function () {
+                intervalId = setInterval(() => {
                   textElement2.textContent += textToType.charAt(i);
                   i++;
 
                   if (i >= textToType.length) {
-                    i = 0
                     clearInterval(intervalId);
-                    textToType = '• WHEN EATING OUT WITH YOUR FAMILIES, CHOOSE FOOD ITEMS WITH HCS';
-
-                    intervalId = setInterval(function () {
-                      textElement3.textContent += textToType.charAt(i);
-                      i++;
-
-                      if (i >= textToType.length) {
-                        clearInterval(intervalId);
-                        document.getElementById("rescuedContainer").style.display = 'block';
-                        document.getElementById('click-start').style.display = 'block';
-                        document.getElementById('loading-bar-container-3').style.display = 'none';
-                        document.getElementById('loading-text-stage-3').style.display = 'none';
-                        loading3nextButtonCounter = 0;
-                        i = 0;
-                      }
-                    }, typingSpeed);
+                    document.getElementById("rescuedContainer").style.display = 'block';
+                    document.getElementById('click-start').style.display = 'block';
+                    document.getElementById('loading-bar-container-3').style.display = 'none';
+                    document.getElementById('loading-text-stage-3').style.display = 'none';
+                    loading3nextButtonCounter = 0;
+                    i = 0;
+                    this.allowStart = true;
                   }
                 }, typingSpeed);
               }
@@ -1292,16 +1517,16 @@ class BasicWorldDemo {
     });
 
     continueEnding.addEventListener("click", () => {
+
       retryStage3.style.display = "none"
       continueEnding.style.display = "none"
-      document.getElementById('stamina').style.zIndex = 0;
-      document.getElementById('staminaWater').style.zIndex = 0;
-      
-      if (this.player_.friendsSaved == 9) {
+      document.getElementById('stamina').style.display = "none";
+
+      if (this.player_.friendsSaved == 5) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_3 of 3 complete.png"
-      } else if (this.player_.friendsSaved >= 6) {
-        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_2 of 3 complete.png"
       } else if (this.player_.friendsSaved >= 3) {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_2 of 3 complete.png"
+      } else if (this.player_.friendsSaved >= 1) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_1 of 3 complete.png"
       } else {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_0 of 3 complete.png"
@@ -1311,6 +1536,27 @@ class BasicWorldDemo {
       document.getElementById('badEndingUI').style.zIndex = 0;
 
     });
+
+    finishEnding.addEventListener("click", () => {
+      retryStage3.style.display = "none"
+      finishEnding.style.display = "none"
+      document.getElementById('stamina').style.display = "none";
+
+      if (this.player_.friendsSaved == 5) {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_3 of 3 complete.png"
+      } else if (this.player_.friendsSaved >= 3) {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_2 of 3 complete.png"
+      } else if (this.player_.friendsSaved >= 1) {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_1 of 3 complete.png"
+      } else {
+        document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_0 of 3 complete.png"
+      }
+      document.getElementById('final-score').classList.toggle('active');
+      document.getElementById('finalScoreUI').style.zIndex = 3;
+      document.getElementById('goodEndingUI').style.zIndex = 0;
+
+    });
+
 
     nextEnding.addEventListener("click", () => {
       document.getElementById("well-done-text").style.display = "none"
@@ -1371,49 +1617,23 @@ class BasicWorldDemo {
     // Add event listeners to the buttons
     volumeButton.addEventListener("click", () => {
       const mediaElements = document.querySelectorAll('video, audio');
-
       // Loop through each element and set its volume to 0
       mediaElements.forEach(element => {
         element.volume = 0;
       });
-        
-        
-        volumeButton.style.display = 'none'
-        muteButton.style.display = 'block'
-
-
-
+      volumeButton.style.display = 'none'
+      muteButton.style.display = 'block'
     });
 
     // Add event listeners to the buttons
     muteButton.addEventListener("click", () => {
       const mediaElements = document.querySelectorAll('video, audio');
-
       // Loop through each element and set its volume to 0
       mediaElements.forEach(element => {
         element.volume = 1;
       });
-        
-        volumeButton.style.display = 'block'
-        muteButton.style.display = 'none'
-  
-     
-
-    });
-
-
-    //key down event listener
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape') {
-        if (this.allowPause && !this.isPaused) {
-          if (this.isPaused && !this.pauseCountdownActive) {
-            startPauseCountdown()
-          } else if (!this.pauseCountdownActive) {
-            startPause()
-
-          }
-        }
-      }
+      volumeButton.style.display = 'block'
+      muteButton.style.display = 'none'
     });
 
     //pause the game
@@ -1423,7 +1643,6 @@ class BasicWorldDemo {
       this.speedy = 0
       this.speedz = 0
       this.stopTime = true;
-      cancelAnimationFrame(this.animationId);
       this.isPaused = true;
       document.querySelector('#pauseDiv').style.display = 'block'
       pauseButton.style.display = 'none'
@@ -1440,7 +1659,6 @@ class BasicWorldDemo {
         this.resumeCountdown_--;
         document.getElementById('power-countdown-text').textContent = this.resumeCountdown_;
         if (this.resumeCountdown_ === 0) {
-          this.animationId = requestAnimationFrame(animate);
           this.objSpeed = 12
           this.monSpeed = 52
           this.speedy = 12
@@ -1451,7 +1669,6 @@ class BasicWorldDemo {
 
           pauseButton.style.display = 'block'
           volumeButton.style.display = 'block'
-
 
           clearInterval(this.intervalId_);
           document.getElementById('countdown').classList.toggle('active');
@@ -1487,7 +1704,7 @@ class BasicWorldDemo {
         this.playNextStageVideo3()
       } else if (this.stage == 4) {
         document.getElementById('click-end').style.display = 'none';
-        if (this.player_.friendsSaved >= 6) {
+        if (this.player_.friendsSaved >= 3) {
           this.playVictoryVid()
         } else {
           this.playDefeatVid()
@@ -1515,7 +1732,6 @@ class BasicWorldDemo {
           document.getElementById('loading-button-container').style.display = 'none';
         }
         this.stopTime = false;
-        this.animationId = requestAnimationFrame(animate);
         this.objSpeed = 12
         this.monSpeed = 52
         this.speedy = 12
@@ -1533,12 +1749,9 @@ class BasicWorldDemo {
         this.checkStartGame = true;
         this._OnStart()
         this.allowPause = true;
-        document.getElementById('stage1-recap').style.display = 'none'
         document.getElementById('stage1-intro1').style.display = 'none'
         document.getElementById('stage1-intro2').style.display = 'none'
         document.getElementById('stage1-intro3').style.display = 'none'
-        document.getElementById('stage1-intro4').style.display = 'none'
-        document.getElementById('stage1-intro5').style.display = 'none'
         document.getElementById('loading-1').style.display = 'none';
         document.getElementById('click-start').style.display = 'none';
 
@@ -1548,101 +1761,56 @@ class BasicWorldDemo {
 
 
     document.addEventListener('keydown', () => {
-      if (this.startstage) {
-        if (this.stage == 1) {
-          this.stage1Music.play()
-          document.getElementById('loading-button-container').style.display = 'none';
-          document.getElementById('loading-1').style.display = 'none';
-        } else if (this.stage == 2) {
-          this.stage2Music.play()
-          document.getElementById('loading-2').style.display = 'none';
-          document.getElementById('loading-button-container').style.display = 'none';
-        } else if (this.stage == 3) {
-          this.stage3Music.play()
-          document.getElementById('loading-3').style.display = 'none';
-          document.getElementById('loading-button-container').style.display = 'none';
-        }
-        this.stopTime = false;
-        this.RAF_();
-        this.animationId = requestAnimationFrame(animate);
-        this.objSpeed = 12
-        this.monSpeed = 52
-        this.speedy = 12
-        this.speedz = 3
-        this.isPaused = false;
-        this.startstage = false;
-        this.allowPause = true;
-        pauseButton.style.display = 'block'
-        this.player_.position_.z = 0
-        document.getElementById('click-start').style.display = 'none';
-      } else if (this.startGame && !this.checkStartGame) {
-        if (this.allowStart) {
+      if (this.allowStart) {
+        if (this.startstage) {
+          if (this.stage == 1) {
+            this.stage1Music.play()
+            document.getElementById('loading-button-container').style.display = 'none';
+            document.getElementById('loading-1').style.display = 'none';
+          } else if (this.stage == 2) {
+            this.stage2Music.play()
+            this.RAF_();
+            document.getElementById('loading-2').style.display = 'none';
+            document.getElementById('loading-button-container').style.display = 'none';
+          } else if (this.stage == 3) {
+            this.stage3Music.play()
+            this.RAF_();
+            document.getElementById('loading-3').style.display = 'none';
+            document.getElementById('loading-button-container').style.display = 'none';
+          }
+          this.stopTime = false;
+          this.objSpeed = 12
+          this.monSpeed = 52
+          this.speedy = 12
+          this.speedz = 3
+          this.isPaused = false;
+          this.startstage = false;
+          this.allowPause = true;
+          pauseButton.style.display = 'block'
+          this.player_.position_.z = 0
+          document.getElementById('click-start').style.display = 'none';
+          this.allowStart = false;
+        } else if (this.startGame && !this.checkStartGame) {
           this.stopTime = false;
           this.RAF_()
           this.checkStartGame = true;
           this._OnStart()
           this.allowPause = true;
-          pauseButton.style.display = 'block'
-          document.getElementById('stage1-recap').style.display = 'none'
           document.getElementById('stage1-intro1').style.display = 'none'
           document.getElementById('stage1-intro2').style.display = 'none'
           document.getElementById('stage1-intro3').style.display = 'none'
-          document.getElementById('stage1-intro4').style.display = 'none'
-          document.getElementById('stage1-intro5').style.display = 'none'
           document.getElementById('loading-1').style.display = 'none';
           document.getElementById('click-start').style.display = 'none';
+          this.allowStart = false;
         }
       }
     });
 
 
-
-    //handle map position 
-    const animate = () => {
-
-      if (this._gameStarted && !this.isPaused) {
-        const speed = this.speed_
-        this.mesh.position.x -= speed;
-        this.mesh1.position.x -= speed;
-        this.mesh2.position.x -= speed;
-        this.mesh3.position.x -= speed;
-        if (this.mesh4) {
-          this.mesh4.position.x -= speed;
-        }
-
-      }
-      this.animationId = requestAnimationFrame(animate);
-
-    }
-
-    animate();
-
-
-
-
-
     // set random positoin for drinks
-    let arrDrinks1 = [];
-    let arrDrinks2 = [];
-    let arrDrinks3 = [];
-
-    for (let i = 0; i < 6; i++) {
-      let value1 = Math.floor(Math.random() * 3) - 1;
-      let value2 = Math.floor(Math.random() * 3) - 1;
-      let value3 = Math.floor(Math.random() * 3) - 1;
-
-      while (value1 === value2) {
-        value2 = Math.floor(Math.random() * 3) - 1;
-      }
-
-      while (value1 === value3 || value2 === value3) {
-        value3 = Math.floor(Math.random() * 3) - 1;
-      }
-
-      arrDrinks1.push(value1 * 3);
-      arrDrinks2.push(value2 * 3);
-      arrDrinks3.push(value3 * 3);
-    }
+    let arrDrinks1 = [0, 3, -3, 3, -3, 0, 0, 0, 0, -3, -3, -3, -3, -3, -3, 3, -3, 3, -3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, -3, -3]
+    let arrDrinks2 = [0, -3, -3, 0, 3, 0];
+    let arrDrinks3 = [3, 3, 0, -3, -3, 3];
 
 
     // set random positoin for box logos
@@ -1693,16 +1861,16 @@ class BasicWorldDemo {
 
 
     //initiate all the game objects
-    this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
-    this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
+    this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_, stage: this.stage });
+    this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_, stage: this.stage });
     this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase, stage: this.stage });
     this.wallrun_ = new wallrun.WallManager({ scene: this.scene_ });
-    this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-    this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-    this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
-    this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
-    this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
-    this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+    this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase, stage: this.stage });
+    this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase, stage: this.stage });
+    this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
+    this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
+    this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
+    this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
     this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
@@ -1727,7 +1895,6 @@ class BasicWorldDemo {
     this.monSpeed = 0
     this.speedy = 0
     this.speedz = 0
-    cancelAnimationFrame(this.animationId);
     this.isPaused = true;
   }
 
@@ -1758,30 +1925,51 @@ class BasicWorldDemo {
 
   //start the animation 
   RAF_() {
-    requestAnimationFrame((t) => {
+    requestAnimationFrame(() => {
+      // if (!this.stopTime) {
+      //   console.log(t - this.previousRAF_)
+
+      //   if (this.previousRAF_ === null) {
+      //     this.previousRAF_ = t;
+      //   }
+      //   if ((t - this.previousRAF_ > 200)) {
+      //     this.previousRAF_ = t
+      //   }
+      //   this.RAF_();
+      //   this.Step_((t - this.previousRAF_) / 1000.0, this.isPaused);
+      //   this.threejs_.render(this.scene_, this.camera_);
+      //   this.previousRAF_ = t;
+      // }
 
       if (!this.stopTime) {
-        if (this.previousRAF_ === null) {
-          this.previousRAF_ = t;
-        }
-
-        if ((t - this.previousRAF_ > 200)) {
-          this.previousRAF_ = t
-        }
         this.RAF_();
-        this.Step_((t - this.previousRAF_) / 1000.0, this.isPaused);
+        this.Step_(16.6 / 1000.0, this.isPaused);
         this.threejs_.render(this.scene_, this.camera_);
-        this.previousRAF_ = t;
       }
     });
-
-
   }
-
 
   //what the animation does
 
   Step_(timeElapsed, pause) {
+
+    if (this._gameStarted) {
+      const speed = this.objSpeed
+      this.mesh.position.x -= timeElapsed * speed;
+      this.mesh1.position.x -= timeElapsed * speed;
+      this.mesh2.position.x -= timeElapsed * speed;
+      this.mesh3.position.x -= timeElapsed * speed;
+      if (this.mesh4) {
+        this.mesh4.position.x -= timeElapsed * speed;
+      }
+      if (this.mesh5) {
+        this.mesh5.position.x -= timeElapsed * speed;
+      }
+      if (this.mesh6) {
+        this.mesh6.position.x -= timeElapsed * speed;
+      }
+    }
+
     //pan the camera
     if (this.showChase && this._gameStarted) {
       if (this.cameraX > -10) {
@@ -1793,10 +1981,10 @@ class BasicWorldDemo {
       }
       if (this.cameraZ < 0) {
         this.cameraZ = this.cameraZ + 0.04
-
       }
+
       if (this.cameraZ > -3) {
-        this.oilSlik_.mesh_.scale.set(0.2, 0.2, 0.2)
+        this.oilSlik_.mesh_.scale.set(0.25, 0.25, 0.25)
       }
 
       if (this.cameraX <= -10 && this.cameraY <= 5 && this.cameraZ >= 0) {
@@ -1812,7 +2000,9 @@ class BasicWorldDemo {
     //if he loses stage 1
     if (!this.eventAdded3 && this.stage == 1) {
       document.addEventListener('score-over', () => {
+        
         this.nextStageVideo1_.addEventListener("ended", () => {
+          this.allowStart = false;
           this.showChase = false;
           this.gameOver_ = true;
           this.failedStage = false;
@@ -1826,84 +2016,18 @@ class BasicWorldDemo {
             if (this.scene_.children.length === 0) {
 
               // set randon positoin for drinks
-              let arrDrinks1 = [];
-              let arrDrinks2 = [];
-              let arrDrinks3 = [];
-
-              for (let i = 0; i < 6; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
-
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                arrDrinks1.push(value1 * 3);
-                arrDrinks2.push(value2 * 3);
-                arrDrinks3.push(value3 * 3);
-              }
-
-
-              // set randonm positoin for box logos
-              let arrLogo1 = [];
-              let arrLogo2 = [];
-              let arrLogo3 = [];
-
-              for (let i = 0; i < 5; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
-
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                arrLogo1.push(value1 * 3);
-                arrLogo2.push(value2 * 3);
-                arrLogo3.push(value3 * 3);
-              }
-
-              // set randonm position for box logos
-              let food1 = [];
-              let food2 = [];
-              let food3 = [];
-
-              for (let i = 0; i < 4; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
-
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                food1.push(value1 * 3);
-                food2.push(value2 * 3);
-                food3.push(value3 * 3);
-              }
-
+              let arrDrinks1 = [0, 3, -3, 3, -3, 0, 0, 0, 0, -3, -3, -3, -3, -3, -3, 3, -3, 3, -3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, -3, -3]
+              let arrDrinks2 = [0, -3, -3, 0, 3, 0];
+              let arrDrinks3 = [3, 3, 0, -3, -3, 3];
 
               //initiate all the game objects
               this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, firstChase: this.showChase, stage: this.stage });
-              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-              this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
-              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
-              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
-              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
+              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase, stage: this.stage });
+              this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase, stage: this.stage });
+              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
+              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
+              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
+              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
               this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage, firstChase: this.showChase });
               this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
@@ -1930,7 +2054,6 @@ class BasicWorldDemo {
               loader.setPath('./resources/Map/Stage1/');
               loader.load('stg1_A.gltf', (gltf) => {
                 this.mesh = gltf.scene;
-
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
                 this.mesh.position.set(-5, 0, 0);
@@ -1939,32 +2062,25 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh);
 
               });
-
               loader.load('stg1_B.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
-
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh1.position.set(192, 0, 0);
+                this.mesh1.position.set(205, 0, 0);
                 this.mesh1.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh1.scale.setScalar(0.01);
 
-
                 this.scene_.add(this.mesh1);
-
               });
               loader.load('stg1_B.gltf', (gltf) => {
                 this.mesh2 = gltf.scene;
-
                 gltf.castShadow = true;
                 gltf.receiveShadow = true;
-                this.mesh2.position.set(389, 0, 0);
+                this.mesh2.position.set(410, 0, 0);
                 this.mesh2.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh2.scale.setScalar(0.01);
 
-
                 this.scene_.add(this.mesh2);
-
               });
               loader.load('stg1_exit.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
@@ -1998,25 +2114,21 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh4);
               })
 
+              const uniforms = {
+                topColor: { value: new THREE.Color(0xFCF7E2) },
+                bottomColor: { value: new THREE.Color(0xCFE9E0) },
+                offset: { value: 33 },
+                exponent: { value: 0.6 }
+              };
 
-              // const uniforms = {
-              //   topColor: { value: new THREE.Color(0x0c1445) },
-              //   bottomColor: { value: new THREE.Color(0x89b2eb) },
-              //   offset: { value: 33 },
-              //   exponent: { value: 0.6 }
-              // };
-
-              // const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
-              // const skyMat = new THREE.ShaderMaterial({
-              //   uniforms: uniforms,
-              //   vertexShader: _VS,
-              //   fragmentShader: _FS,
-              //   side: THREE.BackSide,
-              // });
-
-
-              // this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
-
+              const skyGeo = new THREE.SphereBufferGeometry(1000, 32, 15);
+              const skyMat = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: _VS,
+                fragmentShader: _FS,
+                side: THREE.BackSide,
+              });
+              this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
 
               this.gameOver_ = false;
               this.stopTime = false;
@@ -2032,9 +2144,9 @@ class BasicWorldDemo {
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 74) {
+            if (loadingProgress < 139) {
               console.log(this.scene_.children.length)
-              const progressPercentage = (loadingProgress / 74) * 100;
+              const progressPercentage = (loadingProgress / 139) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
@@ -2044,14 +2156,15 @@ class BasicWorldDemo {
               this.startstage = true;
               this.Pause();
               clearInterval(this.intervalId_);
+              if (this.NotFirstTry) {
+                this.allowStart = true;
+              }
               document.getElementById('loading-bar-container').style.display = 'none';
               document.getElementById('loading-text-stage-1').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
             }
 
           }, 100);
-
-
         })
       })
       this.eventAdded3 = true;
@@ -2059,7 +2172,9 @@ class BasicWorldDemo {
 
     //stage 1 won
     if (!this.eventAdded && this.stage == 1) {
+ 
       document.addEventListener('score-over1', () => {
+        this.allowStart = false;
         this.stage1Music.pause()
         this.showChase = false;
         this.gameOver_ = true;
@@ -2081,177 +2196,139 @@ class BasicWorldDemo {
         });
 
         this.nextStageVideo2_.addEventListener("ended", () => {
-          this.intervalId_ = setInterval(() => {
-            this.countdown1_--;
-            if (this.scene_.children.length === 0) {
 
-              // set randon positoin for drinks
-              let arrDrinks1 = [];
-              let arrDrinks2 = [];
-              let arrDrinks3 = [];
+          if (this.scene_.children.length === 0) {
 
-              for (let i = 0; i < 6; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
+            // set randon positoin for drinks
+            let arrDrinks1 = [0, 0, 0, -3, 3, 3, -3, -3, 3, -3, 3, -3, 3, 0, 3, -3, 0, -3, -3, 0, 3, 0, -3, 3, 0, -3, 0, 3, 3, 0, -3, 3, -3, 3, 0, 0];
+            let arrDrinks2 = [-3, 0, 3, 0];
+            let arrDrinks3 = [3, 0, 3, -3];
 
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
-                }
+            // set randonm position for food
+            let food1 = [-3, -3, 0, -3, 3, -3, 3, 0, -3, 0, 3, 0, -3, 3, -3, 0];
+            let food2 = [0, 3, 3, 0, 0, 0, -3, 3, 3, -3, 0, 3, -3, 0, 3, -3]
+            let food3 = [3, 0, -3, 0, -3, 3, -3, 0, 3, -3, 0, 3, -3, 0, 3];
 
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
-                }
+            for (let i = 0; i < 6; i++) {
+              let value1 = Math.floor(Math.random() * 3) - 1;
+              let value2 = Math.floor(Math.random() * 3) - 1;
+              let value3 = Math.floor(Math.random() * 3) - 1;
 
-                arrDrinks1.push(value1 * 3);
-                arrDrinks2.push(value2 * 3);
-                arrDrinks3.push(value3 * 3);
+              while (value1 === value2) {
+                value2 = Math.floor(Math.random() * 3) - 1;
               }
 
-
-
-              // set randonm position for food
-              let food1 = [];
-              let food2 = [];
-              let food3 = [];
-
-              for (let i = 0; i < 6; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
-
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                food1.push(value1 * 3);
-                food2.push(value2 * 3);
-                food3.push(value3 * 3);
+              while (value1 === value3 || value2 === value3) {
+                value3 = Math.floor(Math.random() * 3) - 1;
               }
 
-
-              //initiate all the game objects
-              this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
-              this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
-              this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, stage: this.stage });
-              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
-              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
-              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
-              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
-              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
-              this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
-              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
-              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
-              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
-              this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
-              this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
-              this.progression_ = new progression.ProgressionManager();
-
-
-
-              let light = new THREE.DirectionalLight(0xffffff, 1);
-
-              this.scene_.add(light);
-
-              light = new THREE.HemisphereLight(0x202020, 0x004080, 1.5);
-              this.scene_.add(light);
-
-              light = new THREE.PointLight(0xb6bfcc, 1.5, 200, 4);
-              light.position.set(-7, 20, 0);
-              this.scene_.add(light);
-
-              this.scene_.background = new THREE.Color(0x808080);
-              this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
-
-              const loader = new GLTFLoader();
-              loader.setPath('./resources/Map/Stage2/');
-              loader.load('stg2_A.gltf', (gltf) => {
-                this.mesh = gltf.scene;
-
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
-                this.mesh.position.set(-5, 0, 0);
-                this.mesh.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh.scale.setScalar(0.01);
-
-
-                this.scene_.add(this.mesh);
-
-              });
-              loader.load('stg2_A.gltf', (gltf) => {
-                this.mesh1 = gltf.scene;
-
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
-                this.mesh1.position.set(205.2, 0, 0);
-                this.mesh1.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh1.scale.setScalar(0.01);
-
-
-                this.scene_.add(this.mesh1);
-
-              });
-              loader.load('stg2_B.gltf', (gltf) => {
-                this.mesh2 = gltf.scene;
-
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
-                this.mesh2.position.set(415, 0, 0);
-                this.mesh2.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh2.scale.setScalar(0.01);
-
-
-                this.scene_.add(this.mesh2);
-
-              });
-              loader.load('stg2_C.gltf', (gltf) => {
-                this.mesh3 = gltf.scene;
-
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
-                this.mesh3.position.set(625, 0, 0);
-                this.mesh3.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh3.scale.setScalar(0.01);
-
-
-                this.scene_.add(this.mesh3);
-
-              });
-              loader.load('stg2_exit.gltf', (gltf) => {
-                this.mesh4 = gltf.scene;
-
-                gltf.castShadow = true;
-                gltf.receiveShadow = true;
-                this.mesh4.position.set(727, 0, 0);
-                this.mesh4.rotation.set(0, -Math.PI / 2, 0);
-                this.mesh4.scale.setScalar(0.01);
-
-
-                this.scene_.add(this.mesh4);
-
-              });
-
-              this.gameOver_ = false;
-              this.stopTime = false;
-              this.RAF_();
-            } else if (this.countdown1_ === 0) {
-              if (this.scene_.children.length < 72) {
-                this.countdown1_ = 3
-              }
+              food1.push(value1 * 3);
+              food2.push(value2 * 3);
+              food3.push(value3 * 3);
             }
-          }, 1000);
+
+
+            //initiate all the game objects
+            this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_, stage: this.stage });
+            this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_, stage: this.stage });
+            this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, stage: this.stage });
+            this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase, stage: this.stage });
+            this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase, stage: this.stage });
+            this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
+            this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
+            this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
+            this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
+            this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1, stage: this.stage })
+            this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2, stage: this.stage })
+            this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3, stage: this.stage })
+            this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
+            this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
+            this.progression_ = new progression.ProgressionManager();
+
+            let light = new THREE.DirectionalLight(0xffffff, 1);
+            this.scene_.add(light);
+
+            light = new THREE.HemisphereLight(0x202020, 0x004080, 1.5);
+            this.scene_.add(light);
+
+            light = new THREE.PointLight(0xb6bfcc, 1.5, 200, 4);
+            light.position.set(-7, 20, 0);
+            this.scene_.add(light);
+
+            this.scene_.background = new THREE.Color(0x808080);
+            this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
+
+            const loader = new GLTFLoader();
+            loader.setPath('./resources/Map/Stage2/');
+            loader.load('stg2_A.gltf', (gltf) => {
+              this.mesh = gltf.scene;
+
+              gltf.castShadow = true;
+              gltf.receiveShadow = true;
+              this.mesh.position.set(-5, 0, 0);
+              this.mesh.rotation.set(0, -Math.PI / 2, 0);
+              this.mesh.scale.setScalar(0.01);
+
+              this.scene_.add(this.mesh);
+            });
+            loader.load('stg2_A.gltf', (gltf) => {
+              this.mesh1 = gltf.scene;
+
+              gltf.castShadow = true;
+              gltf.receiveShadow = true;
+              this.mesh1.position.set(205.2, 0, 0);
+              this.mesh1.rotation.set(0, -Math.PI / 2, 0);
+              this.mesh1.scale.setScalar(0.01);
+
+              this.scene_.add(this.mesh1);
+            });
+            loader.load('stg2_B.gltf', (gltf) => {
+              this.mesh2 = gltf.scene;
+
+              gltf.castShadow = true;
+              gltf.receiveShadow = true;
+              this.mesh2.position.set(415, 0, 0);
+              this.mesh2.rotation.set(0, -Math.PI / 2, 0);
+              this.mesh2.scale.setScalar(0.01);
+
+              this.scene_.add(this.mesh2);
+            });
+            loader.load('stg2_C.gltf', (gltf) => {
+              this.mesh3 = gltf.scene;
+
+              gltf.castShadow = true;
+              gltf.receiveShadow = true;
+              this.mesh3.position.set(625, 0, 0);
+              this.mesh3.rotation.set(0, -Math.PI / 2, 0);
+              this.mesh3.scale.setScalar(0.01);
+
+              this.scene_.add(this.mesh3);
+            });
+            loader.load('stg2_exit.gltf', (gltf) => {
+              this.mesh4 = gltf.scene;
+
+              gltf.castShadow = true;
+              gltf.receiveShadow = true;
+              this.mesh4.position.set(727, 0, 0);
+              this.mesh4.rotation.set(0, -Math.PI / 2, 0);
+              this.mesh4.scale.setScalar(0.01);
+
+              this.scene_.add(this.mesh4);
+            });
+
+            this.gameOver_ = false;
+            this.stopTime = false;
+            this.RAF_();
+          }
+
 
           const progressBar = document.getElementById('loading-bar-stage-2');
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 72) {
+            if (loadingProgress < 164) {
               console.log(this.scene_.children.length)
-              const progressPercentage = (loadingProgress / 72) * 100;
+              const progressPercentage = (loadingProgress / 164) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
@@ -2260,15 +2337,20 @@ class BasicWorldDemo {
               this.stopTime = true
               this.previousRAF_ = null;
               this.startstage = true;
+              this.camera_.far = 700;
+              this.camera_.updateProjectionMatrix();
+
               this.Pause();
               clearInterval(this.intervalId_);
 
               this.player_.propArray = []
               if (this.NotFirstTry) {
+                this.allowStart = true;
                 document.getElementById('loading-bar-container-2').style.display = 'none';
                 document.getElementById('loading-text-stage-2').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
               }
+              
             }
 
           }, 100);
@@ -2284,6 +2366,7 @@ class BasicWorldDemo {
     if (!this.eventAdded1 && this.stage == 2) {
 
       document.addEventListener('score-over2', () => {
+        this.allowStart = false;
         this.stage2Music.pause()
         this.gameOver_ = true;
         this.failedStage = false;
@@ -2314,92 +2397,30 @@ class BasicWorldDemo {
             if (this.scene_.children.length === 0) {
 
               // set randon position for drinks
-              let arrDrinks1 = [];
-              let arrDrinks2 = [];
-              let arrDrinks3 = [];
-
-              for (let i = 0; i < 6; i++) {
-                let value1 = Math.floor(Math.random() * 3) - 1;
-                let value2 = Math.floor(Math.random() * 3) - 1;
-                let value3 = Math.floor(Math.random() * 3) - 1;
-
-                while (value1 === value2) {
-                  value2 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                while (value1 === value3 || value2 === value3) {
-                  value3 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                arrDrinks1.push(value1 * 3);
-                arrDrinks2.push(value2 * 3);
-                arrDrinks3.push(value3 * 3);
-              }
-
+              let arrDrinks1 = [-3, 0, 0, -3, 0, 3, 3, 3, -3, -3, 0, 3, -3, -3, 0, 3, 0, 0, 0, 0, -3, 3, -3, 3, 0];
 
               // set randonm positoin for box logos
-              let arrLogo1 = [];
-              let arrLogo2 = [];
-              let arrLogo3 = [];
-
-              for (let i = 0; i < 5; i++) {
-                let value11 = Math.floor(Math.random() * 3) - 1;
-                let value22 = Math.floor(Math.random() * 3) - 1;
-                let value33 = Math.floor(Math.random() * 3) - 1;
-
-                while (value11 === value22) {
-                  value22 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                while (value11 === value33 || value22 === value33) {
-                  value33 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                arrLogo1.push(value11 * 3);
-                arrLogo2.push(value22 * 3);
-                arrLogo3.push(value33 * 3);
-              }
+              let arrLogo1 = [3, 0, 3, -3, 3, 0, 0, -3, -3];
+              let arrLogo2 = [-3, 3, 0, 3, 0, -3, -3, 3, 0];
+              let arrLogo3 = [0, -3, -3, 0, -3, 3, 3, 0, 3];
 
               // set randonm position for food
-              let food1 = [];
-              let food2 = [];
-              let food3 = [];
-
-              for (let i = 0; i < 6; i++) {
-                let value111 = Math.floor(Math.random() * 3) - 1;
-                let value222 = Math.floor(Math.random() * 3) - 1;
-                let value333 = Math.floor(Math.random() * 3) - 1;
-
-                while (value111 === value222) {
-                  value222 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                while (value111 === value333 || value222 === value333) {
-                  value333 = Math.floor(Math.random() * 3) - 1;
-                }
-
-                food1.push(value111 * 3);
-                food2.push(value222 * 3);
-                food3.push(value333 * 3);
-              }
-
+              let food1 = [0, 3, 0, -3, 0, 3, 0, 3, 0, 3, 3, 3];
+              let food2 = [3, -3, 0, -3, 0, -3, -3, 3, -3, 3, -3, 0, 0];
+              let food3 = [-3, 0, 3, -3, 0, -3, 3, -3, 3, 0, -3, 0, -3, 0, 0, -3];
 
               //initiate all the game objects
-              this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_ });
-              this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_ });
+              this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_, stage: this.stage });
+              this.trolliumChloride_ = new trolliumChloride.TrolliumChlorideManager({ scene: this.scene_, stage: this.stage });
               this.pitfall_ = new pitfall.PitfallManager({ scene: this.scene_, stage: this.stage });
-              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1 })
-              this.soda_ = new soda.DrinksManager({ scene: this.scene_, position: arrDrinks2 })
-              this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3 })
+              this.water_ = new water.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase, stage: this.stage });
+              this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase, stage: this.stage });
               this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 })
-              this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase });
-              this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase });
-              this.waterGrade_ = new waterGrade.DrinksManager({ scene: this.scene_, position: arrDrinks1, firstChase: this.showChase });
               this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 })
               this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 })
-              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1 })
-              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2 })
-              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3 })
+              this.carbs_ = new carbs.FoodManager({ scene: this.scene_, position: food1, stage: this.stage })
+              this.meat_ = new meat.FoodManager({ scene: this.scene_, position: food2, stage: this.stage })
+              this.vege_ = new vege.FoodManager({ scene: this.scene_, position: food3, stage: this.stage })
               this.player_ = new player.Player({ gender: this.gender_, scene: this.scene_, stage: this.stage, water: this.water_, waterGrade: this.waterGrade_, soda: this.soda_, sodaGrade: this.sodaGrade_, fruitDrink: this.fruitDrink_, fruitDrinkGrade: this.fruitDrinkGrade_, pitfall: this.pitfall_, trolliumChloride: this.trolliumChloride_, shoogaGlider: this.shoogaGlider_, box1: this.hpbLogo_, box2: this.hpbWrongLogo1_, box3: this.hpbWrongLogo2_, meat: this.meat_, carbs: this.carbs_, vege: this.vege_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage });
               this.sky_ = new sky.Sky({ scene: this.scene_ });
@@ -2426,7 +2447,7 @@ class BasicWorldDemo {
               loader.load('stg3_Start.gltf', (gltf) => {
                 this.mesh = gltf.scene;
 
-                this.mesh.position.set(110, 0, -0.5);
+                this.mesh.position.set(110, 0, 0);
                 this.mesh.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh.scale.setScalar(0.01);
 
@@ -2434,10 +2455,10 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh);
 
               });
-              loader.load('stg3_D.gltf', (gltf) => {
+              loader.load('stg3_C.gltf', (gltf) => {
                 this.mesh1 = gltf.scene;
 
-                this.mesh1.position.set(318, 0, -0.5);
+                this.mesh1.position.set(223, -0.2, 0);
                 this.mesh1.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh1.scale.setScalar(0.01);
 
@@ -2445,10 +2466,10 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh1);
 
               });
-              loader.load('stg3_B.gltf', (gltf) => {
+              loader.load('stg3_D.gltf', (gltf) => {
                 this.mesh2 = gltf.scene;
 
-                this.mesh2.position.set(526, 0, -0.5);
+                this.mesh2.position.set(346, 0, 0);
                 this.mesh2.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh2.scale.setScalar(0.01);
 
@@ -2459,7 +2480,7 @@ class BasicWorldDemo {
               loader.load('stg3_B.gltf', (gltf) => {
                 this.mesh3 = gltf.scene;
 
-                this.mesh3.position.set(731, 0, -0.5);
+                this.mesh3.position.set(551, -0.2, 0);
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.01);
 
@@ -2467,16 +2488,35 @@ class BasicWorldDemo {
                 this.scene_.add(this.mesh3);
 
               });
-              loader.load('st3_exit.gltf', (gltf) => {
-                this.mesh4 = gltf.scene.children[0];
+              loader.load('stg3_D.gltf', (gltf) => {
+                this.mesh4 = gltf.scene;
 
-                this.mesh4.position.set(833, 12, 5.5);
+                this.mesh4.position.set(750, 0, 0);
                 this.mesh4.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh4.scale.setScalar(0.01);
 
 
                 this.scene_.add(this.mesh4);
 
+              });
+              loader.load('stg3_A.gltf', (gltf) => {
+                this.mesh5 = gltf.scene.children[0];
+
+                this.mesh5.position.set(955, -0.2, 0);
+                this.mesh5.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh5.scale.setScalar(0.01);
+
+                this.scene_.add(this.mesh5);
+              });
+
+              loader.load('st3_exit.gltf', (gltf) => {
+                this.mesh6 = gltf.scene.children[0];
+
+                this.mesh6.position.set(1032, 11.5, 5.5);
+                this.mesh6.rotation.set(0, -Math.PI / 2, 0);
+                this.mesh6.scale.setScalar(0.01);
+
+                this.scene_.add(this.mesh6);
               });
 
               this.gameOver_ = false;
@@ -2494,11 +2534,11 @@ class BasicWorldDemo {
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 89) {
+            if (loadingProgress < 120) {
               console.log(this.scene_.children.length)
 
               // Calculate the loading progress as a percentage of the maximum value
-              const progressPercentage = (loadingProgress / 89) * 100;
+              const progressPercentage = (loadingProgress / 120) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
@@ -2510,6 +2550,7 @@ class BasicWorldDemo {
               this.Pause();
               this.player_.propArray = []
               if (this.NotFirstTry) {
+                this.allowStart = true;
                 document.getElementById('loading-bar-container-3').style.display = 'none';
                 document.getElementById('loading-text-stage-3').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
@@ -2561,7 +2602,6 @@ class BasicWorldDemo {
       this.eventAdded2 = true;
     }
 
-    console.log(this.player_.propArray)
     //preload the game assets
     if (this.gameOver_ || !this._gameStarted) {
 
@@ -2610,14 +2650,10 @@ class BasicWorldDemo {
       } else if (this.stage == 3) {
         this.wallrun_.Update(timeElapsed, this.objSpeed)
         this.waterGrade_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
-        this.sodaGrade_.Update(timeElapsed, this.objSpeed)
         this.hpbLogo_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
         this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
         this.water_.Update(timeElapsed, this.objSpeed)
-        this.soda_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
         this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
         this.vege_.Update(timeElapsed, this.objSpeed)
@@ -2776,7 +2812,7 @@ class BasicWorldDemo {
       document.getElementById("food2").style.bottom = "7.5vw"
       document.getElementById("food3").style.bottom = "7.5vw"
       document.getElementById("food4").style.bottom = "7.5vw"
-      document.getElementById('video-container').style.backgroundColor = 'transparent';
+      document.querySelector('#video-container').style.background = ""
       document.getElementById('loading-button-container').style.display = 'block';
 
       if (this.stage == 2) {
@@ -2789,8 +2825,6 @@ class BasicWorldDemo {
         document.getElementById('stage2-intro1').style.display = 'none'
         document.getElementById('stage2-intro2').style.display = 'none'
         document.getElementById('stage2-intro3').style.display = 'none'
-        document.getElementById('stage2-intro4').style.display = 'none'
-        document.getElementById('stage2-intro5').style.display = 'none'
       } else if (this.stage == 3 || this.stage == 4) {
         this.playNextStageVideo3();
         this.eventAdded1 = false;
@@ -2806,13 +2840,12 @@ class BasicWorldDemo {
         this.eventAdded3 = false;
         this.countdown_ = 6;
         this.checkRestart = false;
+        this.NotFirstTry = true;
+
         document.getElementById('loading1-next').style.display = 'none';
-        document.getElementById('stage1-recap').style.display = 'none'
         document.getElementById('stage1-intro1').style.display = 'none'
         document.getElementById('stage1-intro2').style.display = 'none'
         document.getElementById('stage1-intro3').style.display = 'none'
-        document.getElementById('stage1-intro4').style.display = 'none'
-        document.getElementById('stage1-intro5').style.display = 'none'
       }
 
       this.stopTime = true
@@ -2838,7 +2871,7 @@ class BasicWorldDemo {
       document.getElementById("food2").style.bottom = "7.5vw"
       document.getElementById("food3").style.bottom = "7.5vw"
       document.getElementById("food4").style.bottom = "7.5vw"
-      document.getElementById('video-container').style.backgroundColor = 'transparent';
+      document.querySelector('#video-container').style.background = ""
 
       document.getElementById('try-again-button').addEventListener('click', () => {
 
@@ -2854,8 +2887,6 @@ class BasicWorldDemo {
           document.getElementById('stage2-intro1').style.display = 'none'
           document.getElementById('stage2-intro2').style.display = 'none'
           document.getElementById('stage2-intro3').style.display = 'none'
-          document.getElementById('stage2-intro4').style.display = 'none'
-          document.getElementById('stage2-intro5').style.display = 'none'
         } else if (this.stage == 3) {
           this.playNextStageVideo3();
           this.eventAdded1 = false;
@@ -2871,12 +2902,9 @@ class BasicWorldDemo {
           this.countdown_ = 6;
           this.NotFirstTry = true;
           document.getElementById('loading1-next').style.display = 'none';
-          document.getElementById('stage1-recap').style.display = 'none'
           document.getElementById('stage1-intro1').style.display = 'none'
           document.getElementById('stage1-intro2').style.display = 'none'
           document.getElementById('stage1-intro3').style.display = 'none'
-          document.getElementById('stage1-intro4').style.display = 'none'
-          document.getElementById('stage1-intro5').style.display = 'none'
         }
 
         this.stopTime = true

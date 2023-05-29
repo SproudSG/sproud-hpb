@@ -72,15 +72,19 @@ export const carbs = (() => {
       return this.objects_;
     }
 
-    ToggleVisible() {
-      this.objects_[0].mesh.visible = false;
-    }
-
-
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [120, 170, 280, 360, 420, 470]
+      var spawnPosition = [0]
+      if (this.params_.stage == 2) {
+        spawnPosition = [152, 180, 208, 236, 264, 292, 320, 348, 376, 432, 460, 488, 516, 544, 572, 600]
+      } else if (this.params_.stage == 3) {
+        spawnPosition = [
+          70, 100, 130, 175,
+          310, 430, 460, 490,
+          580, 610, 715, 895
+        ]
+      }
 
       let obj = null;
 
@@ -137,7 +141,7 @@ export const carbs = (() => {
         obj.position.y += this.floatSpeed;
 
         obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
-  
+
 
         obj.Update(timeElapsed);
       }

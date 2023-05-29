@@ -103,19 +103,12 @@ export const player = (() => {
 
     LoadModel_() {
       let model;
-      let texturePath;
 
       if (this.params_.gender === "male") {
         model = 'BoyAll.gltf';
       } else {
         model = 'GirlAll.gltf';
       }
-
-      // Load the texture image
-      const textureLoader = new THREE.TextureLoader();
-
-      const texture = textureLoader.load(texturePath);
-
 
       // Instantiate a loader
       const loader = new GLTFLoader();
@@ -375,67 +368,13 @@ export const player = (() => {
 
         if (!this.processedshoogaGliderIDs.includes(this.shoogaGliderID) && cur.intersectsBox(this.playerBox_) && !this.sliding_) {
           this.processedshoogaGliderIDs.push(this.shoogaGliderID);
-          if (this.immunitiy) {
-            this.meatProp = 0;
-            this.vegeProp = 0;
-            this.carbProp = 0;
-
-            this.mesh_.traverse((object) => {
-              if (object.name === 'quarter_meat_GEO') {
-                object.visible = false;
-
-              }
-              if (object.name === 'half_vegetable_GEO') {
-                object.visible = false;
-
-              }
-              if (object.name === 'quarter_rice_GEO') {
-                object.visible = false;
-
-              }
-
-
-
-              if (this.params_.gender === "male") {
-
-                if (object.name === 'Boy_GEO_low') {
-                  object.visible = true;
-                }
-                if (object.name === 'Boy_GEO_low_G') {
-                  object.visible = false;
-                }
-              } else {
-                if (object.name === 'girl_GEO') {
-                  object.visible = true;
-                }
-                if (object.name === 'girl_GEO_G') {
-                  object.visible = false;
-                }
-              }
-
-
-            });
-
-            this.params_.scene.add(this.mesh_);
-            this.immunitiy = false
-            this.propArray = []
-            document.getElementById("shieldTimer").style.zIndex = "-1";
-            this.shieldTime = 100
-            document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-            document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-            document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-            document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-            document.getElementById("food1").style.bottom = "7.5vw"
-            document.getElementById("food2").style.bottom = "7.5vw"
-            document.getElementById("food3").style.bottom = "7.5vw"
-            document.getElementById("food4").style.bottom = "7.5vw"
-          } else {
+          if (!this.immunitiy) {
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
             this.playerHit = true;
-            this.speed = 0.1;
+            this.speed = 0.15;
             this.debuff = true;
-            
+
             document.querySelector('#stamina').src = "./resources/HUD/Water_React_Level.gif"
             document.querySelector('#video-container').style.background = "radial-gradient(circle at center, transparent 0%, rgba(255, 0, 0, 0) 60%, rgba(255, 0, 0, 0.8) 100%)"
             setTimeout(() => {
@@ -458,61 +397,12 @@ export const player = (() => {
           this.processedtrolliumChlorideIDs.push(this.trolliumChlorideID);
 
 
-          if (this.immunitiy) {
-            this.meatProp = 0;
-            this.vegeProp = 0;
-            this.carbProp = 0;
-            this.mesh_.traverse((object) => {
-              if (object.name === 'quarter_meat_GEO') {
-                object.visible = false;
-              }
-              if (object.name === 'half_vegetable_GEO') {
-                object.visible = false;
-              }
-              if (object.name === 'quarter_rice_GEO') {
-                object.visible = false;
-              }
-
-
-              if (this.params_.gender === "male") {
-
-                if (object.name === 'Boy_GEO_low') {
-                  object.visible = true;
-                }
-                if (object.name === 'Boy_GEO_low_G') {
-                  object.visible = false;
-                }
-              } else {
-                if (object.name === 'girl_GEO') {
-                  object.visible = true;
-                }
-                if (object.name === 'girl_GEO_G') {
-                  object.visible = false;
-                }
-              }
-
-            });
-
-            this.params_.scene.add(this.mesh_);
-            this.immunitiy = false
-            this.propArray = []
-            document.getElementById("shieldTimer").style.zIndex = "-1";
-            this.shieldTime = 100
-            document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-            document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-            document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-            document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-            document.getElementById("food1").style.bottom = "7.5vw"
-            document.getElementById("food2").style.bottom = "7.5vw"
-            document.getElementById("food3").style.bottom = "7.5vw"
-            document.getElementById("food4").style.bottom = "7.5vw"
-
-
-          } else {
+          if (!this.immunitiy) {
+        
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
             this.playerHit = true;
-            this.speed = 0.1
+            this.speed = 0.15
             this.debuff = true;
 
             document.querySelector('#stamina').src = "./resources/HUD/Water_React_Level.gif"
@@ -537,57 +427,7 @@ export const player = (() => {
           if (!this.processedPitfallIDs.includes(this.pitfallID) && cur.intersectsBox(this.playerBox_)) {
             this.processedPitfallIDs.push(this.pitfallID);
 
-            if (this.immunitiy) {
-              this.meatProp = 0;
-              this.vegeProp = 0;
-              this.carbProp = 0;
-              this.mesh_.traverse((object) => {
-                if (object.name === 'quarter_meat_GEO') {
-                  object.visible = false;
-
-                }
-                if (object.name === 'half_vegetable_GEO') {
-                  object.visible = false;
-
-                }
-                if (object.name === 'quarter_rice_GEO') {
-                  object.visible = false;
-
-                }
-
-                if (this.params_.gender === "male") {
-
-                  if (object.name === 'Boy_GEO_low') {
-                    object.visible = true;
-                  }
-                  if (object.name === 'Boy_GEO_low_G') {
-                    object.visible = false;
-                  }
-                } else {
-                  if (object.name === 'girl_GEO') {
-                    object.visible = true;
-                  }
-                  if (object.name === 'girl_GEO_G') {
-                    object.visible = false;
-                  }
-                }
-
-              });
-
-              this.params_.scene.add(this.mesh_);
-              this.immunitiy = false
-              this.propArray = []
-              document.getElementById("shieldTimer").style.zIndex = "-1";
-              this.shieldTime = 100
-              document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-              document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-              document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-              document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-              document.getElementById("food1").style.bottom = "7.5vw"
-              document.getElementById("food2").style.bottom = "7.5vw"
-              document.getElementById("food3").style.bottom = "7.5vw"
-              document.getElementById("food4").style.bottom = "7.5vw"
-            } else {
+            if (!this.immunitiy) {
               this.FallAnimation_()
               this.inAir_ = false;
               this.pitCollide = true;
@@ -607,23 +447,12 @@ export const player = (() => {
           if (!this.processedWaterIDs.includes(this.waterID) && cur.intersectsBox(this.playerBox_)) {
 
 
-            if (this.drink === "drank") {
-
-              this.drink = ""
-              this.processedWaterIDs.push(this.waterID);
-            } else {
-              this.drink = "drank"
-              this.processedWaterIDs.push(this.waterID);
-              var newStamina = this.stamina_ + 35;
-              newStamina = Math.min(newStamina, 100)
-              this.stamina_ = newStamina;
-              this.params_.water.ToggleVisible();
-              this.params_.waterGrade.ToggleVisible();
-
-              setTimeout(() => {
-                this.drink = ""
-              }, 1000);
-            }
+            this.processedWaterIDs.push(this.waterID);
+            var newStamina = this.stamina_ + 15;
+            newStamina = Math.min(newStamina, 100)
+            this.stamina_ = newStamina;
+            c.mesh.visible = false;
+            this.params_.waterGrade.ToggleVisible(water.indexOf(c));
 
           }
         } else {
@@ -642,7 +471,6 @@ export const player = (() => {
               this.drink = ""
               this.processedSodaIDs.push(this.sodaID);
             } else {
-              this.drink = "drank"
               this.processedSodaIDs.push(this.sodaID);
               var newStamina = this.stamina_ + 20;
               newStamina = Math.min(newStamina, 100)
@@ -651,9 +479,7 @@ export const player = (() => {
               this.params_.sodaGrade.ToggleVisible();
 
               this.sugarDrinks++
-              setTimeout(() => {
-                this.drink = ""
-              }, 1000);
+
               if (this.sugarDrinks == 3) {
                 newStamina = this.stamina_ / 2
                 this.stamina_ = newStamina;
@@ -680,7 +506,7 @@ export const player = (() => {
               this.drink = ""
               this.processedFruitIDs.push(this.fruitID);
             } else {
-              this.drink = "drank"
+              // this.drink = "drank"
               this.processedFruitIDs.push(this.fruitID);
               var newStamina = this.stamina_ + 20;
               newStamina = Math.min(newStamina, 100)
@@ -689,9 +515,9 @@ export const player = (() => {
               this.params_.fruitDrinkGrade.ToggleVisible();
 
               this.sugarDrinks++
-              setTimeout(() => {
-                this.drink = ""
-              }, 1000);
+              // setTimeout(() => {
+              //   this.drink = ""
+              // }, 1000);
               if (this.sugarDrinks == 3) {
                 newStamina = this.stamina_ / 2
                 this.stamina_ = newStamina;
@@ -801,33 +627,35 @@ export const player = (() => {
               this.food = "ate"
               this.meatProp = this.meatProp + 1
 
-              if (this.meatProp >= 1) {
-                this.mesh_.traverse((object) => {
+              if (!this.immunitiy) {
 
-                  if (object.name === 'quarter_meat_GEO') {
-                    object.visible = true;
+                if (this.meatProp >= 1) {
+                  this.mesh_.traverse((object) => {
 
-                  }
-                });
+                    if (object.name === 'quarter_meat_GEO') {
+                      object.visible = true;
 
-                this.params_.scene.add(this.mesh_);
+                    }
+                  });
 
-              } else {
-                this.mesh_.traverse((object) => {
+                  this.params_.scene.add(this.mesh_);
 
-                  if (object.name === 'quarter_meat_GEO') {
-                    object.visible = false;
+                } else {
+                  this.mesh_.traverse((object) => {
 
-                  }
-                });
-                this.params_.scene.add(this.mesh_);
+                    if (object.name === 'quarter_meat_GEO') {
+                      object.visible = false;
 
+                    }
+                  });
+                  this.params_.scene.add(this.mesh_);
+
+                }
               }
-
 
               this.AddFood('meat')
               this.GetFood()
-              this.params_.meat.ToggleVisible()
+              c.mesh.visible = false;
 
               setTimeout(() => {
                 this.food = ""
@@ -855,34 +683,35 @@ export const player = (() => {
                 this.food = "ate"
                 this.vegeProp = this.vegeProp + 1
 
+                if (!this.immunitiy) {
 
-                if (this.vegeProp == 2) {
-                  this.mesh_.traverse((object) => {
+                  if (this.vegeProp == 2) {
+                    this.mesh_.traverse((object) => {
 
-                    if (object.name === 'half_vegetable_GEO') {
-                      object.visible = true;
+                      if (object.name === 'half_vegetable_GEO') {
+                        object.visible = true;
 
-                    }
-                  });
+                      }
+                    });
 
 
-                  this.params_.scene.add(this.mesh_);
-                } else {
-                  this.mesh_.traverse((object) => {
+                    this.params_.scene.add(this.mesh_);
+                  } else {
+                    this.mesh_.traverse((object) => {
 
-                    if (object.name === 'half_vegetable_GEO') {
-                      object.visible = false;
+                      if (object.name === 'half_vegetable_GEO') {
+                        object.visible = false;
 
-                    }
-                  });
+                      }
+                    });
 
-                  this.params_.scene.add(this.mesh_);
+                    this.params_.scene.add(this.mesh_);
+                  }
                 }
-
 
                 this.AddFood('vege')
                 this.GetFood()
-                this.params_.vege.ToggleVisible()
+                c.mesh.visible = false;
 
                 setTimeout(() => {
                   this.food = ""
@@ -902,6 +731,7 @@ export const player = (() => {
             if (!this.processedCarbsIDs.includes(this.carbsID) && cur.intersectsBox(this.playerBox_)) {
 
 
+
               if (this.food === "ate") {
                 this.processedCarbsIDs.push(this.carbsID);
               } else {
@@ -909,34 +739,34 @@ export const player = (() => {
                 this.processedCarbsIDs.push(this.carbsID);
                 this.food = "ate"
                 this.carbProp = this.carbProp + 1
+                if (!this.immunitiy) {
+                  if (this.carbProp >= 1) {
+                    this.mesh_.traverse((object) => {
 
-                if (this.carbProp >= 1) {
-                  this.mesh_.traverse((object) => {
+                      if (object.name === 'quarter_rice_GEO') {
+                        object.visible = true;
 
-                    if (object.name === 'quarter_rice_GEO') {
-                      object.visible = true;
+                      }
+                    });
 
-                    }
-                  });
+                    this.params_.scene.add(this.mesh_);
 
-                  this.params_.scene.add(this.mesh_);
+                  } else {
+                    this.mesh_.traverse((object) => {
 
-                } else {
-                  this.mesh_.traverse((object) => {
+                      if (object.name === 'quarter_rice_GEO') {
+                        object.visible = false;
 
-                    if (object.name === 'quarter_rice_GEO') {
-                      object.visible = false;
+                      }
+                    });
+                    this.params_.scene.add(this.mesh_);
 
-                    }
-                  });
-                  this.params_.scene.add(this.mesh_);
-
+                  }
                 }
-
 
                 this.AddFood('carbs')
                 this.GetFood()
-                this.params_.carbs.ToggleVisible()
+                c.mesh.visible = false;
 
 
                 setTimeout(() => {
@@ -1119,7 +949,6 @@ export const player = (() => {
       for (var i = 0; i < this.friendsSaved; i++) {
 
         textID = 'rescue' + (i + 1)
-        console.log(textID)
         document.getElementById(textID).src = "./resources/Rescued_Friend_UI/Saved.png";
 
       }
@@ -1369,24 +1198,233 @@ export const player = (() => {
       }
       // wall running sheesh hard coded
       if (this.wallArray.length != 0) {
-        //wall running right wall mechanics
-        if (this.wallArray[0].z > 0) {
-          if (this.wallArray[0].x < 18 && this.wallArray[0].x > -14 && !this.wallFail) {
-            //dont jump u die 
-            if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0 && !this.wallFail) {
+        if (this.wallArray.length <= 4) {
+          //wall running right wall mechanics
+          if (this.wallArray[0].z > 0) {
+            if (this.wallArray[0].x < 18 && this.wallArray[0].x > -14 && !this.wallFail) {
+              //dont jump u die 
+              if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0 && !this.wallFail) {
+                this.wallFail = true;
+                this.inAir_ = false;
+                this.FallAnimation_()
+              }
+
+              //click left way too early
+              if (this.onWall && (this.keys_.left || swipeLeft) && this.wallArray[1].x > 16) {
+                this.SwipeLeft()
+                this.onWall = false;
+                this.wallFail = true;
+                this.inAir_ = false;
+                this.FallAnimation_()
+
+              }
+
+              //right wall first -> if u jump and go to right , u will stay in that y position.
+              if (this.inAir_ && (this.keys_.right || swipeRight) && !this.wallFail) {
+                this.SwipeRight()
+                if (this.position_.z >= 2.5 && !this.wallFail) {
+
+                  this.position_.z = 3
+                  if (this.position_.y != 3) {
+                    if (this.position_.y > 3) {
+                      this.position_.y = this.position_.y - (timeElapsed * 2)
+                      if (this.position_.y < 3.1) {
+                        this.position_.y = 3
+                      }
+                    } else {
+                      this.position_.y = this.position_.y + (timeElapsed * 2)
+                      if (this.position_.y > 2.9) {
+                        this.position_.y = 3
+                      }
+                    }
+
+                  }
+                  this.inAir_ = false;
+                  this.onWall = true;
+                  this.RightWallRunAnimation_()
+                }
+              }
+
+              if (this.onWall) {
+
+                if (this.position_.y != 3) {
+                  if (this.position_.y > 3) {
+                    this.position_.y = this.position_.y - (timeElapsed * 2)
+                    if (this.position_.y < 3.1) {
+                      this.position_.y = 3
+                    }
+                  } else {
+                    this.position_.y = this.position_.y + (timeElapsed * 2)
+                    if (this.position_.y > 2.9) {
+                      this.position_.y = 3
+                    }
+                  }
+
+                }
+              }
+
+
+
+            }
+            //fall down when wall ends
+            if (this.wallArray[0].x < -13 && this.position_.z == 3 && !this.wallFail) {
               this.wallFail = true;
-              this.inAir_ = false;
               this.FallAnimation_()
             }
 
-            //click left way too early
-            if (this.onWall && (this.keys_.left || swipeLeft) && this.wallArray[1].x > 15) {
-              this.SwipeLeft()
+
+
+            //wall running left wall mechanics
+            if (this.wallArray[1].x < 18 && this.wallArray[1].x > -14 && !this.wallFail) {
+
+              //left wall
+              if (!this.inAir_ && (this.keys_.left || swipeLeft) && this.position_.z != -3 && !this.wallFail) {
+
+                this.SwipeFullLeft()
+
+
+                if (this.position_.z != 3 || this.position_.z != -3) {
+                  if (!this.toggleJumpAnimation) {
+                    this.toggleJumpAnimation = true;
+                    this.JumpAnimation_()
+                  }
+                }
+                if (this.position_.z <= -2.6) {
+                  this.toggleJumpAnimation = false;
+                  this.onWall = true;
+                  this.LeftWallRunAnimation_()
+                }
+
+              }
+
+            }
+            //fall down when wall ends
+            if (this.wallArray[1].x < -11) {
+              this.inAir_ = true;
               this.onWall = false;
+              this.wallArray.splice(0, 2);
+              this.BigJumpAnimation_()
+              this.wallEnd = true;
+            }
+
+          } else {
+
+            //wall start left first
+            if (this.wallArray[0].x < 16 && this.wallArray[0].x > -14 && !this.wallFail) {
+              //dont jump u die 
+              if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0 && !this.wallFail) {
+                this.wallFail = true;
+                this.inAir_ = false;
+                this.FallAnimation_()
+              }
+
+              //click right way too early
+              if (this.onWall && (this.keys_.right || swipeRight) && this.wallArray[1].x > 15) {
+                this.SwipeRight()
+                this.onWall = false;
+                this.wallFail = true;
+                this.inAir_ = false;
+                this.FallAnimation_()
+
+              }
+
+              //left wall first -> if u jump and go to left , u will stay in that y position.
+              if (this.inAir_ && (this.keys_.left || swipeLeft) && !this.wallFail) {
+                this.SwipeLeft()
+                if (this.position_.z <= -2.5 && !this.wallFail) {
+
+                  this.position_.z = -3
+                  if (this.position_.y != -3) {
+                    if (this.position_.y > 3) {
+                      this.position_.y = this.position_.y - (timeElapsed * 2)
+                      if (this.position_.y < 3.1) {
+                        this.position_.y = 3
+                      }
+                    } else {
+                      this.position_.y = this.position_.y + (timeElapsed * 2)
+                      if (this.position_.y > 2.9) {
+                        this.position_.y = 3
+                      }
+                    }
+
+                  }
+                  this.inAir_ = false;
+                  this.onWall = true;
+                  this.LeftWallRunAnimation_()
+                }
+              }
+
+              if (this.onWall) {
+
+                if (this.position_.y != 3) {
+                  if (this.position_.y > 3) {
+                    this.position_.y = this.position_.y - (timeElapsed * 2)
+                    if (this.position_.y < 3.1) {
+                      this.position_.y = 3
+                    }
+                  } else {
+                    this.position_.y = this.position_.y + (timeElapsed * 2)
+                    if (this.position_.y > 2.9) {
+                      this.position_.y = 3
+                    }
+                  }
+
+                }
+              }
+
+
+
+            }
+            //fall down when wall ends
+            if (this.wallArray[0].x < -13 && this.position_.z == -3 && !this.wallFail) {
+
+              this.wallFail = true;
+              this.FallAnimation_()
+            }
+
+            //wall running right wall mechanics
+            if (this.wallArray[1].x < 18 && this.wallArray[1].x > -14 && !this.wallFail) {
+
+
+              //right wall
+              if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3 && !this.wallFail) {
+
+                this.SwipeFullRight()
+
+
+                if (this.position_.z != 3 || this.position_.z != -3) {
+                  if (!this.toggleJumpAnimation) {
+                    this.toggleJumpAnimation = true;
+                    this.JumpAnimation_()
+                  }
+                }
+                if (this.position_.z >= 2.6) {
+                  this.toggleJumpAnimation = false;
+                  this.onWall = true;
+                  this.RightWallRunAnimation_()
+                }
+
+              }
+
+            }
+            //fall down when wall ends
+            if (this.wallArray[1].x < -11) {
+              this.inAir_ = true;
+              this.onWall = false;
+              this.wallArray.splice(0, 2);
+              this.BigJumpAnimation_()
+              this.wallEnd = true;
+            }
+
+          }
+        } else if (this.wallArray.length > 4) {
+          //wall running right wall mechanics
+          if (this.wallArray[0].x < 13 && this.wallArray[0].x > -14 && !this.wallFail) {
+            //dont jump u die 
+            if (this.position_.y == 0 && this.wallArray[0].x > 0 && !this.wallFail) {
               this.wallFail = true;
               this.inAir_ = false;
               this.FallAnimation_()
-
             }
 
             //right wall first -> if u jump and go to right , u will stay in that y position.
@@ -1433,161 +1471,16 @@ export const player = (() => {
               }
             }
 
-
-
           }
           //fall down when wall ends
-          if (this.wallArray[0].x < -13 && this.position_.z == 3 && !this.wallFail) {
-            this.wallFail = true;
-            this.FallAnimation_()
-          }
-
-
-
-          //wall running left wall mechanics
-          if (this.wallArray[1].x < 18 && this.wallArray[1].x > -14 && !this.wallFail) {
-
-            //left wall
-            if (!this.inAir_ && (this.keys_.left || swipeLeft) && this.position_.z != -3 && !this.wallFail) {
-
-              this.SwipeFullLeft()
-
-
-              if (this.position_.z != 3 || this.position_.z != -3) {
-                if (!this.toggleJumpAnimation) {
-                  this.toggleJumpAnimation = true;
-                  this.JumpAnimation_()
-                }
-              }
-              if (this.position_.z <= -2.6) {
-                this.toggleJumpAnimation = false;
-                this.onWall = true;
-                this.LeftWallRunAnimation_()
-              }
-
-            }
-
-          }
-          //fall down when wall ends
-          if (this.wallArray[1].x < -11) {
+          if (this.wallArray[0].x < - 8 && this.position_.z == 3 && !this.wallFail) {
             this.inAir_ = true;
             this.onWall = false;
-            this.wallArray.splice(0, 2);
+            this.wallArray.splice(0, 1);
             this.BigJumpAnimation_()
             this.wallEnd = true;
           }
-
-        } else {
-
-          //wall start left first
-          if (this.wallArray[0].x < 18 && this.wallArray[0].x > -14 && !this.wallFail) {
-            //dont jump u die 
-            if (this.position_.y == 0 && this.wallArray[1].x > 15 && this.wallArray[0].x > 0 && !this.wallFail) {
-              this.wallFail = true;
-              this.inAir_ = false;
-              this.FallAnimation_()
-            }
-
-            //click right way too early
-            if (this.onWall && (this.keys_.right || swipeRight) && this.wallArray[1].x > 15) {
-              this.SwipeRight()
-              this.onWall = false;
-              this.wallFail = true;
-              this.inAir_ = false;
-              this.FallAnimation_()
-
-            }
-
-            //left wall first -> if u jump and go to left , u will stay in that y position.
-            if (this.inAir_ && (this.keys_.left || swipeLeft) && !this.wallFail) {
-              this.SwipeLeft()
-              if (this.position_.z <= -2.5 && !this.wallFail) {
-
-                this.position_.z = -3
-                if (this.position_.y != -3) {
-                  if (this.position_.y > 3) {
-                    this.position_.y = this.position_.y - (timeElapsed * 2)
-                    if (this.position_.y < 3.1) {
-                      this.position_.y = 3
-                    }
-                  } else {
-                    this.position_.y = this.position_.y + (timeElapsed * 2)
-                    if (this.position_.y > 2.9) {
-                      this.position_.y = 3
-                    }
-                  }
-
-                }
-                this.inAir_ = false;
-                this.onWall = true;
-                this.LeftWallRunAnimation_()
-              }
-            }
-
-            if (this.onWall) {
-
-              if (this.position_.y != 3) {
-                if (this.position_.y > 3) {
-                  this.position_.y = this.position_.y - (timeElapsed * 2)
-                  if (this.position_.y < 3.1) {
-                    this.position_.y = 3
-                  }
-                } else {
-                  this.position_.y = this.position_.y + (timeElapsed * 2)
-                  if (this.position_.y > 2.9) {
-                    this.position_.y = 3
-                  }
-                }
-
-              }
-            }
-
-
-
-          }
-          //fall down when wall ends
-          if (this.wallArray[0].x < -13 && this.position_.z == -3 && !this.wallFail) {
-
-            this.wallFail = true;
-            this.FallAnimation_()
-          }
-
-          //wall running right wall mechanics
-          if (this.wallArray[1].x < 18 && this.wallArray[1].x > -14 && !this.wallFail) {
-
-
-            //right wall
-            if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3 && !this.wallFail) {
-
-              this.SwipeFullRight()
-
-
-              if (this.position_.z != 3 || this.position_.z != -3) {
-                if (!this.toggleJumpAnimation) {
-                  this.toggleJumpAnimation = true;
-                  this.JumpAnimation_()
-                }
-              }
-              if (this.position_.z >= 2.6) {
-                this.toggleJumpAnimation = false;
-                this.onWall = true;
-                this.RightWallRunAnimation_()
-              }
-
-            }
-
-          }
-          //fall down when wall ends
-          if (this.wallArray[1].x < -11) {
-            this.inAir_ = true;
-            this.onWall = false;
-            this.wallArray.splice(0, 2);
-            this.BigJumpAnimation_()
-            this.wallEnd = true;
-          }
-
         }
-
       }
 
 
@@ -1710,7 +1603,6 @@ export const player = (() => {
         this.stamina_ -= timeElapsed * 3.5
         const staminaText = (16.55 * Math.round((this.stamina_ * 10)) / 1000)
         const staminaText2 = 26.2 - staminaText
-        console.log(staminaText2)
 
         document.getElementById("stamina").style.left = "-" + staminaText2 + "vw"
         if (this.stamina_ <= 0 && !this.collapse && !this.onWall) {

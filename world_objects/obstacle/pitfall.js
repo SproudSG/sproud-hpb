@@ -25,7 +25,7 @@ export const pitfall = (() => {
 
         // load the monster
         LoadModel_() {
-            
+
 
             const loader = new GLTFLoader();
             loader.setPath('./resources/Pitfall/');
@@ -39,6 +39,7 @@ export const pitfall = (() => {
 
         UpdateCollider_() {
             this.collider.setFromObject(this.mesh);
+            console.log(this.collider)
         }
 
         Update() {
@@ -71,37 +72,40 @@ export const pitfall = (() => {
 
 
         SpawnObj_(timeElapsed) {
-            this.progress_ += timeElapsed * 10.0;
+            var spawnPosition = []
+            var spawnZ = [];
 
-            const spawnPosition = [70, 180]
-      
-            if (this.params_.firstChase) {
-                for (let i = 0; i < spawnPosition.length; i++) {
-                  spawnPosition[i] += 100;
-                }
-              }
-            let obj = null;
-
-            const arr = [];
-            for (let i = 0; i < spawnPosition.length; i++) {
-                const randomValue = Math.random() < 0.5 ? -2 : 2;
-                arr.push(randomValue);
+            if (this.params_.stage == 1) {
+                spawnPosition = [65, 95, 95, 215, 215, 365, 425, 490]
+                spawnZ = [0, -3, 3, -3, 3, 3, 0, -3]
+            } else if (this.params_.stage == 2) {
+                spawnPosition = [138, 194, 278, 334]
+                spawnZ = [3, 0, -3, 0]
+            } else if (this.params_.stage == 3) {
+                spawnPosition = [535, 655, 880]
+                spawnZ = [-3, 0, -3]
             }
 
+            if (this.params_.firstChase) {
+                for (let i = 0; i < spawnPosition.length; i++) {
+                    spawnPosition[i] += 40;
+                }
+            }
+            let obj = null;
 
             for (var i = 0; i < spawnPosition.length; i++) {
                 if (this.counter_ == i) {
                     obj = new PitfallObject(this.params_);
                     obj.position.x = spawnPosition[i]
                     obj.position.y = 0.2
-                    obj.position.z = arr[i]
-                    obj.scale = 0.005;
+                    obj.position.z = spawnZ[i]
+                    obj.scale = 0.0045;
                     this.objects_.push(obj);
                     this.counter_++
                 }
             }
 
-        } 
+        }
 
 
         Update(timeElapsed, speed) {

@@ -26,7 +26,6 @@ export const wallrun = (() => {
             const loader = new GLTFLoader();
             loader.setPath('./resources/Wall/');
             loader.load('stg3_wallrun.gltf', (gltf) => {
-                console.log(gltf.scene.children[0])
                 this.mesh = gltf.scene.children[0].children[0];
 
                 this.params_.scene.add(this.mesh);
@@ -75,41 +74,52 @@ export const wallrun = (() => {
         SpawnObj_(timeElapsed) {
             this.progress_ += timeElapsed * 10.0;
 
-            const spawnPosition = [324, 343]
+            const spawnPosition = [225, 350, 370, 755, 777]
             let obj = null;
-            let zPosition = -6.3; // initialize the zPosition to positive 5
+            let zPosition = 6.3; // initialize the zPosition to positive 5
 
             for (var i = 0; i < spawnPosition.length; i++) {
                 if (this.counter_ == i) {
-                obj = new WallObject(this.params_);
+                    obj = new WallObject(this.params_);
 
-                obj.position.x = spawnPosition[i]
-                obj.position.y = 0
-                obj.position.z = zPosition; // set the zPosition for the object
-
-
-                if (zPosition > 0 && i % 2 === 1) {
-                    obj.quaternion.setFromAxisAngle(
-                        new THREE.Vector3(0, 1, 0), Math.PI / 2);
-                }else if(zPosition < 0 && i % 2 === 0) {
-                    obj.quaternion.setFromAxisAngle(
-                        new THREE.Vector3(0, 1, 0), -Math.PI / 2);
-                }else if(zPosition > 0 && i % 2 === 0) {
-                    obj.quaternion.setFromAxisAngle(
-                        new THREE.Vector3(0, 1, 0), Math.PI / 2);
-                }else if(zPosition < 0 && i % 2 === 1) {
-                    obj.quaternion.setFromAxisAngle(
-                        new THREE.Vector3(0, 1, 0), -Math.PI / 2);
-                }
+                    obj.position.x = spawnPosition[i]
+                    obj.position.y = 0
+                    if (i == 0) {
+                        obj.position.z = zPosition - 1.5; // set the zPosition for the object
+                    } else {
+                        obj.position.z = zPosition; // set the zPosition for the object
+                    }
 
 
+                    if (zPosition > 0 && i % 2 === 1) {
+                        obj.quaternion.setFromAxisAngle(
+                            new THREE.Vector3(0, 1, 0), Math.PI / 2);
+                    } else if (zPosition < 0 && i % 2 === 0) {
+                        obj.quaternion.setFromAxisAngle(
+                            new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+                    } else if (zPosition > 0 && i % 2 === 0) {
+                        obj.quaternion.setFromAxisAngle(
+                            new THREE.Vector3(0, 1, 0), Math.PI / 2);
+                    } else if (zPosition < 0 && i % 2 === 1) {
+                        obj.quaternion.setFromAxisAngle(
+                            new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+                    }
 
 
 
-                obj.scale = 0.011;
-                this.objects_.push(obj);
-                this.counter_++
-                zPosition *= -1; // toggle the zPosition between positive and negative
+                    if (i == 0) {
+                        obj.scale = 0.008;
+                    } else {
+                        obj.scale = 0.011;
+                    }
+
+                    this.objects_.push(obj);
+                    this.counter_++
+                    if (i == 2) {
+                        zPosition = 6.3;
+                    } else {
+                        zPosition *= -1;
+                    }
                 }
             }
         }
@@ -124,7 +134,6 @@ export const wallrun = (() => {
         UpdateColliders_(timeElapsed, speed) {
             const invisible = [];
             const visible = [];
-
             for (let obj of this.objects_) {
                 obj.position.x -= timeElapsed * speed;
 

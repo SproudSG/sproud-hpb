@@ -26,18 +26,12 @@ export const trolliumChloride = (() => {
 
       const loader = new GLTFLoader();
       loader.load('./resources/TrolliumChloride/SoyMonster.gltf', (gltf) => {
-        console.log(gltf)
         this.mesh = gltf.scene;
         this.gltf = gltf
         //add model to the scene
         this.params_.scene.add(this.mesh);
-
-
-
-        const animations = gltf.animations;
         this.mixer = new THREE.AnimationMixer(this.mesh);
-        const animation = animations[1];
-        this.action = this.mixer.clipAction(animation);
+
       });
 
     }
@@ -51,10 +45,25 @@ export const trolliumChloride = (() => {
       this.collider.min.x = this.collider.min.x + 5;
     }
 
-    PlayAnimation_() {
+    PlayRightAnimation_() {
       if (!this.mixer) {
         return
       }
+      const animations = this.gltf.animations;
+      const animation = animations[1];
+      this.action = this.mixer.clipAction(animation);
+      this.action.setLoop(THREE.LoopOnce);
+      this.action.play()
+    }
+
+    PlayLeftAnimation_() {
+      if (!this.mixer) {
+        return
+      }
+      const animations = this.gltf.animations;
+      const animation = animations[2];
+      this.action = this.mixer.clipAction(animation);
+      this.action.setLoop(THREE.LoopOnce);
       this.action.play()
     }
 
@@ -77,7 +86,6 @@ export const trolliumChloride = (() => {
   class TrolliumChlorideManager {
     constructor(params) {
       this.objects_ = [];
-      this.unused_ = [];
       this.speed_ = 12;
       this.params_ = params;
       this.counter_ = 0;
@@ -93,10 +101,17 @@ export const trolliumChloride = (() => {
     }
 
 
-    SpawnObj_(timeElapsed) {
-      this.progress_ += timeElapsed * 10.0;
+    SpawnObj_() {
 
-      const spawnPosition = [110, 220, 450]
+      var spawnPosition = [0]
+      var spawnZ = [0]
+      if (this.params_.stage == 2) {
+        spawnPosition = [40, 124, 278, 362, 404, 418, 530, 614, 642]
+        spawnZ = [8, 16.5, 8, 8, 16.5, 8, 16.5, 16.5, 8]
+      } else if (this.params_.stage == 3) {
+        spawnPosition = [55, 85, 115, 175, 295, 445, 505, 565, 595, 685, 865, 910]
+        spawnZ = [16.5, 8, 8, 16.5, 8, 16.5, 8, 16.5, 8, 16.5, 16.5, 8]
+      }
 
       let obj = null;
 
@@ -104,11 +119,10 @@ export const trolliumChloride = (() => {
         if (this.counter_ == i) {
           obj = new TrolliumChlorideObject(this.params_);
           obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
-          obj.position.x = spawnPosition[i]
-          obj.position.z = 8
-          obj.position.y = -5
 
-          obj.scale = 0.02;
+          obj.scale = 0.02
+          obj.position.set(spawnPosition[i], -5, spawnZ[i]);
+
           this.objects_.push(obj);
           this.counter_++
         }
@@ -118,29 +132,36 @@ export const trolliumChloride = (() => {
 
 
     Update(timeElapsed, speed) {
-      this.SpawnObj_(this.params_.position, timeElapsed)
+      this.SpawnObj_()
       this.UpdateColliders_(timeElapsed, speed);
 
     }
 
     UpdateColliders_(timeElapsed, speed) {
-      const invisible = [];
       const visible = [];
 
-
-
       for (let obj of this.objects_) {
-
 
         obj.position.x -= timeElapsed * speed;
 
         if (obj.position.x < 25) {
-          obj.PlayAnimation_()
+          if (obj.position.z == 8) {
+            obj.PlayRightAnimation_()
+          } else if (obj.position.z == 16.5) {
+            obj.position.y = -5
+            obj.mesh.visible = true;
+            obj.PlayLeftAnimation_()
+          }
+        } else {
+          if (this.params_.stage == 3) {
 
+            if (obj.position.z == 16.5) {
+              obj.position.y = -40
+            }
+          }
         }
 
         if (obj.position.x < -10) {
-          invisible.push(obj);
           obj.mesh.visible = false;
         } else {
           visible.push(obj);
@@ -150,7 +171,6 @@ export const trolliumChloride = (() => {
       }
 
       this.objects_ = visible;
-      this.unused_.push(...invisible);
     }
 
   };

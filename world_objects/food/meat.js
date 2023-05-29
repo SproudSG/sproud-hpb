@@ -72,16 +72,20 @@ export const meat = (() => {
       return this.objects_;
     }
 
-    ToggleVisible() {
-      this.objects_[0].mesh.visible = false;
-    }
-
-   
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
 
-      const spawnPosition = [120, 170, 280, 360, 420, 470]
-
+      var spawnPosition = [0]
+      if (this.params_.stage == 2) {
+        spawnPosition = [152, 180, 236, 264, 292, 320, 320, 348, 376, 432, 460, 488, 488, 544, 572, 600]
+      } else if (this.params_.stage == 3) {
+        spawnPosition = [
+          70, 100, 205, 310,
+         430, 460, 490, 580,
+         610, 655, 715, 820,
+         895
+       ]
+      }
       let obj = null;
 
       for (var i = 0; i < spawnPosition.length; i++) {
@@ -99,13 +103,13 @@ export const meat = (() => {
     }
 
 
-    Update(timeElapsed,speed) {
+    Update(timeElapsed, speed) {
       this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed);
+      this.UpdateColliders_(timeElapsed, speed);
 
     }
 
-    UpdateColliders_(timeElapsed,speed) {
+    UpdateColliders_(timeElapsed, speed) {
       const invisible = [];
       const visible = [];
       this.rotateY += this.rotateIncrement
@@ -137,7 +141,7 @@ export const meat = (() => {
         obj.position.y += this.floatSpeed;
 
         obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
-  
+
         obj.Update(timeElapsed);
       }
 

@@ -72,13 +72,16 @@ export const fruitDrink = (() => {
     }
 
 
-    SpawnObj_(position, timeElapsed) {
-      this.progress_ += timeElapsed * 10.0;
-      const spawnPosition = [50, 130, 200, 270, 430, 500]
-
+    SpawnObj_(position) {
+      var spawnPosition = [0]
+      if (this.params_.stage == 1) {
+        spawnPosition = [155, 275, 320, 365, 410, 455]
+      } else if (this.params_.stage == 2) {
+        spawnPosition = [54, 166, 222, 446]
+      }
       if (this.params_.firstChase) {
         for (let i = 0; i < spawnPosition.length; i++) {
-          spawnPosition[i] += 70;
+          spawnPosition[i] += 40;
         }
       }
       let obj = null;
@@ -89,7 +92,7 @@ export const fruitDrink = (() => {
 
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.03;
+          obj.scale = 0.02;
 
           obj.quaternion.setFromAxisAngle(
             new THREE.Vector3(0, 1, 0), -Math.PI / 2);
@@ -102,7 +105,7 @@ export const fruitDrink = (() => {
 
 
     Update(timeElapsed, speed) {
-      this.SpawnObj_(this.params_.position, timeElapsed)
+      this.SpawnObj_(this.params_.position)
       this.UpdateColliders_(timeElapsed, speed);
 
     }

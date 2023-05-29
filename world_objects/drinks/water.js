@@ -21,13 +21,9 @@ export const water = (() => {
 
       const loader = new GLTFLoader();
       loader.setPath('./resources/Drinks/');
-
       loader.load('drinks.gltf', (gltf) => {
         this.mesh = gltf.scene.children[0].children[3];
-
         this.params_.scene.add(this.mesh);
-
-
       });
 
     }
@@ -50,7 +46,6 @@ export const water = (() => {
   class DrinksManager {
     constructor(params) {
       this.objects_ = [];
-      this.unused_ = [];
       this.speed_ = 12;
       this.params_ = params;
       this.counter_ = 0;
@@ -74,12 +69,25 @@ export const water = (() => {
 
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
+      var spawnPosition = [0]
+      if (this.params_.stage == 1) {
+        spawnPosition = [50, 65, 65, 80, 80, 95, 110, 125, 140, 155, 170, 185, 200, 215, 230, 230, 245, 245, 260, 260, 275, 290, 305, 320, 335, 350, 365, 380, 395, 410, 425, 440, 455, 470, 485]
+      } else if (this.params_.stage == 2) {
+        spawnPosition = [54, 68, 82, 96, 96, 110, 110, 124, 124, 138, 138, 166, 166, 194, 208, 222, 222, 250, 278, 306, 306, 334, 334, 334, 362, 390, 390, 404, 418, 446, 474, 474, 502, 502, 530, 558]
+      } else if (this.params_.stage == 3) {
+        spawnPosition = [
+          85, 85, 115, 145, 145, 175,
+          205, 227, 295, 343, 358.5, 385,
+          445, 505, 505, 535, 595, 655,
+          670, 766, 820, 820, 835, 835,
+          880
+        ]
+      }
 
-      const spawnPosition = [50, 130, 200, 270, 430, 500]
 
       if (this.params_.firstChase) {
         for (let i = 0; i < spawnPosition.length; i++) {
-          spawnPosition[i] += 70;
+          spawnPosition[i] += 40;
         }
       }
       let obj = null;
@@ -87,10 +95,23 @@ export const water = (() => {
       for (var i = 0; i < spawnPosition.length; i++) {
         if (this.counter_ == i) {
           obj = new DrinksObject(this.params_);
-
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
-          obj.scale = 0.025;
+          if (this.params_.stage == 1) {
+            if (i == 13 || i == 26 || i == 30) {
+              obj.position.y += 2.5;
+            }
+          } else if (this.params_.stage == 2) {
+            if (i == 10 || i == 13 || i == 18 || i == 21) {
+              obj.position.y += 2.5;
+            }
+          } else if (this.params_.stage == 3) {
+            if (i == 1  || i == 7 || i == 9 || i == 10 || i == 12 || i == 16 || i == 17|| i == 19) {
+              obj.position.y += 2.5;
+            }
+          }
+
+          obj.scale = 0.018;
 
 
 
@@ -109,43 +130,41 @@ export const water = (() => {
     }
 
     UpdateColliders_(timeElapsed, speed) {
-      const invisible = [];
       const visible = [];
       this.rotateY += this.rotateIncrement
 
       for (let obj of this.objects_) {
         obj.position.x -= timeElapsed * speed;
 
+
         if (obj.position.x < -20) {
-          invisible.push(obj);
           obj.mesh.visible = false;
         } else {
           visible.push(obj);
         }
 
-        if (obj.position.y < 0 && !this.toggleFloat) {
-          this.toggleFloat = true;
-          this.toggleFloat1 = false;
+        // if (obj.position.y < 0 && !this.toggleFloat) {
+        //   this.toggleFloat = true;
+        //   this.toggleFloat1 = false;
 
-          this.floatSpeed *= -1
-        }
+        //   this.floatSpeed *= -1
+        // }
 
-        if (obj.position.y > 0.25 && !this.toggleFloat1) {
-          this.toggleFloat = false;
-          this.toggleFloat1 = true;
+        // if (obj.position.y > 0.25 && !this.toggleFloat1) {
+        //   this.toggleFloat = false;
+        //   this.toggleFloat1 = true;
 
-          this.floatSpeed *= -1
-        }
+        //   this.floatSpeed *= -1
+        // }
 
-        obj.position.y += this.floatSpeed;
+        // obj.position.y += this.floatSpeed;
 
         obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
-  
+
         obj.Update(timeElapsed);
       }
 
       this.objects_ = visible;
-      this.unused_.push(...invisible);
     }
 
 

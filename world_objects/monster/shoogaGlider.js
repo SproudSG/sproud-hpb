@@ -94,8 +94,12 @@ export const shoogaGlider = (() => {
 
       this.progress_ += timeElapsed * 10.0;
 
-
-      const spawnPosition = [570, 1100, 1700]
+      var spawnPosition = [0]
+      if (this.params_.stage == 2) {
+        spawnPosition = [360, 1020, 1700, 2200, 2600, 2750]
+      } else if (this.params_.stage == 3) {
+        spawnPosition = [660, 2110, 2325, 2700, 3700, 4000]
+      }
 
       let obj = null;
 
@@ -112,7 +116,7 @@ export const shoogaGlider = (() => {
 
 
           //set shooga glider position abnd scale
-          obj.position.x = spawnPosition[i] + Math.random()
+          obj.position.x = spawnPosition[i]
           obj.position.z = 0;
           obj.position.y = 100;
           obj.scale = 0.05;

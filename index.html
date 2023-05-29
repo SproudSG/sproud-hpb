@@ -46,8 +46,6 @@
         <div id="stamina-border">
           <img src="./resources/HUD/Water_Level.gif" id="stamina">
         </div>
-        <img src="./resources/HUD/Water_bottle.png" id="staminaWater">
-
       </div>
 
       <div class="wrapper" style="display: none;" id="shieldTimer">
@@ -123,10 +121,10 @@
     </div>
 
     <!-- final score GOOD ENDING -->
-    <div class="ui"  id="goodEndingUI">
+    <div class="ui" id="goodEndingUI">
       <div id="final-score-good-ending">
         <img src="./resources/Endings/Perfect/Text.png" class="ending-text">
-        <img src="./resources/Buttons/Continue_Button.png" id="continue-ending">
+        <img src="./resources/Buttons/Continue_Button.png" id="finish-ending">
       </div>
     </div>
 
@@ -263,73 +261,58 @@
   </div>
 
   <div id="loading-1" style="display: none;">
-    <div class="loading-screen">
+    <div class="loading-screen-1">
       <img src="./resources/Advisor/Advisor_mouth_opened.png" class="final-score-advisor">
+      <img src="./resources/Loading_Screen_Assets/Tutorial_BG/Tutorial_loadingbar_BG.png" class="loading-bar-bg">
       <img src="./resources/Loading_Screen_Mission Brief/Mission_Loading_Screen_File.png" class="loading-file">
 
       <div id="stage1-intro1">
         <div class="loading-screen-title" id="loading-1-title">
-          INCOMING MESSAGE
+          MISSION BRIEFS
         </div>
         <p id="stage1-intro1-text1" class="loading-screen-text"></p>
         <p id="stage1-intro1-text2" class="loading-screen-text"></p>
         <p id="stage1-intro1-text3" class="loading-screen-text"></p>
+        <img src="./resources/Loading_Screen_Assets/Burger_monster_TutorialBrief.png" class="loading-burger">
+
       </div>
       <div id="stage1-intro2" style="display: none;">
         <div class="loading-screen-title" id="loading-1-title">
-          DANGER AHEAD
+          MISSION BRIEFS
         </div>
         <p id="stage1-intro2-text1" class="loading-screen-text"></p>
-        <div class="loading-monster-container">
-          <img src="./resources/Loading_Screen_Assets/Burger_monster_TutorialBrief.png" class="loading-monster">
-          <img src="./resources/Loading_Screen_Assets/SoyaSauce_monster_TutorialBrief.png" class="loading-monster">
-          <img src="./resources/Loading_Screen_Assets/IcecreamBird_monster_TutorialBrief.png" class="loading-monster">
-        </div>
+        <p id="stage1-intro2-text2" class="loading-screen-text"></p>
+        <p id="stage1-intro2-text3" class="loading-screen-text"></p>
+        <p id="stage1-intro2-text4" class="loading-screen-text"></p>
+        <p id="stage1-intro2-text5" class="loading-screen-text"></p>
+        <p id="stage1-intro2-text6" class="loading-screen-text"></p>
+        <p id="stage1-intro2-text7" class="loading-screen-text"></p>
+        <p id="stage1-intro2-text8" class="loading-screen-text"></p>
+        <p id="stage1-intro2-text9" class="loading-screen-text"></p>
+
+        <img src="./resources/Loading_Screen_Assets/Instructions illustration_Turn Left.png" class="loading-movement"
+          id="turnLeftImg">
+        <img src="./resources/Loading_Screen_Assets/Instructions illustration_Turn Right.png" class="loading-movement"
+          id="turnRightImg">
+        <img src="./resources/Loading_Screen_Assets/Instructions illustration_Jump.png" class="loading-movement"
+          id="jumpImg">
       </div>
 
       <div id="stage1-intro3" style="display: none;">
         <div class="loading-screen-title" id="loading-1-title">
-          KEY ITEM
+          MISSION BRIEFS
         </div>
         <p id="stage1-intro3-text1" class="loading-screen-text"></p>
-        <div class="loading-shield-container">
-          <img src="./resources/Loading_Screen_Assets/KeyItem_Shield.png" class="loading-shield">
-          <img src="./resources/Loading_Screen_Assets/KeyItem_effect.png" class="loading-shield-effect">
+        <p id="stage1-intro3-text2" class="loading-screen-text"></p>
+        <p id="stage1-intro3-text3" class="loading-screen-text"></p>
+        <p id="stage1-intro3-text4" class="loading-screen-text"></p>
+        <p id="stage1-intro3-text5" class="loading-screen-text"></p>
 
-        </div>
-      </div>
-      <div id="stage1-intro4" style="display: none;">
-        <div class="loading-screen-title" id="loading-1-title">
-          TUTORIAL
-        </div>
-        <p id="stage1-intro4-text1" class="loading-screen-text"></p>
-        <p id="stage1-intro4-text2" class="loading-screen-text"></p>
-
-      </div>
-      <div id="stage1-intro5" style="display: none;">
-        <div class="loading-screen-title" id="loading-1-title">
-          REDUCE SUGAR
-          SWEETENED BEVERAGES.
-          DRINK MORE WATER!
-        </div>
-        <p id="stage1-intro5-text1" class="loading-screen-text"></p>
-        <div class="loading-drink-container">
-          <img src="./resources/Loading_Screen_Assets/Drink_A.png" class="loading-drink">
-          <img src="./resources/Loading_Screen_Assets/Drink_B.png" class="loading-drink">
-          <img src="./resources/Loading_Screen_Assets/Drink_C.png" class="loading-drink">
-          <img src="./resources/Loading_Screen_Assets/Drink_D.png" class="loading-drink">
-        </div>
-      </div>
-      <div id="stage1-recap" style="display: none;">
-        <div class="loading-screen-title" id="loading-1-title">
-          REDUCE SUGAR
-          SWEETENED BEVERAGES.
-          DRINK MORE WATER!
-        </div>
-        <p id="stage1-recap-text1" class="loading-screen-text"></p>
-        <p id="stage1-recap-text2" class="loading-screen-text"></p>
-        <p id="stage1-recap-text3" class="loading-screen-text"></p>
-        <p id="stage1-recap-text4" class="loading-screen-text"></p>
+        <img src="./resources/Loading_Screen_Assets/Drink_A.png" id="loading-drink-a">
+        <img src="./resources/Loading_Screen_Assets/Drink_B.png" id="loading-drink-b">
+        <img src="./resources/Loading_Screen_Assets/Drink_C.png" id="loading-drink-c">
+        <img src="./resources/Loading_Screen_Assets/Drink_D.png" id="loading-drink-d">
+        <img src="./resources/Loading_Screen_Assets/NutriGrade.png" id="loading-grade">
 
       </div>
 
@@ -343,66 +326,68 @@
 
   <div id="loading-2" style="display: none;">
 
-    <div class="loading-screen">
+    <div class="loading-screen-2">
       <img src="./resources/Advisor/Advisor_mouth_opened.png" class="final-score-advisor">
+      <img src="./resources/Loading_Screen_Assets/Tutorial_BG/Tutorial_loadingbar_BG.png" class="loading-bar-bg">
       <img src="./resources/Loading_Screen_Mission Brief/Mission_Loading_Screen_File.png" class="loading-file">
 
       <div id="stage2-intro1">
         <div class="loading-screen-title" id="loading-2-title">
-          EAT ACCORDING TO THE MY HEALHTY PLATE
+          Mission Recap
         </div>
         <p id="stage2-intro1-text1" class="loading-screen-text"></p>
         <p id="stage2-intro1-text2" class="loading-screen-text"></p>
-        <p id="stage2-intro1-text3" class="loading-screen-text yellow-text"></p>
+        <p id="stage2-intro1-text3" class="loading-screen-text"></p>
         <p id="stage2-intro1-text4" class="loading-screen-text"></p>
-        <p id="stage2-intro1-text5" class="loading-screen-text blue-text"></p>
-        <p id="stage2-intro1-text6" class="loading-screen-text"></p>
-        <p id="stage2-intro1-text7" class="loading-screen-text green-text"></p>
-        <p id="stage2-intro1-text8" class="loading-screen-text"></p>
-        <div class="loading-food-container">
-          <img src="./resources/Loading_Screen_Assets/Vegetable.png" class="loading-food rotate-veg">
-          <img src="./resources/Loading_Screen_Assets/Meat.png" class="loading-food rotate-meat">
-          <img src="./resources/Loading_Screen_Assets/Rice.png" class="loading-food  rotate-rice">
-        </div>
+
       </div>
+
       <div id="stage2-intro2" style="display: none;">
         <div class="loading-screen-title" id="loading-2-title">
-          KEY ITEM
+          Mission Brief
         </div>
         <p id="stage2-intro2-text1" class="loading-screen-text"></p>
-        <div class="loading-key-container">
-          <img src="./resources/Loading_Screen_Assets/KeyItem_Key.png" class="loading-key">
-          <img src="./resources/Loading_Screen_Assets/KeyItem_effect.png" class="loading-key-effect">
+        <p id="stage2-intro2-text2" class="loading-screen-text yellow-text"></p>
+        <p id="stage2-intro2-text3" class="loading-screen-text "></p>
+        <p id="stage2-intro2-text4" class="loading-screen-text"></p>
+        <p id="stage2-intro2-text5" class="loading-screen-text yellow-text"></p>
+        <p id="stage2-intro2-text6" class="loading-screen-text"></p>
+        <p id="stage2-intro2-text7" class="loading-screen-text blue-text"></p>
+        <p id="stage2-intro2-text8" class="loading-screen-text"></p>
+        <p id="stage2-intro2-text9" class="loading-screen-text green-text "></p>
+
+
+        <div class="loading-shield-container">
+          <img src="./resources/Loading_Screen_Assets/KeyItem_Shield.png" class="loading-shield">
+          <img src="./resources/Loading_Screen_Assets/KeyItem_effect.png" class="loading-shield-effect">
         </div>
       </div>
 
       <div id="stage2-intro3" style="display: none;">
         <div class="loading-screen-title" id="loading-1-title">
-          TUTORIAL
+          Mission Brief
         </div>
         <p id="stage2-intro3-text1" class="loading-screen-text"></p>
         <p id="stage2-intro3-text2" class="loading-screen-text"></p>
         <p id="stage2-intro3-text3" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text4" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text5" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text6" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text7" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text8" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text9" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text10" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text11" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text12" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text13" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text14" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text15" class="loading-screen-text"></p>
+        <p id="stage2-intro3-text16" class="loading-screen-text"></p>
 
-      </div>
-      <div id="stage2-intro4" style="display: none;">
-        <div class="loading-screen-title" id="loading-2-title">
-          EAT ACCORDING TO THE MY HEALHTY PLATE
-
-        </div>
-        <p id="stage2-intro4-text1" class="loading-screen-text"></p>
-        <p id="stage2-intro4-text2" class="loading-screen-text"></p>
-        <img src="./resources/Loading_Screen_Assets/HPB_plate.png" class="loading-hpbplate">
-
-      </div>
-      <div id="stage2-intro5" style="display: none;">
-        <div class="loading-screen-title" id="loading-2-title">
-          EAT ACCORDING TO THE MY HEALHTY PLATE
-        </div>
-        <p id="stage2-intro5-text1" class="loading-screen-text"></p>
-        <p id="stage2-intro5-text2" class="loading-screen-text"></p>
-        <img src="./resources/Loading_Screen_Assets/HPB_plate.png" class="loading-hpbplate">
-
+        <img src="./resources/Loading_Screen_Assets/IcecreamBird_monster_TutorialBrief.png" id="icecream-monster">
+        <img src="./resources/Loading_Screen_Assets/SoyaSauce_monster_TutorialBrief.png" id="soya-monster">
+        <img src="./resources/Loading_Screen_Assets/Instructions illustration_Slide.png" id="slideImg">
+        <img src="./resources/Loading_Screen_Assets/Instructions illustration_Jump.png" id="jumpImg2">
       </div>
 
       <div id="loading-bar-container-2">
@@ -415,40 +400,46 @@
   </div>
 
   <div id="loading-3" style="display: none;">
-    <div class="loading-screen">
+    <div class="loading-screen-3">
       <img src="./resources/Advisor/Advisor_mouth_opened.png" class="final-score-advisor">
+      <img src="./resources/Loading_Screen_Assets/Tutorial_BG/Tutorial_loadingbar_BG.png" class="loading-bar-bg">
       <img src="./resources/Loading_Screen_Mission Brief/Mission_Loading_Screen_File.png" class="loading-file">
 
       <div id="stage3-intro1">
         <div class="loading-screen-title" id="loading-2-title">
-          FINAL MISSION
+          Mission Recap
         </div>
         <p id="stage3-intro1-text1" class="loading-screen-text"></p>
         <p id="stage3-intro1-text2" class="loading-screen-text"></p>
         <p id="stage3-intro1-text3" class="loading-screen-text"></p>
+        <p id="stage3-intro1-text4" class="loading-screen-text"></p>
 
       </div>
       <div id="stage3-intro2" style="display: none;">
         <div class="loading-screen-title" id="loading-2-title">
-          FINAL MISSION
+          Mission Brief
         </div>
         <p id="stage3-intro2-text1" class="loading-screen-text"></p>
-        <div class="loading-crate-container">
-          <img src="./resources/Loading_Screen_Assets/Correct_Crate.png" class="loading-crate">
-          <img src="./resources/Loading_Screen_Assets/Wrong_Crate.png" class="loading-crate">
-          <img src="./resources/Loading_Screen_Assets/Wrong_Crate_2.png" class="loading-crate">
+        <p id="stage3-intro2-text2" class="loading-screen-text"></p>
+        <p id="stage3-intro2-text3" class="loading-screen-text"></p>
+        <p id="stage3-intro2-text4" class="loading-screen-text"></p>
+        <p id="stage3-intro2-text5" class="loading-screen-text"></p>
+        <p id="stage3-intro2-text6" class="loading-screen-text"></p>
+        <img src="./resources/Loading_Screen_Assets/Instructions illustration_Wall run.png" id="wallrunImg">
 
-        </div>
       </div>
 
       <div id="stage3-intro3" style="display: none;">
-        <div class="loading-screen-title" id="loading-3-title">
-          HEALTHIER CHOICE SYMBOL (HCS)
+        <div class="loading-screen-title" id="loading-2-title">
+          Mission Brief
         </div>
-        <p id="stage3-intro3-text1" class="loading-screen-text small-text"></p>
+        <p id="stage3-intro3-text1" class="loading-screen-text "></p>
         <p id="stage3-intro3-text2" class="loading-screen-text"></p>
         <p id="stage3-intro3-text3" class="loading-screen-text"></p>
-        <p id="stage3-intro3-text4" class="loading-screen-text"></p>
+
+
+        <img src="./resources/Loading_Screen_Assets/Correct_Crate.png" class="loading-crate">
+
       </div>
 
       <div id="loading-bar-container-3">
