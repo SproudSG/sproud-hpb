@@ -181,44 +181,6 @@ class BasicWorldDemo {
           this.closeNextStageVideo1();
           document.getElementById('loading-1').style.display = 'block';
 
-          // text type writer 
-          var textElement = document.getElementById('stage1-intro1-text1');
-          var textElement1 = document.getElementById('stage1-intro1-text2');
-          var textElement2 = document.getElementById('stage1-intro1-text3');
-
-          textElement.textContent = '';
-          var textToType = "• Hi, my name is SOFIA and I'm here to help. ";
-          var typingSpeed = 10;
-          var i = 0;
-          var intervalId = setInterval(function () {
-            textElement.textContent += textToType.charAt(i);
-            i++;
-            if (i >= textToType.length) {
-              i = 0
-              clearInterval(intervalId);
-              textToType = "BEEFTEKI";
-              intervalId = setInterval(function () {
-                textElement1.textContent += textToType.charAt(i);
-                i++;
-                if (i >= textToType.length) {
-                  i = 0
-
-                  clearInterval(intervalId);
-                  textToType = "is after you - avoid him!";
-                  intervalId = setInterval(function () {
-                    textElement2.textContent += textToType.charAt(i);
-                    i++;
-                    if (i >= textToType.length) {
-                      clearInterval(intervalId);
-                      document.getElementById('loading1-next').style.display = 'block';
-                    }
-                  }, typingSpeed);
-                }
-              }, typingSpeed);
-            }
-          }, typingSpeed);
-
-
           // start loading variables
           this.stopTime = false
           this.RAF_()
@@ -237,6 +199,44 @@ class BasicWorldDemo {
               progressBar.style.width = `100%`;
               this.startGame = true;
               this.stopTime = true;
+
+
+              // text type writer 
+              var textElement = document.getElementById('stage1-intro1-text1');
+              var textElement1 = document.getElementById('stage1-intro1-text2');
+              var textElement2 = document.getElementById('stage1-intro1-text3');
+
+              textElement.textContent = '';
+              var textToType = "• Hi, my name is SOFIA and I'm here to help. ";
+              var typingSpeed = 10;
+              var i = 0;
+              var intervalId = setInterval(function () {
+                textElement.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  i = 0
+                  clearInterval(intervalId);
+                  textToType = "BEEFTEKI";
+                  intervalId = setInterval(function () {
+                    textElement1.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      i = 0
+
+                      clearInterval(intervalId);
+                      textToType = "is after you - avoid him!";
+                      intervalId = setInterval(function () {
+                        textElement2.textContent += textToType.charAt(i);
+                        i++;
+                        if (i >= textToType.length) {
+                          clearInterval(intervalId);
+                          document.getElementById('loading1-next').style.display = 'block';
+                        }
+                      }, typingSpeed);
+                    }
+                  }, typingSpeed);
+                }
+              }, typingSpeed);
 
               document.dispatchEvent(new CustomEvent('score-over'));
               if (this.gender_ == "male") {
@@ -276,15 +276,12 @@ class BasicWorldDemo {
     }, { passive: false });
 
 
-
     //next stage cut scenes
     this.nextStageVideo1_ = document.getElementById("nextStage1");
     this.nextStageVideo2_ = document.getElementById("nextStage2");
     this.nextStageVideo3_ = document.getElementById("nextStage3");
     this.nextStageVideo4_ = document.getElementById("nextStage4");
     this.nextStageVideo5_ = document.getElementById("nextStage5");
-
-
 
     // if next stage video ends, then unpause everything
     this.nextStageVideo1_.addEventListener("ended", () => {
@@ -300,7 +297,6 @@ class BasicWorldDemo {
         document.getElementById('stage1-intro1').style.display = 'block';
         document.getElementById('loading-bar-container').style.display = 'block';
         document.getElementById('loading-text-stage-1').style.display = 'block';
-        // text type writer 
         var textElement = document.getElementById('stage1-intro1-text1');
         var textElement1 = document.getElementById('stage1-intro1-text2');
         var textElement2 = document.getElementById('stage1-intro1-text3');
@@ -308,37 +304,6 @@ class BasicWorldDemo {
         textElement.textContent = '';
         textElement1.textContent = '';
         textElement2.textContent = '';
-
-        var textToType = "• Hi, my name is SOFIA and I'm here to help. ";
-        var typingSpeed = 10;
-        var i = 0;
-        var intervalId = setInterval(function () {
-          textElement.textContent += textToType.charAt(i);
-          i++;
-          if (i >= textToType.length) {
-            i = 0
-            clearInterval(intervalId);
-            textToType = "BEEFTEKI";
-            intervalId = setInterval(function () {
-              textElement1.textContent += textToType.charAt(i);
-              i++;
-              if (i >= textToType.length) {
-                i = 0
-
-                clearInterval(intervalId);
-                textToType = "is after you - avoid him!";
-                intervalId = setInterval(function () {
-                  textElement2.textContent += textToType.charAt(i);
-                  i++;
-                  if (i >= textToType.length) {
-                    clearInterval(intervalId);
-                    document.getElementById('loading1-next').style.display = 'block';
-                  }
-                }, typingSpeed);
-              }
-            }, typingSpeed);
-          }
-        }, typingSpeed);
 
         while (this.scene_.children.length > 0) {
           this.scene_.remove(this.scene_.children[0]);
@@ -370,46 +335,6 @@ class BasicWorldDemo {
       textElement2.textContent = '';
       textElement3.textContent = '';
 
-      var textToType = "• Remember water is always the best choice so avoid sweetened beverages! ";
-      var typingSpeed = 10;
-      var i = 0;
-      var intervalId = setInterval(() => {
-        textElement.textContent += textToType.charAt(i);
-        i++;
-        if (i >= textToType.length) {
-          i = 0
-          clearInterval(intervalId);
-          textToType = "• Fill your water bottles up from school water coolers "
-          intervalId = setInterval(() => {
-            textElement1.textContent += textToType.charAt(i);
-            i++;
-            if (i >= textToType.length) {
-              i = 0
-
-              clearInterval(intervalId);
-              textToType = "• If you are purchasing drinks, choose beverages which have been graded A or B only. ";
-              intervalId = setInterval(() => {
-                textElement2.textContent += textToType.charAt(i);
-                i++;
-                if (i >= textToType.length) {
-                  clearInterval(intervalId);
-                  i = 0
-                  textToType = "• Hydrate yourself with at least 8 glasses every day!";
-                  intervalId = setInterval(() => {
-                    textElement3.textContent += textToType.charAt(i);
-                    i++;
-                    if (i >= textToType.length) {
-                      clearInterval(intervalId);
-                      document.getElementById('loading2-next').style.display = 'block';
-                    }
-                  }, typingSpeed);
-                }
-              }, typingSpeed);
-            }
-          }, typingSpeed);
-        }
-      }, typingSpeed);
-
 
     });
 
@@ -434,51 +359,6 @@ class BasicWorldDemo {
       textElement2.textContent = '';
       textElement3.textContent = '';
 
-      var textToType = "• Fill your plate with Quarter-Quarter Half; wholegrains, meat & others, fruit and vegetables.";
-      var typingSpeed = 10;
-      var i = 0;
-      var intervalId = setInterval(function () {
-        textElement.textContent += textToType.charAt(i);
-        i++;
-        if (i >= textToType.length) {
-          i = 0
-          clearInterval(intervalId);
-          textToType = "• Go for 2 servings of fruit and 2 servings of vegetables every day!";
-          intervalId = setInterval(function () {
-            textElement1.textContent += textToType.charAt(i);
-            i++;
-            if (i >= textToType.length) {
-              i = 0
-              clearInterval(intervalId);
-              textToType = "• Choose fresh over processed or preserved food and avoid fried food.";
-              intervalId = setInterval(function () {
-                textElement2.textContent += textToType.charAt(i);
-                i++;
-                if (i >= textToType.length) {
-                  i = 0
-                  clearInterval(intervalId);
-                  textToType = "• Take time to chew your food when eating and avoid any distractions like screen time. This allows for your food to digest better.";
-                  intervalId = setInterval(function () {
-                    textElement3.textContent += textToType.charAt(i);
-                    i++;
-                    if (i >= textToType.length) {
-                      i = 0
-                      clearInterval(intervalId);
-                      document.getElementById('loading3-next').style.display = 'block';
-                    }
-                  }, typingSpeed);
-                }
-              }, typingSpeed);
-            }
-          }, typingSpeed);
-        }
-      }, typingSpeed);
-
-
-      while (this.scene_.children.length > 0) {
-        this.scene_.remove(this.scene_.children[0]);
-      }
-
     });
 
     // if next stage video ends, then unpause everything
@@ -497,9 +377,6 @@ class BasicWorldDemo {
         document.getElementById('boyHUDstg3').style.display = 'none'
       } else if (this.gender_ == "female") {
         document.getElementById('girlHUDstg3').style.display = 'none'
-      }
-      while (this.scene_.children.length > 0) {
-        this.scene_.remove(this.scene_.children[0]);
       }
 
     });
@@ -522,10 +399,6 @@ class BasicWorldDemo {
       } else if (this.gender_ == "female") {
         document.getElementById('girlHUDstg3').style.display = 'none'
       }
-      while (this.scene_.children.length > 0) {
-        this.scene_.remove(this.scene_.children[0]);
-      }
-
     });
   }
 
@@ -536,6 +409,8 @@ class BasicWorldDemo {
     if (this.checkRestart || this.failedStage) {
       this.nextStageVideo1_.currentTime = this.nextStageVideo1_.duration;
     }
+    this.NotFirstTry = false;
+
   }
 
   closeNextStageVideo1() {
@@ -556,6 +431,7 @@ class BasicWorldDemo {
     while (this.scene_.children.length > 0) {
       this.scene_.remove(this.scene_.children[0]);
     }
+    this.NotFirstTry = false;
 
   }
 
@@ -573,12 +449,18 @@ class BasicWorldDemo {
     if (this.checkRestart || this.failedStage) {
       this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
     }
+    while (this.scene_.children.length > 0) {
+      this.scene_.remove(this.scene_.children[0]);
+    }
+    this.NotFirstTry = false;
+
   }
 
   closeNextStageVideo3() {
     this.nextStageVideo3_.style.display = "none";
     this.nextStageVideo3_.currentTime = 0;
     this.nextStageVideo3_.pause();
+    
   }
 
 
@@ -587,6 +469,11 @@ class BasicWorldDemo {
     pauseButton.style.display = 'none'
     this.nextStageVideo4_.style.display = "block";
     this.nextStageVideo4_.play();
+    while (this.scene_.children.length > 0) {
+      this.scene_.remove(this.scene_.children[0]);
+    }
+    this.NotFirstTry = false;
+
   }
 
   closeNextStageVideo4() {
@@ -599,6 +486,11 @@ class BasicWorldDemo {
     pauseButton.style.display = 'none'
     this.nextStageVideo5_.style.display = "block";
     this.nextStageVideo5_.play();
+    while (this.scene_.children.length > 0) {
+      this.scene_.remove(this.scene_.children[0]);
+    }
+    this.NotFirstTry = false;
+
   }
 
   closeNextStageVideo5() {
@@ -683,10 +575,11 @@ class BasicWorldDemo {
     this.threejs_.outputEncoding = THREE.sRGBEncoding;
     // this.threejs_.gammaFactor = 0.7;
     this.threejs_.shadowMap.enabled = false;
-    this.threejs_.setPixelRatio(window.devicePixelRatio);
+    // this.threejs_.setPixelRatio(window.devicePixelRatio);
     this.threejs_.setPixelRatio(1);
     this.threejs_.setSize(window.innerWidth, window.innerHeight);
 
+    //responsive
     document.getElementById('container').appendChild(this.threejs_.domElement);
     window.addEventListener('orientationchange', () => {
       if (window.orientation === 0 || window.orientation === 180) {
@@ -708,7 +601,7 @@ class BasicWorldDemo {
     const fov = 60;
     const aspect = 1920 / 1080;
     const near = 1.0;
-    const far = 2000;
+    const far = 1000;
 
     // Define the shake parameters
     this.shakeIntensity = 0.2; // The maximum displacement amount
@@ -737,7 +630,6 @@ class BasicWorldDemo {
     this.scene_.add(light);
 
     this.scene_.background = new THREE.Color(0x808080);
-    // this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
 
     //load map
     const loader = new GLTFLoader();
@@ -1491,7 +1383,6 @@ class BasicWorldDemo {
       this.playNextStageVideo3()
       this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
       this.eventAdded1 = false;
-      this.NotFirstTry = true;
 
       document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
@@ -2000,13 +1891,12 @@ class BasicWorldDemo {
     //if he loses stage 1
     if (!this.eventAdded3 && this.stage == 1) {
       document.addEventListener('score-over', () => {
-        
+
         this.nextStageVideo1_.addEventListener("ended", () => {
           this.allowStart = false;
           this.showChase = false;
           this.gameOver_ = true;
           this.failedStage = false;
-          this.NotFirstTry = false;
           this.allowPause = false;
           this.stopTime = true
           this.Pause()
@@ -2159,6 +2049,43 @@ class BasicWorldDemo {
               if (this.NotFirstTry) {
                 this.allowStart = true;
               }
+
+              // text type writer 
+              var textElement = document.getElementById('stage1-intro1-text1');
+              var textElement1 = document.getElementById('stage1-intro1-text2');
+              var textElement2 = document.getElementById('stage1-intro1-text3');
+
+              var textToType = "• Hi, my name is SOFIA and I'm here to help. ";
+              var typingSpeed = 10;
+              var i = 0;
+              var intervalId = setInterval(function () {
+                textElement.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  i = 0
+                  clearInterval(intervalId);
+                  textToType = "BEEFTEKI";
+                  intervalId = setInterval(function () {
+                    textElement1.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      i = 0
+
+                      clearInterval(intervalId);
+                      textToType = "is after you - avoid him!";
+                      intervalId = setInterval(function () {
+                        textElement2.textContent += textToType.charAt(i);
+                        i++;
+                        if (i >= textToType.length) {
+                          clearInterval(intervalId);
+                          document.getElementById('loading1-next').style.display = 'block';
+                        }
+                      }, typingSpeed);
+                    }
+                  }, typingSpeed);
+                }
+              }, typingSpeed);
+
               document.getElementById('loading-bar-container').style.display = 'none';
               document.getElementById('loading-text-stage-1').style.display = 'none';
               document.getElementById('click-start').style.display = 'block';
@@ -2172,14 +2099,13 @@ class BasicWorldDemo {
 
     //stage 1 won
     if (!this.eventAdded && this.stage == 1) {
- 
+
       document.addEventListener('score-over1', () => {
         this.allowStart = false;
         this.stage1Music.pause()
         this.showChase = false;
         this.gameOver_ = true;
         this.failedStage = false;
-        this.NotFirstTry = false;
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
@@ -2350,7 +2276,56 @@ class BasicWorldDemo {
                 document.getElementById('loading-text-stage-2').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
               }
-              
+              var textElement = document.getElementById('stage2-intro1-text1');
+              var textElement1 = document.getElementById('stage2-intro1-text2');
+              var textElement2 = document.getElementById('stage2-intro1-text3');
+              var textElement3 = document.getElementById('stage2-intro1-text4');
+
+              textElement.textContent = '';
+              textElement1.textContent = '';
+              textElement2.textContent = '';
+              textElement3.textContent = '';
+
+              var textToType = "• Remember water is always the best choice so avoid sweetened beverages! ";
+              var typingSpeed = 10;
+              var i = 0;
+              var intervalId = setInterval(() => {
+                textElement.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  i = 0
+                  clearInterval(intervalId);
+                  textToType = "• Fill your water bottles up from school water coolers "
+                  intervalId = setInterval(() => {
+                    textElement1.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      i = 0
+
+                      clearInterval(intervalId);
+                      textToType = "• If you are purchasing drinks, choose beverages which have been graded A or B only. ";
+                      intervalId = setInterval(() => {
+                        textElement2.textContent += textToType.charAt(i);
+                        i++;
+                        if (i >= textToType.length) {
+                          clearInterval(intervalId);
+                          i = 0
+                          textToType = "• Hydrate yourself with at least 8 glasses every day!";
+                          intervalId = setInterval(() => {
+                            textElement3.textContent += textToType.charAt(i);
+                            i++;
+                            if (i >= textToType.length) {
+                              clearInterval(intervalId);
+                              document.getElementById('loading2-next').style.display = 'block';
+                            }
+                          }, typingSpeed);
+                        }
+                      }, typingSpeed);
+                    }
+                  }, typingSpeed);
+                }
+              }, typingSpeed);
+
             }
 
           }, 100);
@@ -2373,7 +2348,6 @@ class BasicWorldDemo {
         this.stopTime = true
         this.allowPause = false;
         this.Pause()
-        this.NotFirstTry = false;
         pauseButton.style.display = 'none'
         document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
         document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
@@ -2444,7 +2418,7 @@ class BasicWorldDemo {
 
               const loader = new GLTFLoader();
               loader.setPath('./resources/Map/Stage3/');
-              loader.load('stg3_Start.gltf', (gltf) => {
+              loader.load('stg3_start.gltf', (gltf) => {
                 this.mesh = gltf.scene;
 
                 this.mesh.position.set(110, 0, 0);
@@ -2563,6 +2537,56 @@ class BasicWorldDemo {
                 document.getElementById('girlHUD').style.display = 'none'
                 document.getElementById('girlHUDstg3').style.display = 'block'
               }
+
+              var textElement = document.getElementById('stage3-intro1-text1');
+              var textElement1 = document.getElementById('stage3-intro1-text2');
+              var textElement2 = document.getElementById('stage3-intro1-text3');
+              var textElement3 = document.getElementById('stage3-intro1-text4');
+
+              textElement.textContent = '';
+              textElement1.textContent = '';
+              textElement2.textContent = '';
+              textElement3.textContent = '';
+
+              var textToType = "• Fill your plate with Quarter-Quarter Half; wholegrains, meat & others, fruit and vegetables.";
+              var typingSpeed = 10;
+              var i = 0;
+              var intervalId = setInterval(function () {
+                textElement.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  i = 0
+                  clearInterval(intervalId);
+                  textToType = "• Go for 2 servings of fruit and 2 servings of vegetables every day!";
+                  intervalId = setInterval(function () {
+                    textElement1.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      i = 0
+                      clearInterval(intervalId);
+                      textToType = "• Choose fresh over processed or preserved food and avoid fried food.";
+                      intervalId = setInterval(function () {
+                        textElement2.textContent += textToType.charAt(i);
+                        i++;
+                        if (i >= textToType.length) {
+                          i = 0
+                          clearInterval(intervalId);
+                          textToType = "• Take time to chew your food when eating and avoid any distractions like screen time. This allows for your food to digest better.";
+                          intervalId = setInterval(function () {
+                            textElement3.textContent += textToType.charAt(i);
+                            i++;
+                            if (i >= textToType.length) {
+                              i = 0
+                              clearInterval(intervalId);
+                              document.getElementById('loading3-next').style.display = 'block';
+                            }
+                          }, typingSpeed);
+                        }
+                      }, typingSpeed);
+                    }
+                  }, typingSpeed);
+                }
+              }, typingSpeed);
             }
 
           }, 50);

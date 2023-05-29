@@ -15,23 +15,7 @@
     "nodes": [
         {
             "name": "stg2_C_GEO",
-            "children": [
-                1
-            ],
-            "translation": [
-                -9.4805908203125,
-                907.5894775390624,
-                -6.5166015625
-            ]
-        },
-        {
-            "name": "stg2_C_GEO:PIV",
-            "mesh": 0,
-            "translation": [
-                9.4805908203125,
-                -907.5894775390624,
-                6.5166015625
-            ]
+            "mesh": 0
         }
     ],
     "meshes": [
@@ -174,16 +158,16 @@
     ],
     "images": [
         {
-            "uri": "stg2_prop1_colour.png"
+            "uri": "stg2_prop1_colour.jpg"
         },
         {
-            "uri": "stg2_crystals_colour.png"
+            "uri": "stg2_crystals_colour.jpg"
         },
         {
-            "uri": "stg2_land1_colour.png"
+            "uri": "stg2_land1_colour.jpg"
         },
         {
-            "uri": "stg2_nasilemak_color.png"
+            "uri": "stg2_nasilemak_color.jpg"
         }
     ],
     "samplers": [
@@ -511,7 +495,7 @@
             "count": 2610,
             "max": [
                 0.998543918132782,
-                0.9389668107032776,
+                0.9389668703079224,
                 0.9998785853385924,
                 1.0
             ],

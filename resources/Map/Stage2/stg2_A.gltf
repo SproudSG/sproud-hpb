@@ -174,16 +174,16 @@
     ],
     "images": [
         {
-            "uri": "stg2_prop1_colour.png"
+            "uri": "stg2_prop1_colour.jpg"
         },
         {
-            "uri": "stg2_land1_colour.png"
+            "uri": "stg2_land1_colour.jpg"
         },
         {
-            "uri": "stg2_crystals_colour.png"
+            "uri": "stg2_crystals_colour.jpg"
         },
         {
-            "uri": "stg2_nasilemak_color.png"
+            "uri": "stg2_nasilemak_color.jpg"
         }
     ],
     "samplers": [

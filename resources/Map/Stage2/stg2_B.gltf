@@ -15,23 +15,7 @@
     "nodes": [
         {
             "name": "stg2_B_GEO",
-            "children": [
-                1
-            ],
-            "translation": [
-                -9.4805908203125,
-                907.5894775390624,
-                -6.5166015625
-            ]
-        },
-        {
-            "name": "stg2_B_GEO:PIV",
-            "mesh": 0,
-            "translation": [
-                9.4805908203125,
-                -907.5894775390624,
-                6.5166015625
-            ]
+            "mesh": 0
         }
     ],
     "meshes": [
@@ -183,16 +167,16 @@
     ],
     "images": [
         {
-            "uri": "stg2_prop1_colour.png"
+            "uri": "stg2_prop1_colour.jpg"
         },
         {
-            "uri": "stg2_crystals_colour.png"
+            "uri": "stg2_crystals_colour.jpg"
         },
         {
-            "uri": "stg2_land1_colour.png"
+            "uri": "stg2_land1_colour.jpg"
         },
         {
-            "uri": "stg2_nasilemak_color.png"
+            "uri": "stg2_nasilemak_color.jpg"
         }
     ],
     "samplers": [

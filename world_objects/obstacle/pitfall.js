@@ -39,7 +39,6 @@ export const pitfall = (() => {
 
         UpdateCollider_() {
             this.collider.setFromObject(this.mesh);
-            console.log(this.collider)
         }
 
         Update() {
@@ -71,7 +70,7 @@ export const pitfall = (() => {
         }
 
 
-        SpawnObj_(timeElapsed) {
+        SpawnObj_() {
             var spawnPosition = []
             var spawnZ = [];
 

@@ -116,9 +116,7 @@ export const player = (() => {
       loader.load(
         model,
         (gltf) => {
-          console.log(gltf.scene.children[0].children[1])
           this.gltf = gltf
-
 
           this.mesh_ = gltf.scene.children[0]
 
@@ -322,7 +320,7 @@ export const player = (() => {
             this.keys_.left = true;
           } else if (event.keyCode === 39) {
             this.keys_.right = true;
-          } else if (event.keyCode === 32) {
+          } else if (event.keyCode === 32 || event.keyCode == 38) {
             this.keys_.space = true;
           } else if (event.keyCode === 40) {
             this.keys_.down = true;
@@ -333,7 +331,7 @@ export const player = (() => {
       });
 
       document.addEventListener('keyup', (event) => {
-        if (event.keyCode === 32) {
+        if (event.keyCode === 32 || event.keyCode == 38) {
           this.keys_.space = false;
         } else if (event.keyCode === 40) {
           this.keys_.down = false;
@@ -398,7 +396,7 @@ export const player = (() => {
 
 
           if (!this.immunitiy) {
-        
+
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
             this.playerHit = true;

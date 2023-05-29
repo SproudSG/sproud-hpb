@@ -27,13 +27,13 @@ export const progression = (() => {
 
                 if (this.progress_ >= 50) {
                     if (stage == 1) {
-                        document.dispatchEvent(new CustomEvent('score-over1'));
+                       document.dispatchEvent(new CustomEvent('score-over1'));
                     }
                 }
 
-                if (this.progress_ >= 6) {
+                if (this.progress_ >= 60) {
                     if (stage == 2) {
-                        //document.dispatchEvent(new CustomEvent('score-over2'));
+                        document.dispatchEvent(new CustomEvent('score-over2'));
                     }
                 }
 
