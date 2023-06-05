@@ -150,21 +150,14 @@ export const trolliumChloride = (() => {
           if (obj.position.z == 8) {
             obj.PlayRightAnimation_()
             setTimeout(() => {
-              if (!this.playedRight) {
                 this.soundSogias2.play();
-                this.playedRight = true;
-              }
             }, 700);
           } else if (obj.position.z == 16.5) {
             obj.position.y = -5
             obj.mesh.visible = true;
             obj.PlayLeftAnimation_()
             setTimeout(() => {
-              if (!this.playedLeft) {
                 this.soundSogias1.play();
-                this.playedLeft = true
-
-              }
             }, 700);
           }
         } else {
@@ -177,11 +170,6 @@ export const trolliumChloride = (() => {
         }
 
         if (obj.position.x < -7) {
-          if (obj.position.z == 16.5) {
-            this.playedRight = false
-          } else {
-            this.playedLeft = false
-          }
           obj.mesh.visible = false;
 
         } else {

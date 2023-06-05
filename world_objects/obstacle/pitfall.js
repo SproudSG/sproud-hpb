@@ -39,6 +39,8 @@ export const pitfall = (() => {
 
         UpdateCollider_() {
             this.collider.setFromObject(this.mesh);
+            this.collider.max.x = this.collider.max.x - 1;
+            this.collider.min.x = this.collider.min.x + 1.3;
         }
 
         Update() {

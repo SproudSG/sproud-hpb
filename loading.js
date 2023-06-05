@@ -37,3 +37,6 @@ image.src = "./resources/Rescued_Friend_UI/bust/Kid2_bust-min.png";
 image.src = "./resources/Rescued_Friend_UI/bust/Kid3_bust-min.png";
 image.src = "./resources/Rescued_Friend_UI/bust/Kid4_bust-min.png";
 image.src = "./resources/Rescued_Friend_UI/bust/Kid5_bust-min.png";
+
+
+

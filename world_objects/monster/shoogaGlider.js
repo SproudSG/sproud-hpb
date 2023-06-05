@@ -159,9 +159,7 @@ export const shoogaGlider = (() => {
           obj.position.z = -0.5
           obj.AttackAnimation()
           var soundPagato1 = document.getElementById("sound-pagato1");
-          soundPagato1.currentTime = 0.3
           var soundPagato2 = document.getElementById("sound-pagato2");
-          soundPagato2.currentTime = 0.3
 
           var randomNumber = Math.random();
 

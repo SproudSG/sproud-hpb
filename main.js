@@ -71,7 +71,11 @@ class BasicWorldDemo {
 
     //pause
     this.allowPause = false;
-    
+
+    // fps
+    this.targetFps = 60;
+    this.lastTime = 0;
+    this.frameDelay = 1000 / this.targetFps; // Delay for 60 FPS (16.6ms)
 
     //load assets & world variables 
     this.loaded = false;
@@ -88,6 +92,10 @@ class BasicWorldDemo {
     this.failedStage = false;
     //loading bars
     this.progressBarContainer = document.getElementById('loading-bar-container');
+
+
+
+
 
 
     //on load music 
@@ -492,6 +500,18 @@ class BasicWorldDemo {
   _OnStart() {
     this._gameStarted = true;
     this.stage1Music.play();
+  }
+
+  //check IOS
+  isMobileIOS() {
+    const userAgent = navigator.userAgent;
+    const isMobile = /android|iPad|iPhone|iPod|Windows Phone|iemobile|mobile/i.test(userAgent);
+
+    return isMobile;
+  }
+
+  isIpadOS() {
+    return navigator.userAgent.match(/Mac/) && navigator.maxTouchPoints && navigator.maxTouchPoints > 2
   }
 
 
@@ -1533,6 +1553,52 @@ class BasicWorldDemo {
       muteButton.style.display = 'none'
     });
 
+
+    //pop up
+    window.addEventListener("orientationchange", () => {
+      if (this.isMobileIOS() || this.isIpadOS()) {
+        var popup = document.getElementById("popup");
+        if (window.innerWidth < window.innerHeight) {
+          // Portrait mode
+          popup.style.display = "block";
+          if (!this.stopTime) {
+            if (this.allowPause) {
+              if (!this.isPaused) {
+                startPause()
+              }
+            }
+          }
+        } else {
+          // Landscape mode
+          popup.style.display = "none";
+
+        }
+
+      }
+    });
+
+    window.addEventListener("resize", () => {
+
+      var popup = document.getElementById("popup");
+      if (window.innerWidth < window.innerHeight) {
+        // Portrait mode
+        popup.style.display = "block";
+        if (!this.stopTime) {
+          if (this.allowPause) {
+            if (!this.isPaused) {
+              startPause()
+            }
+          }
+        }
+      } else {
+        // Landscape mode
+        popup.style.display = "none";
+
+      }
+
+    });
+
+
     //pause the game
     const startPause = () => {
       this.objSpeed = 0
@@ -1827,7 +1893,7 @@ class BasicWorldDemo {
     document.addEventListener('keydown', () => {
       if (this.allowStart) {
 
-        if(this.stopTime == false){
+        if (this.stopTime == false) {
           this.player_.soundRunning.play();
           this.player_.soundRunning.volume = 0.5;
           var soundAgentBgm = document.getElementById("sound-agentBgm");
@@ -2001,27 +2067,34 @@ class BasicWorldDemo {
 
   //start the animation 
   RAF_() {
-    requestAnimationFrame(() => {
-      // if (!this.stopTime) {
-      //   console.log(t - this.previousRAF_)
 
-      //   if (this.previousRAF_ === null) {
-      //     this.previousRAF_ = t;
-      //   }
-      //   if ((t - this.previousRAF_ > 200)) {
-      //     this.previousRAF_ = t
-      //   }
-      //   this.RAF_();
-      //   this.Step_((t - this.previousRAF_) / 1000.0, this.isPaused);
-      //   this.threejs_.render(this.scene_, this.camera_);
-      //   this.previousRAF_ = t;
-      // }
-
+    let time;
+    requestAnimationFrame((t) => {
       if (!this.stopTime) {
+        console.log(t - this.previousRAF_)
+
+        if (this.previousRAF_ === null) {
+          this.previousRAF_ = t;
+        }
+        if ((t - this.previousRAF_ > 200)) {
+          this.previousRAF_ = t
+        }
+
+        time = t - this.previousRAF_
+        console.log(time/16.6 * time)
+
         this.RAF_();
-        this.Step_(16.6 / 1000.0, this.isPaused);
+
+        this.Step_((time/16.6 * time) / 1000.0, this.isPaused);
         this.threejs_.render(this.scene_, this.camera_);
+        this.previousRAF_ = t;
       }
+
+      // if (!this.stopTime) {
+      //   this.RAF_();
+      //   this.Step_(16.6 / 1000.0, this.isPaused);
+      //   this.threejs_.render(this.scene_, this.camera_);
+      // }
     });
   }
 
@@ -2827,11 +2900,8 @@ class BasicWorldDemo {
       //check if player collides with the pit
       this.player_.getPitCollide(result => {
         if (result) {
-          setTimeout(() => {
-            this.Pause()
-            this.player_.position_.y = this.player_.position_.y - timeElapsed * 2
-          }, 200);
-
+          this.Pause()
+          this.player_.position_.y = this.player_.position_.y - timeElapsed * 3
         }
       });
 
