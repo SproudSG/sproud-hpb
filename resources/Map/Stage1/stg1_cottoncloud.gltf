@@ -1,0 +1,449 @@
+{
+    "asset": {
+        "copyright": "(C)2023 post",
+        "generator": "maya2glTF v1.4.0 3d7ba8eaf03e",
+        "version": "2.0"
+    },
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "scene": 0,
+    "nodes": [
+        {
+            "name": "cotton_candy_GRP",
+            "children": [
+                1
+            ],
+            "translation": [
+                0.00003051800013054162,
+                -0.000061034999816911298,
+                0.0
+            ]
+        },
+        {
+            "name": "cotton_candy_GRP:PIV",
+            "children": [
+                4,
+                3,
+                2
+            ],
+            "translation": [
+                -0.00003051800013054162,
+                0.000061034999816911298,
+                0.0
+            ]
+        },
+        {
+            "name": "cottoncloud_GEO3",
+            "mesh": 0
+        },
+        {
+            "name": "cottoncloud_GEO2",
+            "mesh": 1
+        },
+        {
+            "name": "cottoncloud_GEO1",
+            "mesh": 2
+        }
+    ],
+    "meshes": [
+        {
+            "name": "cottoncloud_GEO3Shape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 1,
+                        "POSITION": 2,
+                        "TANGENT": 3,
+                        "TEXCOORD_0": 4
+                    },
+                    "indices": 0,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "cottoncloud_GEO2Shape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 6,
+                        "POSITION": 7,
+                        "TANGENT": 8,
+                        "TEXCOORD_0": 9
+                    },
+                    "indices": 5,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "cottoncloud_GEO1Shape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 11,
+                        "POSITION": 12,
+                        "TANGENT": 13,
+                        "TEXCOORD_0": 14
+                    },
+                    "indices": 10,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "name": "stg1_cloud_MAT",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        }
+    ],
+    "textures": [
+        {
+            "sampler": 0,
+            "source": 0
+        }
+    ],
+    "images": [
+        {
+            "uri": "stg1_cloud_colour.jpg"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    ],
+    "accessors": [
+        {
+            "name": "cottoncloud_GEO3Shape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 1650,
+            "max": [
+                333
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "cottoncloud_GEO3Shape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 334,
+            "max": [
+                1.0,
+                0.9957396388053894,
+                0.9886296987533568
+            ],
+            "min": [
+                -0.930740237236023,
+                -0.9954216480255128,
+                -0.981389045715332
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "cottoncloud_GEO3Shape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 4008,
+            "componentType": 5126,
+            "count": 334,
+            "max": [
+                906.104736328125,
+                427.2664794921875,
+                467.558837890625
+            ],
+            "min": [
+                -906.1046752929688,
+                -427.2666015625,
+                -467.558837890625
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "cottoncloud_GEO3Shape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 334,
+            "max": [
+                0.918895661830902,
+                0.9985309839248656,
+                0.999691903591156,
+                1.0
+            ],
+            "min": [
+                -0.9777768850326538,
+                -0.9976511597633362,
+                -0.9999408721923828,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "cottoncloud_GEO3Shape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 334,
+            "max": [
+                0.8963647484779358,
+                0.990636110305786
+            ],
+            "min": [
+                0.007122776936739683,
+                0.016403019428253179
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "cottoncloud_GEO2Shape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 3300,
+            "componentType": 5123,
+            "count": 1560,
+            "max": [
+                283
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "cottoncloud_GEO2Shape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 8016,
+            "componentType": 5126,
+            "count": 284,
+            "max": [
+                1.0,
+                0.990885317325592,
+                0.98108571767807
+            ],
+            "min": [
+                -0.9782723784446716,
+                -0.9843454957008362,
+                -0.9969284534454346
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "cottoncloud_GEO2Shape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 11424,
+            "componentType": 5126,
+            "count": 284,
+            "max": [
+                767.929443359375,
+                368.100830078125,
+                354.1885681152344
+            ],
+            "min": [
+                -767.92919921875,
+                -368.1007080078125,
+                -354.1885681152344
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "cottoncloud_GEO2Shape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 5344,
+            "componentType": 5126,
+            "count": 284,
+            "max": [
+                0.9767072200775148,
+                0.9934740662574768,
+                0.999999225139618,
+                1.0
+            ],
+            "min": [
+                -0.9622957706451416,
+                -0.999958336353302,
+                -0.9763753414154052,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "cottoncloud_GEO2Shape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 2672,
+            "componentType": 5126,
+            "count": 284,
+            "max": [
+                0.9723268747329712,
+                0.481448233127594
+            ],
+            "min": [
+                0.09644050896167757,
+                0.0015206929529085756
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "cottoncloud_GEO1Shape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 6420,
+            "componentType": 5123,
+            "count": 2550,
+            "max": [
+                476
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "cottoncloud_GEO1Shape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 14832,
+            "componentType": 5126,
+            "count": 477,
+            "max": [
+                0.943669855594635,
+                0.9963785409927368,
+                0.993008315563202
+            ],
+            "min": [
+                -0.9529590010643004,
+                -0.9983898997306824,
+                -0.9927965402603148
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "cottoncloud_GEO1Shape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 20556,
+            "componentType": 5126,
+            "count": 477,
+            "max": [
+                870.38232421875,
+                380.236328125,
+                400.73046875
+            ],
+            "min": [
+                -870.38232421875,
+                -380.23681640625,
+                -400.73046875
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "cottoncloud_GEO1Shape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 9888,
+            "componentType": 5126,
+            "count": 477,
+            "max": [
+                0.9773458242416382,
+                0.9991409182548524,
+                0.9982741475105286,
+                1.0
+            ],
+            "min": [
+                -0.9916775226593018,
+                -0.999665915966034,
+                -0.9875197410583496,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "cottoncloud_GEO1Shape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 4944,
+            "componentType": 5126,
+            "count": 477,
+            "max": [
+                0.9723268747329712,
+                0.990636110305786
+            ],
+            "min": [
+                0.007662031799554825,
+                0.0015206929529085756
+            ],
+            "type": "VEC2"
+        }
+    ],
+    "bufferViews": [
+        {
+            "name": "stg1_cottoncloud/data/indices-2",
+            "buffer": 0,
+            "byteOffset": 52560,
+            "byteLength": 11520,
+            "target": 34963
+        },
+        {
+            "name": "stg1_cottoncloud/data/vertices-12",
+            "buffer": 0,
+            "byteOffset": 17520,
+            "byteLength": 26280,
+            "byteStride": 12,
+            "target": 34962
+        },
+        {
+            "name": "stg1_cottoncloud/data/vertices-16",
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 17520,
+            "byteStride": 16,
+            "target": 34962
+        },
+        {
+            "name": "stg1_cottoncloud/data/vertices-8",
+            "buffer": 0,
+            "byteOffset": 43800,
+            "byteLength": 8760,
+            "byteStride": 8,
+            "target": 34962
+        }
+    ],
+    "buffers": [
+        {
+            "name": "stg1_cottoncloud/data",
+            "byteLength": 64080,
+            "uri": "stg1_cottoncloud0.bin"
+        }
+    ]
+}

@@ -46,11 +46,20 @@
         <div id="stamina-border">
           <img src="./resources/HUD/Water_Level.gif" id="stamina">
         </div>
+
+        <div id="sheildHUD-container" style="display: none;">
+          <img src="./resources/Shield/Shield_base.png" class="sheildHUD">
+          <img src="./resources/Shield/Blue.png" id="sheildHUD-blue">
+          <img src="./resources/Shield/Yellow.png" id="sheildHUD-yellow">
+          <img src="./resources/Shield/Green.png" id="sheildHUD-green">
+
+        </div>
+        <div class="wrapper" style="display: none;" id="shieldTimer">
+          <div class="full" id="fullShield"></div>
+        </div>
       </div>
 
-      <div class="wrapper" style="display: none;" id="shieldTimer">
-        <div class="full" id="fullShield"></div>
-      </div>
+
 
       <div id="shieldContainer" style="display: none;">
         <img src="./resources/Shield/Shield_UI.png" class="shieldUI">
@@ -70,18 +79,17 @@
       </div>
 
       <div id="rescuedContainer" style="display: none;">
-        <img src="./resources/Rescued_Friend_UI/Rescued_Friend_back.png" class="rescueUI">
-        <img src="./resources/Rescued_Friend_UI/text.png" class="rescueText">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue1">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue2">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue3">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue4">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue5">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue6">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue7">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue8">
-        <img src="./resources/Rescued_Friend_UI/Not_Saved.png" id="rescue9">
-
+        <img src="./resources/Rescued_Friend_UI/Background.png" class="rescueUI">
+        <img src="./resources/Rescued_Friend_UI/Friend1_notsaved.png" id="rescue1">
+        <img src="./resources/Rescued_Friend_UI/Friend2_notsaved.png" id="rescue2">
+        <img src="./resources/Rescued_Friend_UI/Friend3_notsaved.png" id="rescue3">
+        <img src="./resources/Rescued_Friend_UI/Friend4_notsaved.png" id="rescue4">
+        <img src="./resources/Rescued_Friend_UI/Friend5_notsaved.png" id="rescue5">
+        <img src="./resources/Rescued_Friend_UI/bust/Kid1_bust-min.png" id="rescuebust1" style="display: none;">
+        <img src="./resources/Rescued_Friend_UI/bust/Kid2_bust-min.png" id="rescuebust2" style="display: none;">
+        <img src="./resources/Rescued_Friend_UI/bust/Kid3_bust-min.png" id="rescuebust3" style="display: none;">
+        <img src="./resources/Rescued_Friend_UI/bust/Kid4_bust-min.png" id="rescuebust4" style="display: none;">
+        <img src="./resources/Rescued_Friend_UI/bust/Kid5_bust-min.png" id="rescuebust5" style="display: none;">
 
       </div>
     </div>
@@ -148,10 +156,10 @@
     <!-- main page -->
     <div class="ui">
 
-      <audio id="splash-screen-music" autoplay src="./resources/Audio/00 Splash Screen Music.mp3"></audio>
-      <audio id="stage1-music" src="./resources/Audio/01 Stage 1 Music.mp3"></audio>
-      <audio id="stage2-music" src="./resources/Audio/02 Stage 2 Music.mp3"></audio>
-      <audio id="stage3-music" src="./resources/Audio/03 Stage 3 Music.mp3"></audio>
+      <audio id="splash-screen-music" autoplay src="./resources/Audio/00 Splash Screen Music.mp3" loop></audio>
+      <audio id="stage1-music" src="./resources/Audio/01 Stage 1 Music.mp3" loop></audio>
+      <audio id="stage2-music" src="./resources/Audio/02 Stage 2 Music.mp3" loop></audio>
+      <audio id="stage3-music" src="./resources/Audio/03 Stage 3 Music.mp3" loop></audio>
 
       <div class="game-menu-layout" id="game-menu">
 
@@ -203,7 +211,7 @@
         style="display: none;"></img>
     </div>
     <div class="select-player-button">
-      <img src="./resources/Buttons/Confirm_Button.png" class="unselected" id="select-gender"></img>
+      <img src="./resources/Buttons/Confirm_Button.png" style="display: none;" id="select-gender"></img>
 
     </div>
   </div>
@@ -219,8 +227,6 @@
     <video playsinline preload="auto" id="nextStage3" src="./resources/videos/HPB_Vid_003.mp4"
       style="display: none;"></video>
     <video playsinline preload="auto" id="nextStage4" src="./resources/videos/HPB_Vid_004.mp4"
-      style="display: none;"></video>
-    <video playsinline preload="auto" id="nextStage5" src="./resources/videos/HPB_Vid_004.mp4"
       style="display: none;"></video>
 
     <div class="ui" id="pauseDiv" style="display: none;">
@@ -268,7 +274,7 @@
 
       <div id="stage1-intro1">
         <div class="loading-screen-title" id="loading-1-title">
-          MISSION BRIEFS
+          MISSION Brief
         </div>
         <p id="stage1-intro1-text1" class="loading-screen-text"></p>
         <p id="stage1-intro1-text2" class="loading-screen-text"></p>
@@ -278,7 +284,7 @@
       </div>
       <div id="stage1-intro2" style="display: none;">
         <div class="loading-screen-title" id="loading-1-title">
-          MISSION BRIEFS
+          MISSION Brief
         </div>
         <p id="stage1-intro2-text1" class="loading-screen-text"></p>
         <p id="stage1-intro2-text2" class="loading-screen-text"></p>
@@ -300,7 +306,7 @@
 
       <div id="stage1-intro3" style="display: none;">
         <div class="loading-screen-title" id="loading-1-title">
-          MISSION BRIEFS
+          MISSION Brief
         </div>
         <p id="stage1-intro3-text1" class="loading-screen-text"></p>
         <p id="stage1-intro3-text2" class="loading-screen-text"></p>
@@ -438,6 +444,11 @@
 
 
         <img src="./resources/Loading_Screen_Assets/Correct_Crate.png" class="loading-crate">
+        <img src="./resources/Rescued_Friend_UI/Friend1.png" class="friend-loading-1">
+        <img src="./resources/Rescued_Friend_UI/Friend2_notsaved.png" class="friend-loading-2">
+        <img src="./resources/Rescued_Friend_UI/Friend3_notsaved.png" class="friend-loading-3">
+        <img src="./resources/Rescued_Friend_UI/Friend4_notsaved.png" class="friend-loading-4">
+        <img src="./resources/Rescued_Friend_UI/Friend5_notsaved.png" class="friend-loading-5">
 
       </div>
 
@@ -446,7 +457,6 @@
       </div>
 
       <img src="./resources/Loading_Screen_Info/Loading_Text.png" class="loading-text" id="loading-text-stage-3">
-
     </div>
 
 
@@ -454,7 +464,58 @@
 
   </div>
 
-  <!-- <audio id="bailey-woo" src="./resources/SFX/bailey/Cartoon Girl Woo.mp3"></audio> -->
+  <!-- AUDIO -->
+  <!-- button clicks -->
+  <audio id="sound-click" src="./resources/Audio/01. Button Clicks/Next 01.wav"></audio>
+  <audio id="sound-selection" src="./resources/Audio/01. Button Clicks/Selection 01.wav"></audio>
+  <!-- collecting items -->
+  <audio id="sound-wrongitem" src="./resources/Audio/04. Collecting Items/Collect Wrong 01.wav"></audio>
+  <audio id="sound-correctitem" src="./resources/Audio/04. Collecting Items/Collect Correct 01.wav"></audio>
+  <audio id="sound-drink1" src="./resources/Audio/04. Collecting Items/Drinking/Gulp 01.wav"></audio>
+  <audio id="sound-drink2" src="./resources/Audio/04. Collecting Items/Drinking/Gulp 02.wav"></audio>
+  <audio id="sound-eat1" src="./resources/Audio/04. Collecting Items/Eating/Munch 01.wav"></audio>
+  <audio id="sound-eat2" src="./resources/Audio/04. Collecting Items/Eating/Munch 02.wav"></audio>
+  <!-- character -->
+  <audio id="sound-hit" src="./resources/Audio/05. Character Sounds/Getting Hit/Heartbeat Loop Fast.wav"></audio>
+  <audio id="sound-hit-pagato1" src="./resources/Audio/05. Character Sounds/Getting Hit/Pagoto Hit 01.wav"></audio>
+  <audio id="sound-hit-pagato2" src="./resources/Audio/05. Character Sounds/Getting Hit/Pagoto Hit 02.wav"></audio>
+  <audio id="sound-hit-sogias1" src="./resources/Audio/05. Character Sounds/Getting Hit/Sogias Hit 01.wav"></audio>
+  <audio id="sound-hit-sogias2" src="./resources/Audio/05. Character Sounds/Getting Hit/Sogias Hit 02.wav"></audio>
+  <audio id="sound-jump1" src="./resources/Audio/05. Character Sounds/Jump/Jump 01.wav"></audio>
+  <audio id="sound-jump2" src="./resources/Audio/05. Character Sounds/Jump/Jump 02.wav"></audio>
+  <audio id="sound-jump3" src="./resources/Audio/05. Character Sounds/Jump/Jump 03.wav"></audio>
+  <audio id="sound-jumpland" src="./resources/Audio/05. Character Sounds/Jump/Landing only.wav"></audio>
+  <audio id="sound-running" src="./resources/Audio/05. Character Sounds/Running/Footsteps 01.wav" loop></audio>
+  <audio id="sound-dash" src="./resources/Audio/05. Character Sounds/Running/Left Right 01.wav"></audio>
+  <audio id="sound-slide1" src="./resources/Audio/05. Character Sounds/Slide/Slide 01.wav"></audio>
+  <audio id="sound-slide2" src="./resources/Audio/05. Character Sounds/Slide/Slide 02.wav"></audio>
+  <audio id="sound-slide3" src="./resources/Audio/05. Character Sounds/Slide/Slide 03.wav"></audio>
+  <!-- monsters -->
+  <audio id="sound-beefteki1" src="./resources/Audio/06. Beefteki/Beefteki Growl 01.wav"></audio>
+  <audio id="sound-beefteki2" src="./resources/Audio/06. Beefteki/Beefteki Growl 02.wav"></audio>
+  <audio id="sound-beefteki3" src="./resources/Audio/06. Beefteki/Beefteki Growl 03.wav"></audio>
+  <audio id="sound-beeftekiIntro1" src="./resources/Audio/06. Beefteki/Beefteki Intro Stage 01.wav"></audio>
+  <audio id="sound-beeftekiIntro2" src="./resources/Audio/06. Beefteki/Beefteki Intro Stage 02.wav"></audio>
+  <audio id="sound-sogias1" src="./resources/Audio/07. Sogias/Sogias Swing 02.wav"></audio>
+  <audio id="sound-sogias2" src="./resources/Audio/07. Sogias/Sogias Swing 02.wav"></audio>
+  <audio id="sound-pagato1" src="./resources/Audio/08. Pagoto/Pagoto Screech 01.wav"></audio>
+  <audio id="sound-pagato2" src="./resources/Audio/08. Pagoto/Pagoto Screech 02.wav"></audio>
+  <!-- shield -->
+  <audio id="sound-shield" src="./resources/Audio/09. Shield/Shield Obtained 01.wav"></audio>
+  <!-- fall -->
+  <audio id="sound-fall" src="./resources/Audio/10. Fail/Fail Fall 01.wav"></audio>
+  <!-- agent -->
+  <audio id="sound-agent1" src="./resources/Audio/11. Agent sofia/Agent sofia_stage1_slide1_v2.mp3"></audio>
+  <audio id="sound-agent2" src="./resources/Audio/11. Agent sofia/Agent sofia_stage1_slide2_v2.mp3"></audio>
+  <audio id="sound-agent3" src="./resources/Audio/11. Agent sofia/Agent sofia_stage1_slide3_v2.mp3"></audio>
+  <audio id="sound-agent4" src="./resources/Audio/11. Agent sofia/Agent sofia_stage2_slide1_v2.mp3"></audio>
+  <audio id="sound-agent5" src="./resources/Audio/11. Agent sofia/Agent sofia_stage2_slide2_v2.mp3"></audio>
+  <audio id="sound-agent6" src="./resources/Audio/11. Agent sofia/Agent sofia_stage2_slide3_v2.mp3"></audio>
+  <audio id="sound-agent7" src="./resources/Audio/11. Agent sofia/Agent sofia_stage3_slide1_v2.mp3"></audio>
+  <audio id="sound-agent8" src="./resources/Audio/11. Agent sofia/Agent sofia_stage3_slide2_v2.mp3"></audio>
+  <audio id="sound-agent9" src="./resources/Audio/11. Agent sofia/Agent sofia_stage3_slide3_v2.mp3"></audio>
+  <audio id="sound-agentBgm" src="./resources/Audio/11. Agent sofia/Agent sofia_bgm.mp3" loop></audio>
+
 </body>
 
 </html>

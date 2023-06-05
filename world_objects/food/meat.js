@@ -30,9 +30,33 @@ export const meat = (() => {
 
       const loader = new GLTFLoader();
       loader.setPath('./resources/Food/');
-
+            const textureLoader = new THREE.TextureLoader();
+      textureLoader.setPath('./resources/Food/');
+      const texture = textureLoader.load('foods_colour.png', () => {
+        texture.encoding = THREE.LinearEncoding; // Set the texture encoding if needed
+        texture.flipY = false; // Adjust the texture's Y-axis orientation if needed
+        texture.minFilter = THREE.LinearFilter; // Set the texture's minification filter if needed
+        texture.magFilter = THREE.LinearFilter; // Set the texture's magnification filter if needed
+        texture.channel = 0; // Set the desired texture channel (in this case, channel 0)
+      });
       loader.load('foods.gltf', (gltf) => {
         this.mesh = gltf.scene.children[0].children[1];
+        this.mesh.traverse(function (node) {
+          if (node.isMesh) {
+            // Swap shader to basic material
+            const material = new THREE.MeshBasicMaterial({ map: texture, alphaTest: 0.5 });
+
+            // Decrease the brightness of the material
+            const brightnessFactor = 0.6; // Value between 0 and 1 (0 = completely dark, 1 = original brightness)
+            material.color.multiplyScalar(brightnessFactor);
+
+            // Make sure to update the material to reflect the changes
+            material.needsUpdate = true;
+
+            node.material = material;
+
+          }
+        });
         this.params_.scene.add(this.mesh);
 
 
@@ -81,10 +105,10 @@ export const meat = (() => {
       } else if (this.params_.stage == 3) {
         spawnPosition = [
           70, 100, 205, 310,
-         430, 460, 490, 580,
-         610, 655, 715, 820,
-         895
-       ]
+          430, 460, 490, 580,
+          610, 655, 715, 820,
+          895
+        ]
       }
       let obj = null;
 

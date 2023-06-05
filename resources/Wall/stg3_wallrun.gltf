@@ -207,7 +207,7 @@
     ],
     "images": [
         {
-            "uri": "MHP_wallrun_GEO_v002_initialShadingGroup_BaseColor.png"
+            "uri": "MHP_wallrun_GEO_v002_initialShadingGroup_BaseColor.jpg"
         }
     ],
     "samplers": [
@@ -500,7 +500,7 @@
             "max": [
                 0.9983030557632446,
                 0.9994199872016908,
-                0.988046646118164
+                0.9880465865135192
             ],
             "min": [
                 -0.9997775554656982,

@@ -23,7 +23,10 @@ export const player = (() => {
       this.slideTimer_ = 0;
       this.playerBox_ = new THREE.Box3();
       this.playerHit = false;
-
+      this.soundDash = document.getElementById("sound-dash");
+      this.soundRunning = document.getElementById("sound-running");
+      this.soundRunning.volume = 0.5
+      this.soundShield = document.getElementById("sound-shield");
 
       //monster variables
       this.shoogaGliderID = null;
@@ -372,6 +375,24 @@ export const player = (() => {
         if (!this.processedshoogaGliderIDs.includes(this.shoogaGliderID) && cur.intersectsBox(this.playerBox_) && !this.sliding_) {
           this.processedshoogaGliderIDs.push(this.shoogaGliderID);
           if (!this.immunitiy) {
+            var soundHit = document.getElementById("sound-hit");
+            soundHit.play();
+
+
+            var soundSogias1 = document.getElementById("sound-hit-pagato1");
+            var soundSogias2 = document.getElementById("sound-hit-pagato2");
+
+            // Generate a random number between 0 and 1
+            var randomNumber = Math.random();
+
+            // Choose which sound to play based on the random number
+            if (randomNumber < 0.5) {
+              soundSogias1.play(); // Play soundEat1
+            } else {
+              soundSogias2.play(); // Play soundEat2
+            }
+
+
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
             this.playerHit = true;
@@ -401,6 +422,22 @@ export const player = (() => {
 
 
           if (!this.immunitiy) {
+            var soundHit = document.getElementById("sound-hit");
+            soundHit.play();
+
+            var soundSogias1 = document.getElementById("sound-hit-sogias1");
+            var soundSogias2 = document.getElementById("sound-hit-sogias2");
+
+            // Generate a random number between 0 and 1
+            var randomNumber = Math.random();
+
+            // Choose which sound to play based on the random number
+            if (randomNumber < 0.5) {
+              soundSogias1.play(); // Play soundEat1
+            } else {
+              soundSogias2.play(); // Play soundEat2
+            }
+
 
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
@@ -431,6 +468,10 @@ export const player = (() => {
             this.processedPitfallIDs.push(this.pitfallID);
 
             if (!this.immunitiy) {
+              this.soundRunning.volume = 0
+
+              var soundFall = document.getElementById("sound-fall");
+              soundFall.play();
               this.FallAnimation_()
               this.inAir_ = false;
               this.pitCollide = true;
@@ -450,7 +491,26 @@ export const player = (() => {
           if (!this.processedWaterIDs.includes(this.waterID) && cur.intersectsBox(this.playerBox_)) {
 
 
+            var soundRightChoice = document.getElementById("sound-correctitem");
+            soundRightChoice.play();
+
             this.processedWaterIDs.push(this.waterID);
+
+            var soundDrink1 = document.getElementById("sound-drink1");
+            var soundDrink2 = document.getElementById("sound-drink2");
+            var randomNumber = Math.random();
+
+
+            for (var i = 0; i < this.processedWaterIDs.length; i++) {
+              if ((this.processedWaterIDs.length) % 3 === 0) {
+                if (randomNumber < 0.5) {
+                  soundDrink1.play();
+                } else {
+                  soundDrink2.play();
+                }
+              }
+            }
+
             var newStamina = this.stamina_ + 15;
             newStamina = Math.min(newStamina, 100)
             this.stamina_ = newStamina;
@@ -474,6 +534,8 @@ export const player = (() => {
               this.drink = ""
               this.processedSodaIDs.push(this.sodaID);
             } else {
+              var soundWrongChoice = document.getElementById("sound-wrongitem");
+              soundWrongChoice.play();
               this.processedSodaIDs.push(this.sodaID);
               var newStamina = this.stamina_ + 20;
               newStamina = Math.min(newStamina, 100)
@@ -517,6 +579,9 @@ export const player = (() => {
               this.params_.fruitDrink.ToggleVisible();
               this.params_.fruitDrinkGrade.ToggleVisible();
 
+              var soundWrongChoice = document.getElementById("sound-wrongitem");
+              soundWrongChoice.play();
+
               this.sugarDrinks++
               // setTimeout(() => {
               //   this.drink = ""
@@ -548,6 +613,8 @@ export const player = (() => {
             if (this.box === "powerdown") {
               this.processedbox1IDs.push(this.box1ID);
             } else {
+              var soundRightChoice = document.getElementById("sound-correctitem");
+              soundRightChoice.play();
               this.processedbox1IDs.push(this.box1ID);
               this.box = "powerup"
               this.friendsSaved++
@@ -574,6 +641,8 @@ export const player = (() => {
             if (this.box === "powerup" || this.box === "powerdown") {
               this.processedbox2IDs.push(this.box2ID);
             } else {
+              var soundWrongChoice = document.getElementById("sound-wrongitem");
+              soundWrongChoice.play();
               this.processedbox2IDs.push(this.box2ID);
               this.box = "powerdown"
               this.params_.box2.ToggleVisible();
@@ -600,6 +669,8 @@ export const player = (() => {
             if (this.box === "powerup" || this.box === "powerdown") {
               this.processedbox3IDs.push(this.box3ID);
             } else {
+              var soundWrongChoice = document.getElementById("sound-wrongitem");
+              soundWrongChoice.play();
               this.processedbox3IDs.push(this.box3ID);
               this.box = "powerdown"
               this.params_.box3.ToggleVisible();
@@ -625,35 +696,40 @@ export const player = (() => {
 
             if (this.food === "ate") {
               this.processedMeatIDs.push(this.meatID);
-            } else {
+            } else if (!this.immunitiy) {
               this.processedMeatIDs.push(this.meatID);
               this.food = "ate"
               this.meatProp = this.meatProp + 1
 
-              if (!this.immunitiy) {
 
-                if (this.meatProp >= 1) {
-                  this.mesh_.traverse((object) => {
+              if (this.meatProp >= 1) {
+                document.getElementById("sheildHUD-blue").style.zIndex = "1"
+                this.mesh_.traverse((object) => {
+                  if (object.name === 'quarter_meat_GEO') {
+                    object.visible = true;
+                  }
+                });
+                this.params_.scene.add(this.mesh_);
+              } else {
+                document.getElementById("sheildHUD-blue").style.zIndex = "-1"
+                this.mesh_.traverse((object) => {
+                  if (object.name === 'quarter_meat_GEO') {
+                    object.visible = false;
+                  }
+                });
+                this.params_.scene.add(this.mesh_);
+              }
+              var soundEat1 = document.getElementById("sound-eat1");
+              var soundEat2 = document.getElementById("sound-eat2");
 
-                    if (object.name === 'quarter_meat_GEO') {
-                      object.visible = true;
+              // Generate a random number between 0 and 1
+              var randomNumber = Math.random();
 
-                    }
-                  });
-
-                  this.params_.scene.add(this.mesh_);
-
-                } else {
-                  this.mesh_.traverse((object) => {
-
-                    if (object.name === 'quarter_meat_GEO') {
-                      object.visible = false;
-
-                    }
-                  });
-                  this.params_.scene.add(this.mesh_);
-
-                }
+              // Choose which sound to play based on the random number
+              if (randomNumber < 0.5) {
+                soundEat1.play(); // Play soundEat1
+              } else {
+                soundEat2.play(); // Play soundEat2
               }
 
               this.AddFood('meat')
@@ -681,35 +757,41 @@ export const player = (() => {
 
               if (this.food === "ate") {
                 this.processedVegeIDs.push(this.vegeID);
-              } else {
+              } else if (!this.immunitiy) {
                 this.processedVegeIDs.push(this.vegeID);
                 this.food = "ate"
                 this.vegeProp = this.vegeProp + 1
 
-                if (!this.immunitiy) {
 
-                  if (this.vegeProp == 2) {
-                    this.mesh_.traverse((object) => {
-
-                      if (object.name === 'half_vegetable_GEO') {
-                        object.visible = true;
-
-                      }
-                    });
+                if (this.vegeProp == 2) {
+                  document.getElementById("sheildHUD-green").style.zIndex = "1"
+                  this.mesh_.traverse((object) => {
+                    if (object.name === 'half_vegetable_GEO') {
+                      object.visible = true;
+                    }
+                  });
 
 
-                    this.params_.scene.add(this.mesh_);
-                  } else {
-                    this.mesh_.traverse((object) => {
+                  this.params_.scene.add(this.mesh_);
+                } else {
+                  document.getElementById("sheildHUD-green").style.zIndex = "-1"
+                  this.mesh_.traverse((object) => {
+                    if (object.name === 'half_vegetable_GEO') {
+                      object.visible = false;
+                    }
+                  });
 
-                      if (object.name === 'half_vegetable_GEO') {
-                        object.visible = false;
+                  this.params_.scene.add(this.mesh_);
+                }
+                var soundEat1 = document.getElementById("sound-eat1");
+                var soundEat2 = document.getElementById("sound-eat2");
 
-                      }
-                    });
+                var randomNumber = Math.random();
 
-                    this.params_.scene.add(this.mesh_);
-                  }
+                if (randomNumber < 0.5) {
+                  soundEat1.play(); // Play soundEat1
+                } else {
+                  soundEat2.play(); // Play soundEat2
                 }
 
                 this.AddFood('vege')
@@ -737,36 +819,47 @@ export const player = (() => {
 
               if (this.food === "ate") {
                 this.processedCarbsIDs.push(this.carbsID);
-              } else {
+              } else if (!this.immunitiy) {
 
                 this.processedCarbsIDs.push(this.carbsID);
                 this.food = "ate"
                 this.carbProp = this.carbProp + 1
-                if (!this.immunitiy) {
-                  if (this.carbProp >= 1) {
-                    this.mesh_.traverse((object) => {
+                if (this.carbProp >= 1) {
+                  document.getElementById("sheildHUD-yellow").style.zIndex = "1"
 
-                      if (object.name === 'quarter_rice_GEO') {
-                        object.visible = true;
+                  this.mesh_.traverse((object) => {
 
-                      }
-                    });
+                    if (object.name === 'quarter_rice_GEO') {
+                      object.visible = true;
 
-                    this.params_.scene.add(this.mesh_);
+                    }
+                  });
 
-                  } else {
-                    this.mesh_.traverse((object) => {
+                  this.params_.scene.add(this.mesh_);
 
-                      if (object.name === 'quarter_rice_GEO') {
-                        object.visible = false;
+                } else {
+                  document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
 
-                      }
-                    });
-                    this.params_.scene.add(this.mesh_);
+                  this.mesh_.traverse((object) => {
 
-                  }
+                    if (object.name === 'quarter_rice_GEO') {
+                      object.visible = false;
+
+                    }
+                  });
+                  this.params_.scene.add(this.mesh_);
+
                 }
+                var soundEat1 = document.getElementById("sound-eat1");
+                var soundEat2 = document.getElementById("sound-eat2");
 
+                var randomNumber = Math.random();
+
+                if (randomNumber < 0.5) {
+                  soundEat1.play(); // Play soundEat1
+                } else {
+                  soundEat2.play(); // Play soundEat2
+                }
                 this.AddFood('carbs')
                 this.GetFood()
                 c.mesh.visible = false;
@@ -822,7 +915,7 @@ export const player = (() => {
         if (this.propArray.length == 1) {
           if (this.propArray[0] == 'vege') {
             document.getElementById("food1").src = "./resources/Shield/Vegtable_shield_UI.png"
-            document.getElementById("food1").style.bottom = "8.5vw"
+            document.getElementById("food1").style.bottom = "24vw"
 
           }
           else if (this.propArray[0] == 'meat') {
@@ -830,13 +923,13 @@ export const player = (() => {
           }
           else if (this.propArray[0] == 'carbs') {
             document.getElementById("food1").src = "./resources/Shield/Rice_shield_UI.png"
-            document.getElementById("food1").style.bottom = "9vw"
+            document.getElementById("food1").style.bottom = "24vw"
 
           }
         } else if (this.propArray.length == 2) {
           if (this.propArray[1] == 'vege') {
             document.getElementById("food2").src = "./resources/Shield/Vegtable_shield_UI.png"
-            document.getElementById("food2").style.bottom = "8.5vw"
+            document.getElementById("food2").style.bottom = "24vw"
 
           }
           else if (this.propArray[1] == 'meat') {
@@ -844,14 +937,14 @@ export const player = (() => {
           }
           else if (this.propArray[1] == 'carbs') {
             document.getElementById("food2").src = "./resources/Shield/Rice_shield_UI.png"
-            document.getElementById("food2").style.bottom = "9vw"
+            document.getElementById("food2").style.bottom = "24vw"
 
 
           }
         } else if (this.propArray.length == 3) {
           if (this.propArray[2] == 'vege') {
             document.getElementById("food3").src = "./resources/Shield/Vegtable_shield_UI.png"
-            document.getElementById("food3").style.bottom = "8.5vw"
+            document.getElementById("food3").style.bottom = "24vw"
 
           }
           else if (this.propArray[2] == 'meat') {
@@ -859,16 +952,14 @@ export const player = (() => {
           }
           else if (this.propArray[2] == 'carbs') {
             document.getElementById("food3").src = "./resources/Shield/Rice_shield_UI.png"
-            document.getElementById("food3").style.bottom = "9vw"
-
-
+            document.getElementById("food3").style.bottom = "24vw"
           }
         } else if (this.propArray.length == 4 && !this.firstFour) {
           if (!this.firstFour) {
             this.firstFour = true;
             if (this.propArray[3] == 'vege') {
               document.getElementById("food4").src = "./resources/Shield/Vegtable_shield_UI.png"
-              document.getElementById("food4").style.bottom = "8.5vw"
+              document.getElementById("food4").style.bottom = "24vw"
 
             }
             else if (this.propArray[3] == 'meat') {
@@ -876,7 +967,7 @@ export const player = (() => {
             }
             else if (this.propArray[3] == 'carbs') {
               document.getElementById("food4").src = "./resources/Shield/Rice_shield_UI.png"
-              document.getElementById("food4").style.bottom = "9vw"
+              document.getElementById("food4").style.bottom = "24vw"
 
 
             }
@@ -896,17 +987,17 @@ export const player = (() => {
             }
             if (this.propArray[i] == 'vege') {
               document.getElementById(id).src = "./resources/Shield/Vegtable_shield_UI.png"
-              document.getElementById(id).style.bottom = "8.5vw"
+              document.getElementById(id).style.bottom = "24vw"
 
             }
             else if (this.propArray[i] == 'meat') {
               document.getElementById(id).src = "./resources/Shield/Meat_shield_UI.png"
-              document.getElementById(id).style.bottom = "7.5vw"
+              document.getElementById(id).style.bottom = "24vw"
 
             }
             else if (this.propArray[i] == 'carbs') {
               document.getElementById(id).src = "./resources/Shield/Rice_shield_UI.png"
-              document.getElementById(id).style.bottom = "9vw"
+              document.getElementById(id).style.bottom = "24vw"
 
             }
           }
@@ -915,9 +1006,12 @@ export const player = (() => {
 
       }
 
+
       if (this.propArray.length == 4) {
         if (vegePortion == 2 && meatPortion == 1 && carbsPortion == 1) {
           this.immunitiy = true;
+          this.soundShield.play();
+
           this.mesh_.traverse((object) => {
 
             if (this.params_.gender === "male") {
@@ -949,12 +1043,27 @@ export const player = (() => {
 
     RescueUI() {
       var textID = "";
+      var slideImgSrc = "rescuebust" + this.friendsSaved;
+      console.log(this.friendsSaved)
       for (var i = 0; i < this.friendsSaved; i++) {
 
         textID = 'rescue' + (i + 1)
-        document.getElementById(textID).src = "./resources/Rescued_Friend_UI/Saved.png";
+        document.getElementById(textID).src = "./resources/Rescued_Friend_UI/Friend" + (i + 1) + ".png";
 
       }
+      // Get the slide image element
+      var slideImage = document.getElementById(slideImgSrc);
+      // Start the animation
+      slideImage.style.display = 'block'
+      slideImage.style.animationPlayState = 'running';
+
+      // Reset the animation after 1 second (1000 milliseconds)
+      setTimeout(function () {
+        slideImage.style.animationPlayState = 'paused';
+        slideImage.style.right = '-100%';
+        slideImage.style.display = 'none'
+
+      }, 2000);
     }
 
 
@@ -997,8 +1106,8 @@ export const player = (() => {
         } else if (this.position_.z == 3) {
           return;
         }
-        // var baileyWoo = document.getElementById("bailey-woo");
-        // baileyWoo.play();
+        this.soundDash.currentTime = 0
+        this.soundDash.play();
       } else {
         if (this.position_.z <= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
@@ -1015,8 +1124,8 @@ export const player = (() => {
         } else if (this.position_.z == -3) {
           return;
         }
-        // var baileyWoo = document.getElementById("bailey-woo");
-        // baileyWoo.play();
+        this.soundDash.currentTime = 0
+        this.soundDash.play();
       }
 
 
@@ -1033,8 +1142,8 @@ export const player = (() => {
       } else if (this.position_.z == -3) {
         return;
       }
-      // var baileyWoo = document.getElementById("bailey-woo");
-      // baileyWoo.play();
+      this.soundDash.currentTime = 0
+      this.soundDash.play();
     }
 
     SwipeFullRight() {
@@ -1048,8 +1157,8 @@ export const player = (() => {
       } else if (this.position_.z == 3) {
         return;
       }
-      // var baileyWoo = document.getElementById("bailey-woo");
-      // baileyWoo.play();
+      this.soundDash.currentTime = 0
+      this.soundDash.play();
     }
 
     SwipeRight() {
@@ -1070,8 +1179,8 @@ export const player = (() => {
         } else if (this.position_.z == -3) {
           return;
         }
-        // var baileyWoo = document.getElementById("bailey-woo");
-        // baileyWoo.play();
+        this.soundDash.currentTime = 0
+        this.soundDash.play();
       } else {
         if (this.position_.z >= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
@@ -1088,8 +1197,8 @@ export const player = (() => {
         } else if (this.position_.z == 3) {
           return;
         }
-        // var baileyWoo = document.getElementById("bailey-woo");
-        // baileyWoo.play();
+        this.soundDash.currentTime = 0
+        this.soundDash.play();
       }
 
     }
@@ -1108,6 +1217,19 @@ export const player = (() => {
         this.JumpAnimation_()
         this.sliding_ = false;
         this.downPressed_ = false
+        this.soundJump1 = document.getElementById("sound-jump1");
+        this.soundJump2 = document.getElementById("sound-jump2");
+        this.soundJump3 = document.getElementById("sound-jump3");
+
+        var randomNumber = Math.random();
+        this.soundRunning.volume = 0
+        if (randomNumber < 0.34) {
+          this.soundJump1.play();
+        } else if (randomNumber < 0.66) {
+          this.soundJump2.play();
+        } else {
+          this.soundJump3.play();
+        }
 
       }
     }
@@ -1121,10 +1243,21 @@ export const player = (() => {
         if (this.sliding_) {
           this.SlideAnimation_()
           this.downPressed_ = true
+          var soundSlide1 = document.getElementById("sound-slide1");
+          var soundSlide2 = document.getElementById("sound-slide2");
+          var soundSlide3 = document.getElementById("sound-slide3");
+          var randomNumber = Math.random();
+          this.soundRunning.volume = 0
+
+          if (randomNumber < 0.34) {
+            soundSlide1.play(); // Play soundEat1
+          } else if (randomNumber < 0.66) {
+            soundSlide2.play(); // Play soundEat2
+          } else {
+            soundSlide3.play(); // Play soundEat2
+          }
         }
-
       }
-
     }
 
 
@@ -1142,17 +1275,24 @@ export const player = (() => {
         this.shieldTime -= timeElapsed * 10.0;
         document.getElementById("fullShield").style.height = this.shieldTime + "%"
         if (this.shieldTime <= 0) {
+          document.getElementById("sheildHUD-blue").style.zIndex = "-1"
+          document.getElementById("sheildHUD-green").style.zIndex = "-1"
+          document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
           document.getElementById("shieldTimer").style.zIndex = "-1";
           document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
           document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
           document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
           document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-          document.getElementById("food1").style.bottom = "7.5vw"
-          document.getElementById("food2").style.bottom = "7.5vw"
-          document.getElementById("food3").style.bottom = "7.5vw"
-          document.getElementById("food4").style.bottom = "7.5vw"
+          document.getElementById("food1").style.bottom = "24vw"
+          document.getElementById("food2").style.bottom = "24vw"
+          document.getElementById("food3").style.bottom = "24vw"
+          document.getElementById("food4").style.bottom = "24vw"
           this.propArray = []
           this.immunitiy = false;
+          this.shieldTime = 100;
+          this.soundShield.pause();
+          this.soundShield.currentTime = 0;
+
 
           this.meatProp = 0;
           this.vegeProp = 0;
@@ -1245,6 +1385,7 @@ export const player = (() => {
                   this.inAir_ = false;
                   this.onWall = true;
                   this.RightWallRunAnimation_()
+                  this.soundRunning.play()
                 }
               }
 
@@ -1296,6 +1437,8 @@ export const player = (() => {
                   this.toggleJumpAnimation = false;
                   this.onWall = true;
                   this.LeftWallRunAnimation_()
+                  this.soundRunning.play()
+
                 }
 
               }
@@ -1354,6 +1497,8 @@ export const player = (() => {
                   this.inAir_ = false;
                   this.onWall = true;
                   this.LeftWallRunAnimation_()
+                  this.soundRunning.play()
+
                 }
               }
 
@@ -1405,6 +1550,8 @@ export const player = (() => {
                   this.toggleJumpAnimation = false;
                   this.onWall = true;
                   this.RightWallRunAnimation_()
+                  this.soundRunning.play()
+
                 }
 
               }
@@ -1453,6 +1600,8 @@ export const player = (() => {
                 this.inAir_ = false;
                 this.onWall = true;
                 this.RightWallRunAnimation_()
+                this.soundRunning.play()
+
               }
             }
 
@@ -1529,6 +1678,18 @@ export const player = (() => {
 
         this.velocity_ += acceleration;
         this.velocity_ = Math.max(this.velocity_, -100);
+
+        if (this.position_.y == 0.0) {
+          this.soundJump1.pause();
+          this.soundJump1.currentTime = 0;
+          this.soundJump2.pause();
+          this.soundJump2.currentTime = 0;
+          this.soundJump3.pause();
+          this.soundJump3.currentTime = 0;
+          this.soundRunning.volume = 0.5
+
+        }
+
         if (this.position_.y == 0) {
           if (!this.wallEnd) {
             this.RunAnimation_();
@@ -1565,6 +1726,8 @@ export const player = (() => {
           this.downPressed_ = false;
           this.sliding_ = false;
           this.RunAnimation_();
+          this.soundRunning.volume = 0.5
+
         }
       }
 
@@ -1613,6 +1776,7 @@ export const player = (() => {
           this.inAir_ = false;
           this.sliding_ = false;
           this.FallAnimation_();
+          this.soundShield.pause();
         }
       }
 

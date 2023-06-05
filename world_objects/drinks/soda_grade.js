@@ -21,7 +21,15 @@ export const sodaGrade = (() => {
 
       const loader = new GLTFLoader();
       loader.setPath('./resources/Drinks/');
-
+            const textureLoader = new THREE.TextureLoader();
+      textureLoader.setPath('./resources/Drinks/');
+      const texture = textureLoader.load('nutrigrade_LOGO_colour.png', () => {
+        texture.encoding = THREE.LinearEncoding; // Set the texture encoding if needed
+        texture.flipY = false; // Adjust the texture's Y-axis orientation if needed
+        texture.minFilter = THREE.LinearFilter; // Set the texture's minification filter if needed
+        texture.magFilter = THREE.LinearFilter; // Set the texture's magnification filter if needed
+        texture.channel = 0; // Set the desired texture channel (in this case, channel 0)
+      });
       loader.load('nutrigrade_Logo.gltf', (gltf) => {
         this.mesh = gltf.scene.children[3]
         this.mesh.traverse(function (child) {
@@ -29,6 +37,22 @@ export const sodaGrade = (() => {
                 child.material.opacity = 0.8;
                 child.material.transparent = true;
             }
+        });
+        this.mesh.traverse(function (node) {
+          if (node.isMesh) {
+  // Swap shader to basic material
+            const material = new THREE.MeshBasicMaterial({ map: texture, alphaTest: 0.5 });
+
+            // Decrease the brightness of the material
+            const brightnessFactor = 0.6; // Value between 0 and 1 (0 = completely dark, 1 = original brightness)
+            material.color.multiplyScalar(brightnessFactor);
+
+            // Make sure to update the material to reflect the changes
+            material.needsUpdate = true;
+
+            node.material = material;
+
+          }
         });
         this.params_.scene.add(this.mesh);
 

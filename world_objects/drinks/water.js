@@ -18,13 +18,52 @@ export const water = (() => {
 
     //load the drinks
     LoadModel_() {
-
       const loader = new GLTFLoader();
       loader.setPath('./resources/Drinks/');
+      const textureLoader = new THREE.TextureLoader();
+      textureLoader.setPath('./resources/Drinks/');
+
+      const texture = textureLoader.load('drinks_colour.png', () => {
+        texture.encoding = THREE.LinearEncoding; // Set the texture encoding if needed
+        texture.flipY = false; // Adjust the texture's Y-axis orientation if needed
+        texture.minFilter = THREE.LinearFilter; // Set the texture's minification filter if needed
+        texture.magFilter = THREE.LinearFilter; // Set the texture's magnification filter if needed
+        texture.channel = 0; // Set the desired texture channel (in this case, channel 0)
+      });
+
       loader.load('drinks.gltf', (gltf) => {
         this.mesh = gltf.scene.children[0].children[3];
+        this.mesh.traverse(function (node) {
+          if (node.isMesh) {
+            // Swap shader to basic material
+            const material = new THREE.MeshBasicMaterial({ map: texture, alphaTest: 0.5 });
+
+            // Decrease the brightness of the material
+            const brightnessFactor = 0.6; // Value between 0 and 1 (0 = completely dark, 1 = original brightness)
+            material.color.multiplyScalar(brightnessFactor);
+
+            // Make sure to update the material to reflect the changes
+            material.needsUpdate = true;
+
+            node.material = material;
+
+          }
+        });
         this.params_.scene.add(this.mesh);
       });
+
+
+      // const geometry = new THREE.PlaneGeometry(1, 2);
+      // const textureLoader = new THREE.TextureLoader();
+      // ; // Replace 'texture.jpg' with the path to your texture image
+      // const material = new THREE.MeshBasicMaterial({ map: texture, alphaTest: 0.5, alphaToCoverage: true });
+      // this.mesh = new THREE.Mesh(geometry, material);
+      // this.params_.scene.add(this.mesh);
+
+      // const geometry = new THREE.BoxGeometry(1, 1, 1);
+      // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      // this.mesh = new THREE.Mesh(geometry, material);
+      // this.params_.scene.add(this.mesh);
 
     }
 
@@ -69,7 +108,7 @@ export const water = (() => {
 
     SpawnObj_(position, timeElapsed) {
       this.progress_ += timeElapsed * 10.0;
-      var spawnPosition = [0]
+      var spawnPosition = []
       if (this.params_.stage == 1) {
         spawnPosition = [50, 65, 65, 80, 80, 95, 110, 125, 140, 155, 170, 185, 200, 215, 230, 230, 245, 245, 260, 260, 275, 290, 305, 320, 335, 350, 365, 380, 395, 410, 425, 440, 455, 470, 485]
       } else if (this.params_.stage == 2) {
@@ -106,14 +145,16 @@ export const water = (() => {
               obj.position.y += 2.5;
             }
           } else if (this.params_.stage == 3) {
-            if (i == 1  || i == 7 || i == 9 || i == 10 || i == 12 || i == 16 || i == 17|| i == 19) {
+            if (i == 1 || i == 7 || i == 9 || i == 10 || i == 12 || i == 16 || i == 17 || i == 19) {
               obj.position.y += 2.5;
             }
           }
 
-          obj.scale = 0.018;
+          obj.quaternion.setFromAxisAngle(
+            new THREE.Vector3(0, 1, 0), -Math.PI / 2);
 
 
+          obj.scale = 0.018
 
           this.objects_.push(obj);
           this.counter_++
@@ -135,7 +176,6 @@ export const water = (() => {
 
       for (let obj of this.objects_) {
         obj.position.x -= timeElapsed * speed;
-
 
         if (obj.position.x < -20) {
           obj.mesh.visible = false;
@@ -159,7 +199,7 @@ export const water = (() => {
 
         // obj.position.y += this.floatSpeed;
 
-        obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
+        // obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
 
         obj.Update(timeElapsed);
       }

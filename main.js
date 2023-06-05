@@ -10,7 +10,6 @@ import { wallrun } from './world_objects/obstacle/wallrun.js';
 
 import { cloud } from './world_objects/cloud.js';
 import { sky } from './world_objects/sky.js';
-import { stg1sky } from './world_objects/stage1_sky.js';
 
 import { progression } from './world_objects/progression.js';
 import { water } from './world_objects/drinks/water.js';
@@ -72,6 +71,7 @@ class BasicWorldDemo {
 
     //pause
     this.allowPause = false;
+    
 
     //load assets & world variables 
     this.loaded = false;
@@ -92,9 +92,16 @@ class BasicWorldDemo {
 
     //on load music 
     this.splashScreenMusic = document.getElementById("splash-screen-music");
+    this.splashScreenMusic.volume = 0.24
+
     this.stage1Music = document.getElementById("stage1-music")
+    this.stage1Music.volume = 0.35
+
     this.stage2Music = document.getElementById("stage2-music")
+    this.stage2Music.volume = 0.35
+
     this.stage3Music = document.getElementById("stage3-music")
+    this.stage3Music.volume = 0.35
 
     this.splashScreenMusicToggle = false;
     window.addEventListener('touchstart', () => {
@@ -104,8 +111,6 @@ class BasicWorldDemo {
       }
 
     })
-
-
 
     //start game event listeners
     document.addEventListener('keydown', () => {
@@ -142,11 +147,12 @@ class BasicWorldDemo {
 
     //handle gender selection
     document.getElementById('boy-unselected').addEventListener('click', () => {
+      var soundSelect = document.getElementById("sound-selection");
+      soundSelect.play();
       this.gender_ = "male"
-      document.getElementById("select-gender").classList.remove("unselected");
+      document.getElementById("select-gender").style.display = 'inline-block';
       document.getElementById('boy-unselected').style.display = 'none';
       document.getElementById('boy-selected').style.display = 'inline-block';
-
       if (document.getElementById('girl-selected').style.display == 'inline-block') {
         document.getElementById('girl-unselected').style.display = 'inline-block';
         document.getElementById('girl-selected').style.display = 'none'
@@ -155,8 +161,10 @@ class BasicWorldDemo {
     });
 
     document.getElementById('girl-unselected').addEventListener('click', () => {
+      var soundSelect = document.getElementById("sound-selection");
+      soundSelect.play();
       this.gender_ = "female"
-      document.getElementById("select-gender").classList.remove("unselected");
+      document.getElementById("select-gender").style.display = 'inline-block';
       document.getElementById('girl-unselected').style.display = 'none';
       document.getElementById('girl-selected').style.display = 'inline-block';
       if (document.getElementById('boy-selected').style.display == 'inline-block') {
@@ -169,6 +177,10 @@ class BasicWorldDemo {
     //handle start game (male)
     document.getElementById('select-gender').addEventListener('click', () => {
       if (this.gender_ === 'male' || this.gender_ === 'female') {
+        var soundSelect = document.getElementById("sound-click");
+        soundSelect.play();
+        var soundAgentBgm = document.getElementById("sound-agentBgm");
+        soundAgentBgm.play();
         this.splashScreenMusic.pause();
         this.splashScreenMusicToggle = true;
         document.getElementById('video-container').style.display = 'block';
@@ -199,7 +211,8 @@ class BasicWorldDemo {
               progressBar.style.width = `100%`;
               this.startGame = true;
               this.stopTime = true;
-
+              var soundAgent = document.getElementById("sound-agent1");
+              soundAgent.play();
 
               // text type writer 
               var textElement = document.getElementById('stage1-intro1-text1');
@@ -281,7 +294,6 @@ class BasicWorldDemo {
     this.nextStageVideo2_ = document.getElementById("nextStage2");
     this.nextStageVideo3_ = document.getElementById("nextStage3");
     this.nextStageVideo4_ = document.getElementById("nextStage4");
-    this.nextStageVideo5_ = document.getElementById("nextStage5");
 
     // if next stage video ends, then unpause everything
     this.nextStageVideo1_.addEventListener("ended", () => {
@@ -292,7 +304,8 @@ class BasicWorldDemo {
       } else {
 
         this.closeNextStageVideo1();
-
+        var soundAgentBgm = document.getElementById("sound-agentBgm");
+        soundAgentBgm.play();
         document.getElementById('loading-1').style.display = 'block';
         document.getElementById('stage1-intro1').style.display = 'block';
         document.getElementById('loading-bar-container').style.display = 'block';
@@ -317,6 +330,8 @@ class BasicWorldDemo {
     this.nextStageVideo2_.addEventListener("ended", () => {
       this.closeNextStageVideo2();
       document.getElementById('loading1-next').style.display = 'none';
+      var soundAgentBgm = document.getElementById("sound-agentBgm");
+      soundAgentBgm.play();
       document.getElementById('loading-2').style.display = 'block';
       document.getElementById('stage2-intro1').style.display = 'block';
       document.getElementById('loading2-next').style.display = 'none';
@@ -342,6 +357,8 @@ class BasicWorldDemo {
     this.nextStageVideo3_.addEventListener("ended", () => {
       this.closeNextStageVideo3();
       document.getElementById('loading2-next').style.display = 'none';
+      var soundAgentBgm = document.getElementById("sound-agentBgm");
+      soundAgentBgm.play();
       document.getElementById('loading-3').style.display = 'block';
       document.getElementById('stage3-intro1').style.display = 'block';
       document.getElementById('loading3-next').style.display = 'none';
@@ -374,32 +391,15 @@ class BasicWorldDemo {
       document.getElementById('goodEndingUI').style.zIndex = 3;
 
       if (this.gender_ == "male") {
-        document.getElementById('boyHUDstg3').style.display = 'none'
+        document.getElementById('boyHUD').style.display = 'none'
       } else if (this.gender_ == "female") {
-        document.getElementById('girlHUDstg3').style.display = 'none'
+        document.getElementById('girlHUD').style.display = 'none'
       }
 
     });
 
 
-    // if next stage video ends, then unpause everything
-    this.nextStageVideo5_.addEventListener("ended", () => {
-      this.closeNextStageVideo5();
-      this.stopTime = true
-      this.Pause()
-      document.getElementById('loading3-next').style.display = 'none';
 
-      // document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
-      document.getElementById("volume-container").style.display = 'none';
-      document.getElementById('final-score-bad-ending').classList.toggle('active');
-      document.getElementById('badEndingUI').style.zIndex = 3;
-
-      if (this.gender_ == "male") {
-        document.getElementById('boyHUDstg3').style.display = 'none'
-      } else if (this.gender_ == "female") {
-        document.getElementById('girlHUDstg3').style.display = 'none'
-      }
-    });
   }
 
   //stage 1 cutscene
@@ -460,7 +460,7 @@ class BasicWorldDemo {
     this.nextStageVideo3_.style.display = "none";
     this.nextStageVideo3_.currentTime = 0;
     this.nextStageVideo3_.pause();
-    
+
   }
 
 
@@ -482,22 +482,7 @@ class BasicWorldDemo {
     this.nextStageVideo4_.pause();
   }
 
-  playDefeatVid() {
-    pauseButton.style.display = 'none'
-    this.nextStageVideo5_.style.display = "block";
-    this.nextStageVideo5_.play();
-    while (this.scene_.children.length > 0) {
-      this.scene_.remove(this.scene_.children[0]);
-    }
-    this.NotFirstTry = false;
 
-  }
-
-  closeNextStageVideo5() {
-    this.nextStageVideo5_.style.display = "none";
-    this.nextStageVideo5_.currentTime = 0;
-    this.nextStageVideo5_.pause();
-  }
   //music player
   _playSplashScreenMusic() {
     this.splashScreenMusic.play();
@@ -568,15 +553,15 @@ class BasicWorldDemo {
     // renderer
     this.threejs_ = new THREE.WebGLRenderer({
       powerPreference: "high-performance",
-      antialias: true,
+      antialias: false,
       alpha: false,
       precision: 'lowp',
     });
     this.threejs_.outputEncoding = THREE.sRGBEncoding;
-    // this.threejs_.gammaFactor = 0.7;
+    this.threejs_.gammaFactor = 0.7;
     this.threejs_.shadowMap.enabled = false;
     // this.threejs_.setPixelRatio(window.devicePixelRatio);
-    this.threejs_.setPixelRatio(1);
+    this.threejs_.setPixelRatio(0.9);
     this.threejs_.setSize(window.innerWidth, window.innerHeight);
 
     //responsive
@@ -679,13 +664,6 @@ class BasicWorldDemo {
       this.mesh3.rotation.set(0, -Math.PI / 2, 0);
       this.mesh3.scale.setScalar(0.01);
 
-      // this.mesh3.traverse((object) => {
-      //   if (object.name === "stg1_exit_GEOShape_13") {
-      //     object.material.opacity = 1;
-      //     object.material.map = this.beamTexture.load('./resources/Map/Stage1/stg1_beam_reverse_color.jpg');
-      //   }
-      // });
-
       this.scene_.add(this.mesh3);
     });
 
@@ -704,24 +682,6 @@ class BasicWorldDemo {
       side: THREE.BackSide,
     });
     this.scene_.add(new THREE.Mesh(skyGeo, skyMat));
-
-
-    // loader.load('stg1_gloomsky.gltf', (gltf) => {
-    //   this.mesh4 = gltf.scene;
-    //   this.mesh4.position.set(1100, 0, 0);
-    //   this.mesh4.rotation.set(0, Math.PI / 2, 0);
-    //   this.mesh4.scale.setScalar(0.04);
-
-    //   this.mesh4.traverse(n => {
-    //     if (n.isMesh) {
-    //       n.material.opacity = 0.8;
-    //       n.material.transparent = true;
-    //     }
-    //   });
-
-    //   this.scene_.add(this.mesh4);
-
-    // });
 
     //pause DOM elements
     var pauseButton = document.getElementById("pauseButton");
@@ -747,6 +707,8 @@ class BasicWorldDemo {
     // Add event listeners to the buttons
     loading1Next.addEventListener("click", () => {
       loading1Next.style.display = 'none'
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
 
       if (loading1nextButtonCounter == 0) {
         document.getElementById('stage1-intro1').style.display = 'none'
@@ -772,6 +734,9 @@ class BasicWorldDemo {
         textElement6.textContent = '';
         textElement7.textContent = '';
         textElement8.textContent = '';
+
+        var soundAgent = document.getElementById("sound-agent2");
+        soundAgent.play();
 
         var textToType = "• Use the [Left Arrow] and [Right";
         var typingSpeed = 10;
@@ -875,6 +840,8 @@ class BasicWorldDemo {
         textElement3.textContent = '';
         textElement4.textContent = '';
 
+        var soundAgent = document.getElementById("sound-agent3");
+        soundAgent.play();
 
         var textToType = "• Stay hydrated with";
         var typingSpeed = 10;
@@ -934,6 +901,8 @@ class BasicWorldDemo {
     });
 
     loading2Next.addEventListener("click", () => {
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       loading2Next.style.display = 'none'
       if (loading2nextButtonCounter == 0) {
         loading2nextButtonCounter++
@@ -961,6 +930,9 @@ class BasicWorldDemo {
         textElement6.textContent = '';
         textElement7.textContent = '';
         textElement8.textContent = '';
+
+        var soundAgent = document.getElementById("sound-agent5");
+        soundAgent.play();
 
         var textToType = "• NICE WORK! NOW THAT YOU HAVE THE ";
         var typingSpeed = 10;
@@ -1086,6 +1058,9 @@ class BasicWorldDemo {
         textElement14.textContent = '';
         textElement15.textContent = '';
 
+        var soundAgent = document.getElementById("sound-agent6");
+        soundAgent.play();
+
         var textToType = "• But be careful, ";
         var typingSpeed = 10;
         var i = 0;
@@ -1201,7 +1176,6 @@ class BasicWorldDemo {
                                                                       i++;
                                                                       if (i >= textToType.length) {
                                                                         clearInterval(intervalId);
-                                                                        clearInterval(intervalId);
                                                                         document.getElementById('click-start').style.display = 'block';
                                                                         document.getElementById('loading-bar-container-2').style.display = 'none';
                                                                         document.getElementById('loading-text-stage-2').style.display = 'none';
@@ -1248,7 +1222,8 @@ class BasicWorldDemo {
 
     loading3Next.addEventListener("click", () => {
       loading3Next.style.display = 'none'
-
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       if (loading3nextButtonCounter == 0) {
         document.getElementById('stage3-intro1').style.display = 'none'
         document.getElementById('stage3-intro2').style.display = 'block'
@@ -1267,6 +1242,9 @@ class BasicWorldDemo {
         textElement3.textContent = '';
         textElement4.textContent = '';
         textElement5.textContent = '';
+
+        var soundAgent = document.getElementById("sound-agent8");
+        soundAgent.play();
 
         var textToType = "• Uh oh! Seems like taking the ";
         var typingSpeed = 10;
@@ -1337,7 +1315,8 @@ class BasicWorldDemo {
         textElement.textContent = '';
         textElement1.textContent = '';
         textElement2.textContent = '';
-
+        var soundAgent = document.getElementById("sound-agent9");
+        soundAgent.play();
         var textToType = "• Pick the correct";
         var typingSpeed = 10;
         var i = 0;
@@ -1381,9 +1360,13 @@ class BasicWorldDemo {
     });
 
     retryStage3.addEventListener("click", () => {
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       this.playNextStageVideo3()
       this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
       this.eventAdded1 = false;
+      this.stageLoadCheck = false;
+      this.startload2 = false;
 
       document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
@@ -1393,14 +1376,22 @@ class BasicWorldDemo {
       document.getElementById('stage3-intro1').style.display = 'none'
       document.getElementById('stage3-intro2').style.display = 'none'
       document.getElementById('stage3-intro3').style.display = 'none'
-      document.getElementById("food1").style.bottom = "7.5vw"
-      document.getElementById("food2").style.bottom = "7.5vw"
-      document.getElementById("food3").style.bottom = "7.5vw"
-      document.getElementById("food4").style.bottom = "7.5vw"
+      document.getElementById("sheildHUD-blue").style.zIndex = "-1"
+      document.getElementById("sheildHUD-green").style.zIndex = "-1"
+      document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
+      document.getElementById("shieldTimer").style.zIndex = "-1";
+
+      document.getElementById("rescue1").src = "./resources/Rescued_Friend_UI/Friend1_notsaved.png"
+      document.getElementById("rescue2").src = "./resources/Rescued_Friend_UI/Friend2_notsaved.png"
+      document.getElementById("rescue3").src = "./resources/Rescued_Friend_UI/Friend3_notsaved.png"
+      document.getElementById("rescue4").src = "./resources/Rescued_Friend_UI/Friend4_notsaved.png"
+      document.getElementById("rescue5").src = "./resources/Rescued_Friend_UI/Friend5_notsaved.png"
+
+      document.querySelector('#video-container').style.background = ""
       if (this.gender_ == "male") {
-        document.getElementById('boyHUDstg3').style.display = 'block'
+        document.getElementById('boyHUD').style.display = 'block'
       } else if (this.gender_ == "female") {
-        document.getElementById('girlHUDstg3').style.display = 'block'
+        document.getElementById('girlHUD').style.display = 'block'
       }
       document.getElementById('final-score-bad-ending').classList.toggle('active');
       document.getElementById('badEndingUI').style.zIndex = 0;
@@ -1409,14 +1400,15 @@ class BasicWorldDemo {
     });
 
     continueEnding.addEventListener("click", () => {
-
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       retryStage3.style.display = "none"
       continueEnding.style.display = "none"
       document.getElementById('stamina').style.display = "none";
 
-      if (this.player_.friendsSaved == 5) {
+      if (this.player_.friendsSaved >= 4) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_3 of 3 complete.png"
-      } else if (this.player_.friendsSaved >= 3) {
+      } else if (this.player_.friendsSaved >= 2) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_2 of 3 complete.png"
       } else if (this.player_.friendsSaved >= 1) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_1 of 3 complete.png"
@@ -1430,13 +1422,15 @@ class BasicWorldDemo {
     });
 
     finishEnding.addEventListener("click", () => {
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       retryStage3.style.display = "none"
       finishEnding.style.display = "none"
       document.getElementById('stamina').style.display = "none";
 
-      if (this.player_.friendsSaved == 5) {
+      if (this.player_.friendsSaved >= 4) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_3 of 3 complete.png"
-      } else if (this.player_.friendsSaved >= 3) {
+      } else if (this.player_.friendsSaved >= 2) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_2 of 3 complete.png"
       } else if (this.player_.friendsSaved >= 1) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_1 of 3 complete.png"
@@ -1451,6 +1445,8 @@ class BasicWorldDemo {
 
 
     nextEnding.addEventListener("click", () => {
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       document.getElementById("well-done-text").style.display = "none"
       document.getElementById("final-score-badges").style.display = "none"
 
@@ -1477,13 +1473,16 @@ class BasicWorldDemo {
     restartButton.addEventListener("click", () => {
       this.stopTime = false
       this.RAF_()
-
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       this.restartStage = true;
     });
 
     // Add event listeners to the buttons
     continueButton.addEventListener("click", () => {
       if (this.allowPause) {
+        var soundSelect = document.getElementById("sound-click");
+        soundSelect.play();
         if (this.isPaused) {
           startPauseCountdown()
         }
@@ -1500,6 +1499,8 @@ class BasicWorldDemo {
     // Add event listeners to the buttons
     pauseButton.addEventListener("click", () => {
       if (this.allowPause) {
+        var soundSelect = document.getElementById("sound-click");
+        soundSelect.play();
         if (!this.isPaused) {
           startPause()
         }
@@ -1508,6 +1509,8 @@ class BasicWorldDemo {
 
     // Add event listeners to the buttons
     volumeButton.addEventListener("click", () => {
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       const mediaElements = document.querySelectorAll('video, audio');
       // Loop through each element and set its volume to 0
       mediaElements.forEach(element => {
@@ -1519,6 +1522,8 @@ class BasicWorldDemo {
 
     // Add event listeners to the buttons
     muteButton.addEventListener("click", () => {
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
       const mediaElements = document.querySelectorAll('video, audio');
       // Loop through each element and set its volume to 0
       mediaElements.forEach(element => {
@@ -1536,6 +1541,19 @@ class BasicWorldDemo {
       this.speedz = 0
       this.stopTime = true;
       this.isPaused = true;
+      this.player_.soundRunning.volume = 0
+      if (this.player_.immunitiy) {
+        this.player_.soundShield.pause();
+      }
+
+
+      if (this.stage == 1) {
+        this.stage1Music.pause()
+      } else if (this.stage == 2) {
+        this.stage2Music.pause()
+      } else if (this.stage == 3) {
+        this.stage3Music.pause()
+      }
       document.querySelector('#pauseDiv').style.display = 'block'
       pauseButton.style.display = 'none'
       volumeButton.style.display = 'none'
@@ -1558,7 +1576,19 @@ class BasicWorldDemo {
           this.stopTime = false;
           this.RAF_()
           this.isPaused = false;
+          this.player_.soundRunning.volume = 0
+          if (this.player_.immunitiy) {
+            this.player_.soundShield.play();
+          }
 
+
+          if (this.stage == 1) {
+            this.stage1Music.play()
+          } else if (this.stage == 2) {
+            this.stage2Music.play()
+          } else if (this.stage == 3) {
+            this.stage3Music.play()
+          }
           pauseButton.style.display = 'block'
           volumeButton.style.display = 'block'
 
@@ -1588,6 +1618,10 @@ class BasicWorldDemo {
 
     //handle "click to continue" after game is won for IOS devices
     document.getElementById('click-end').addEventListener('click', () => {
+      var soundSelect = document.getElementById("sound-click");
+      soundSelect.play();
+      this.player_.soundRunning.volume = 0.5
+
       if (this.stage == 2) {
         document.getElementById('click-end').style.display = 'none';
         this.playNextStageVideo2()
@@ -1596,10 +1630,29 @@ class BasicWorldDemo {
         this.playNextStageVideo3()
       } else if (this.stage == 4) {
         document.getElementById('click-end').style.display = 'none';
-        if (this.player_.friendsSaved >= 3) {
+        if (this.player_.friendsSaved >= 4) {
           this.playVictoryVid()
         } else {
-          this.playDefeatVid()
+          pauseButton.style.display = 'none'
+          while (this.scene_.children.length > 0) {
+            this.scene_.remove(this.scene_.children[0]);
+          }
+          this.NotFirstTry = false;
+
+          this.stopTime = true
+          this.Pause()
+          document.getElementById('loading3-next').style.display = 'none';
+
+          // document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
+          document.getElementById("volume-container").style.display = 'none';
+          document.getElementById('final-score-bad-ending').classList.toggle('active');
+          document.getElementById('badEndingUI').style.zIndex = 3;
+
+          if (this.gender_ == "male") {
+            document.getElementById('boyHUD').style.display = 'none'
+          } else if (this.gender_ == "female") {
+            document.getElementById('girlHUD').style.display = 'none'
+          }
         }
       }
 
@@ -1607,7 +1660,13 @@ class BasicWorldDemo {
 
     //handle "click to continue" after video has ended and stage has loaded
     document.getElementById('click-start').addEventListener('click', () => {
+      this.player_.soundRunning.play();
+      this.player_.soundRunning.volume = 0.5
+      var soundAgentBgm = document.getElementById("sound-agentBgm");
+      soundAgentBgm.pause();
       if (this.startstage) {
+        var soundBeefteki = document.getElementById("sound-beeftekiIntro2");
+        soundBeefteki.play();
         if (this.stage == 1) {
           this.stage1Music.play()
           document.getElementById('loading-button-container').style.display = 'none';
@@ -1636,6 +1695,9 @@ class BasicWorldDemo {
         document.getElementById('click-start').style.display = 'none';
 
       } else if (this.startGame && !this.checkStartGame) {
+        var soundBeefteki = document.getElementById("sound-beeftekiIntro1");
+        soundBeefteki.play();
+
         this.stopTime = false;
         this.RAF_()
         this.checkStartGame = true;
@@ -1651,9 +1713,129 @@ class BasicWorldDemo {
 
     });
 
+    document.addEventListener('stage2loaded', () => {
+      var textElement = document.getElementById('stage2-intro1-text1');
+      var textElement1 = document.getElementById('stage2-intro1-text2');
+      var textElement2 = document.getElementById('stage2-intro1-text3');
+      var textElement3 = document.getElementById('stage2-intro1-text4');
+      console.log("HI")
+      textElement.textContent = '';
+      textElement1.textContent = '';
+      textElement2.textContent = '';
+      textElement3.textContent = '';
+
+      var soundAgent = document.getElementById("sound-agent4");
+      soundAgent.play();
+
+      var textToType = "• Remember water is always the best choice so avoid sweetened beverages! ";
+      var typingSpeed = 10;
+      var i = 0;
+      var intervalId = setInterval(() => {
+        textElement.textContent += textToType.charAt(i);
+        i++;
+        if (i >= textToType.length) {
+          i = 0
+          clearInterval(intervalId);
+          textToType = "• Fill your water bottles up from school water coolers "
+          intervalId = setInterval(() => {
+            textElement1.textContent += textToType.charAt(i);
+            i++;
+            if (i >= textToType.length) {
+              i = 0
+
+              clearInterval(intervalId);
+              textToType = "• If you are purchasing drinks, choose beverages which have been graded A or B only. ";
+              intervalId = setInterval(() => {
+                textElement2.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  clearInterval(intervalId);
+                  i = 0
+                  textToType = "• Hydrate yourself with at least 8 glasses every day!";
+                  intervalId = setInterval(() => {
+                    textElement3.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      clearInterval(intervalId);
+                      document.getElementById('loading2-next').style.display = 'block';
+                    }
+                  }, typingSpeed);
+                }
+              }, typingSpeed);
+            }
+          }, typingSpeed);
+        }
+      }, typingSpeed);
+    })
+
+    document.addEventListener('stage3loaded', () => {
+
+      var textElement = document.getElementById('stage3-intro1-text1');
+      var textElement1 = document.getElementById('stage3-intro1-text2');
+      var textElement2 = document.getElementById('stage3-intro1-text3');
+      var textElement3 = document.getElementById('stage3-intro1-text4');
+
+      textElement.textContent = '';
+      textElement1.textContent = '';
+      textElement2.textContent = '';
+      textElement3.textContent = '';
+
+      var soundAgent = document.getElementById("sound-agent7");
+      soundAgent.play();
+      var textToType = "• Fill your plate with Quarter-Quarter Half; wholegrains, meat & others, fruit and vegetables.";
+      var typingSpeed = 10;
+      var i = 0;
+      var intervalId = setInterval(function () {
+        textElement.textContent += textToType.charAt(i);
+        i++;
+        if (i >= textToType.length) {
+          i = 0
+          clearInterval(intervalId);
+          textToType = "• Go for 2 servings of fruit and 2 servings of vegetables every day!";
+          intervalId = setInterval(function () {
+            textElement1.textContent += textToType.charAt(i);
+            i++;
+            if (i >= textToType.length) {
+              i = 0
+              clearInterval(intervalId);
+              textToType = "• Choose fresh over processed or preserved food and avoid fried food.";
+              intervalId = setInterval(function () {
+                textElement2.textContent += textToType.charAt(i);
+                i++;
+                if (i >= textToType.length) {
+                  i = 0
+                  clearInterval(intervalId);
+                  textToType = "• Take time to chew your food when eating and avoid any distractions like screen time. This allows for your food to digest better.";
+                  intervalId = setInterval(function () {
+                    textElement3.textContent += textToType.charAt(i);
+                    i++;
+                    if (i >= textToType.length) {
+                      i = 0
+                      clearInterval(intervalId);
+                      document.getElementById('loading3-next').style.display = 'block';
+                    }
+                  }, typingSpeed);
+                }
+              }, typingSpeed);
+            }
+          }, typingSpeed);
+        }
+      }, typingSpeed);
+    })
+
 
     document.addEventListener('keydown', () => {
       if (this.allowStart) {
+
+        if(this.stopTime == false){
+          this.player_.soundRunning.play();
+          this.player_.soundRunning.volume = 0.5;
+          var soundAgentBgm = document.getElementById("sound-agentBgm");
+          soundAgentBgm.pause();
+        }
+
+
+
         if (this.startstage) {
           if (this.stage == 1) {
             this.stage1Music.play()
@@ -1763,7 +1945,7 @@ class BasicWorldDemo {
     this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
     this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
     this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
-    this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
+    // this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
     this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
@@ -1788,6 +1970,8 @@ class BasicWorldDemo {
     this.speedy = 0
     this.speedz = 0
     this.isPaused = true;
+    this.player_.soundRunning.volume = 0
+
   }
 
   shakeCamera() {
@@ -1845,6 +2029,7 @@ class BasicWorldDemo {
 
   Step_(timeElapsed, pause) {
 
+    //MAP MOVEMENT
     if (this._gameStarted) {
       const speed = this.objSpeed
       this.mesh.position.x -= timeElapsed * speed;
@@ -1900,11 +2085,14 @@ class BasicWorldDemo {
           this.failedStage = false;
           this.allowPause = false;
           this.stopTime = true
+          this.player_.soundRunning.pause();
+
           this.Pause()
 
           this.intervalId_ = setInterval(() => {
             this.countdown_--;
-            if (this.scene_.children.length === 0) {
+            if (this.scene_.children.length === 0 && !this.stageLoadCheck) {
+              this.stageLoadCheck = true;
 
               // set randon positoin for drinks
               let arrDrinks1 = [0, 3, -3, 3, -3, 0, 0, 0, 0, -3, -3, -3, -3, -3, -3, 3, -3, 3, -3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, -3, -3]
@@ -1919,7 +2107,6 @@ class BasicWorldDemo {
               this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
               this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
               this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
-              this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
               this.oilSlik_ = new oilSlik.OilSlik({ scene: this.scene_, stage: this.stage, firstChase: this.showChase });
               this.cloud_ = new cloud.Cloud({ scene: this.scene_ });
               this.progression_ = new progression.ProgressionManager();
@@ -1937,8 +2124,6 @@ class BasicWorldDemo {
               light.position.set(-7, 20, 0);
               this.scene_.add(light);
 
-              // this.scene_.background = new THREE.Color(0x808080);
-              // this.scene_.fog = new THREE.FogExp2(0x89b2eb, 0.00125);
 
               //load map
               const loader = new GLTFLoader();
@@ -1979,31 +2164,8 @@ class BasicWorldDemo {
                 this.mesh3.rotation.set(0, -Math.PI / 2, 0);
                 this.mesh3.scale.setScalar(0.01);
 
-                // this.mesh3.traverse((object) => {
-                //   if (object.name === "stg1_exit_GEOShape_13") {
-                //     object.material.opacity = 1;
-                //     object.material.map = this.beamTexture.load('./resources/Map/Stage1/stg1_beam_reverse_color.jpg');
-                //   }
-                // });
-
                 this.scene_.add(this.mesh3);
               });
-
-              loader.load('stg1_gloomsky.gltf', (gltf) => {
-                this.mesh4 = gltf.scene;
-                this.mesh4.position.set(1100, 0, 0);
-                this.mesh4.rotation.set(0, Math.PI / 2, 0);
-                this.mesh4.scale.setScalar(0.04);
-
-                this.mesh4.traverse(n => {
-                  if (n.isMesh) {
-                    n.material.opacity = 0.8;
-                    n.material.transparent = true;
-                  }
-                });
-
-                this.scene_.add(this.mesh4);
-              })
 
               const uniforms = {
                 topColor: { value: new THREE.Color(0xFCF7E2) },
@@ -2035,9 +2197,9 @@ class BasicWorldDemo {
           var loadingProgress = 0
 
           var loadingInterval = setInterval(() => {
-            if (loadingProgress < 139) {
+            if (loadingProgress < 136) {
               console.log(this.scene_.children.length)
-              const progressPercentage = (loadingProgress / 139) * 100;
+              const progressPercentage = (loadingProgress / 136) * 100;
               progressBar.style.width = `${progressPercentage}%`;
               loadingProgress = this.scene_.children.length;
             } else {
@@ -2055,6 +2217,9 @@ class BasicWorldDemo {
               var textElement = document.getElementById('stage1-intro1-text1');
               var textElement1 = document.getElementById('stage1-intro1-text2');
               var textElement2 = document.getElementById('stage1-intro1-text3');
+
+              var soundAgent = document.getElementById("sound-agent1");
+              soundAgent.play();
 
               var textToType = "• Hi, my name is SOFIA and I'm here to help. ";
               var typingSpeed = 10;
@@ -2104,13 +2269,24 @@ class BasicWorldDemo {
       document.addEventListener('score-over1', () => {
         this.allowStart = false;
         this.stage1Music.pause()
+        this.stage1Music.currentTime = 0;
+        this.player_.soundRunning.pause();
+        if (this.player_.immunitiy) {
+          this.player_.soundShield.pause();
+          this.player_.soundShield.currentTime = 0;
+
+        }
+
         this.showChase = false;
         this.gameOver_ = true;
         this.failedStage = false;
+        this.stageLoadCheck = false;
         this.allowPause = false;
         this.stopTime = true
         this.Pause()
         this.stage = 2;
+
+        document.getElementById('sheildHUD-container').style.display = 'block';
 
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
           document.getElementById('click-end').style.display = 'block';
@@ -2124,8 +2300,8 @@ class BasicWorldDemo {
 
         this.nextStageVideo2_.addEventListener("ended", () => {
 
-          if (this.scene_.children.length === 0) {
-
+          if (this.scene_.children.length === 0 && !this.stageLoadCheck) {
+            this.stageLoadCheck = true;
             // set randon positoin for drinks
             let arrDrinks1 = [0, 0, 0, -3, 3, 3, -3, -3, 3, -3, 3, -3, 3, 0, 3, -3, 0, -3, -3, 0, 3, 0, -3, 3, 0, -3, 0, 3, 3, 0, -3, 3, -3, 3, 0, 0];
             let arrDrinks2 = [-3, 0, 3, 0];
@@ -2264,68 +2440,21 @@ class BasicWorldDemo {
               this.stopTime = true
               this.previousRAF_ = null;
               this.startstage = true;
-              this.camera_.far = 700;
-              this.camera_.updateProjectionMatrix();
-
-              this.Pause();
-              clearInterval(this.intervalId_);
-
               this.player_.propArray = []
+              this.Pause();
+              // clearInterval(this.intervalId_);
+
               if (this.NotFirstTry) {
                 this.allowStart = true;
                 document.getElementById('loading-bar-container-2').style.display = 'none';
                 document.getElementById('loading-text-stage-2').style.display = 'none';
                 document.getElementById('click-start').style.display = 'block';
               }
-              var textElement = document.getElementById('stage2-intro1-text1');
-              var textElement1 = document.getElementById('stage2-intro1-text2');
-              var textElement2 = document.getElementById('stage2-intro1-text3');
-              var textElement3 = document.getElementById('stage2-intro1-text4');
 
-              textElement.textContent = '';
-              textElement1.textContent = '';
-              textElement2.textContent = '';
-              textElement3.textContent = '';
-
-              var textToType = "• Remember water is always the best choice so avoid sweetened beverages! ";
-              var typingSpeed = 10;
-              var i = 0;
-              var intervalId = setInterval(() => {
-                textElement.textContent += textToType.charAt(i);
-                i++;
-                if (i >= textToType.length) {
-                  i = 0
-                  clearInterval(intervalId);
-                  textToType = "• Fill your water bottles up from school water coolers "
-                  intervalId = setInterval(() => {
-                    textElement1.textContent += textToType.charAt(i);
-                    i++;
-                    if (i >= textToType.length) {
-                      i = 0
-
-                      clearInterval(intervalId);
-                      textToType = "• If you are purchasing drinks, choose beverages which have been graded A or B only. ";
-                      intervalId = setInterval(() => {
-                        textElement2.textContent += textToType.charAt(i);
-                        i++;
-                        if (i >= textToType.length) {
-                          clearInterval(intervalId);
-                          i = 0
-                          textToType = "• Hydrate yourself with at least 8 glasses every day!";
-                          intervalId = setInterval(() => {
-                            textElement3.textContent += textToType.charAt(i);
-                            i++;
-                            if (i >= textToType.length) {
-                              clearInterval(intervalId);
-                              document.getElementById('loading2-next').style.display = 'block';
-                            }
-                          }, typingSpeed);
-                        }
-                      }, typingSpeed);
-                    }
-                  }, typingSpeed);
-                }
-              }, typingSpeed);
+              if (!this.startLoad1) {
+                document.dispatchEvent(new CustomEvent('stage2loaded'));
+                this.startLoad1 = true;
+              }
 
             }
 
@@ -2344,10 +2473,19 @@ class BasicWorldDemo {
       document.addEventListener('score-over2', () => {
         this.allowStart = false;
         this.stage2Music.pause()
+        this.stage2Music.currentTime = 0;
+        document.getElementById("shieldTimer").style.zIndex = "-1";
+        this.player_.soundRunning.pause();
+        if (this.player_.immunitiy) {
+          this.player_.soundShield.pause();
+          this.player_.soundShield.currentTime = 0;
+        }
         this.gameOver_ = true;
         this.failedStage = false;
         this.stopTime = true
         this.allowPause = false;
+        this.stageLoadCheck = false;
+
         this.Pause()
         pauseButton.style.display = 'none'
         document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
@@ -2369,15 +2507,16 @@ class BasicWorldDemo {
         this.nextStageVideo3_.addEventListener("ended", () => {
           this.intervalId_ = setInterval(() => {
             this.countdown2_--;
-            if (this.scene_.children.length === 0) {
+            if (this.scene_.children.length === 0 && !this.stageLoadCheck) {
+              this.stageLoadCheck = true;
 
               // set randon position for drinks
               let arrDrinks1 = [-3, 0, 0, -3, 0, 3, 3, 3, -3, -3, 0, 3, -3, -3, 0, 3, 0, 0, 0, 0, -3, 3, -3, 3, 0];
 
               // set randonm positoin for box logos
-              let arrLogo1 = [3, 0, 3, -3, 3, 0, 0, -3, -3];
-              let arrLogo2 = [-3, 3, 0, 3, 0, -3, -3, 3, 0];
-              let arrLogo3 = [0, -3, -3, 0, -3, 3, 3, 0, 3];
+              let arrLogo1 = [0, 3, 3, 0, -3];
+              let arrLogo2 = [3, 0, 0, -3, , 0];
+              let arrLogo3 = [-3, -3, -3, 3, 3];
 
               // set randonm position for food
               let food1 = [0, 3, 0, -3, 0, 3, 0, 3, 0, 3, 3, 3];
@@ -2419,7 +2558,7 @@ class BasicWorldDemo {
 
               const loader = new GLTFLoader();
               loader.setPath('./resources/Map/Stage3/');
-              loader.load('stg3_start.gltf', (gltf) => {
+              loader.load('stg3_Start.gltf', (gltf) => {
                 this.mesh = gltf.scene;
 
                 this.mesh.position.set(110, 0, 0);
@@ -2531,63 +2670,10 @@ class BasicWorldDemo {
                 document.getElementById('click-start').style.display = 'block';
               }
               clearInterval(this.intervalId_);
-              if (this.gender_ == "male") {
-                document.getElementById('boyHUD').style.display = 'none'
-                document.getElementById('boyHUDstg3').style.display = 'block'
-              } else if (this.gender_ == "female") {
-                document.getElementById('girlHUD').style.display = 'none'
-                document.getElementById('girlHUDstg3').style.display = 'block'
+              if (!this.startLoad2) {
+                document.dispatchEvent(new CustomEvent('stage3loaded'));
+                this.startLoad2 = true;
               }
-
-              var textElement = document.getElementById('stage3-intro1-text1');
-              var textElement1 = document.getElementById('stage3-intro1-text2');
-              var textElement2 = document.getElementById('stage3-intro1-text3');
-              var textElement3 = document.getElementById('stage3-intro1-text4');
-
-              textElement.textContent = '';
-              textElement1.textContent = '';
-              textElement2.textContent = '';
-              textElement3.textContent = '';
-
-              var textToType = "• Fill your plate with Quarter-Quarter Half; wholegrains, meat & others, fruit and vegetables.";
-              var typingSpeed = 10;
-              var i = 0;
-              var intervalId = setInterval(function () {
-                textElement.textContent += textToType.charAt(i);
-                i++;
-                if (i >= textToType.length) {
-                  i = 0
-                  clearInterval(intervalId);
-                  textToType = "• Go for 2 servings of fruit and 2 servings of vegetables every day!";
-                  intervalId = setInterval(function () {
-                    textElement1.textContent += textToType.charAt(i);
-                    i++;
-                    if (i >= textToType.length) {
-                      i = 0
-                      clearInterval(intervalId);
-                      textToType = "• Choose fresh over processed or preserved food and avoid fried food.";
-                      intervalId = setInterval(function () {
-                        textElement2.textContent += textToType.charAt(i);
-                        i++;
-                        if (i >= textToType.length) {
-                          i = 0
-                          clearInterval(intervalId);
-                          textToType = "• Take time to chew your food when eating and avoid any distractions like screen time. This allows for your food to digest better.";
-                          intervalId = setInterval(function () {
-                            textElement3.textContent += textToType.charAt(i);
-                            i++;
-                            if (i >= textToType.length) {
-                              i = 0
-                              clearInterval(intervalId);
-                              document.getElementById('loading3-next').style.display = 'block';
-                            }
-                          }, typingSpeed);
-                        }
-                      }, typingSpeed);
-                    }
-                  }, typingSpeed);
-                }
-              }, typingSpeed);
             }
 
           }, 50);
@@ -2604,6 +2690,12 @@ class BasicWorldDemo {
     if (!this.eventAdded2 && this.stage == 3) {
       document.addEventListener('score-over3', () => {
         this.stage3Music.pause()
+        this.stage3Music.currentTime = 0;
+        this.player_.soundRunning.pause();
+        if (this.player_.immunitiy) {
+          this.player_.soundShield.pause();
+          this.player_.soundShield.currentTime = 0;
+        }
         this.allowPause = false;
         this.gameOver_ = true;
         this.stopTime = true;
@@ -2615,10 +2707,29 @@ class BasicWorldDemo {
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
           document.getElementById('click-end').style.display = 'block';
         } else {
-          if (this.player_.friendsSaved >= 3) {
+          if (this.player_.friendsSaved >= 4) {
             this.playVictoryVid()
           } else {
-            this.playDefeatVid()
+            pauseButton.style.display = 'none'
+            while (this.scene_.children.length > 0) {
+              this.scene_.remove(this.scene_.children[0]);
+            }
+            this.NotFirstTry = false;
+
+            this.stopTime = true
+            this.Pause()
+            document.getElementById('loading3-next').style.display = 'none';
+
+            // document.getElementById('score').textContent = Math.ceil(this.totalStamina * 1) / 1;
+            document.getElementById("volume-container").style.display = 'none';
+            document.getElementById('final-score-bad-ending').classList.toggle('active');
+            document.getElementById('badEndingUI').style.zIndex = 3;
+
+            if (this.gender_ == "male") {
+              document.getElementById('boyHUD').style.display = 'none'
+            } else if (this.gender_ == "female") {
+              document.getElementById('girlHUD').style.display = 'none'
+            }
           }
         }
 
@@ -2639,7 +2750,6 @@ class BasicWorldDemo {
         this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
         this.cloud_.Update(timeElapsed);
-        this.stage1sky_.Update()
         this.loaded = true;
 
       }
@@ -2657,8 +2767,6 @@ class BasicWorldDemo {
         this.fruitDrink_.Update(timeElapsed, this.objSpeed)
         this.pitfall_.Update(timeElapsed, this.objSpeed)
         this.cloud_.Update(timeElapsed);
-        this.stage1sky_.Update()
-
       } else if (this.stage == 2) {
         this.water_.Update(timeElapsed, this.objSpeed)
         this.waterGrade_.Update(timeElapsed, this.objSpeed)
@@ -2796,7 +2904,7 @@ class BasicWorldDemo {
           if (this.player_.onWall) {
             if (this.player_.position_.z == 3) {
               this.swipeRight = false;
-              this.isSwiping = false;
+              this.isSwiping = false; restar3tsta
             }
           } else {
             if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
@@ -2826,6 +2934,12 @@ class BasicWorldDemo {
       this.allowPause = false;
       this.restartStage = false;
       this.gameOver_ = true;
+      this.stageLoadCheck = false;
+      if (this.player_.immunitiy) {
+        this.player_.soundShield.pause();
+        this.player_.soundShield.currentTime = 0;
+      }
+      this.player_.soundRunning.pause();
       pauseButton.style.display = 'none'
       document.getElementById("shieldTimer").style.zIndex = "-1";
       document.querySelector('#pauseDiv').style.display = 'none'
@@ -2833,16 +2947,23 @@ class BasicWorldDemo {
       document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-      document.getElementById("food1").style.bottom = "7.5vw"
-      document.getElementById("food2").style.bottom = "7.5vw"
-      document.getElementById("food3").style.bottom = "7.5vw"
-      document.getElementById("food4").style.bottom = "7.5vw"
+      document.getElementById("sheildHUD-blue").style.zIndex = "-1"
+      document.getElementById("sheildHUD-green").style.zIndex = "-1"
+      document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
+
+      document.getElementById("rescue1").src = "./resources/Rescued_Friend_UI/Friend1_notsaved.png"
+      document.getElementById("rescue2").src = "./resources/Rescued_Friend_UI/Friend2_notsaved.png"
+      document.getElementById("rescue3").src = "./resources/Rescued_Friend_UI/Friend3_notsaved.png"
+      document.getElementById("rescue4").src = "./resources/Rescued_Friend_UI/Friend4_notsaved.png"
+      document.getElementById("rescue5").src = "./resources/Rescued_Friend_UI/Friend5_notsaved.png"
+
       document.querySelector('#video-container').style.background = ""
       document.getElementById('loading-button-container').style.display = 'block';
 
       if (this.stage == 2) {
         this.playNextStageVideo2();
         this.eventAdded = false;
+        this.startLoad1 = false;
         this.countdown1_ = 6;
         this.checkRestart = false;
         this.NotFirstTry = true;
@@ -2854,6 +2975,7 @@ class BasicWorldDemo {
         this.playNextStageVideo3();
         this.eventAdded1 = false;
         this.countdown2_ = 6;
+        this.startLoad2 = false;
         this.checkRestart = false;
         this.NotFirstTry = true;
         document.getElementById('loading3-next').style.display = 'none';
@@ -2879,11 +3001,18 @@ class BasicWorldDemo {
 
     //if game is over (lost)
     if (this._gameStarted && this.player_.gameOver && !this.gameOver_) {
+      if (this.player_.immunitiy) {
+        this.player_.soundShield.pause();
+        this.player_.soundShield.currentTime = 0;
+      }
+      this.player_.soundRunning.pause();
       this.showChase = false;
       this.allowPause = false;
       this.gameOver_ = true;
       this.failedStage = true;
       this.resumeCountdown_ = 3;
+      this.stageLoadCheck = false;
+
       pauseButton.style.display = 'none'
 
       document.getElementById("shieldTimer").style.zIndex = "-1";
@@ -2892,20 +3021,29 @@ class BasicWorldDemo {
       document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-      document.getElementById("food1").style.bottom = "7.5vw"
-      document.getElementById("food2").style.bottom = "7.5vw"
-      document.getElementById("food3").style.bottom = "7.5vw"
-      document.getElementById("food4").style.bottom = "7.5vw"
+      document.getElementById("sheildHUD-blue").style.zIndex = "-1"
+      document.getElementById("sheildHUD-green").style.zIndex = "-1"
+      document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
+
+      document.getElementById("rescue1").src = "./resources/Rescued_Friend_UI/Friend1_notsaved.png"
+      document.getElementById("rescue2").src = "./resources/Rescued_Friend_UI/Friend2_notsaved.png"
+      document.getElementById("rescue3").src = "./resources/Rescued_Friend_UI/Friend3_notsaved.png"
+      document.getElementById("rescue4").src = "./resources/Rescued_Friend_UI/Friend4_notsaved.png"
+      document.getElementById("rescue5").src = "./resources/Rescued_Friend_UI/Friend5_notsaved.png"
+
       document.querySelector('#video-container').style.background = ""
 
       document.getElementById('try-again-button').addEventListener('click', () => {
-
+        var soundSelect = document.getElementById("sound-click");
+        soundSelect.play();
         document.getElementById('game-over').classList.remove('active');
         document.getElementById('loading-button-container').style.display = 'block';
 
         if (this.stage == 2) {
           this.playNextStageVideo2();
           this.eventAdded = false;
+          this.startLoad1 = false;
+
           this.countdown1_ = 6;
           this.NotFirstTry = true;
           document.getElementById('loading2-next').style.display = 'none';
@@ -2915,6 +3053,8 @@ class BasicWorldDemo {
         } else if (this.stage == 3) {
           this.playNextStageVideo3();
           this.eventAdded1 = false;
+          this.startLoad2 = false;
+
           this.countdown2_ = 6;
           this.NotFirstTry = true;
           document.getElementById('loading3-next').style.display = 'none';

@@ -90,6 +90,8 @@ export const trolliumChloride = (() => {
       this.params_ = params;
       this.counter_ = 0;
       this.spawn_ = 0;
+      this.soundSogias2 = document.getElementById("sound-sogias2");
+      this.soundSogias1 = document.getElementById("sound-sogias1");
     }
 
     GetColliders() {
@@ -109,8 +111,8 @@ export const trolliumChloride = (() => {
         spawnPosition = [40, 124, 278, 362, 404, 418, 530, 614, 642]
         spawnZ = [8, 16.5, 8, 8, 16.5, 8, 16.5, 16.5, 8]
       } else if (this.params_.stage == 3) {
-        spawnPosition = [55, 85, 115, 175, 295, 445, 505, 565, 595, 685, 865, 910]
-        spawnZ = [16.5, 8, 8, 16.5, 8, 16.5, 8, 16.5, 8, 16.5, 16.5, 8]
+        spawnPosition = [55, 85, 175, 295, 445, 505, 565, 595, 685, 865, 910]
+        spawnZ = [16.5, 8, 16.5, 8, 16.5, 8, 16.5, 8, 16.5, 16.5, 8]
       }
 
       let obj = null;
@@ -147,10 +149,23 @@ export const trolliumChloride = (() => {
         if (obj.position.x < 25) {
           if (obj.position.z == 8) {
             obj.PlayRightAnimation_()
+            setTimeout(() => {
+              if (!this.playedRight) {
+                this.soundSogias2.play();
+                this.playedRight = true;
+              }
+            }, 700);
           } else if (obj.position.z == 16.5) {
             obj.position.y = -5
             obj.mesh.visible = true;
             obj.PlayLeftAnimation_()
+            setTimeout(() => {
+              if (!this.playedLeft) {
+                this.soundSogias1.play();
+                this.playedLeft = true
+
+              }
+            }, 700);
           }
         } else {
           if (this.params_.stage == 3) {
@@ -161,8 +176,14 @@ export const trolliumChloride = (() => {
           }
         }
 
-        if (obj.position.x < -10) {
+        if (obj.position.x < -7) {
+          if (obj.position.z == 16.5) {
+            this.playedRight = false
+          } else {
+            this.playedLeft = false
+          }
           obj.mesh.visible = false;
+
         } else {
           visible.push(obj);
         }

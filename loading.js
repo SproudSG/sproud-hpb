@@ -26,3 +26,14 @@ window.addEventListener("load", () => {
     loadingProgressEvent = true;
 
 });
+
+
+// Create a new Image object
+var image = new Image();
+
+// Set the source of the image
+image.src = "./resources/Rescued_Friend_UI/bust/Kid1_bust-min.png";
+image.src = "./resources/Rescued_Friend_UI/bust/Kid2_bust-min.png";
+image.src = "./resources/Rescued_Friend_UI/bust/Kid3_bust-min.png";
+image.src = "./resources/Rescued_Friend_UI/bust/Kid4_bust-min.png";
+image.src = "./resources/Rescued_Friend_UI/bust/Kid5_bust-min.png";

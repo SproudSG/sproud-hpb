@@ -256,7 +256,7 @@ img {
 #main-logo {
   position: absolute;
   display: block;
-  width: 90vw;
+  width: 50vw;
   left: 50%;
   transform: translateX(-50%);
   animation: slideupLogo 3s ease-in-out;
@@ -445,63 +445,72 @@ img {
 
 
 /* sheild css */
-
+.sheildHUD{
+  position: absolute;
+  width: 20vw;
+  left: 8vw;
+  top: 7vw;
+}
 .shieldUI {
   position: absolute;
-  width: 40vw;
-  right: -2vw;
-  bottom: 0;
+  width: 24vw;
+  height: 7vw;
+  opacity: 0.6;
+  left: 1vw;
+  bottom: 23vw;
+}
+
+#sheildHUD-blue,#sheildHUD-yellow,#sheildHUD-green {
+  position: absolute;
+  width: 20vw;
+  left: 8vw;
+  top: 7vw;
+  z-index: -1;
 }
 
 #food1,
 #food2,
 #food3,
 #food4 {
-  width: 5vw;
+  width: 4vw;
   position: absolute;
-  right: -2vw;
-  bottom: 7.5vw;
+  left: 2vw;
+  bottom: 24vw!important;
 }
 
-#food1 {
-  right: 17vw;
-}
-
-#food2 {
-  right: 12vw;
-
+#food4{
+  left: 17vw;
 }
 
 #food3 {
-  right: 7vw;
-
+  left: 12vw;
 }
 
-#food4 {
-  right: 2vw;
+#food2 {
+  left: 7vw;
+}
 
+#food1 {
+  left: 2vw;
 }
 
 
 div.wrapper {
   position: absolute;
-  width: 5.5vw;
-  height: 5.4vw;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  border-radius: 50px;
-  right: 25.3vw;
-  bottom: 8vw;
+  left: 18.6vw;
+  top: 11vw;
+  width: 6.5vw;
+  height: 6.5vw;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
   z-index: 0;
   overflow: hidden;
 }
 
 div.full {
-  width: 100%;
   background-color: #ffff00dc;
-  height: 100%;
-  position: absolute;
-  bottom: 0;
+
 }
 
 
@@ -511,67 +520,71 @@ div.full {
 
 .rescueUI {
   position: absolute;
-  width: 39vw;
-  height: 15vw;
-  left: -3vw;
-  bottom: 4.5vw;
-}
-
-.rescueText {
-  position: absolute;
-  width: 16vw;
-  left: 9vw;
-  bottom: 10vw;
+  width: 31vw;
+  height: 7.5vw;
+  left: 1vw;
+  bottom: 1vw;
+  opacity: 0.6;
 }
 
 #rescue1,
 #rescue2,
 #rescue3,
 #rescue4,
-#rescue5,
-#rescue6,
-#rescue7,
-#rescue8,
-#rescue9 {
+#rescue5 {
   position: absolute;
-  width: 3vw;
-  bottom: 9vw;
+  height: 5vw;
+  bottom: 2vw;
 }
 
 #rescue1 {
-  left: 3vw
+  left: 2vw
 }
 
 #rescue2 {
-  left: 6vw
+  left: 7vw
 }
 
 #rescue3 {
-  left: 9vw
-}
-
-#rescue4 {
   left: 12vw
 }
 
+#rescue4 {
+  left: 17vw
+}
+
 #rescue5 {
-  left: 15vw
+  left: 22vw
 }
 
-#rescue6 {
-  left: 18vw
+#rescuebust1,
+#rescuebust2,
+#rescuebust3,
+#rescuebust4,
+#rescuebust5 {
+  position: absolute;
+  height: 100vh;
+  top: 0;
+  right: -100%;
+  animation: slideAnimation 2s ease-in-out;
 }
 
-#rescue7 {
-  left: 21vw
-}
+@keyframes slideAnimation {
+  0% {
+    right: -100%;
+  }
 
-#rescue8 {
-  left: 24vw
-}
+  20% {
+    right: 0;
+  }
 
-#rescue9 {
-  left: 27vw
+  80% {
+    right: 0;
+  }
+
+  100% {
+    right: -100%;
+  }
 }
 
 /* Gender selection */
@@ -650,10 +663,6 @@ div.full {
   cursor: pointer;
 }
 
-.unselected {
-  filter: grayscale(100%);
-
-}
 
 #boy-unselected:hover {
   content: url(./resources/CharacterSelect_BG/Boy/Character_selection_boy_selected.png)
@@ -808,23 +817,14 @@ div.full {
 /* loading screens */
 .yellow-text {
   color: #FABA00 !important;
-  text-shadow: 3px 3px 2px rgba(23, 24, 37, 0.8) !important;
-  ;
-
 }
 
 .green-text {
   color: #A4C621 !important;
-  text-shadow: 3px 3px 2px rgba(23, 24, 37, 0.8) !important;
-  ;
-
 }
 
 .blue-text {
   color: #7DDAFA !important;
-  text-shadow: 3px 3px 2px rgba(23, 24, 37, 0.8) !important;
-  ;
-
 }
 
 .loading-screen-1 {
@@ -889,7 +889,6 @@ div.full {
   text-align: justify;
   font-size: 1.5vw;
   color: white;
-  text-shadow: 3px 3px 2px rgba(77, 79, 128, 0.6);
 }
 
 #loading-1-text {
@@ -926,6 +925,41 @@ div.full {
 
 #loading-drink-d {
   top: 45vh;
+  left: 54vw;
+}
+
+.friend-loading-1 {
+  position: absolute;
+  height: 8vw;
+  top: 55vh;
+  left: 14vw;
+}
+
+.friend-loading-2 {
+  position: absolute;
+  height: 8vw;
+  top: 55vh;
+  left: 24vw;
+}
+
+.friend-loading-3 {
+  position: absolute;
+  height: 8vw;
+  top: 55vh;
+  left: 34vw;
+}
+
+.friend-loading-4 {
+  position: absolute;
+  height: 8vw;
+  top: 55vh;
+  left: 44vw;
+}
+
+.friend-loading-5 {
+  position: absolute;
+  height: 8vw;
+  top: 55vh;
   left: 54vw;
 }
 

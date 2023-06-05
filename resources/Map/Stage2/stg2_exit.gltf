@@ -14,29 +14,230 @@
     "scene": 0,
     "nodes": [
         {
-            "name": "stg2_exit_GEO",
+            "name": "stg2",
             "children": [
                 1
-            ],
-            "translation": [
-                12.8428955078125,
-                887.1298828125,
-                138.75830078125
             ]
         },
         {
-            "name": "stg2_exit_GEO:PIV",
+            "name": "stg3_exit_GRP",
+            "children": [
+                20,
+                18,
+                16,
+                14,
+                12,
+                10,
+                8,
+                6,
+                4,
+                2
+            ]
+        },
+        {
+            "name": "polySurface54",
+            "children": [
+                3
+            ],
+            "translation": [
+                5.09149169921875,
+                1836.451171875,
+                19.44189453125
+            ]
+        },
+        {
+            "name": "polySurface54:PIV",
             "mesh": 0,
             "translation": [
-                -12.8428955078125,
-                -887.1298828125,
-                -138.75830078125
+                -5.09149169921875,
+                -1836.451171875,
+                -19.44189453125
+            ]
+        },
+        {
+            "name": "polySurface50",
+            "children": [
+                5
+            ],
+            "translation": [
+                5.40484619140625,
+                1621.3089599609376,
+                19.44189453125
+            ]
+        },
+        {
+            "name": "polySurface50:PIV",
+            "mesh": 1,
+            "translation": [
+                -5.40484619140625,
+                -1621.3089599609376,
+                -19.44189453125
+            ]
+        },
+        {
+            "name": "polySurface49",
+            "children": [
+                7
+            ],
+            "translation": [
+                -551.0257568359375,
+                876.3492431640625,
+                249.03955078125
+            ]
+        },
+        {
+            "name": "polySurface49:PIV",
+            "mesh": 2,
+            "translation": [
+                551.0257568359375,
+                -876.3492431640625,
+                -249.03955078125
+            ]
+        },
+        {
+            "name": "polySurface48",
+            "children": [
+                9
+            ],
+            "translation": [
+                565.500244140625,
+                876.3728637695313,
+                249.03955078125
+            ]
+        },
+        {
+            "name": "polySurface48:PIV",
+            "mesh": 3,
+            "translation": [
+                -565.500244140625,
+                -876.3728637695313,
+                -249.03955078125
+            ]
+        },
+        {
+            "name": "polySurface47",
+            "children": [
+                11
+            ],
+            "translation": [
+                5.40484619140625,
+                -132.1962890625,
+                42.81640625
+            ]
+        },
+        {
+            "name": "polySurface47:PIV",
+            "mesh": 4,
+            "translation": [
+                -5.40484619140625,
+                132.1962890625,
+                -42.81640625
+            ]
+        },
+        {
+            "name": "polySurface46",
+            "children": [
+                13
+            ],
+            "translation": [
+                -12.499542236328124,
+                1182.6805419921876,
+                10.32177734375
+            ]
+        },
+        {
+            "name": "polySurface46:PIV",
+            "mesh": 5,
+            "translation": [
+                12.499542236328124,
+                -1182.6805419921876,
+                -10.32177734375
+            ]
+        },
+        {
+            "name": "polySurface45",
+            "children": [
+                15
+            ],
+            "translation": [
+                -1091.3765869140626,
+                895.2263793945313,
+                19.6005859375
+            ]
+        },
+        {
+            "name": "polySurface45:PIV",
+            "mesh": 6,
+            "translation": [
+                1091.3765869140626,
+                -895.2263793945313,
+                -19.6005859375
+            ]
+        },
+        {
+            "name": "polySurface44",
+            "children": [
+                17
+            ],
+            "translation": [
+                5.11688232421875,
+                1424.5523681640626,
+                66.2802734375
+            ]
+        },
+        {
+            "name": "polySurface44:PIV",
+            "mesh": 7,
+            "translation": [
+                -5.11688232421875,
+                -1424.5523681640626,
+                -66.2802734375
+            ]
+        },
+        {
+            "name": "polySurface43",
+            "children": [
+                19
+            ],
+            "translation": [
+                1113.73095703125,
+                895.2241821289063,
+                19.59912109375
+            ]
+        },
+        {
+            "name": "polySurface43:PIV",
+            "mesh": 8,
+            "translation": [
+                -1113.73095703125,
+                -895.2241821289063,
+                -19.59912109375
+            ]
+        },
+        {
+            "name": "pPlane6",
+            "mesh": 9,
+            "translation": [
+                0.0,
+                1014.8571166992188,
+                0.0
+            ],
+            "rotation": [
+                0.7071067690849304,
+                0.0,
+                0.0,
+                0.7071067690849304
+            ],
+            "scale": [
+                2127.05126953125,
+                2127.05126953125,
+                2127.05126953125
             ]
         }
     ],
     "meshes": [
         {
-            "name": "stg2_exit_GEOShape",
+            "name": "polySurfaceShape54",
             "extras": {
                 "targetNames": []
             },
@@ -51,7 +252,15 @@
                     "indices": 0,
                     "mode": 4,
                     "material": 0
-                },
+                }
+            ]
+        },
+        {
+            "name": "polySurfaceShape50",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
                 {
                     "attributes": {
                         "NORMAL": 6,
@@ -60,6 +269,158 @@
                         "TEXCOORD_0": 9
                     },
                     "indices": 5,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "polySurfaceShape49",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 11,
+                        "POSITION": 12,
+                        "TANGENT": 13,
+                        "TEXCOORD_0": 14
+                    },
+                    "indices": 10,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "polySurfaceShape48",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 16,
+                        "POSITION": 17,
+                        "TANGENT": 18,
+                        "TEXCOORD_0": 19
+                    },
+                    "indices": 15,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "polySurfaceShape47",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 21,
+                        "POSITION": 22,
+                        "TANGENT": 23,
+                        "TEXCOORD_0": 24
+                    },
+                    "indices": 20,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "polySurfaceShape46",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 26,
+                        "POSITION": 27,
+                        "TANGENT": 28,
+                        "TEXCOORD_0": 29
+                    },
+                    "indices": 25,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "polySurfaceShape45",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 31,
+                        "POSITION": 32,
+                        "TANGENT": 33,
+                        "TEXCOORD_0": 34
+                    },
+                    "indices": 30,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "polySurfaceShape44",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 36,
+                        "POSITION": 37,
+                        "TANGENT": 38,
+                        "TEXCOORD_0": 39
+                    },
+                    "indices": 35,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "polySurfaceShape43",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 41,
+                        "POSITION": 42,
+                        "TANGENT": 43,
+                        "TEXCOORD_0": 44
+                    },
+                    "indices": 40,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "pPlaneShape6",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 46,
+                        "POSITION": 47,
+                        "TANGENT": 48,
+                        "TEXCOORD_0": 49
+                    },
+                    "indices": 45,
                     "mode": 4,
                     "material": 1
                 }
@@ -118,13 +479,13 @@
     ],
     "accessors": [
         {
-            "name": "stg2_exit_GEOShape#0/indices",
+            "name": "polySurfaceShape54#0/indices",
             "bufferView": 0,
             "byteOffset": 0,
             "componentType": 5123,
-            "count": 258,
+            "count": 30,
             "max": [
-                171
+                19
             ],
             "min": [
                 0
@@ -132,70 +493,586 @@
             "type": "SCALAR"
         },
         {
-            "name": "stg2_exit_GEOShape#0/vertices/NORMAL",
+            "name": "polySurfaceShape54#0/vertices/NORMAL",
             "bufferView": 1,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 172,
+            "count": 20,
             "max": [
-                0.9981045722961426,
-                0.9990940690040588,
+                0.9143179655075072,
+                0.992418885231018,
                 1.0
             ],
             "min": [
-                -0.9981046319007874,
-                -0.9722691774368286,
-                -0.9950869679450988
+                -0.914315938949585,
+                -0.9601096510887146,
+                0.09159521758556366
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg2_exit_GEOShape#0/vertices/POSITION",
+            "name": "polySurfaceShape54#0/vertices/POSITION",
             "bufferView": 1,
-            "byteOffset": 2064,
+            "byteOffset": 240,
             "componentType": 5126,
-            "count": 172,
+            "count": 20,
             "max": [
-                1630.02587890625,
-                2105.892333984375,
-                343.4228515625
+                616.1649169921875,
+                1983.68017578125,
+                39.8740234375
             ],
             "min": [
-                -1604.340087890625,
-                -331.6326293945313,
-                -65.90625
+                -605.98193359375,
+                1689.22216796875,
+                -0.990234375
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg2_exit_GEOShape#0/vertices/TANGENT",
+            "name": "polySurfaceShape54#0/vertices/TANGENT",
             "bufferView": 2,
             "byteOffset": 0,
             "componentType": 5126,
-            "count": 172,
+            "count": 20,
             "max": [
-                1.0,
-                1.0,
-                0.9894382357597352,
+                -0.3774957060813904,
+                0.19699430465698246,
+                0.917429745197296,
+                1.0
+            ],
+            "min": [
+                -0.9966081976890564,
+                -0.1324080526828766,
+                -0.9174275994300842,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "polySurfaceShape54#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.8110208511352539,
+                0.9937840104103088
+            ],
+            "min": [
+                0.457194983959198,
+                0.5394685864448547
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "polySurfaceShape50#0/indices",
+            "bufferView": 0,
+            "byteOffset": 60,
+            "componentType": 5123,
+            "count": 30,
+            "max": [
+                19
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "polySurfaceShape50#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 480,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.9174299240112304,
+                0.9957963824272156,
+                1.0
+            ],
+            "min": [
+                -0.9174279570579528,
+                -0.963375210762024,
+                0.0915956199169159
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape50#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 720,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                610.4850463867188,
+                1719.075927734375,
+                39.8740234375
+            ],
+            "min": [
+                -599.6753540039063,
+                1523.5419921875,
+                -0.990234375
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape50#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 320,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                -0.3924261033535004,
+                0.1652643233537674,
+                0.9174298048019408,
                 1.0
             ],
             "min": [
                 -1.0,
-                -0.9994329214096068,
-                -0.9874305725097656,
+                -0.1652646511793137,
+                -0.9174278378486632,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "polySurfaceShape50#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 160,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.8110208511352539,
+                0.9937840104103088
+            ],
+            "min": [
+                0.457194983959198,
+                0.5394685864448547
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "polySurfaceShape49#0/indices",
+            "bufferView": 0,
+            "byteOffset": 120,
+            "componentType": 5123,
+            "count": 30,
+            "max": [
+                19
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "polySurfaceShape49#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 960,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.9773499369621276,
+                0.9721871018409728,
+                1.0
+            ],
+            "min": [
+                -0.977350115776062,
+                -0.9721859693527222,
+                0.2086646407842636
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape49#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 1200,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                -387.260986328125,
+                2084.127685546875,
+                343.4228515625
+            ],
+            "min": [
+                -714.79052734375,
+                -331.42919921875,
+                154.65625
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape49#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 640,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.1878742128610611,
+                0.9993484616279602,
+                0.9779801964759828,
+                1.0
+            ],
+            "min": [
+                -0.2101862281560898,
+                -0.04691696539521217,
+                -0.9728143215179445,
                 -1.0
             ],
             "type": "VEC4"
         },
         {
-            "name": "stg2_exit_GEOShape#0/vertices/TEXCOORD_0",
+            "name": "polySurfaceShape49#0/vertices/TEXCOORD_0",
             "bufferView": 3,
-            "byteOffset": 0,
+            "byteOffset": 320,
             "componentType": 5126,
-            "count": 172,
+            "count": 20,
             "max": [
                 0.8110208511352539,
                 0.9937840104103088
+            ],
+            "min": [
+                0.457194983959198,
+                0.02414989471435547
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "polySurfaceShape48#0/indices",
+            "bufferView": 0,
+            "byteOffset": 180,
+            "componentType": 5123,
+            "count": 30,
+            "max": [
+                19
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "polySurfaceShape48#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 1440,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.9888843297958374,
+                0.9722683429718018,
+                1.0
+            ],
+            "min": [
+                -0.9888842701911926,
+                -0.9722691774368286,
+                0.1449059247970581
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape48#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 1680,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                738.7357177734375,
+                2084.37841796875,
+                343.4228515625
+            ],
+            "min": [
+                392.2648315429688,
+                -331.6326293945313,
+                154.65625
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape48#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 960,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.1462611109018326,
+                0.059949908405542377,
+                0.9894382357597352,
+                1.0
+            ],
+            "min": [
+                -0.10653766244649889,
+                -0.9994329214096068,
+                -0.97281813621521,
+                -1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "polySurfaceShape48#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 480,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.8110208511352539,
+                0.9937840104103088
+            ],
+            "min": [
+                0.457194983959198,
+                0.02414989471435547
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "polySurfaceShape47#0/indices",
+            "bufferView": 0,
+            "byteOffset": 240,
+            "componentType": 5123,
+            "count": 30,
+            "max": [
+                19
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "polySurfaceShape47#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 1920,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.9981045722961426,
+                0.9990940690040588,
+                0.9990941286087036
+            ],
+            "min": [
+                -0.9981046319007874,
+                -0.04255686327815056,
+                -0.9950869679450988
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape47#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 2160,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                610.4850463867188,
+                15.416015625,
+                151.5390625
+            ],
+            "min": [
+                -599.6753540039063,
+                -279.80859375,
+                -65.90625
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape47#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 1280,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                1.0,
+                0.996524691581726,
+                0.08464675396680832,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -0.9965249300003052,
+                -0.08464992791414261,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "polySurfaceShape47#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 640,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.7799964547157288,
+                0.953948438167572
+            ],
+            "min": [
+                0.13707441091537476,
+                0.5256308317184448
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "polySurfaceShape46#0/indices",
+            "bufferView": 0,
+            "byteOffset": 300,
+            "componentType": 5123,
+            "count": 30,
+            "max": [
+                19
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "polySurfaceShape46#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 2400,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.9276236295700072,
+                0.9321157336235046,
+                1.0
+            ],
+            "min": [
+                -0.927625060081482,
+                -0.9619128704071044,
+                0.06285381317138672
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape46#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 2640,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                598.7326049804688,
+                1445.373779296875,
+                41.7392578125
+            ],
+            "min": [
+                -623.731689453125,
+                919.9873046875,
+                -21.095703125
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape46#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 1600,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                -0.2076900750398636,
+                0.10759107768535614,
+                0.9624465703964232,
+                1.0
+            ],
+            "min": [
+                -0.9638185501098632,
+                -0.26655951142311098,
+                -0.9624479413032532,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "polySurfaceShape46#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 800,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.8110208511352539,
+                0.9937840104103088
+            ],
+            "min": [
+                0.457194983959198,
+                0.5394685864448547
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "polySurfaceShape45#0/indices",
+            "bufferView": 0,
+            "byteOffset": 360,
+            "componentType": 5123,
+            "count": 24,
+            "max": [
+                15
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "polySurfaceShape45#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 2880,
+            "componentType": 5126,
+            "count": 16,
+            "max": [
+                0.9154988527297974,
+                0.9874463677406312,
+                1.0
+            ],
+            "min": [
+                -0.9155006408691406,
+                -4.069999874900532e-7,
+                0.15795505046844486
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape45#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 3072,
+            "componentType": 5126,
+            "count": 16,
+            "max": [
+                -578.4132080078125,
+                2105.892333984375,
+                93.1279296875
+            ],
+            "min": [
+                -1604.340087890625,
+                -315.43963623046877,
+                -53.9267578125
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape45#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 1920,
+            "componentType": 5126,
+            "count": 16,
+            "max": [
+                0.28396880626678469,
+                1.0,
+                0.0000012130000186516557,
+                1.0
+            ],
+            "min": [
+                -0.294781893491745,
+                0.15093626081943513,
+                -0.9874305725097656,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "polySurfaceShape45#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 960,
+            "componentType": 5126,
+            "count": 16,
+            "max": [
+                0.2667647004127503,
+                0.45346200466156008
             ],
             "min": [
                 0.004178225994110107,
@@ -204,7 +1081,179 @@
             "type": "VEC2"
         },
         {
-            "name": "stg2_exit_GEOShape#1/indices",
+            "name": "polySurfaceShape44#0/indices",
+            "bufferView": 0,
+            "byteOffset": 408,
+            "componentType": 5123,
+            "count": 30,
+            "max": [
+                19
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "polySurfaceShape44#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 3264,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.8393999934196472,
+                0.9880433678627014,
+                1.0
+            ],
+            "min": [
+                -0.8393941521644592,
+                -0.9221078157424928,
+                0.1347418576478958
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape44#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 3504,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                615.8578491210938,
+                1567.797607421875,
+                80.1005859375
+            ],
+            "min": [
+                -605.6240844726563,
+                1281.30712890625,
+                52.4599609375
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape44#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 2176,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                -0.5080764889717102,
+                0.26082760095596316,
+                0.841810405254364,
+                1.0
+            ],
+            "min": [
+                -0.9971364736557008,
+                -0.1812305748462677,
+                -0.8418046832084656,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "polySurfaceShape44#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 1088,
+            "componentType": 5126,
+            "count": 20,
+            "max": [
+                0.8110208511352539,
+                0.9937840104103088
+            ],
+            "min": [
+                0.457194983959198,
+                0.5394685864448547
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "polySurfaceShape43#0/indices",
+            "bufferView": 0,
+            "byteOffset": 468,
+            "componentType": 5123,
+            "count": 24,
+            "max": [
+                15
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "polySurfaceShape43#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 3744,
+            "componentType": 5126,
+            "count": 16,
+            "max": [
+                0.9145359992980956,
+                0.9874462485313416,
+                1.0
+            ],
+            "min": [
+                -0.9145355820655824,
+                0.0,
+                0.15795578062534333
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape43#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 3936,
+            "componentType": 5126,
+            "count": 16,
+            "max": [
+                1630.02587890625,
+                2105.887939453125,
+                93.1259765625
+            ],
+            "min": [
+                597.4361572265625,
+                -315.4395751953125,
+                -53.927734375
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "polySurfaceShape43#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 2496,
+            "componentType": 5126,
+            "count": 16,
+            "max": [
+                1.0,
+                0.4647958278656006,
+                0.9145355224609376,
+                1.0
+            ],
+            "min": [
+                0.3581565320491791,
+                -0.4647702276706696,
+                -0.9145359396934508,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "polySurfaceShape43#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 1248,
+            "componentType": 5126,
+            "count": 16,
+            "max": [
+                0.45115000009536745,
+                0.7750662565231323
+            ],
+            "min": [
+                0.004430231172591448,
+                0.5116583704948425
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "pPlaneShape6#0/indices",
             "bufferView": 0,
             "byteOffset": 516,
             "componentType": 5123,
@@ -218,7 +1267,7 @@
             "type": "SCALAR"
         },
         {
-            "name": "stg2_exit_GEOShape#1/vertices/NORMAL",
+            "name": "pPlaneShape6#0/vertices/NORMAL",
             "bufferView": 1,
             "byteOffset": 4128,
             "componentType": 5126,
@@ -236,25 +1285,25 @@
             "type": "VEC3"
         },
         {
-            "name": "stg2_exit_GEOShape#1/vertices/POSITION",
+            "name": "pPlaneShape6#0/vertices/POSITION",
             "bufferView": 1,
             "byteOffset": 4176,
             "componentType": 5126,
             "count": 4,
             "max": [
-                1063.525634765625,
-                2078.3828125,
-                0.0
+                0.5,
+                0.0,
+                0.5
             ],
             "min": [
-                -1063.525634765625,
-                -48.66851806640625,
-                0.0
+                -0.5,
+                0.0,
+                -0.5
             ],
             "type": "VEC3"
         },
         {
-            "name": "stg2_exit_GEOShape#1/vertices/TANGENT",
+            "name": "pPlaneShape6#0/vertices/TANGENT",
             "bufferView": 2,
             "byteOffset": 2752,
             "componentType": 5126,
@@ -274,7 +1323,7 @@
             "type": "VEC4"
         },
         {
-            "name": "stg2_exit_GEOShape#1/vertices/TEXCOORD_0",
+            "name": "pPlaneShape6#0/vertices/TEXCOORD_0",
             "bufferView": 3,
             "byteOffset": 1376,
             "componentType": 5126,

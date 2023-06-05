@@ -158,6 +158,18 @@ export const shoogaGlider = (() => {
           this.attacked = true;
           obj.position.z = -0.5
           obj.AttackAnimation()
+          var soundPagato1 = document.getElementById("sound-pagato1");
+          soundPagato1.currentTime = 0.3
+          var soundPagato2 = document.getElementById("sound-pagato2");
+          soundPagato2.currentTime = 0.3
+
+          var randomNumber = Math.random();
+
+          if (randomNumber < 0.5) {
+            soundPagato1.play(); // Play soundEat1
+          } else {
+            soundPagato2.play(); // Play soundEat2
+          }
         }
         if (obj.position.x < -20) {
           this.attacked = false;
