@@ -134,18 +134,18 @@ export const sodaGrade = (() => {
     }
 
 
-    Update(timeElapsed, speed) {
+    Update(timeElapsed) {
       this.SpawnObj_(this.params_.position)
-      this.UpdateColliders_(timeElapsed, speed);
+      this.UpdateColliders_(timeElapsed);
 
     }
 
-    UpdateColliders_(timeElapsed, speed) {
+    UpdateColliders_(timeElapsed) {
       const invisible = [];
       const visible = [];
 
       for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= timeElapsed;
 
         if (obj.position.x < -20) {
           invisible.push(obj);
@@ -154,7 +154,7 @@ export const sodaGrade = (() => {
           visible.push(obj);
         }
 
-        obj.Update(timeElapsed);
+        obj.Update(timeElapsed*0.083);
       }
 
       this.objects_ = visible;

@@ -30,7 +30,7 @@ export const meat = (() => {
 
       const loader = new GLTFLoader();
       loader.setPath('./resources/Food/');
-            const textureLoader = new THREE.TextureLoader();
+      const textureLoader = new THREE.TextureLoader();
       textureLoader.setPath('./resources/Food/');
       const texture = textureLoader.load('foods_colour.png', () => {
         texture.encoding = THREE.LinearEncoding; // Set the texture encoding if needed
@@ -96,8 +96,7 @@ export const meat = (() => {
       return this.objects_;
     }
 
-    SpawnObj_(position, timeElapsed) {
-      this.progress_ += timeElapsed * 10.0;
+    SpawnObj_(position) {
 
       var spawnPosition = [0]
       if (this.params_.stage == 2) {
@@ -127,19 +126,19 @@ export const meat = (() => {
     }
 
 
-    Update(timeElapsed, speed) {
-      this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed, speed);
+    Update(timeElapsed) {
+      this.SpawnObj_(this.params_.position)
+      this.UpdateColliders_(timeElapsed);
 
     }
 
-    UpdateColliders_(timeElapsed, speed) {
+    UpdateColliders_(timeElapsed) {
       const invisible = [];
       const visible = [];
-      this.rotateY += this.rotateIncrement
+      this.rotateY += (timeElapsed / 20)
 
       for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= timeElapsed;
 
         if (obj.position.x < -20) {
           invisible.push(obj);
@@ -166,7 +165,7 @@ export const meat = (() => {
 
         obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
 
-        obj.Update(timeElapsed);
+        obj.Update(timeElapsed * 0.083);
       }
 
       this.objects_ = visible;

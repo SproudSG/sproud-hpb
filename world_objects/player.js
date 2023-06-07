@@ -96,6 +96,9 @@ export const player = (() => {
       //key controls
       this.downPressed_ = false;
 
+      //death
+      this.death = ""
+
 
       //init
       this.params_ = params;
@@ -395,6 +398,9 @@ export const player = (() => {
 
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
+            if (newStamina <= 0) {
+              this.death = "bird"
+            }
             this.playerHit = true;
             this.speed = 0.15;
             this.debuff = true;
@@ -431,16 +437,18 @@ export const player = (() => {
             // Generate a random number between 0 and 1
             var randomNumber = Math.random();
 
-            // Choose which sound to play based on the random number
             if (randomNumber < 0.5) {
-              soundSogias1.play(); // Play soundEat1
+              soundSogias1.play();
             } else {
-              soundSogias2.play(); // Play soundEat2
+              soundSogias2.play();
             }
 
 
             newStamina = this.stamina_ - 10
             this.stamina_ = newStamina;
+            if (newStamina <= 0) {
+              this.death = "slap"
+            }
             this.playerHit = true;
             this.speed = 0.15
             this.debuff = true;
@@ -473,6 +481,7 @@ export const player = (() => {
               var soundFall = document.getElementById("sound-fall");
               soundFall.play();
               this.FallAnimation_()
+              this.death = "pit"
               this.inAir_ = false;
               this.pitCollide = true;
             }
@@ -534,7 +543,7 @@ export const player = (() => {
               this.drink = ""
               this.processedSodaIDs.push(this.sodaID);
             } else {
-              var soundWrongChoice = document.getElementById("sound-wrongitem");
+              var soundWrongChoice = document.getElementById("sound-wrongdrink");
               soundWrongChoice.play();
               this.processedSodaIDs.push(this.sodaID);
               var newStamina = this.stamina_ + 20;
@@ -579,7 +588,7 @@ export const player = (() => {
               this.params_.fruitDrink.ToggleVisible();
               this.params_.fruitDrinkGrade.ToggleVisible();
 
-              var soundWrongChoice = document.getElementById("sound-wrongitem");
+              var soundWrongChoice = document.getElementById("sound-wrongdrink");
               soundWrongChoice.play();
 
               this.sugarDrinks++
@@ -1086,42 +1095,46 @@ export const player = (() => {
 
 
     //player movement with swipe gestures
-    SwipeLeft() {
-
+    SwipeLeft(timeElapsed) {
       if (this.keys_.right) {
         this.keys_.left = false;
 
         if (this.position_.z >= 0) {
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * 2.5)
           if (this.position_.z >= 3) {
             this.position_.z = 3
             this.keys_.right = false;
           }
         } else if (this.position_.z >= -3) {
 
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
-          if (this.position_.z == 0) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * 2.5)
+          if (this.position_.z >= 0) {
             this.keys_.right = false;
+            this.position_.z = 0
           }
-        } else if (this.position_.z == 3) {
+        } else if (this.position_.z >= 3) {
+          this.position_.z = 3
           return;
         }
         this.soundDash.currentTime = 0
         this.soundDash.play();
       } else {
         if (this.position_.z <= 0) {
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * -2.5);
           if (this.position_.z <= -3) {
             this.position_.z = -3
             this.keys_.left = false;
           }
 
         } else if (this.position_.z <= 3) {
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
-          if (this.position_.z == 0) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * -2.5);
+          if (this.position_.z <= 0) {
             this.keys_.left = false;
+            this.position_.z = 0
           }
-        } else if (this.position_.z == -3) {
+        } else if (this.position_.z <= -3) {
+          this.position_.z = -3
+
           return;
         }
         this.soundDash.currentTime = 0
@@ -1131,12 +1144,13 @@ export const player = (() => {
 
     }
 
-    SwipeFullLeft() {
+    SwipeFullLeft(timeElapsed) {
 
       if (this.position_.z <= 3) {
-        this.position_.z = (Math.round(this.position_.z * 10) / 10) + (this.leftMovementSpeed / 1.5);
+        this.position_.z = (Math.round(this.position_.z * 10) / 10) + ((timeElapsed * -2.5) / 1.5);
         this.position_.z = (Math.round(this.position_.z * 10) / 10)
-        if (this.position_.z == -3) {
+        if (this.position_.z <= -3) {
+          this.position_.z = -3;
           this.keys_.left = false;
         }
       } else if (this.position_.z == -3) {
@@ -1146,12 +1160,13 @@ export const player = (() => {
       this.soundDash.play();
     }
 
-    SwipeFullRight() {
+    SwipeFullRight(timeElapsed) {
 
       if (this.position_.z >= -3) {
-        this.position_.z = (Math.round(this.position_.z * 10) / 10) + (this.rightMovementSpeed / 1.5);
+        this.position_.z = (Math.round(this.position_.z * 10) / 10) + ((timeElapsed * 2.5) / 1.5);
         this.position_.z = (Math.round(this.position_.z * 10) / 10)
-        if (this.position_.z == 3) {
+        if (this.position_.z >= 3) {
+          this.position_.z = 3
           this.keys_.right = false;
         }
       } else if (this.position_.z == 3) {
@@ -1161,40 +1176,45 @@ export const player = (() => {
       this.soundDash.play();
     }
 
-    SwipeRight() {
+    SwipeRight(timeElapsed) {
       if (this.keys_.left) {
         this.keys_.right = false;
         if (this.position_.z <= 0) {
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * -2.5);
           if (this.position_.z <= -3) {
             this.position_.z = -3
             this.keys_.left = false;
           }
 
         } else if (this.position_.z <= 3) {
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.leftMovementSpeed;
-          if (this.position_.z == 0) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * -2.5);
+          if (this.position_.z <= 0) {
             this.keys_.left = false;
+            this.position_.z = 0
           }
-        } else if (this.position_.z == -3) {
+        } else if (this.position_.z <= -3) {
+          this.position_.z = -3
+
           return;
         }
         this.soundDash.currentTime = 0
         this.soundDash.play();
       } else {
         if (this.position_.z >= 0) {
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * 2.5)
           if (this.position_.z >= 3) {
             this.position_.z = 3
             this.keys_.right = false;
           }
         } else if (this.position_.z >= -3) {
 
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + this.rightMovementSpeed;
-          if (this.position_.z == 0) {
+          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * 2.5)
+          if (this.position_.z >= 0) {
             this.keys_.right = false;
+            this.position_.z = 0
           }
-        } else if (this.position_.z == 3) {
+        } else if (this.position_.z >= 3) {
+          this.position_.z = 3
           return;
         }
         this.soundDash.currentTime = 0
@@ -1272,7 +1292,7 @@ export const player = (() => {
 
       //if shield is active
       if (this.immunitiy) {
-        this.shieldTime -= timeElapsed * 10.0;
+        this.shieldTime -= timeElapsed * 0.83;
         document.getElementById("fullShield").style.height = this.shieldTime + "%"
         if (this.shieldTime <= 0) {
           document.getElementById("sheildHUD-blue").style.zIndex = "-1"
@@ -1350,32 +1370,34 @@ export const player = (() => {
                 this.wallFail = true;
                 this.inAir_ = false;
                 this.FallAnimation_()
+                this.death = "pit"
               }
 
               //click left way too early
               if (this.onWall && (this.keys_.left || swipeLeft) && this.wallArray[1].x > 16) {
-                this.SwipeLeft()
+                this.SwipeLeft(timeElapsed)
                 this.onWall = false;
                 this.wallFail = true;
                 this.inAir_ = false;
                 this.FallAnimation_()
+                this.death = "pit"
 
               }
 
               //right wall first -> if u jump and go to right , u will stay in that y position.
               if (this.inAir_ && (this.keys_.right || swipeRight) && !this.wallFail) {
-                this.SwipeRight()
+                this.SwipeRight(timeElapsed)
                 if (this.position_.z >= 2.5 && !this.wallFail) {
 
                   this.position_.z = 3
                   if (this.position_.y != 3) {
                     if (this.position_.y > 3) {
-                      this.position_.y = this.position_.y - (timeElapsed * 2)
+                      this.position_.y = this.position_.y - (timeElapsed * 0.083)
                       if (this.position_.y < 3.1) {
                         this.position_.y = 3
                       }
                     } else {
-                      this.position_.y = this.position_.y + (timeElapsed * 2)
+                      this.position_.y = this.position_.y + (timeElapsed * 0.083)
                       if (this.position_.y > 2.9) {
                         this.position_.y = 3
                       }
@@ -1393,12 +1415,12 @@ export const player = (() => {
 
                 if (this.position_.y != 3) {
                   if (this.position_.y > 3) {
-                    this.position_.y = this.position_.y - (timeElapsed * 2)
+                    this.position_.y = this.position_.y - (timeElapsed * 0.083)
                     if (this.position_.y < 3.1) {
                       this.position_.y = 3
                     }
                   } else {
-                    this.position_.y = this.position_.y + (timeElapsed * 2)
+                    this.position_.y = this.position_.y + (timeElapsed * 0.083)
                     if (this.position_.y > 2.9) {
                       this.position_.y = 3
                     }
@@ -1414,6 +1436,8 @@ export const player = (() => {
             if (this.wallArray[0].x < -13 && this.position_.z == 3 && !this.wallFail) {
               this.wallFail = true;
               this.FallAnimation_()
+              this.death = "pit"
+
             }
 
 
@@ -1424,7 +1448,7 @@ export const player = (() => {
               //left wall
               if (!this.inAir_ && (this.keys_.left || swipeLeft) && this.position_.z != -3 && !this.wallFail) {
 
-                this.SwipeFullLeft()
+                this.SwipeFullLeft(timeElapsed)
 
 
                 if (this.position_.z != 3 || this.position_.z != -3) {
@@ -1462,32 +1486,36 @@ export const player = (() => {
                 this.wallFail = true;
                 this.inAir_ = false;
                 this.FallAnimation_()
+                this.death = "pit"
+
               }
 
               //click right way too early
               if (this.onWall && (this.keys_.right || swipeRight) && this.wallArray[1].x > 15) {
-                this.SwipeRight()
+                this.SwipeRight(timeElapsed)
                 this.onWall = false;
                 this.wallFail = true;
                 this.inAir_ = false;
                 this.FallAnimation_()
+                this.death = "pit"
+
 
               }
 
               //left wall first -> if u jump and go to left , u will stay in that y position.
               if (this.inAir_ && (this.keys_.left || swipeLeft) && !this.wallFail) {
-                this.SwipeLeft()
+                this.SwipeLeft(timeElapsed)
                 if (this.position_.z <= -2.5 && !this.wallFail) {
 
                   this.position_.z = -3
                   if (this.position_.y != -3) {
                     if (this.position_.y > 3) {
-                      this.position_.y = this.position_.y - (timeElapsed * 2)
+                      this.position_.y = this.position_.y - (timeElapsed * 0.083)
                       if (this.position_.y < 3.1) {
                         this.position_.y = 3
                       }
                     } else {
-                      this.position_.y = this.position_.y + (timeElapsed * 2)
+                      this.position_.y = this.position_.y + (timeElapsed * 0.083)
                       if (this.position_.y > 2.9) {
                         this.position_.y = 3
                       }
@@ -1506,12 +1534,12 @@ export const player = (() => {
 
                 if (this.position_.y != 3) {
                   if (this.position_.y > 3) {
-                    this.position_.y = this.position_.y - (timeElapsed * 2)
+                    this.position_.y = this.position_.y - (timeElapsed * 0.083)
                     if (this.position_.y < 3.1) {
                       this.position_.y = 3
                     }
                   } else {
-                    this.position_.y = this.position_.y + (timeElapsed * 2)
+                    this.position_.y = this.position_.y + (timeElapsed * 0.083)
                     if (this.position_.y > 2.9) {
                       this.position_.y = 3
                     }
@@ -1528,6 +1556,8 @@ export const player = (() => {
 
               this.wallFail = true;
               this.FallAnimation_()
+              this.death = "pit"
+
             }
 
             //wall running right wall mechanics
@@ -1537,7 +1567,7 @@ export const player = (() => {
               //right wall
               if (!this.inAir_ && (this.keys_.right || swipeRight) && this.position_.z != 3 && !this.wallFail) {
 
-                this.SwipeFullRight()
+                this.SwipeFullRight(timeElapsed)
 
 
                 if (this.position_.z != 3 || this.position_.z != -3) {
@@ -1575,22 +1605,24 @@ export const player = (() => {
               this.wallFail = true;
               this.inAir_ = false;
               this.FallAnimation_()
+              this.death = "pit"
+
             }
 
             //right wall first -> if u jump and go to right , u will stay in that y position.
             if (this.inAir_ && (this.keys_.right || swipeRight) && !this.wallFail) {
-              this.SwipeRight()
+              this.SwipeRight(timeElapsed)
               if (this.position_.z >= 2.5 && !this.wallFail) {
 
                 this.position_.z = 3
                 if (this.position_.y != 3) {
                   if (this.position_.y > 3) {
-                    this.position_.y = this.position_.y - (timeElapsed * 2)
+                    this.position_.y = this.position_.y - (timeElapsed * 0.083)
                     if (this.position_.y < 3.1) {
                       this.position_.y = 3
                     }
                   } else {
-                    this.position_.y = this.position_.y + (timeElapsed * 2)
+                    this.position_.y = this.position_.y + (timeElapsed * 0.083)
                     if (this.position_.y > 2.9) {
                       this.position_.y = 3
                     }
@@ -1609,12 +1641,12 @@ export const player = (() => {
 
               if (this.position_.y != 3) {
                 if (this.position_.y > 3) {
-                  this.position_.y = this.position_.y - (timeElapsed * 2)
+                  this.position_.y = this.position_.y - (timeElapsed * 0.083)
                   if (this.position_.y < 3.1) {
                     this.position_.y = 3
                   }
                 } else {
-                  this.position_.y = this.position_.y + (timeElapsed * 2)
+                  this.position_.y = this.position_.y + (timeElapsed * 0.083)
                   if (this.position_.y > 2.9) {
                     this.position_.y = 3
                   }
@@ -1638,7 +1670,7 @@ export const player = (() => {
 
       //player movement with keyboard controls
       if (this.keys_.space && this.position_.y == 0.0) {
-        this.SwipeUp(timeElapsed)
+        this.SwipeUp(timeElapsed * 0.083 / 5)
 
       }
 
@@ -1649,7 +1681,7 @@ export const player = (() => {
 
       if (this.keys_.left && !this.onWall) {
 
-        this.SwipeLeft()
+        this.SwipeLeft(timeElapsed)
 
 
       } else if (this.onWall && this.position_.z == -3) {
@@ -1659,7 +1691,7 @@ export const player = (() => {
 
       if (this.keys_.right && !this.onWall) {
 
-        this.SwipeRight()
+        this.SwipeRight(timeElapsed)
 
 
       } else if (this.onWall && this.position_.z == 3) {
@@ -1670,8 +1702,8 @@ export const player = (() => {
       //jump and slide calculation.
       if (this.inAir_) {
 
-        const acceleration = -115 * (timeElapsed / 1.6);
-        this.position_.y += (timeElapsed / 1.6) * (this.velocity_ + acceleration * 0.5);
+        const acceleration = -115 * ((timeElapsed * 0.083) / 1.6);
+        this.position_.y += ((timeElapsed * 0.083) / 1.6) * (this.velocity_ + acceleration * 0.5);
 
 
         this.position_.y = Math.max(this.position_.y, 0.0);
@@ -1702,9 +1734,9 @@ export const player = (() => {
       }
 
       if (this.sliding_) {
-        const acceleration = -8.8 * timeElapsed;
+        const acceleration = -8.8 * (timeElapsed * 0.083);
 
-        this.slideTimer_ -= timeElapsed * (this.velocity_ + acceleration * 0.5);
+        this.slideTimer_ -= (timeElapsed * 0.083) * (this.velocity_ + acceleration * 0.5);
         this.slideTimer_ = Math.min(this.slideTimer_, 0.0);
         this.slideTimer_ = Math.max(this.slideTimer_, -1.0);
 
@@ -1734,15 +1766,14 @@ export const player = (() => {
 
       //update player animation, position and check collision
       if (this.mesh_) {
-        this.mixer_.update(timeElapsed);
+        this.mixer_.update(timeElapsed * 0.083);
         this.mesh_.position.copy(this.position_);
         this.CheckCollisions_();
 
       }
 
       //update stamina
-      this.UpdateStamina_(timeElapsed, pause);
-
+      this.UpdateStamina_(timeElapsed * 0.083, pause);
 
       //check speed decay
 
@@ -1764,9 +1795,10 @@ export const player = (() => {
 
     // Stamina
     UpdateStamina_(timeElapsed, pause) {
-      if (!pause && timeElapsed < 0.1) {
+      var time = timeElapsed
+      if (!pause && time < 0.1) {
 
-        this.stamina_ -= timeElapsed * 3.5
+        this.stamina_ -= time * 3.5
         const staminaText = (16.55 * Math.round((this.stamina_ * 10)) / 1000)
         const staminaText2 = 26.2 - staminaText
 
@@ -1779,7 +1811,6 @@ export const player = (() => {
           this.soundShield.pause();
         }
       }
-
     }
   };
 

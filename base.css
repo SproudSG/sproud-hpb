@@ -60,18 +60,57 @@ img {
   }
 }
 
+.game-over-index {
+  z-index: 10;
+}
+
 .game-over-layout {
   opacity: 0.0;
-
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   visibility: hidden;
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+}
+
+.game-over-pitboy {
+  background-image: url("./resources/Game_Over/Game_Over_Scene_Pit_Boy.png");
+
+}
+
+.game-over-pitgirl {
+  background-image: url("./resources/Game_Over/Game_Over_Scene_Pit_Girl.png");
+}
+
+
+.game-over-boy {
+  background-image: url("./resources/Game_Over/Game_Over_Scene_Chaser_Boy.png");
+}
+
+.game-over-girl {
+  background-image: url("./resources/Game_Over/Game_Over_Scene_Chaser_Girl.png");
+}
+
+.game-over-boybird {
+  background-image: url("./resources/Game_Over/Game_Over_Scene_Glider_Boy.png");
+}
+
+.game-over-girlbird {
+  background-image: url("./resources/Game_Over/Game_Over_Scene_Glider_Girl.png");
+}
+
+.game-over-boyslap {
+  background-image: url("./resources/Game_Over/Game_Over_Scene_Grabber_Boy.png");
+
+}
+
+.game-over-girlslap {
+  background-image: url("./resources/Game_Over/Game_Over_Scene_Grabber_Girl.png");
 }
 
 .game-over-layout.active {
@@ -176,19 +215,19 @@ img {
 
 @-webkit-keyframes glow {
   to {
-      text-shadow: 4px 4px 5px #000, 0 0 7px #fff, 0 0 10px #fff, 0 0 16px #fff, 0 0 23px #fff, 0 0 25px #fff
+    text-shadow: 4px 4px 5px #000, 0 0 7px #fff, 0 0 10px #fff, 0 0 16px #fff, 0 0 23px #fff, 0 0 25px #fff
   }
 }
 
 @-o-keyframes glow {
   to {
-      text-shadow: 4px 4px 5px #000, 0 0 7px #fff, 0 0 10px #fff, 0 0 16px #fff, 0 0 23px #fff, 0 0 25px #fff
+    text-shadow: 4px 4px 5px #000, 0 0 7px #fff, 0 0 10px #fff, 0 0 16px #fff, 0 0 23px #fff, 0 0 25px #fff
   }
 }
 
 @keyframes glow {
   to {
-      text-shadow: 4px 4px 5px #000, 0 0 7px #fff, 0 0 10px #fff, 0 0 16px #fff, 0 0 23px #fff, 0 0 25px #fff
+    text-shadow: 4px 4px 5px #000, 0 0 7px #fff, 0 0 10px #fff, 0 0 16px #fff, 0 0 23px #fff, 0 0 25px #fff
   }
 }
 
@@ -744,7 +783,7 @@ div.full {
 
 #click-start {
   position: fixed;
-  z-index: 99;
+  z-index: 199;
   top: 0;
   bottom: 0;
   left: 0;
@@ -757,9 +796,22 @@ div.full {
   cursor: pointer;
 }
 
-#try-again-button {
+.tryagainbutton {
+  position: fixed;
+  bottom: 0vh;
+  right: 0;
   z-index: 99;
+}
 
+
+
+#try-again-button {
+  /* Adjust the size and other styles of your image as needed */
+  width: 20vw;
+}
+
+#try-again-button:hover {
+  cursor: pointer;
 }
 
 .button-container {

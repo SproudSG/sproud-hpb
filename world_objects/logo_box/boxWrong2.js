@@ -99,8 +99,7 @@ export const hpbWrongLogo2 = (() => {
     }
 
    
-    SpawnObj_(position, timeElapsed) {
-      this.progress_ += timeElapsed * 10.0;
+    SpawnObj_(position) {
 
       const spawnPosition = [190, 280, 550, 700, 925]
       
@@ -125,18 +124,17 @@ export const hpbWrongLogo2 = (() => {
     }
 
 
-    Update(timeElapsed,speed) {
+    Update(timeElapsed) {
       this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed,speed);
+      this.UpdateColliders_(timeElapsed);
 
     }
 
-    UpdateColliders_(timeElapsed,speed) {
+    UpdateColliders_(timeElapsed) {
       const invisible = [];
       const visible = [];
-
       for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= timeElapsed;
 
         if (obj.position.x < -20) {
           invisible.push(obj);
@@ -162,7 +160,7 @@ export const hpbWrongLogo2 = (() => {
 
         obj.position.y = this.positionY + 1
   
-        obj.Update(timeElapsed);
+        obj.Update(timeElapsed*0.083);
       }
 
       this.objects_ = visible;

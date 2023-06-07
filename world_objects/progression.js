@@ -6,7 +6,7 @@ export const progression = (() => {
         }
 
         Update(timeElapsed, pause, stage, buffspeed) {
-            this.UpdateProgression_(timeElapsed, pause, stage, buffspeed);
+            this.UpdateProgression_(timeElapsed*0.083, pause, stage, buffspeed);
         }
 
         //Progression 

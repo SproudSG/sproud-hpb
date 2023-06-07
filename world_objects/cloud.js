@@ -47,7 +47,7 @@ export const cloud = (() => {
       if (!this.mesh_) {
         return;
       }
-      this.position_.x -= timeElapsed * 20;
+      this.position_.x -= timeElapsed * 10 ;
 
       this.mesh_.position.copy(this.position_);
       this.mesh_.quaternion.copy(this.quaternion_);
@@ -75,7 +75,7 @@ export const cloud = (() => {
 
     Update(timeElapsed) {
       for (let c of this.clouds_) {
-        c.Update(timeElapsed);
+        c.Update(timeElapsed*0.083);
       }
 
     }

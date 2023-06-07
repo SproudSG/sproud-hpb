@@ -21,9 +21,9 @@ export const waterGrade = (() => {
 
       const loader = new GLTFLoader();
       loader.setPath('./resources/Drinks/');
-            const textureLoader = new THREE.TextureLoader();
+      const textureLoader = new THREE.TextureLoader();
       textureLoader.setPath('./resources/Drinks/');
-  
+
 
       const texture = textureLoader.load('nutrigrade_LOGO_colour.png', () => {
         texture.encoding = THREE.LinearEncoding; // Set the texture encoding if needed
@@ -60,7 +60,20 @@ export const waterGrade = (() => {
         this.params_.scene.add(this.mesh);
 
 
-      });
+      },
+      // called while loading is progressing
+      function (xhr) {
+
+        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+      },
+      // called when loading has errors
+      function (error) {
+
+        console.log(error);
+
+      }
+      );
 
     }
 
@@ -91,7 +104,9 @@ export const waterGrade = (() => {
     }
 
     ToggleVisible(counter) {
-
+      if(!this.objects_[counter].mesh){
+        return;
+      }
       this.objects_[counter].mesh.visible = false;
 
     }
@@ -132,11 +147,11 @@ export const waterGrade = (() => {
               obj.position.y += 2.5;
             }
           } else if (this.params_.stage == 2) {
-            if (i == 10 || i == 13 || i == 18 || i == 21) {
+            if (i == 7 ||i == 8 ||i == 10 || i == 13 || i == 18 || i == 21 || i == 24 || i == 27 || i == 28 || i == 34) {
               obj.position.y += 2.5;
             }
           } else if (this.params_.stage == 3) {
-            if (i == 1 || i == 7 || i == 9 || i == 10 || i == 12 || i == 16 || i == 17 || i == 19) {
+            if (i == 0 || i == 1 || i == 5 || i == 7 || i == 8 || i == 9 || i == 10 || i == 12 || i == 13 || i == 14 || i == 16 || i == 17 || i == 19) {
               obj.position.y += 2.5;
             }
           }
@@ -154,17 +169,17 @@ export const waterGrade = (() => {
     }
 
 
-    Update(timeElapsed, speed) {
+    Update(timeElapsed) {
       this.SpawnObj_(this.params_.position)
-      this.UpdateColliders_(timeElapsed, speed);
+      this.UpdateColliders_(timeElapsed);
 
     }
 
-    UpdateColliders_(timeElapsed, speed) {
+    UpdateColliders_(timeElapsed) {
       const invisible = [];
       const visible = [];
       for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= timeElapsed;
 
         if (obj.position.x < -20) {
           invisible.push(obj);
@@ -173,7 +188,7 @@ export const waterGrade = (() => {
           visible.push(obj);
         }
 
-        obj.Update(timeElapsed);
+        obj.Update(timeElapsed*0.083);
       }
 
       this.objects_ = visible;

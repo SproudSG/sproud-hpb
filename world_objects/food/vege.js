@@ -29,7 +29,7 @@ export const vege = (() => {
 
       const loader = new GLTFLoader();
       loader.setPath('./resources/Food/');
-            const textureLoader = new THREE.TextureLoader();
+      const textureLoader = new THREE.TextureLoader();
       textureLoader.setPath('./resources/Food/');
       const texture = textureLoader.load('foods_colour.png', () => {
         texture.encoding = THREE.LinearEncoding; // Set the texture encoding if needed
@@ -95,9 +95,7 @@ export const vege = (() => {
       return this.objects_;
     }
 
-    SpawnObj_(position, timeElapsed) {
-      this.progress_ += timeElapsed * 10.0;
-
+    SpawnObj_(position) {
       var spawnPosition = [0]
       if (this.params_.stage == 2) {
         spawnPosition = [152, 180, 208, 236, 264, 292, 348, 376, 432, 460, 516, 516, 544, 572, 600]
@@ -115,7 +113,11 @@ export const vege = (() => {
       for (var i = 0; i < spawnPosition.length; i++) {
         if (this.counter_ == i) {
           obj = new FoodObject(this.params_);
-
+          if (this.params_.stage == 3) {
+            if (i == 4) {
+              obj.position.y += 2.5;
+            }
+          }
           obj.position.x = spawnPosition[i]
           obj.position.z = position[i]
           obj.scale = 0.03;
@@ -127,19 +129,19 @@ export const vege = (() => {
     }
 
 
-    Update(timeElapsed, speed) {
-      this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed, speed);
+    Update(timeElapsed) {
+      this.SpawnObj_(this.params_.position)
+      this.UpdateColliders_(timeElapsed);
 
     }
 
-    UpdateColliders_(timeElapsed, speed) {
+    UpdateColliders_(timeElapsed) {
       const invisible = [];
       const visible = [];
-      this.rotateY += this.rotateIncrement
+      this.rotateY += (timeElapsed/20)
 
       for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= timeElapsed;
 
         if (obj.position.x < -20) {
           invisible.push(obj);
@@ -147,25 +149,29 @@ export const vege = (() => {
         } else {
           visible.push(obj);
         }
-        if (obj.position.y < 0 && !this.toggleFloat) {
-          this.toggleFloat = true;
-          this.toggleFloat1 = false;
 
-          this.floatSpeed *= -1
+        if (obj.position.y < 2.5) {
+          if (obj.position.y < 0 && !this.toggleFloat) {
+            this.toggleFloat = true;
+            this.toggleFloat1 = false;
+
+            this.floatSpeed *= -1
+          }
+
+          if (obj.position.y > 0.25 && !this.toggleFloat1) {
+            this.toggleFloat = false;
+            this.toggleFloat1 = true;
+
+            this.floatSpeed *= -1
+          }
+
+          obj.position.y += this.floatSpeed;
         }
 
-        if (obj.position.y > 0.25 && !this.toggleFloat1) {
-          this.toggleFloat = false;
-          this.toggleFloat1 = true;
-
-          this.floatSpeed *= -1
-        }
-
-        obj.position.y += this.floatSpeed;
 
         obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
 
-        obj.Update(timeElapsed);
+        obj.Update(timeElapsed*0.083);
       }
 
       this.objects_ = visible;

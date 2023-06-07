@@ -90,7 +90,6 @@ export const water = (() => {
       this.counter_ = 0;
       this.visibilityCounter_ = 0
       this.spawn_ = 0;
-      this.progress_ = 0;
       this.floatSpeed = 0.01;
       this.rotateY = 0
       this.rotateIncrement = 0.01
@@ -106,8 +105,7 @@ export const water = (() => {
 
     }
 
-    SpawnObj_(position, timeElapsed) {
-      this.progress_ += timeElapsed * 10.0;
+    SpawnObj_(position) {
       var spawnPosition = []
       if (this.params_.stage == 1) {
         spawnPosition = [50, 65, 65, 80, 80, 95, 110, 125, 140, 155, 170, 185, 200, 215, 230, 230, 245, 245, 260, 260, 275, 290, 305, 320, 335, 350, 365, 380, 395, 410, 425, 440, 455, 470, 485]
@@ -141,11 +139,11 @@ export const water = (() => {
               obj.position.y += 2.5;
             }
           } else if (this.params_.stage == 2) {
-            if (i == 10 || i == 13 || i == 18 || i == 21) {
+            if (i == 7 ||i == 8 ||i == 10 || i == 13 || i == 18 || i == 21 || i == 24 || i == 27 || i == 28 || i == 34) {
               obj.position.y += 2.5;
             }
           } else if (this.params_.stage == 3) {
-            if (i == 1 || i == 7 || i == 9 || i == 10 || i == 12 || i == 16 || i == 17 || i == 19) {
+            if (i == 0 || i == 1 || i == 5 || i == 7 || i == 8 || i == 9 || i == 10 || i == 12 || i == 13 || i == 14 || i == 16 || i == 17 || i == 19) {
               obj.position.y += 2.5;
             }
           }
@@ -164,18 +162,18 @@ export const water = (() => {
     }
 
 
-    Update(timeElapsed, speed) {
-      this.SpawnObj_(this.params_.position, timeElapsed)
-      this.UpdateColliders_(timeElapsed, speed);
+    Update(timeElapsed) {
+      this.SpawnObj_(this.params_.position)
+      this.UpdateColliders_(timeElapsed);
 
     }
 
-    UpdateColliders_(timeElapsed, speed) {
+    UpdateColliders_(timeElapsed) {
       const visible = [];
-      this.rotateY += this.rotateIncrement
+      this.rotateY += (timeElapsed/20)
 
       for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= timeElapsed;
 
         if (obj.position.x < -20) {
           obj.mesh.visible = false;
@@ -183,25 +181,7 @@ export const water = (() => {
           visible.push(obj);
         }
 
-        // if (obj.position.y < 0 && !this.toggleFloat) {
-        //   this.toggleFloat = true;
-        //   this.toggleFloat1 = false;
-
-        //   this.floatSpeed *= -1
-        // }
-
-        // if (obj.position.y > 0.25 && !this.toggleFloat1) {
-        //   this.toggleFloat = false;
-        //   this.toggleFloat1 = true;
-
-        //   this.floatSpeed *= -1
-        // }
-
-        // obj.position.y += this.floatSpeed;
-
-        // obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
-
-        obj.Update(timeElapsed);
+        obj.Update(timeElapsed*0.083);
       }
 
       this.objects_ = visible;

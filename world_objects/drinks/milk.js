@@ -96,9 +96,7 @@ export const milk = (() => {
 
     }
 
-    SpawnObj_(position, timeElapsed) {
-      this.progress_ += timeElapsed * 10.0;
-
+    SpawnObj_(position) {
       const spawnPosition =  [50, 130, 200, 430, 500]
 
       if (this.params_.firstChase) {
@@ -127,7 +125,7 @@ export const milk = (() => {
 
 
     Update(timeElapsed, speed) {
-      this.SpawnObj_(this.params_.position, timeElapsed)
+      this.SpawnObj_(this.params_.position)
       this.UpdateColliders_(timeElapsed, speed);
 
     }
@@ -138,7 +136,7 @@ export const milk = (() => {
       this.rotateY += this.rotateIncrement
 
       for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= speed;
 
         if (obj.position.x < -20) {
           invisible.push(obj);

@@ -13,7 +13,7 @@ export const oilSlik = (() => {
         constructor(params) {
             //player properties
             this.position_ = new THREE.Vector3(-5, 0, 0);
-            this.speed_ = 2;
+            this.speed_ = 0.2;
             this.slowCheck = false;
             this.params_ = params;
             this.LoadModel_();
@@ -51,18 +51,18 @@ export const oilSlik = (() => {
 
         Update(timeElapsed, pause, chase, slow) {
             if (this.mesh_) {
-                this.mixer_.update(timeElapsed);
+                this.mixer_.update(timeElapsed*0.083);
                 if (chase && this.mesh_.position.x < -8.5 && !pause) {
-                    this.mesh_.position.x += timeElapsed * this.speed_;
+                    this.mesh_.position.x += timeElapsed;
                 }
 
                 if (!chase && this.mesh_.position.x > -15 && !pause) {
-                    this.mesh_.position.x -= timeElapsed * this.speed_;
+                    this.mesh_.position.x -= timeElapsed;
                 }
 
                 if (!slow && !this.slowCheck && !pause) {
                     if (this.mesh_.position.x > -15) {
-                        this.mesh_.position.x -= timeElapsed * this.speed_;
+                        this.mesh_.position.x -= timeElapsed;
                     } else {
                         this.slowCheck = true
                     }

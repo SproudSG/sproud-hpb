@@ -40,7 +40,7 @@ export const pitfall = (() => {
         UpdateCollider_() {
             this.collider.setFromObject(this.mesh);
             this.collider.max.x = this.collider.max.x - 1;
-            this.collider.min.x = this.collider.min.x + 1.3;
+            this.collider.min.x = this.collider.min.x + 1.5;
         }
 
         Update() {
@@ -110,7 +110,7 @@ export const pitfall = (() => {
 
 
         Update(timeElapsed, speed) {
-            this.SpawnObj_(this.params_.position, timeElapsed)
+            this.SpawnObj_()
             this.UpdateColliders_(timeElapsed, speed);
 
         }
@@ -120,7 +120,7 @@ export const pitfall = (() => {
             const visible = [];
 
             for (let obj of this.objects_) {
-                obj.position.x -= timeElapsed * speed;
+                obj.position.x -= timeElapsed;
                 if (obj.position.x < -20) {
                     invisible.push(obj);
                     obj.mesh.visible = false;
@@ -128,7 +128,7 @@ export const pitfall = (() => {
                     visible.push(obj);
                 }
 
-                obj.Update(timeElapsed);
+                obj.Update(timeElapsed*0.083);
             }
 
             this.objects_ = visible;

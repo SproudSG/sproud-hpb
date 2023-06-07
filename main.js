@@ -72,11 +72,6 @@ class BasicWorldDemo {
     //pause
     this.allowPause = false;
 
-    // fps
-    this.targetFps = 60;
-    this.lastTime = 0;
-    this.frameDelay = 1000 / this.targetFps; // Delay for 60 FPS (16.6ms)
-
     //load assets & world variables 
     this.loaded = false;
     this.gender_ = null;
@@ -92,10 +87,6 @@ class BasicWorldDemo {
     this.failedStage = false;
     //loading bars
     this.progressBarContainer = document.getElementById('loading-bar-container');
-
-
-
-
 
 
     //on load music 
@@ -560,12 +551,9 @@ class BasicWorldDemo {
   //initialize the game
   _Initialize() {
     //speed variables
-    this.speed_ = 0.2;
     this.box_ = "";
-    this.objSpeed = 12;
-    this.monSpeed = 52;
-    this.speedz = 3;
-    this.speedy = 12;
+    this.objSpeed = 0.2;
+    this.monSpeed = 0.86666666666;
     this.buffspeed = false;
     this.startstage = false;
     this.allowStart = false;
@@ -1380,43 +1368,58 @@ class BasicWorldDemo {
     });
 
     retryStage3.addEventListener("click", () => {
+
       var soundSelect = document.getElementById("sound-click");
       soundSelect.play();
-      this.playNextStageVideo3()
-      this.nextStageVideo3_.currentTime = this.nextStageVideo3_.duration;
-      this.eventAdded1 = false;
-      this.stageLoadCheck = false;
-      this.startload2 = false;
+      document.getElementById('final-score-bad-ending').classList.toggle('active');
+      document.getElementById('badEndingUI').style.zIndex = 0;
 
+      this.checkRestart = true;
+      this.camera_.position.set(-10, 5, 0)
+      this.allowPause = false;
+      this.restartStage = false;
+      this.gameOver_ = true;
+      this.stageLoadCheck = false;
+      if (this.player_.immunitiy) {
+        this.player_.soundShield.pause();
+        this.player_.soundShield.currentTime = 0;
+      }
+      this.player_.soundRunning.pause();
+      pauseButton.style.display = 'none'
+      document.getElementById("shieldTimer").style.zIndex = "-1";
+      document.querySelector('#pauseDiv').style.display = 'none'
       document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food4").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-      document.getElementById('loading3-next').style.display = 'none';
-      document.getElementById('stage3-intro1').style.display = 'none'
-      document.getElementById('stage3-intro2').style.display = 'none'
-      document.getElementById('stage3-intro3').style.display = 'none'
       document.getElementById("sheildHUD-blue").style.zIndex = "-1"
       document.getElementById("sheildHUD-green").style.zIndex = "-1"
       document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
-      document.getElementById("shieldTimer").style.zIndex = "-1";
 
       document.getElementById("rescue1").src = "./resources/Rescued_Friend_UI/Friend1_notsaved.png"
       document.getElementById("rescue2").src = "./resources/Rescued_Friend_UI/Friend2_notsaved.png"
       document.getElementById("rescue3").src = "./resources/Rescued_Friend_UI/Friend3_notsaved.png"
       document.getElementById("rescue4").src = "./resources/Rescued_Friend_UI/Friend4_notsaved.png"
       document.getElementById("rescue5").src = "./resources/Rescued_Friend_UI/Friend5_notsaved.png"
+      this.player_.friendsSaved = 0;
 
       document.querySelector('#video-container').style.background = ""
-      if (this.gender_ == "male") {
-        document.getElementById('boyHUD').style.display = 'block'
-      } else if (this.gender_ == "female") {
-        document.getElementById('girlHUD').style.display = 'block'
-      }
-      document.getElementById('final-score-bad-ending').classList.toggle('active');
-      document.getElementById('badEndingUI').style.zIndex = 0;
+      document.getElementById('loading-button-container').style.display = 'block';
 
+      this.playNextStageVideo3();
+      this.eventAdded1 = false;
+      this.countdown2_ = 6;
+      this.startLoad2 = false;
       this.checkRestart = false;
+      this.NotFirstTry = true;
+      document.getElementById('loading3-next').style.display = 'none';
+      document.getElementById('stage3-intro1').style.display = 'none'
+      document.getElementById('stage3-intro2').style.display = 'none'
+      document.getElementById('stage3-intro3').style.display = 'none'
+
+      this.stopTime = true
+      this.Pause()
+
     });
 
     continueEnding.addEventListener("click", () => {
@@ -1426,7 +1429,7 @@ class BasicWorldDemo {
       continueEnding.style.display = "none"
       document.getElementById('stamina').style.display = "none";
 
-      if (this.player_.friendsSaved >= 4) {
+      if (this.player_.friendsSaved == 5) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_3 of 3 complete.png"
       } else if (this.player_.friendsSaved >= 2) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_2 of 3 complete.png"
@@ -1448,7 +1451,7 @@ class BasicWorldDemo {
       finishEnding.style.display = "none"
       document.getElementById('stamina').style.display = "none";
 
-      if (this.player_.friendsSaved >= 4) {
+      if (this.player_.friendsSaved == 4) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_3 of 3 complete.png"
       } else if (this.player_.friendsSaved >= 2) {
         document.getElementById("final-score-badges").src = " ./resources/Well_Done/Well_Done_Shield badges_2 of 3 complete.png"
@@ -1603,8 +1606,6 @@ class BasicWorldDemo {
     const startPause = () => {
       this.objSpeed = 0
       this.monSpeed = 0
-      this.speedy = 0
-      this.speedz = 0
       this.stopTime = true;
       this.isPaused = true;
       this.player_.soundRunning.volume = 0
@@ -1635,10 +1636,8 @@ class BasicWorldDemo {
         this.resumeCountdown_--;
         document.getElementById('power-countdown-text').textContent = this.resumeCountdown_;
         if (this.resumeCountdown_ === 0) {
-          this.objSpeed = 12
-          this.monSpeed = 52
-          this.speedy = 12
-          this.speedz = 3
+          this.objSpeed = 0.2
+          this.monSpeed = 0.86666666666;
           this.stopTime = false;
           this.RAF_()
           this.isPaused = false;
@@ -1696,7 +1695,7 @@ class BasicWorldDemo {
         this.playNextStageVideo3()
       } else if (this.stage == 4) {
         document.getElementById('click-end').style.display = 'none';
-        if (this.player_.friendsSaved >= 4) {
+        if (this.player_.friendsSaved == 5) {
           this.playVictoryVid()
         } else {
           pauseButton.style.display = 'none'
@@ -1749,10 +1748,8 @@ class BasicWorldDemo {
           document.getElementById('loading-button-container').style.display = 'none';
         }
         this.stopTime = false;
-        this.objSpeed = 12
-        this.monSpeed = 52
-        this.speedy = 12
-        this.speedz = 3
+        this.objSpeed = 0.2
+        this.monSpeed = 0.86666666666;
         this.isPaused = false;
         this.startstage = false;
         this.allowPause = true;
@@ -1765,6 +1762,7 @@ class BasicWorldDemo {
         soundBeefteki.play();
 
         this.stopTime = false;
+        this.firstloadload = true;
         this.RAF_()
         this.checkStartGame = true;
         this._OnStart()
@@ -1784,7 +1782,6 @@ class BasicWorldDemo {
       var textElement1 = document.getElementById('stage2-intro1-text2');
       var textElement2 = document.getElementById('stage2-intro1-text3');
       var textElement3 = document.getElementById('stage2-intro1-text4');
-      console.log("HI")
       textElement.textContent = '';
       textElement1.textContent = '';
       textElement2.textContent = '';
@@ -1919,10 +1916,8 @@ class BasicWorldDemo {
             document.getElementById('loading-button-container').style.display = 'none';
           }
           this.stopTime = false;
-          this.objSpeed = 12
-          this.monSpeed = 52
-          this.speedy = 12
-          this.speedz = 3
+          this.objSpeed = 0.2
+          this.monSpeed = 0.86666666666;
           this.isPaused = false;
           this.startstage = false;
           this.allowPause = true;
@@ -1999,6 +1994,38 @@ class BasicWorldDemo {
       food3.push(value3 * 3);
     }
 
+    const animate = (timestamp) => {
+      const deltaTime = timestamp - previousTimestamp;
+      const targetDeltaTime = 1000 / 60; // Target time for 60 FPS in milliseconds
+
+      // Adjust the speed based on the deltaTime
+      this.speed = this.objSpeed * (deltaTime / targetDeltaTime);
+      // const timeElapsed = 0.0166 * (deltaTime / targetDeltaTime)
+      if (this._gameStarted && !this.stopTime) {
+        this.Step_(this.speed, this.isPaused);
+        console.log(this.speed)
+        // this.mesh.position.x -= this.speed;
+        // this.mesh1.position.x -= this.speed;
+        // this.mesh2.position.x -= this.speed;
+        // this.mesh3.position.x -= this.speed;
+        // if (this.mesh4) {
+        //   this.mesh4.position.x -= this.speed;
+        // }
+        // if (this.mesh5) {
+        //   this.mesh5.position.x -= this.speed;
+        // }
+        // if (this.mesh6) {
+        //   this.mesh6.position.x -= this.speed;
+        // }
+      }
+
+      previousTimestamp = timestamp;
+      this.animationId = requestAnimationFrame(animate);
+    };
+
+    let previousTimestamp = 0;
+    animate();
+
 
     //initiate all the game objects
     this.shoogaGlider_ = new shoogaGlider.ShoogaGliderManager({ scene: this.scene_, stage: this.stage });
@@ -2033,8 +2060,6 @@ class BasicWorldDemo {
   Pause() {
     this.objSpeed = 0
     this.monSpeed = 0
-    this.speedy = 0
-    this.speedz = 0
     this.isPaused = true;
     this.player_.soundRunning.volume = 0
 
@@ -2067,12 +2092,9 @@ class BasicWorldDemo {
 
   //start the animation 
   RAF_() {
-
     let time;
     requestAnimationFrame((t) => {
       if (!this.stopTime) {
-        console.log(t - this.previousRAF_)
-
         if (this.previousRAF_ === null) {
           this.previousRAF_ = t;
         }
@@ -2081,11 +2103,10 @@ class BasicWorldDemo {
         }
 
         time = t - this.previousRAF_
-        console.log(time/16.6 * time)
-
         this.RAF_();
-
-        this.Step_((time/16.6 * time) / 1000.0, this.isPaused);
+        if (!this.firstloadload) {
+          this.Step_((time / 16.6 * time) / 1000.0, this.isPaused);
+        }
         this.threejs_.render(this.scene_, this.camera_);
         this.previousRAF_ = t;
       }
@@ -2103,34 +2124,33 @@ class BasicWorldDemo {
   Step_(timeElapsed, pause) {
 
     //MAP MOVEMENT
-    if (this._gameStarted) {
-      const speed = this.objSpeed
-      this.mesh.position.x -= timeElapsed * speed;
-      this.mesh1.position.x -= timeElapsed * speed;
-      this.mesh2.position.x -= timeElapsed * speed;
-      this.mesh3.position.x -= timeElapsed * speed;
+    if (this._gameStarted && !this.manDead) {
+      this.mesh.position.x -= timeElapsed
+      this.mesh1.position.x -= timeElapsed
+      this.mesh2.position.x -= timeElapsed
+      this.mesh3.position.x -= timeElapsed
       if (this.mesh4) {
-        this.mesh4.position.x -= timeElapsed * speed;
+        this.mesh4.position.x -= timeElapsed
       }
       if (this.mesh5) {
-        this.mesh5.position.x -= timeElapsed * speed;
+        this.mesh5.position.x -= timeElapsed
       }
       if (this.mesh6) {
-        this.mesh6.position.x -= timeElapsed * speed;
+        this.mesh6.position.x -= timeElapsed
       }
     }
 
     //pan the camera
     if (this.showChase && this._gameStarted) {
       if (this.cameraX > -10) {
-        this.cameraX = this.cameraX - 0.1
+        this.cameraX = this.cameraX - (timeElapsed / 2)
       }
       if (this.cameraY > 5) {
-        this.cameraY = this.cameraY - 0.02
+        this.cameraY = this.cameraY - (timeElapsed / 10)
 
       }
       if (this.cameraZ < 0) {
-        this.cameraZ = this.cameraZ + 0.04
+        this.cameraZ = this.cameraZ + (timeElapsed / 5)
       }
 
       if (this.cameraZ > -3) {
@@ -2780,7 +2800,7 @@ class BasicWorldDemo {
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
           document.getElementById('click-end').style.display = 'block';
         } else {
-          if (this.player_.friendsSaved >= 4) {
+          if (this.player_.friendsSaved == 5) {
             this.playVictoryVid()
           } else {
             pauseButton.style.display = 'none'
@@ -2815,13 +2835,13 @@ class BasicWorldDemo {
     if (this.gameOver_ || !this._gameStarted) {
 
       if (!this.loaded) {
-        this.water_.Update(timeElapsed, this.objSpeed)
-        this.waterGrade_.Update(timeElapsed, this.objSpeed)
-        this.soda_.Update(timeElapsed, this.objSpeed)
-        this.sodaGrade_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
-        this.pitfall_.Update(timeElapsed, this.objSpeed)
+        this.water_.Update(timeElapsed)
+        this.waterGrade_.Update(timeElapsed)
+        this.soda_.Update(timeElapsed)
+        this.sodaGrade_.Update(timeElapsed)
+        this.fruitDrink_.Update(timeElapsed)
+        this.fruitDrinkGrade_.Update(timeElapsed)
+        this.pitfall_.Update(timeElapsed)
         this.cloud_.Update(timeElapsed);
         this.loaded = true;
 
@@ -2831,44 +2851,45 @@ class BasicWorldDemo {
 
     if (this._gameStarted) {
       //load the game assets and animations
-      if (this.stage == 1) {
-        this.water_.Update(timeElapsed, this.objSpeed)
-        this.waterGrade_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
-        this.sodaGrade_.Update(timeElapsed, this.objSpeed)
-        this.soda_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-        this.pitfall_.Update(timeElapsed, this.objSpeed)
-        this.cloud_.Update(timeElapsed);
-      } else if (this.stage == 2) {
-        this.water_.Update(timeElapsed, this.objSpeed)
-        this.waterGrade_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrinkGrade_.Update(timeElapsed, this.objSpeed)
-        this.sodaGrade_.Update(timeElapsed, this.objSpeed)
-        this.soda_.Update(timeElapsed, this.objSpeed)
-        this.fruitDrink_.Update(timeElapsed, this.objSpeed)
-        this.pitfall_.Update(timeElapsed, this.objSpeed)
-        this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
-        this.vege_.Update(timeElapsed, this.objSpeed)
-        this.meat_.Update(timeElapsed, this.objSpeed)
-        this.carbs_.Update(timeElapsed, this.objSpeed)
-        this.trolliumChloride_.Update(timeElapsed, this.objSpeed)
-      } else if (this.stage == 3) {
-        this.wallrun_.Update(timeElapsed, this.objSpeed)
-        this.waterGrade_.Update(timeElapsed, this.objSpeed)
-        this.hpbLogo_.Update(timeElapsed, this.objSpeed)
-        this.hpbWrongLogo1_.Update(timeElapsed, this.objSpeed)
-        this.hpbWrongLogo2_.Update(timeElapsed, this.objSpeed)
-        this.water_.Update(timeElapsed, this.objSpeed)
-        this.pitfall_.Update(timeElapsed, this.objSpeed)
-        this.shoogaGlider_.Update(timeElapsed, this.monSpeed, this.speedz, this.speedy);
-        this.vege_.Update(timeElapsed, this.objSpeed)
-        this.meat_.Update(timeElapsed, this.objSpeed)
-        this.carbs_.Update(timeElapsed, this.objSpeed)
-        this.sky_.Update();
-        this.trolliumChloride_.Update(timeElapsed, this.objSpeed)
+      if (!this.manDead) {
+        if (this.stage == 1) {
+          this.water_.Update(timeElapsed)
+          this.waterGrade_.Update(timeElapsed)
+          this.fruitDrinkGrade_.Update(timeElapsed)
+          this.sodaGrade_.Update(timeElapsed)
+          this.soda_.Update(timeElapsed)
+          this.fruitDrink_.Update(timeElapsed)
+          this.pitfall_.Update(timeElapsed)
+          this.cloud_.Update(timeElapsed);
+        } else if (this.stage == 2) {
+          this.water_.Update(timeElapsed)
+          this.waterGrade_.Update(timeElapsed)
+          this.fruitDrinkGrade_.Update(timeElapsed)
+          this.sodaGrade_.Update(timeElapsed)
+          this.soda_.Update(timeElapsed)
+          this.fruitDrink_.Update(timeElapsed)
+          this.pitfall_.Update(timeElapsed)
+          this.shoogaGlider_.Update(timeElapsed);
+          this.vege_.Update(timeElapsed)
+          this.meat_.Update(timeElapsed)
+          this.carbs_.Update(timeElapsed)
+          this.trolliumChloride_.Update(timeElapsed)
+        } else if (this.stage == 3) {
+          this.wallrun_.Update(timeElapsed)
+          this.waterGrade_.Update(timeElapsed)
+          this.hpbLogo_.Update(timeElapsed)
+          this.hpbWrongLogo1_.Update(timeElapsed)
+          this.hpbWrongLogo2_.Update(timeElapsed)
+          this.water_.Update(timeElapsed)
+          this.pitfall_.Update(timeElapsed)
+          this.shoogaGlider_.Update(timeElapsed);
+          this.vege_.Update(timeElapsed)
+          this.meat_.Update(timeElapsed)
+          this.carbs_.Update(timeElapsed)
+          this.sky_.Update();
+          this.trolliumChloride_.Update(timeElapsed)
+        }
       }
-
       //get position of wall from wallrun.js
       this.wallrun_.GetPosition(result => {
         this.wallPosition = result
@@ -2888,7 +2909,7 @@ class BasicWorldDemo {
         this.speed_ = result
         //if speed is not default, meaning the player has a speed buff/debuff
         if (this.speed_ != 0.2 && !pause) {
-          this.objSpeed = 12 * (this.speed_ / 0.2)
+          this.objSpeed = 0.2 * (this.speed_ / 0.2)
           this.buffspeed = true;
 
         } else {
@@ -2899,36 +2920,38 @@ class BasicWorldDemo {
 
       //check if player collides with the pit
       this.player_.getPitCollide(result => {
-        if (result) {
-          this.Pause()
-          this.player_.position_.y = this.player_.position_.y - timeElapsed * 3
-        }
+        setTimeout(() => {
+          if (result) {
+            this.Pause()
+            this.player_.position_.y = this.player_.position_.y - timeElapsed * 2
+          }
+        }, 100);
+
       });
 
       //check if player runs out of stamina
       this.player_.getCollapse(result => {
         if (result) {
           if (this.player_.position_.y > 0) {
-            this.player_.position_.y = this.player_.position_.y - timeElapsed * 6
+            this.player_.position_.y = this.player_.position_.y - timeElapsed * 3
 
           }
           if (this.player_.position_.x < 3) {
-            this.player_.position_.x = this.player_.position_.x + timeElapsed * 6
+            this.player_.position_.x = this.player_.position_.x + timeElapsed * 3
 
           }
-          this.progression_.progress_ += timeElapsed * 20.0;
+          this.progression_.progress_ += timeElapsed;
 
           const scoreText1 = (Math.round((this.progression_.progress_ * 10) / 10)).toLocaleString('en-US', { minimumIntegerDigits: 5, useGrouping: false }) / 60;
 
           document.getElementById('monster').style.left = scoreText1 + 'vw';
-          this.objSpeed = 0
+          // this.objSpeed = 0
           this.monSpeed = 0
-          this.speedy = 0
-          this.speedz = 0
           this.isPaused = true
+          this.manDead = true;
           setTimeout(() => {
             if (this.oilSlik_.mesh_.position.x < 0) {
-              this.oilSlik_.mesh_.position.x += timeElapsed * 6
+              this.oilSlik_.mesh_.position.x += timeElapsed
               this.oilSlik_.mesh_.scale.set(0.3, 0.3, 0.3)
             }
           }, 400);
@@ -3026,6 +3049,7 @@ class BasicWorldDemo {
       document.getElementById("rescue3").src = "./resources/Rescued_Friend_UI/Friend3_notsaved.png"
       document.getElementById("rescue4").src = "./resources/Rescued_Friend_UI/Friend4_notsaved.png"
       document.getElementById("rescue5").src = "./resources/Rescued_Friend_UI/Friend5_notsaved.png"
+      this.player_.friendsSaved = 0;
 
       document.querySelector('#video-container').style.background = ""
       document.getElementById('loading-button-container').style.display = 'block';
@@ -3083,10 +3107,51 @@ class BasicWorldDemo {
       this.resumeCountdown_ = 3;
       this.stageLoadCheck = false;
 
+      var gameOverScreen = document.getElementById("game-over");
+      gameOverScreen.classList.toggle('active');
+      var gameOveIndex = document.getElementById("game-over-index");
+      gameOveIndex.style.zIndex = 10;
+
+      if (this.player_.death == "pit") {
+        console.log(this.player_.death)
+        if (this.gender_ == "male") {
+          gameOverScreen.classList.add("game-over-pitboy");
+
+        } else {
+          gameOverScreen.classList.add("game-over-pitgirl");
+
+        }
+
+      } else if (this.player_.death == "bird") {
+        if (this.gender_ == "male") {
+          gameOverScreen.classList.add("game-over-boybird");
+
+        } else {
+          gameOverScreen.classList.add("game-over-girlbird");
+
+        }
+      } else if (this.player_.death == "slap") {
+        if (this.gender_ == "male") {
+          gameOverScreen.classList.add("game-over-boyslap");
+
+        } else {
+          gameOverScreen.classList.add("game-over-girlslap");
+
+        }
+      } else if (this.player_.death == "") {
+        if (this.gender_ == "male") {
+          gameOverScreen.classList.add("game-over-boy");
+
+        } else {
+          gameOverScreen.classList.add("game-over-girl");
+
+        }
+      }
+
+
       pauseButton.style.display = 'none'
 
       document.getElementById("shieldTimer").style.zIndex = "-1";
-      document.getElementById('game-over').classList.toggle('active');
       document.getElementById("food1").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food2").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
       document.getElementById("food3").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
@@ -3100,6 +3165,7 @@ class BasicWorldDemo {
       document.getElementById("rescue3").src = "./resources/Rescued_Friend_UI/Friend3_notsaved.png"
       document.getElementById("rescue4").src = "./resources/Rescued_Friend_UI/Friend4_notsaved.png"
       document.getElementById("rescue5").src = "./resources/Rescued_Friend_UI/Friend5_notsaved.png"
+      this.player_.friendsSaved = 0;
 
       document.querySelector('#video-container').style.background = ""
 
@@ -3108,6 +3174,7 @@ class BasicWorldDemo {
         soundSelect.play();
         document.getElementById('game-over').classList.remove('active');
         document.getElementById('loading-button-container').style.display = 'block';
+        gameOveIndex.style.zIndex = 0;
 
         if (this.stage == 2) {
           this.playNextStageVideo2();

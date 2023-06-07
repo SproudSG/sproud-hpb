@@ -78,7 +78,7 @@ export const trolliumChloride = (() => {
 
       // play animation 
       if (this.mixer) {
-        this.mixer.update(timeElapsed);
+        this.mixer.update(timeElapsed*0.083);
       }
     }
   }
@@ -133,18 +133,18 @@ export const trolliumChloride = (() => {
     }
 
 
-    Update(timeElapsed, speed) {
+    Update(timeElapsed) {
       this.SpawnObj_()
-      this.UpdateColliders_(timeElapsed, speed);
+      this.UpdateColliders_(timeElapsed);
 
     }
 
-    UpdateColliders_(timeElapsed, speed) {
+    UpdateColliders_(timeElapsed) {
       const visible = [];
 
       for (let obj of this.objects_) {
 
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= timeElapsed ;
 
         if (obj.position.x < 25) {
           if (obj.position.z == 8) {

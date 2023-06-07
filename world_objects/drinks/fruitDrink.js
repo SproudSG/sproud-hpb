@@ -127,19 +127,19 @@ export const fruitDrink = (() => {
     }
 
 
-    Update(timeElapsed, speed) {
+    Update(timeElapsed) {
       this.SpawnObj_(this.params_.position)
-      this.UpdateColliders_(timeElapsed, speed);
+      this.UpdateColliders_(timeElapsed);
 
     }
 
-    UpdateColliders_(timeElapsed, speed) {
+    UpdateColliders_(timeElapsed) {
       const invisible = [];
       const visible = [];
-      this.rotateY += this.rotateIncrement
+      this.rotateY += (timeElapsed/20)
 
       for (let obj of this.objects_) {
-        obj.position.x -= timeElapsed * speed;
+        obj.position.x -= timeElapsed;
 
         if (obj.position.x < -20) {
           invisible.push(obj);
@@ -167,7 +167,7 @@ export const fruitDrink = (() => {
 
         obj.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.rotateY);
   
-        obj.Update(timeElapsed);
+        obj.Update(timeElapsed*0.083);
       }
 
       this.objects_ = visible;
