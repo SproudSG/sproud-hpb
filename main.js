@@ -553,7 +553,6 @@ class BasicWorldDemo {
     //speed variables
     this.box_ = "";
     this.objSpeed = 0.2;
-    this.monSpeed = 0.86666666666;
     this.buffspeed = false;
     this.startstage = false;
     this.allowStart = false;
@@ -1605,7 +1604,6 @@ class BasicWorldDemo {
     //pause the game
     const startPause = () => {
       this.objSpeed = 0
-      this.monSpeed = 0
       this.stopTime = true;
       this.isPaused = true;
       this.player_.soundRunning.volume = 0
@@ -1637,7 +1635,6 @@ class BasicWorldDemo {
         document.getElementById('power-countdown-text').textContent = this.resumeCountdown_;
         if (this.resumeCountdown_ === 0) {
           this.objSpeed = 0.2
-          this.monSpeed = 0.86666666666;
           this.stopTime = false;
           this.RAF_()
           this.isPaused = false;
@@ -1675,7 +1672,9 @@ class BasicWorldDemo {
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) {
         if (this.allowPause && !this.pauseCountdownActive) {
-          startPause()
+          if (!this.isPaused) {
+            startPause()
+          }
         }
       }
     });
@@ -1749,7 +1748,6 @@ class BasicWorldDemo {
         }
         this.stopTime = false;
         this.objSpeed = 0.2
-        this.monSpeed = 0.86666666666;
         this.isPaused = false;
         this.startstage = false;
         this.allowPause = true;
@@ -1917,7 +1915,6 @@ class BasicWorldDemo {
           }
           this.stopTime = false;
           this.objSpeed = 0.2
-          this.monSpeed = 0.86666666666;
           this.isPaused = false;
           this.startstage = false;
           this.allowPause = true;
@@ -2000,23 +1997,9 @@ class BasicWorldDemo {
 
       // Adjust the speed based on the deltaTime
       this.speed = this.objSpeed * (deltaTime / targetDeltaTime);
-      // const timeElapsed = 0.0166 * (deltaTime / targetDeltaTime)
       if (this._gameStarted && !this.stopTime) {
         this.Step_(this.speed, this.isPaused);
-        console.log(this.speed)
-        // this.mesh.position.x -= this.speed;
-        // this.mesh1.position.x -= this.speed;
-        // this.mesh2.position.x -= this.speed;
-        // this.mesh3.position.x -= this.speed;
-        // if (this.mesh4) {
-        //   this.mesh4.position.x -= this.speed;
-        // }
-        // if (this.mesh5) {
-        //   this.mesh5.position.x -= this.speed;
-        // }
-        // if (this.mesh6) {
-        //   this.mesh6.position.x -= this.speed;
-        // }
+
       }
 
       previousTimestamp = timestamp;
@@ -2038,7 +2021,6 @@ class BasicWorldDemo {
     this.sodaGrade_ = new sodaGrade.DrinksManager({ scene: this.scene_, position: arrDrinks2, firstChase: this.showChase, stage: this.stage });
     this.fruitDrink_ = new fruitDrink.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
     this.fruitDrinkGrade_ = new fruitDrinkGrade.DrinksManager({ scene: this.scene_, position: arrDrinks3, firstChase: this.showChase, stage: this.stage });
-    // this.stage1sky_ = new stg1sky.Sky({ scene: this.scene_ });
     this.hpbLogo_ = new hpbLogo.BoxManager({ scene: this.scene_, position: arrLogo1 });
     this.hpbWrongLogo1_ = new hpbWrongLogo1.BoxManager({ scene: this.scene_, position: arrLogo2 });
     this.hpbWrongLogo2_ = new hpbWrongLogo2.BoxManager({ scene: this.scene_, position: arrLogo3 });
@@ -2059,7 +2041,6 @@ class BasicWorldDemo {
   //pause all moving objects
   Pause() {
     this.objSpeed = 0
-    this.monSpeed = 0
     this.isPaused = true;
     this.player_.soundRunning.volume = 0
 
@@ -2124,7 +2105,7 @@ class BasicWorldDemo {
   Step_(timeElapsed, pause) {
 
     //MAP MOVEMENT
-    if (this._gameStarted && !this.manDead) {
+    if (this._gameStarted && !this.manDead && !this.isPaused) {
       this.mesh.position.x -= timeElapsed
       this.mesh1.position.x -= timeElapsed
       this.mesh2.position.x -= timeElapsed
@@ -2179,7 +2160,7 @@ class BasicWorldDemo {
           this.allowPause = false;
           this.stopTime = true
           this.player_.soundRunning.pause();
-
+          this.manDead = false;
           this.Pause()
 
           this.intervalId_ = setInterval(() => {
@@ -2369,7 +2350,6 @@ class BasicWorldDemo {
           this.player_.soundShield.currentTime = 0;
 
         }
-
         this.showChase = false;
         this.gameOver_ = true;
         this.failedStage = false;
@@ -2818,11 +2798,6 @@ class BasicWorldDemo {
             document.getElementById('final-score-bad-ending').classList.toggle('active');
             document.getElementById('badEndingUI').style.zIndex = 3;
 
-            if (this.gender_ == "male") {
-              document.getElementById('boyHUD').style.display = 'none'
-            } else if (this.gender_ == "female") {
-              document.getElementById('girlHUD').style.display = 'none'
-            }
           }
         }
 
@@ -2931,32 +2906,37 @@ class BasicWorldDemo {
 
       //check if player runs out of stamina
       this.player_.getCollapse(result => {
-        if (result) {
-          if (this.player_.position_.y > 0) {
-            this.player_.position_.y = this.player_.position_.y - timeElapsed * 3
+        setTimeout(() => {
 
-          }
-          if (this.player_.position_.x < 3) {
-            this.player_.position_.x = this.player_.position_.x + timeElapsed * 3
+          if (result) {
+            if (this.player_.position_.y > 0) {
+              this.player_.position_.y = this.player_.position_.y - timeElapsed * 3
 
-          }
-          this.progression_.progress_ += timeElapsed;
+            }
+            if (this.player_.position_.x < 3) {
+              this.player_.position_.x = this.player_.position_.x + timeElapsed * 3
 
-          const scoreText1 = (Math.round((this.progression_.progress_ * 10) / 10)).toLocaleString('en-US', { minimumIntegerDigits: 5, useGrouping: false }) / 60;
+            }
+            this.progression_.progress_ += timeElapsed;
 
-          document.getElementById('monster').style.left = scoreText1 + 'vw';
-          // this.objSpeed = 0
-          this.monSpeed = 0
-          this.isPaused = true
-          this.manDead = true;
-          setTimeout(() => {
+            const scoreText1 = (Math.round((this.progression_.progress_ * 10) / 10)).toLocaleString('en-US', { minimumIntegerDigits: 5, useGrouping: false }) / 60;
+
+            document.getElementById('monster').style.left = scoreText1 + 'vw';
+
+            this.isPaused = true
+            this.manDead = true;
             if (this.oilSlik_.mesh_.position.x < 0) {
               this.oilSlik_.mesh_.position.x += timeElapsed
               this.oilSlik_.mesh_.scale.set(0.3, 0.3, 0.3)
-            }
-          }, 400);
 
-        }
+            } else {
+              this.Pause()
+
+            }
+
+          }
+        }, 100);
+
       });
 
       //check if player fails wall jump
@@ -2997,7 +2977,7 @@ class BasicWorldDemo {
           if (this.player_.onWall) {
             if (this.player_.position_.z == 3) {
               this.swipeRight = false;
-              this.isSwiping = false; restar3tsta
+              this.isSwiping = false;
             }
           } else {
             if (this.player_.position_.z == 3 || this.player_.position_.z == 0) {
@@ -3103,6 +3083,7 @@ class BasicWorldDemo {
       this.showChase = false;
       this.allowPause = false;
       this.gameOver_ = true;
+
       this.failedStage = true;
       this.resumeCountdown_ = 3;
       this.stageLoadCheck = false;
@@ -3113,7 +3094,6 @@ class BasicWorldDemo {
       gameOveIndex.style.zIndex = 10;
 
       if (this.player_.death == "pit") {
-        console.log(this.player_.death)
         if (this.gender_ == "male") {
           gameOverScreen.classList.add("game-over-pitboy");
 
@@ -3208,6 +3188,42 @@ class BasicWorldDemo {
           document.getElementById('stage1-intro2').style.display = 'none'
           document.getElementById('stage1-intro3').style.display = 'none'
         }
+
+        if (this.player_.death == "pit") {
+          if (this.gender_ == "male") {
+            gameOverScreen.classList.remove("game-over-pitboy");
+
+          } else {
+            gameOverScreen.classList.remove("game-over-pitgirl");
+
+          }
+
+        } else if (this.player_.death == "bird") {
+          if (this.gender_ == "male") {
+            gameOverScreen.classList.remove("game-over-boybird");
+
+          } else {
+            gameOverScreen.classList.remove("game-over-girlbird");
+
+          }
+        } else if (this.player_.death == "slap") {
+          if (this.gender_ == "male") {
+            gameOverScreen.classList.remove("game-over-boyslap");
+
+          } else {
+            gameOverScreen.classList.remove("game-over-girlslap");
+
+          }
+        } else if (this.player_.death == "") {
+          if (this.gender_ == "male") {
+            gameOverScreen.classList.remove("game-over-boy");
+
+          } else {
+            gameOverScreen.classList.remove("game-over-girl");
+
+          }
+        }
+        this.manDead = false;
 
         this.stopTime = true
         this.Pause()

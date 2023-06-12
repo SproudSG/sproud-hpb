@@ -1,0 +1,25 @@
+{
+	"version": 1,
+	"id":"shieldglow",
+	"name":"multiCh1",
+	"animations": {
+		"static": {
+			"version": 1,
+			"id": "static",
+			"name": "static",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 0
+		},
+		"squash": {
+			"version": 1,
+			"id": "squash",
+			"name": "squash",
+			"kind": "Puppeteer",
+			"mood": null,
+			"postPlaybackMood": null,
+			"duration": 1.541666667
+		}
+	}
+}

@@ -6,7 +6,7 @@ export const progression = (() => {
         }
 
         Update(timeElapsed, pause, stage, buffspeed) {
-            this.UpdateProgression_(timeElapsed*0.083, pause, stage, buffspeed);
+            this.UpdateProgression_(timeElapsed * 0.083, pause, stage, buffspeed);
         }
 
         //Progression 
@@ -27,7 +27,7 @@ export const progression = (() => {
 
                 if (this.progress_ >= 500) {
                     if (stage == 1) {
-                        document.dispatchEvent(new CustomEvent('score-over1'));
+                       document.dispatchEvent(new CustomEvent('score-over1'));
                     }
                 }
 

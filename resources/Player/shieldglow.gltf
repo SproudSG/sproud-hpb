@@ -1,0 +1,501 @@
+{
+    "asset": {
+        "copyright": "(C)2023 sprou",
+        "generator": "maya2glTF v1.4.0 3d7ba8eaf03e",
+        "version": "2.0"
+    },
+    "scenes": [
+        {
+            "nodes": [
+                3,
+                0
+            ]
+        }
+    ],
+    "scene": 0,
+    "nodes": [
+        {
+            "name": "glow_2_GRP",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "glow_2_GEO",
+            "children": [
+                2
+            ],
+            "translation": [
+                0.0,
+                0.03223535045981407,
+                -1.7161216735839844
+            ],
+            "rotation": [
+                -0.5969322323799133,
+                0.0,
+                0.0,
+                0.8022916316986084
+            ],
+            "scale": [
+                4.557445526123047,
+                4.557445526123047,
+                4.557445526123047
+            ]
+        },
+        {
+            "name": "glow_2_GEO:PIV",
+            "mesh": 0,
+            "translation": [
+                0.0,
+                0.0,
+                0.5
+            ]
+        },
+        {
+            "name": "glow_1_GRP",
+            "children": [
+                4
+            ]
+        },
+        {
+            "name": "glow_1_GEO",
+            "children": [
+                5
+            ],
+            "translation": [
+                0.0,
+                0.019883854314684869,
+                -1.6749494075775149
+            ],
+            "rotation": [
+                -0.5969322323799133,
+                0.0,
+                0.0,
+                0.8022916316986084
+            ],
+            "scale": [
+                4.557445526123047,
+                4.557445526123047,
+                4.557445526123047
+            ]
+        },
+        {
+            "name": "glow_1_GEO:PIV",
+            "mesh": 1,
+            "translation": [
+                0.0,
+                0.0,
+                0.5
+            ]
+        }
+    ],
+    "meshes": [
+        {
+            "name": "glow_2_GEOShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 1,
+                        "POSITION": 2,
+                        "TANGENT": 3,
+                        "TEXCOORD_0": 4
+                    },
+                    "indices": 0,
+                    "mode": 4,
+                    "material": 0
+                }
+            ]
+        },
+        {
+            "name": "glow_1_GEOShape",
+            "extras": {
+                "targetNames": []
+            },
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": 6,
+                        "POSITION": 7,
+                        "TANGENT": 8,
+                        "TEXCOORD_0": 9
+                    },
+                    "indices": 5,
+                    "mode": 4,
+                    "material": 1
+                }
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "name": "glow_2_MAT",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        },
+        {
+            "name": "glow_1_MAT",
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 1
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 1.0
+            }
+        }
+    ],
+    "textures": [
+        {
+            "sampler": 0,
+            "source": 0
+        },
+        {
+            "sampler": 0,
+            "source": 1
+        }
+    ],
+    "images": [
+        {
+            "uri": "ShieldGlowB.png"
+        },
+        {
+            "uri": "ShieldGlowA.png"
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    ],
+    "animations": [
+        {
+            "name": "squash",
+            "channels": [
+                {
+                    "sampler": 0,
+                    "target": {
+                        "node": 4,
+                        "path": "scale"
+                    }
+                },
+                {
+                    "sampler": 1,
+                    "target": {
+                        "node": 1,
+                        "path": "scale"
+                    }
+                }
+            ],
+            "samplers": [
+                {
+                    "input": 10,
+                    "interpolation": "LINEAR",
+                    "output": 11
+                },
+                {
+                    "input": 10,
+                    "interpolation": "LINEAR",
+                    "output": 12
+                }
+            ]
+        }
+    ],
+    "accessors": [
+        {
+            "name": "glow_2_GEOShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5123,
+            "count": 6,
+            "max": [
+                3
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "glow_2_GEOShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 4,
+            "max": [
+                0.0,
+                0.287343829870224,
+                -0.9578275084495544
+            ],
+            "min": [
+                0.0,
+                0.287343829870224,
+                -0.9578275084495544
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "glow_2_GEOShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 48,
+            "componentType": 5126,
+            "count": 4,
+            "max": [
+                0.5,
+                0.0,
+                0.5
+            ],
+            "min": [
+                -0.5,
+                0.0,
+                -0.5
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "glow_2_GEOShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 4,
+            "max": [
+                1.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "min": [
+                1.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "glow_2_GEOShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 4,
+            "max": [
+                1.0,
+                1.0
+            ],
+            "min": [
+                0.0,
+                0.0
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "glow_1_GEOShape#0/indices",
+            "bufferView": 0,
+            "byteOffset": 12,
+            "componentType": 5123,
+            "count": 6,
+            "max": [
+                3
+            ],
+            "min": [
+                0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "glow_1_GEOShape#0/vertices/NORMAL",
+            "bufferView": 1,
+            "byteOffset": 96,
+            "componentType": 5126,
+            "count": 4,
+            "max": [
+                0.0,
+                0.287343829870224,
+                -0.9578275084495544
+            ],
+            "min": [
+                0.0,
+                0.287343829870224,
+                -0.9578275084495544
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "glow_1_GEOShape#0/vertices/POSITION",
+            "bufferView": 1,
+            "byteOffset": 144,
+            "componentType": 5126,
+            "count": 4,
+            "max": [
+                0.5,
+                0.0,
+                0.5
+            ],
+            "min": [
+                -0.5,
+                0.0,
+                -0.5
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "glow_1_GEOShape#0/vertices/TANGENT",
+            "bufferView": 2,
+            "byteOffset": 64,
+            "componentType": 5126,
+            "count": 4,
+            "max": [
+                1.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "min": [
+                1.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "type": "VEC4"
+        },
+        {
+            "name": "glow_1_GEOShape#0/vertices/TEXCOORD_0",
+            "bufferView": 3,
+            "byteOffset": 32,
+            "componentType": 5126,
+            "count": 4,
+            "max": [
+                1.0,
+                1.0
+            ],
+            "min": [
+                0.0,
+                0.0
+            ],
+            "type": "VEC2"
+        },
+        {
+            "name": "squash/anim/frames",
+            "bufferView": 4,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 38,
+            "max": [
+                1.5416666269302369
+            ],
+            "min": [
+                0.0
+            ],
+            "type": "SCALAR"
+        },
+        {
+            "name": "glow_1_GEO/anim/squash/S",
+            "bufferView": 5,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 38,
+            "max": [
+                4.557445526123047,
+                4.557445526123047,
+                4.557445526123047
+            ],
+            "min": [
+                4.557445526123047,
+                4.557445526123047,
+                3.1634163856506349
+            ],
+            "type": "VEC3"
+        },
+        {
+            "name": "glow_2_GEO/anim/squash/S",
+            "bufferView": 5,
+            "byteOffset": 456,
+            "componentType": 5126,
+            "count": 38,
+            "max": [
+                4.557445526123047,
+                4.557445526123047,
+                4.557445526123047
+            ],
+            "min": [
+                4.557445526123047,
+                4.557445526123047,
+                3.1634163856506349
+            ],
+            "type": "VEC3"
+        }
+    ],
+    "bufferViews": [
+        {
+            "name": "shieldglow/data/indices-2",
+            "buffer": 0,
+            "byteOffset": 1448,
+            "byteLength": 24,
+            "target": 34963
+        },
+        {
+            "name": "shieldglow/data/vertices-12",
+            "buffer": 0,
+            "byteOffset": 1040,
+            "byteLength": 192,
+            "byteStride": 12,
+            "target": 34962
+        },
+        {
+            "name": "shieldglow/data/vertices-16",
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 128,
+            "byteStride": 16,
+            "target": 34962
+        },
+        {
+            "name": "shieldglow/data/vertices-8",
+            "buffer": 0,
+            "byteOffset": 1232,
+            "byteLength": 64,
+            "byteStride": 8,
+            "target": 34962
+        },
+        {
+            "name": "shieldglow/data/generic-4",
+            "buffer": 0,
+            "byteOffset": 1296,
+            "byteLength": 152
+        },
+        {
+            "name": "shieldglow/data/generic-12",
+            "buffer": 0,
+            "byteOffset": 128,
+            "byteLength": 912
+        }
+    ],
+    "buffers": [
+        {
+            "name": "shieldglow/data",
+            "byteLength": 1472,
+            "uri": "shieldglow0.bin"
+        }
+    ]
+}

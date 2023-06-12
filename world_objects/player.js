@@ -13,6 +13,7 @@ export const player = (() => {
     constructor(params) {
       //player properties
       this.position_ = new THREE.Vector3(0, 0, 0);
+      this.positionShield_ = new THREE.Vector3(0, 0, 0)
       this.velocity_ = 0.0;
       this.leftMovementSpeed = -0.5;
       this.rightMovementSpeed = 0.5;
@@ -74,7 +75,12 @@ export const player = (() => {
       //sheild variables
       this.immunitiy = false;
       this.shieldTime = 100;
-
+      this.minValue = 0.35;
+      this.maxValue = 0.85;
+      this.mappedCosValue = 0;
+      this.mappedSinValue = 0;
+      this.angle = 0;
+      this.timefactor = 0;
       //HPB box logo variables
       this.box = "";
       this.box1ID = null;
@@ -99,6 +105,8 @@ export const player = (() => {
       //death
       this.death = ""
 
+      //model
+      this.container = new THREE.Object3D();
 
       //init
       this.params_ = params;
@@ -116,9 +124,29 @@ export const player = (() => {
         model = 'GirlAll.gltf';
       }
 
+
+      const textureLoader = new THREE.TextureLoader();
+      textureLoader.setPath('./resources/Player/');
+
+      const textureShield1 = textureLoader.load('ShieldGlowA.png', () => {
+        textureShield1.encoding = THREE.sRGBEncoding; // Set the texture encoding if needed
+        textureShield1.flipY = false; // Adjust the texture's Y-axis orientation if needed
+        textureShield1.minFilter = THREE.LinearFilter; // Set the texture's minification filter if needed
+        textureShield1.magFilter = THREE.LinearFilter; // Set the texture's magnification filter if needed
+        textureShield1.channel = 0; // Set the desired texture channel (in this case, channel 0)
+      });;
+
+      const textureShield2 = textureLoader.load('ShieldGlowB.png', () => {
+        textureShield2.encoding = THREE.sRGBEncoding; // Set the texture encoding if needed
+        textureShield2.flipY = false; // Adjust the texture's Y-axis orientation if needed
+        textureShield2.minFilter = THREE.LinearFilter; // Set the texture's minification filter if needed
+        textureShield2.magFilter = THREE.LinearFilter; // Set the texture's magnification filter if needed
+        textureShield2.channel = 0; // Set the desired texture channel (in this case, channel 0)
+      });
+
       // Instantiate a loader
       const loader = new GLTFLoader();
-      loader.setPath('./resources/Player/Player_YBot/');
+      loader.setPath('./resources/Player/');
       loader.load(
         model,
         (gltf) => {
@@ -173,8 +201,8 @@ export const player = (() => {
 
           // add the model to the scene
 
+          this.container.add(this.mesh_);
 
-          this.params_.scene.add(this.mesh_);
           this.mesh_.scale.set(0.013, 0.013, 0.013);
           this.mesh_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
 
@@ -192,12 +220,73 @@ export const player = (() => {
         },
         // called when loading has errors
         function (error) {
-
           console.log(error);
-
         }
       );
+
+
+      loader.load('shieldglow.gltf', (gltf) => {
+        this.gltfShield = gltf
+        this.meshShield_ = gltf.scene;
+        this.meshShield_.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
+
+        this.meshShield_.children[0].traverse(function (node) {
+          if (node.isMesh) {
+            const material = new THREE.MeshBasicMaterial({
+              map: textureShield1, blending: THREE.AdditiveBlending,
+
+              depthWrite: false
+            });
+            material.opacity = 0.45
+
+            material.needsUpdate = true;
+            node.material = material;
+          }
+        });
+
+        this.meshShield_.children[1].traverse(function (node) {
+          if (node.isMesh) {
+            const material = new THREE.MeshBasicMaterial({
+              map: textureShield2, blending: THREE.AdditiveBlending,
+              depthWrite: false
+            });
+            material.opacity = 0.15
+            material.needsUpdate = true;
+
+            node.material = material;
+          }
+        });
+        this.meshShield_.visible = false;
+        this.container.add(this.meshShield_);
+
+
+        this.mixerShield_ = new THREE.AnimationMixer(this.meshShield_);
+      });
+
+      this.params_.scene.add(this.container);
+
     }
+
+    //Shield Animation
+    SlideShieldAnimation_() {
+      if (!this.mixerShield_) {
+        return;
+      }
+      if (this.actionShield) {
+        this.actionShield.stop();
+
+      }
+      const clip = THREE.AnimationClip.findByName(this.gltfShield.animations, 'squash');
+      this.actionShield = this.mixerShield_.clipAction(clip);
+      this.actionShield.setLoop(THREE.LoopOnce);
+
+      this.actionShield.play();
+
+
+    }
+
+
+
     //player model animations
     SlideAnimation_() {
       if (!this.mixer_) {
@@ -288,6 +377,10 @@ export const player = (() => {
     JumpAnimation_() {
       if (!this.mixer_) {
         return;
+
+      }
+      if (this.actionShield) {
+        this.actionShield.stop();
 
       }
       this.wallEnd = false;
@@ -711,22 +804,22 @@ export const player = (() => {
               this.meatProp = this.meatProp + 1
 
 
-              if (this.meatProp >= 1) {
-                document.getElementById("sheildHUD-blue").style.zIndex = "1"
-                this.mesh_.traverse((object) => {
-                  if (object.name === 'quarter_meat_GEO') {
-                    object.visible = true;
-                  }
-                });
-                this.params_.scene.add(this.mesh_);
-              } else {
-                document.getElementById("sheildHUD-blue").style.zIndex = "-1"
-                this.mesh_.traverse((object) => {
-                  if (object.name === 'quarter_meat_GEO') {
-                    object.visible = false;
-                  }
-                });
-                this.params_.scene.add(this.mesh_);
+              if (this.propArray.length < 4) {
+                if (this.meatProp >= 1) {
+                  document.getElementById("sheildHUD-blue").style.zIndex = "1"
+                  this.mesh_.traverse((object) => {
+                    if (object.name === 'quarter_meat_GEO') {
+                      object.visible = true;
+                    }
+                  });
+                } else {
+                  document.getElementById("sheildHUD-blue").style.zIndex = "-1"
+                  this.mesh_.traverse((object) => {
+                    if (object.name === 'quarter_meat_GEO') {
+                      object.visible = false;
+                    }
+                  });
+                }
               }
               var soundEat1 = document.getElementById("sound-eat1");
               var soundEat2 = document.getElementById("sound-eat2");
@@ -772,26 +865,27 @@ export const player = (() => {
                 this.vegeProp = this.vegeProp + 1
 
 
-                if (this.vegeProp == 2) {
-                  document.getElementById("sheildHUD-green").style.zIndex = "1"
-                  this.mesh_.traverse((object) => {
-                    if (object.name === 'half_vegetable_GEO') {
-                      object.visible = true;
-                    }
-                  });
+                if (this.propArray.length < 4) {
+                  if (this.vegeProp == 2) {
+                    document.getElementById("sheildHUD-green").style.zIndex = "1"
+                    this.mesh_.traverse((object) => {
+                      if (object.name === 'half_vegetable_GEO') {
+                        object.visible = true;
+                      }
+                    });
 
 
-                  this.params_.scene.add(this.mesh_);
-                } else {
-                  document.getElementById("sheildHUD-green").style.zIndex = "-1"
-                  this.mesh_.traverse((object) => {
-                    if (object.name === 'half_vegetable_GEO') {
-                      object.visible = false;
-                    }
-                  });
+                  } else {
+                    document.getElementById("sheildHUD-green").style.zIndex = "-1"
+                    this.mesh_.traverse((object) => {
+                      if (object.name === 'half_vegetable_GEO') {
+                        object.visible = false;
+                      }
+                    });
 
-                  this.params_.scene.add(this.mesh_);
+                  }
                 }
+
                 var soundEat1 = document.getElementById("sound-eat1");
                 var soundEat2 = document.getElementById("sound-eat2");
 
@@ -833,31 +927,32 @@ export const player = (() => {
                 this.processedCarbsIDs.push(this.carbsID);
                 this.food = "ate"
                 this.carbProp = this.carbProp + 1
-                if (this.carbProp >= 1) {
-                  document.getElementById("sheildHUD-yellow").style.zIndex = "1"
 
-                  this.mesh_.traverse((object) => {
+                if (this.propArray.length < 4) {
 
-                    if (object.name === 'quarter_rice_GEO') {
-                      object.visible = true;
+                  if (this.carbProp >= 1) {
+                    document.getElementById("sheildHUD-yellow").style.zIndex = "1"
 
-                    }
-                  });
+                    this.mesh_.traverse((object) => {
 
-                  this.params_.scene.add(this.mesh_);
+                      if (object.name === 'quarter_rice_GEO') {
+                        object.visible = true;
 
-                } else {
-                  document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
+                      }
+                    });
 
-                  this.mesh_.traverse((object) => {
 
-                    if (object.name === 'quarter_rice_GEO') {
-                      object.visible = false;
+                  } else {
+                    sheildHUD
+                    this.mesh_.traverse((object) => {
 
-                    }
-                  });
-                  this.params_.scene.add(this.mesh_);
+                      if (object.name === 'quarter_rice_GEO') {
+                        object.visible = false;
 
+                      }
+                    });
+
+                  }
                 }
                 var soundEat1 = document.getElementById("sound-eat1");
                 var soundEat2 = document.getElementById("sound-eat2");
@@ -965,6 +1060,21 @@ export const player = (() => {
           }
         } else if (this.propArray.length == 4 && !this.firstFour) {
           if (!this.firstFour) {
+            this.mesh_.traverse((object) => {
+              if (object.name === 'quarter_meat_GEO') {
+                object.visible = false;
+              }
+              if (object.name === 'half_vegetable_GEO') {
+                object.visible = false;
+              }
+              if (object.name === 'quarter_rice_GEO') {
+                object.visible = false;
+              }
+            })
+            document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
+            document.getElementById("sheildHUD-green").style.zIndex = "-1"
+            document.getElementById("sheildHUD-blue").style.zIndex = "-1"
+
             this.firstFour = true;
             if (this.propArray[3] == 'vege') {
               document.getElementById("food4").src = "./resources/Shield/Vegtable_shield_UI.png"
@@ -1022,6 +1132,21 @@ export const player = (() => {
           this.soundShield.play();
 
           this.mesh_.traverse((object) => {
+            if (object.name === 'quarter_meat_GEO') {
+              object.visible = true;
+            }
+            if (object.name === 'half_vegetable_GEO') {
+              object.visible = true;
+            }
+            if (object.name === 'quarter_rice_GEO') {
+              object.visible = true;
+            }
+          })
+          document.getElementById("sheildHUD-yellow").style.zIndex = "1"
+          document.getElementById("sheildHUD-green").style.zIndex = "1"
+          document.getElementById("sheildHUD-blue").style.zIndex = "1"
+
+          this.mesh_.traverse((object) => {
 
             if (this.params_.gender === "male") {
 
@@ -1042,8 +1167,47 @@ export const player = (() => {
 
 
           })
-          this.params_.scene.add(this.mesh_)
+          this.meshShield_.visible = true;
+
           document.getElementById("shieldTimer").style.zIndex = "1";
+        } else {
+          this.mesh_.traverse((object) => {
+            if (object.name === 'quarter_meat_GEO') {
+              if (meatPortion) {
+                object.visible = true;
+                document.getElementById("sheildHUD-blue").style.zIndex = "1"
+
+              } else {
+                document.getElementById("sheildHUD-blue").style.zIndex = "-1"
+
+                object.visible = false;
+              }
+            }
+            if (object.name === 'half_vegetable_GEO') {
+              if (vegePortion >= 2) {
+                object.visible = true;
+                document.getElementById("sheildHUD-green").style.zIndex = "1"
+
+              } else {
+                object.visible = false;
+                document.getElementById("sheildHUD-green").style.zIndex = "-1"
+
+              }
+            }
+            if (object.name === 'quarter_rice_GEO') {
+              if (carbsPortion) {
+                object.visible = true;
+                document.getElementById("sheildHUD-yellow").style.zIndex = "1"
+
+              } else {
+                object.visible = false;
+                document.getElementById("sheildHUD-yellow").style.zIndex = "-1"
+
+              }
+            }
+
+
+          })
         }
       }
     }
@@ -1053,7 +1217,6 @@ export const player = (() => {
     RescueUI() {
       var textID = "";
       var slideImgSrc = "rescuebust" + this.friendsSaved;
-      console.log(this.friendsSaved)
       for (var i = 0; i < this.friendsSaved; i++) {
 
         textID = 'rescue' + (i + 1)
@@ -1100,19 +1263,22 @@ export const player = (() => {
         this.keys_.left = false;
 
         if (this.position_.z >= 0) {
-          this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * 2.5)
+          this.position_.z = (Math.round(this.positionShield_.z * 10) / 10) + (timeElapsed * 2.5)
           if (this.position_.z >= 3) {
             this.position_.z = 3
+            this.positionShield_.z = -0.5
+
             this.keys_.right = false;
           }
         } else if (this.position_.z >= -3) {
-
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * 2.5)
           if (this.position_.z >= 0) {
             this.keys_.right = false;
             this.position_.z = 0
+            this.positionShield_.z = 0
           }
         } else if (this.position_.z >= 3) {
+          this.positionShield_.z = -0.5
           this.position_.z = 3
           return;
         }
@@ -1122,6 +1288,8 @@ export const player = (() => {
         if (this.position_.z <= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * -2.5);
           if (this.position_.z <= -3) {
+            this.positionShield_.z = 0.2
+
             this.position_.z = -3
             this.keys_.left = false;
           }
@@ -1130,9 +1298,13 @@ export const player = (() => {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * -2.5);
           if (this.position_.z <= 0) {
             this.keys_.left = false;
+            this.positionShield_.z = 0
+
             this.position_.z = 0
           }
         } else if (this.position_.z <= -3) {
+          this.positionShield_.z = 0.2
+
           this.position_.z = -3
 
           return;
@@ -1149,8 +1321,10 @@ export const player = (() => {
       if (this.position_.z <= 3) {
         this.position_.z = (Math.round(this.position_.z * 10) / 10) + ((timeElapsed * -2.5) / 1.5);
         this.position_.z = (Math.round(this.position_.z * 10) / 10)
+
         if (this.position_.z <= -3) {
           this.position_.z = -3;
+
           this.keys_.left = false;
         }
       } else if (this.position_.z == -3) {
@@ -1181,19 +1355,25 @@ export const player = (() => {
         this.keys_.right = false;
         if (this.position_.z <= 0) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * -2.5);
+
           if (this.position_.z <= -3) {
             this.position_.z = -3
+            this.positionShield_.z = 0.2
+
             this.keys_.left = false;
           }
 
         } else if (this.position_.z <= 3) {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * -2.5);
+
           if (this.position_.z <= 0) {
             this.keys_.left = false;
             this.position_.z = 0
+            this.positionShield_.z = 0
           }
         } else if (this.position_.z <= -3) {
           this.position_.z = -3
+          this.positionShield_.z = 0.2
 
           return;
         }
@@ -1204,17 +1384,22 @@ export const player = (() => {
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * 2.5)
           if (this.position_.z >= 3) {
             this.position_.z = 3
+            this.positionShield_.z = -0.5
             this.keys_.right = false;
           }
         } else if (this.position_.z >= -3) {
 
           this.position_.z = (Math.round(this.position_.z * 10) / 10) + (timeElapsed * 2.5)
+
           if (this.position_.z >= 0) {
             this.keys_.right = false;
             this.position_.z = 0
+            this.positionShield_.z = 0
           }
         } else if (this.position_.z >= 3) {
           this.position_.z = 3
+          this.positionShield_.z = -0.5
+
           return;
         }
         this.soundDash.currentTime = 0
@@ -1262,6 +1447,7 @@ export const player = (() => {
         }
         if (this.sliding_) {
           this.SlideAnimation_()
+          this.SlideShieldAnimation_()
           this.downPressed_ = true
           var soundSlide1 = document.getElementById("sound-slide1");
           var soundSlide2 = document.getElementById("sound-slide2");
@@ -1289,10 +1475,37 @@ export const player = (() => {
         this.keys_.space = false;
         this.keys_.down = false;
       }
+      this.timefactor += timeElapsed
+
+      this.angle = this.timefactor * 0.2
+      // Calculate the sine value within the desired range
+      const sinValue = Math.sin(this.angle);
+      this.mappedSinValue = (sinValue + 1) * (this.maxValue - this.minValue) / 2 + this.minValue;
+
+      // Calculate the cosine value within the desired range
+      const cosValue = Math.cos(this.angle);
+      this.mappedCosValue = (cosValue + 1) * (this.maxValue - this.minValue) / 2 + this.minValue;
+
 
       //if shield is active
       if (this.immunitiy) {
         this.shieldTime -= timeElapsed * 0.83;
+
+        this.meshShield_.children[1].traverse((node) => {
+          if (node.isMesh) {
+            node.material.opacity = this.mappedSinValue
+            node.needsUpdate = true;
+
+          }
+        });
+
+        this.meshShield_.children[0].traverse((node) => {
+          if (node.isMesh) {
+            node.material.opacity = this.mappedCosValue
+            node.needsUpdate = true;
+          }
+        });
+
         document.getElementById("fullShield").style.height = this.shieldTime + "%"
         if (this.shieldTime <= 0) {
           document.getElementById("sheildHUD-blue").style.zIndex = "-1"
@@ -1348,8 +1561,7 @@ export const player = (() => {
               }
             }
           });
-
-          this.params_.scene.add(this.mesh_);
+          this.meshShield_.visible = false;
 
         }
       }
@@ -1767,9 +1979,12 @@ export const player = (() => {
       //update player animation, position and check collision
       if (this.mesh_) {
         this.mixer_.update(timeElapsed * 0.083);
-        this.mesh_.position.copy(this.position_);
-        this.CheckCollisions_();
+        this.mixerShield_.update(timeElapsed * 0.083);
 
+        this.container.position.copy(this.position_);
+        this.meshShield_.position.copy(this.positionShield_)
+
+        this.CheckCollisions_();
       }
 
       //update stamina
@@ -1789,8 +2004,6 @@ export const player = (() => {
           }
         }
       }
-
-
     }
 
     // Stamina

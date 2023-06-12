@@ -158,9 +158,9 @@ export const shoogaGlider = (() => {
           var randomNumber = Math.random();
 
           if (randomNumber < 0.5) {
-            soundPagato1.play(); // Play soundEat1
+            soundPagato1.play();
           } else {
-            soundPagato2.play(); // Play soundEat2
+            soundPagato2.play();
           }
         }
         if (obj.position.x < -20) {
